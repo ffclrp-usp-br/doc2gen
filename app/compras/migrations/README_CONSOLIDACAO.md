@@ -17,7 +17,7 @@ Todas as migrations foram consolidadas em uma única migration inicial (0001_ini
 
 ### Demanda
 - numero_demanda (CharField, unique, max_length=14)
-- centro_despesa (CharField, blank=True, max_length=50)
+- centro_gerencial (CharField, blank=True, max_length=50)
 - grupo_orcamentario (CharField, blank=True, max_length=8)
 - compra (ForeignKey to Compra)
 
@@ -44,7 +44,7 @@ Meta:
 ## Migrations Removidas
 As seguintes migrations foram consolidadas e removidas:
 - 0002_compra_pdf_file_alter_compra_nome_agente_contratacao_and_more.py
-- 0003_alter_item_centro_despesa_and_more.py
+- 0003_alter_item_centro_gerencial_and_more.py
 - 0004_alter_compra_modalidade_and_more.py
 - 0005_cotacao.py
 - 0006_alter_item_options_remove_compra_valor_and_more.py

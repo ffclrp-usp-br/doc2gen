@@ -21,17 +21,13 @@ class ExtratorDocumentoDemanda(ExtratorBase):
                 "itens": [],
             }
 
-            print(f"DEBUG extrair demanda - dados básicos: {dados}")
-
             blocos = self._extrair_blocos_itens(texto)
-            print(f"DEBUG extrair demanda - blocos encontrados: {len(blocos)}")
             
             for bloco in blocos:
                 item = self._extrair_dados_item(bloco)
                 if item:
                     dados["itens"].append(item)
 
-            print(f"DEBUG extrair demanda - dados finais: {dados}")
             return dados
         except Exception as e:
             print(f"ERRO no extrator de demanda: {e}")
@@ -56,7 +52,7 @@ class ExtratorDocumentoDemanda(ExtratorBase):
     def _extrair_unidade_despesa(self, texto: str) -> str | None:
         match = re.search(r'Unidade\s+Despesa[:\s]+(.+?)(?:\n|$)', texto, re.IGNORECASE | re.DOTALL)
         if match:
-            return match.group(1).strip()
+            return match.group(1)[:2]
         return None
 
     def _extrair_campo(self, texto: str, label: str) -> str | None:
@@ -116,11 +112,10 @@ class ExtratorDocumentoDemanda(ExtratorBase):
             return None
 
         linha_principal = linhas[0].strip()
+        
         # Tentar diferentes padrões para linhas de item
         patterns = [
-            r'^\s*(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(.+)$',  # 6 números + texto
-            r'^\s*(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(.+)$',  # 5 números + texto
-            r'^\s*(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(.+)$',  # 4 números + texto
+            r'^\s*(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(.+)$',  # 7 números + texto
         ]
         
         for pattern in patterns:

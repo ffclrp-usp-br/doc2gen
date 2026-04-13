@@ -13,8 +13,8 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterField(
             model_name='item',
-            name='centro_despesa',
-            field=models.CharField(blank=True, max_length=50, verbose_name='Centro de despesa'),
+            name='centro_gerencial',
+            field=models.CharField(blank=True, max_length=50, verbose_name='Centro Gerencial'),
         ),
         migrations.AlterField(
             model_name='item',

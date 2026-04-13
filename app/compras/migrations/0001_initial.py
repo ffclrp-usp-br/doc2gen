@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('numero_demanda', models.CharField(max_length=14, unique=True, validators=[django.core.validators.RegexValidator('^\\d+/\\d{4}$', 'Formato deve ser n/yyyy')], verbose_name='Número da demanda')),
-                ('centro_despesa', models.CharField(blank=True, max_length=50, verbose_name='Centro de despesa')),
+                ('centro_gerencial', models.CharField(blank=True, max_length=50, verbose_name='Centro Gerencial')),
                 ('grupo_orcamentario', models.CharField(blank=True, max_length=8, validators=[django.core.validators.RegexValidator('^\\d{2}\\.\\d{3}$', 'Formato deve ser 59.001')], verbose_name='Grupo orçamentário')),
                 ('compra', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='demandas', to='compras.compra')),
             ],

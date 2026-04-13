@@ -79,7 +79,7 @@ class Migration(migrations.Migration):
         ),
         migrations.RemoveField(
             model_name='item',
-            name='centro_despesa',
+            name='centro_gerencial',
         ),
         migrations.RemoveField(
             model_name='item',

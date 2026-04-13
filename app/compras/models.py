@@ -60,7 +60,7 @@ class Demanda(models.Model):
         unique=True,
     )
 
-    centro_despesa = models.CharField('Centro de despesa', max_length=50, blank=True)
+    centro_gerencial = models.CharField('Centro Gerencial', max_length=50, blank=True)
 
     grupo_orcamentario = models.CharField(
         'Grupo orçamentário',

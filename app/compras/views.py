@@ -110,7 +110,7 @@ class CompraImportPDFView(FormView):
             numero_demanda=compra.numero_compra,
             compra=compra,
             defaults={
-                'centro_despesa': '',
+                'centro_gerencial': '',
                 'grupo_orcamentario': '',
             }
         )
@@ -182,42 +182,44 @@ class DemandaImportPDFView(FormView):
     form_class = UploadDemandaPDFForm
 
     def _extrair_grupo_orcamentario(self, valor: str) -> str:
-        """Extrai apenas os primeiros 8 caracteres do grupo orçamentário."""
+        """Extrai a cadeia de caracteres imediatamente anterior ao abre parênteses '('."""
         if not valor:
             return ''
-        # Remove espaços e limita a 8 caracteres
-        return valor.strip()[:8]
+        # Remove espaços e extrai tudo antes do '('
+        valor_strip = valor.strip()
+        if '(' in valor_strip:
+            return valor_strip.split('(')[0].strip()
+        return valor_strip
 
     def _processar_demanda(self, compra, dados):
         """Processa uma demanda individual."""
 
-        print("%%%%%%%%%%%%%%%%%%%%%5 debug...")
-        print(f"Dados recebidos: {dados}")
-        print(f"numero_demanda: {dados.get('numero_demanda')}")
-        print(f"unidade_despesa: '{dados.get('unidade_despesa')}' (len: {len(dados.get('unidade_despesa', ''))})")
-        print(f"centro_gerencial: '{dados.get('centro_gerencial')}' (len: {len(dados.get('centro_gerencial', ''))})")
-
         if dados.get('tipo') != 'demanda' or not dados.get('numero_demanda'):
             return None, 'O PDF não corresponde a um documento de demanda válido.'
+
+        # Verificar se os itens foram extraídos corretamente
+        itens = dados.get('itens', [])
+        if not itens:
+            return None, 'Não foi possível extrair os itens da demanda. Verifique se o PDF segue o formato esperado: "número número número número número número número descrição".'
+
+        # Verificar se pelo menos um item tem os campos obrigatórios
+        itens_validos = [item for item in itens if item.get('codigo_material') or item.get('codigo_compras_gov') or item.get('codigo_contabiliza') or item.get('codigo_bem')]
+        if not itens_validos:
+            return None, 'Os itens da demanda não possuem os códigos necessários. Verifique se o PDF segue o formato esperado: "número número número número número número número descrição".'
 
         demanda, created = Demanda.objects.get_or_create(
             numero_demanda=dados['numero_demanda'],
             compra=compra,
             defaults={
-                'centro_despesa': self._extrair_grupo_orcamentario(dados.get('centro_gerencial', '')),
+                'centro_gerencial': self._extrair_grupo_orcamentario(dados.get('centro_gerencial', '')),
                 'grupo_orcamentario': self._extrair_grupo_orcamentario(dados.get('unidade_despesa', '')),
             }
         )
 
-        print(f"Tentando criar demanda com:")
-        print(f"  numero_demanda: {dados['numero_demanda']}")
-        print(f"  centro_despesa: '{self._extrair_grupo_orcamentario(dados.get('centro_gerencial', ''))}'")
-        print(f"  grupo_orcamentario: '{dados.get('unidade_despesa', '')}' (len: {len(dados.get('unidade_despesa', ''))})")
-
         if not created:
             updated = False
-            if not demanda.centro_despesa and dados.get('unidade_despesa'):
-                demanda.centro_despesa = self._extrair_grupo_orcamentario(dados.get('centro_gerencial'))
+            if not demanda.centro_gerencial and dados.get('unidade_despesa'):
+                demanda.centro_gerencial = self._extrair_grupo_orcamentario(dados.get('centro_gerencial'))
                 updated = True
             if not demanda.grupo_orcamentario and dados.get('centro_gerencial'):
                 demanda.grupo_orcamentario = self._extrair_grupo_orcamentario(dados.get('unidade_despesa'))
