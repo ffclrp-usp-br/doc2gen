@@ -11,38 +11,52 @@ class ExtratorDocumentoDemanda(ExtratorBase):
         return "Documento da Demanda" in texto
 
     def extrair(self, texto: str) -> dict:
+        try:
+            dados = {
+                "tipo": "demanda",
+                "numero_demanda": self._extrair_numero_demanda(texto),
+                "unidade_despesa": self._extrair_unidade_despesa(texto),
+                "centro_gerencial": self._extrair_campo(texto, "Centro Gerencial"),
+                "codigo_contabiliza": self._extrair_campo(texto, "Código Contabiliza"),
+                "itens": [],
+            }
 
-        print ("\n\n999999999%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% extraindo em demanda .... ")
-        print(texto);
-        print ("999999999%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% extraindo em demanda ....\n\n ")
-        
-        dados = {
-            "tipo": "demanda",
-            "numero_demanda": self._extrair_numero_demanda(texto),
-            "unidade_despesa": self._extrair_unidade_despesa(texto),
-            "centro_gerencial": self._extrair_campo(texto, "Centro Gerencial"),
-            "codigo_contabiliza": self._extrair_campo(texto, "Código Contabiliza"),
-            "itens": [],
-        }
+            print(f"DEBUG extrair demanda - dados básicos: {dados}")
 
-        blocos = self._extrair_blocos_itens(texto)
-        for bloco in blocos:
-            item = self._extrair_dados_item(bloco)
-            if item:
-                dados["itens"].append(item)
+            blocos = self._extrair_blocos_itens(texto)
+            print(f"DEBUG extrair demanda - blocos encontrados: {len(blocos)}")
+            
+            for bloco in blocos:
+                item = self._extrair_dados_item(bloco)
+                if item:
+                    dados["itens"].append(item)
 
-        return dados
+            print(f"DEBUG extrair demanda - dados finais: {dados}")
+            return dados
+        except Exception as e:
+            print(f"ERRO no extrator de demanda: {e}")
+            import traceback
+            traceback.print_exc()
+            return {}
 
     def _extrair_numero_demanda(self, texto: str) -> str | None:
-        match = re.search(r'N[ºo\.]?\s*(\d+)\s*-\s*Ano\s*(\d{4})', texto, re.IGNORECASE)
-        if match:
-            return f"{match.group(1)}/{match.group(2)}"
+        # Tentar diferentes padrões
+        patterns = [
+            r'N[ºo°\.]?\s*(\d+)\s*-\s*Ano\s*(\d{4})',
+            r'Documento\s+da\s+Demanda.*?N[ºo°\.]?\s*(\d+).*?Ano\s*(\d{4})',
+            r'(\d+)\s*-\s*Ano\s*(\d{4})',
+        ]
+        
+        for pattern in patterns:
+            match = re.search(pattern, texto, re.IGNORECASE | re.DOTALL)
+            if match:
+                return f"{match.group(1)}/{match.group(2)}"
         return None
 
     def _extrair_unidade_despesa(self, texto: str) -> str | None:
-        match = re.search(r'Unidade\s+Despesa[:\s]+(\d+)', texto, re.IGNORECASE)
+        match = re.search(r'Unidade\s+Despesa[:\s]+(.+?)(?:\n|$)', texto, re.IGNORECASE | re.DOTALL)
         if match:
-            return match.group(1)
+            return match.group(1).strip()
         return None
 
     def _extrair_campo(self, texto: str, label: str) -> str | None:
@@ -102,18 +116,28 @@ class ExtratorDocumentoDemanda(ExtratorBase):
             return None
 
         linha_principal = linhas[0].strip()
-        pattern = r'^\s*(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(.+)$'
-        match = re.match(pattern, linha_principal)
-        if not match:
-            return None
-
-        return {
-            "item": match.group(1),
-            "classe": match.group(2),
-            "contabiliza": match.group(3),
-            "cod_mat": match.group(4),
-            "cod_bem": match.group(5),
-            "qtd": match.group(6),
-            "unidade": match.group(7).strip(),
-            "itens_despesa": self._extrair_itens_despesa_do_bloco(linhas),
-        }
+        # Tentar diferentes padrões para linhas de item
+        patterns = [
+            r'^\s*(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(.+)$',  # 6 números + texto
+            r'^\s*(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(.+)$',  # 5 números + texto
+            r'^\s*(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(.+)$',  # 4 números + texto
+        ]
+        
+        for pattern in patterns:
+            match = re.match(pattern, linha_principal)
+            if match:
+                groups = match.groups()
+                if len(groups) >= 5:  # Pelo menos item, classe, material, bem, contabiliza
+                    return {
+                        "item": groups[0] if len(groups) > 0 else "",
+                        "classe": groups[1] if len(groups) > 1 else "",
+                        "codigo_material": groups[2] if len(groups) > 2 else "",
+                        "codigo_compras_gov": groups[3] if len(groups) > 5 else "",
+                        "codigo_contabiliza": groups[4] if len(groups) > 4 else "",
+                        "codigo_bem": groups[5] if len(groups) > 3 else "",
+                        "qtd": groups[6] if len(groups) > 6 else "",
+                        "unidade": groups[7] if len(groups) > 7 else "",
+                        "itens_despesa": self._extrair_itens_despesa_do_bloco(linhas),
+                    }
+        
+        return None

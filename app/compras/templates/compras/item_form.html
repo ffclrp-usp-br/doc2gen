@@ -19,6 +19,13 @@
                         {% endif %}
                     </div>
                     <div class="mb-3">
+                        {{ form.codigo_material.label_tag }}
+                        {{ form.codigo_material }}
+                        {% if form.codigo_material.errors %}
+                            <div class="text-danger">{{ form.codigo_material.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="mb-3">
                         {{ form.codigo_compras_gov.label_tag }}
                         {{ form.codigo_compras_gov }}
                         {% if form.codigo_compras_gov.errors %}

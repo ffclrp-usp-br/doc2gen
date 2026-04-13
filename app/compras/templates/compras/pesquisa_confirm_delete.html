@@ -13,7 +13,7 @@
             <form method="post">
                 {% csrf_token %}
                 <div class="d-flex justify-content-between">
-                    <a href="{% url 'pesquisa_list' object.item.demanda.compra_id %}" class="btn btn-secondary">Cancelar</a>
+                    <a href="{% url 'pesquisa_list' object.compra_id %}" class="btn btn-secondary">Cancelar</a>
                     <button type="submit" class="btn btn-danger">Excluir</button>
                 </div>
             </form>

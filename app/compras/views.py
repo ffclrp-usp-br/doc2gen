@@ -152,15 +152,12 @@ class CompraImportPDFView(FormView):
         )
 
     def _processar_compra(self, compra, dados):
-        # Sempre criar uma demanda padrão para a compra
-        demanda = self._get_demanda_padrao(compra)
-
+        # Para importação de compra, criar apenas Pesquisa diretamente (sem Demanda/Item)
         itens = dados.get('itens', [])
         if not itens:
             return
 
         for item_data in itens:
-            item = self._get_or_create_item(demanda, item_data)
             for cotacao in item_data.get('cotacoes', []):
                 fornecedor = cotacao.get('empresa')
                 if not fornecedor:
@@ -168,11 +165,11 @@ class CompraImportPDFView(FormView):
 
                 valor_unitario = self._parse_decimal(cotacao.get('valor_unitario'))
                 pesquisa, created = Pesquisa.objects.get_or_create(
-                    item=item,
+                    compra=compra,
                     nome_fornecedor=fornecedor.strip(),
                     defaults={
                         'valor_unitario': valor_unitario,
-                        'compra': compra,
+                        'item': None,  # Pesquisa sem item para importação de compra
                     },
                 )
                 if not created and valor_unitario is not None and pesquisa.valor_unitario is None:
@@ -193,6 +190,13 @@ class DemandaImportPDFView(FormView):
 
     def _processar_demanda(self, compra, dados):
         """Processa uma demanda individual."""
+
+        print("%%%%%%%%%%%%%%%%%%%%%5 debug...")
+        print(f"Dados recebidos: {dados}")
+        print(f"numero_demanda: {dados.get('numero_demanda')}")
+        print(f"unidade_despesa: '{dados.get('unidade_despesa')}' (len: {len(dados.get('unidade_despesa', ''))})")
+        print(f"centro_gerencial: '{dados.get('centro_gerencial')}' (len: {len(dados.get('centro_gerencial', ''))})")
+
         if dados.get('tipo') != 'demanda' or not dados.get('numero_demanda'):
             return None, 'O PDF não corresponde a um documento de demanda válido.'
 
@@ -200,18 +204,23 @@ class DemandaImportPDFView(FormView):
             numero_demanda=dados['numero_demanda'],
             compra=compra,
             defaults={
-                'centro_despesa': dados.get('unidade_despesa', ''),
-                'grupo_orcamentario': self._extrair_grupo_orcamentario(dados.get('centro_gerencial', '')),
+                'centro_despesa': self._extrair_grupo_orcamentario(dados.get('centro_gerencial', '')),
+                'grupo_orcamentario': self._extrair_grupo_orcamentario(dados.get('unidade_despesa', '')),
             }
         )
+
+        print(f"Tentando criar demanda com:")
+        print(f"  numero_demanda: {dados['numero_demanda']}")
+        print(f"  centro_despesa: '{self._extrair_grupo_orcamentario(dados.get('centro_gerencial', ''))}'")
+        print(f"  grupo_orcamentario: '{dados.get('unidade_despesa', '')}' (len: {len(dados.get('unidade_despesa', ''))})")
 
         if not created:
             updated = False
             if not demanda.centro_despesa and dados.get('unidade_despesa'):
-                demanda.centro_despesa = dados.get('unidade_despesa')
+                demanda.centro_despesa = self._extrair_grupo_orcamentario(dados.get('centro_gerencial'))
                 updated = True
             if not demanda.grupo_orcamentario and dados.get('centro_gerencial'):
-                demanda.grupo_orcamentario = self._extrair_grupo_orcamentario(dados.get('centro_gerencial'))
+                demanda.grupo_orcamentario = self._extrair_grupo_orcamentario(dados.get('unidade_despesa'))
                 updated = True
             if updated:
                 demanda.save()
@@ -219,14 +228,15 @@ class DemandaImportPDFView(FormView):
         for item_data in dados.get('itens', []):
             if not Item.objects.filter(
                 demanda=demanda,
-                codigo_contabiliza=item_data.get('contabiliza', ''),
-                codigo_bem=item_data.get('cod_bem', ''),
+                codigo_contabiliza=item_data.get('codigo_contabiliza', ''),
+                codigo_bem=item_data.get('codigo_bem', ''),
             ).exists():
                 Item.objects.create(
                     demanda=demanda,
-                    codigo_compras_gov=item_data.get('cod_mat', ''),
-                    codigo_contabiliza=item_data.get('contabiliza', ''),
-                    codigo_bem=item_data.get('cod_bem', ''),
+                    codigo_material=item_data.get('codigo_material', ''),
+                    codigo_compras_gov=item_data.get('codigo_compras_gov', ''),
+                    codigo_contabiliza=item_data.get('codigo_contabiliza', ''),
+                    codigo_bem=item_data.get('codigo_bem', ''),
                     descricao='',
                     item_despesa='',
                     valor_medio=None,
@@ -314,7 +324,7 @@ class PesquisaListView(ListView):
 
     def get_queryset(self):
         compra_id = self.kwargs.get('compra_id')
-        return Pesquisa.objects.filter(item__demanda__compra_id=compra_id)
+        return Pesquisa.objects.filter(compra_id=compra_id)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -323,7 +333,7 @@ class PesquisaListView(ListView):
 
 class ItemCreateView(CreateView):
     model = Item
-    fields = ['demanda', 'codigo_compras_gov', 'codigo_contabiliza', 'codigo_bem', 'descricao', 'item_despesa', 'valor_medio']
+    fields = ['demanda', 'codigo_material', 'codigo_compras_gov', 'codigo_contabiliza', 'codigo_bem', 'descricao', 'item_despesa', 'valor_medio']
     template_name = 'compras/item_form.html'
 
     def form_valid(self, form):
@@ -346,7 +356,7 @@ class ItemCreateView(CreateView):
 
 class ItemUpdateView(UpdateView):
     model = Item
-    fields = ['demanda', 'codigo_compras_gov', 'codigo_contabiliza', 'codigo_bem', 'descricao', 'item_despesa', 'valor_medio']
+    fields = ['demanda', 'codigo_material', 'codigo_compras_gov', 'codigo_contabiliza', 'codigo_bem', 'descricao', 'item_despesa', 'valor_medio']
     template_name = 'compras/item_form.html'
 
     def form_valid(self, form):
@@ -379,7 +389,7 @@ class PesquisaUpdateView(UpdateView):
     template_name = 'compras/pesquisa_form.html'
 
     def get_success_url(self):
-        return reverse_lazy('pesquisa_list', kwargs={'compra_id': self.object.item.demanda.compra_id})
+        return reverse_lazy('pesquisa_list', kwargs={'compra_id': self.object.compra_id})
 
 
 class PesquisaDeleteView(DeleteView):
@@ -387,7 +397,7 @@ class PesquisaDeleteView(DeleteView):
     template_name = 'compras/pesquisa_confirm_delete.html'
 
     def get_success_url(self):
-        return reverse_lazy('pesquisa_list', kwargs={'compra_id': self.object.item.demanda.compra_id})
+        return reverse_lazy('pesquisa_list', kwargs={'compra_id': self.object.compra_id})
 
 
 

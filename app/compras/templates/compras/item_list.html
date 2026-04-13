@@ -17,6 +17,9 @@
             <tr>
                 <th>Ordem</th>
                 <th>Demanda</th>
+                <th>Grupo Orçamentário</th>
+                <th>Centro de Despesa</th>
+                <th>Código material</th>
                 <th>Código compras gov</th>
                 <th>Código contabiliza</th>
                 <th>Código bem</th>
@@ -30,7 +33,10 @@
             {% for item in itens %}
             <tr>
                 <td>{{ item.numero_ordem }}</td>
-                <td>{{ item.demanda.numero_demanda }} ({{ item.demanda.centro_despesa }} / {{ item.demanda.grupo_orcamentario }})</td>
+                <td>{{ item.demanda.numero_demanda }}</td>
+                <td>{{ item.demanda.grupo_orcamentario }}</td>
+                <td>{{ item.demanda.centro_despesa }} </td>
+                <td>{{ item.codigo_material }}</td>
                 <td>{{ item.codigo_compras_gov }}</td>
                 <td>{{ item.codigo_contabiliza }}</td>
                 <td>{{ item.codigo_bem }}</td>

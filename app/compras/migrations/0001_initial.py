@@ -42,9 +42,12 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('numero_ordem', models.PositiveIntegerField(db_index=True, editable=False, verbose_name='Ordem')),
+                ('codigo_material', models.CharField(blank=True, max_length=14, validators=[django.core.validators.RegexValidator('^\\d{7,14}$', 'Formato deve ter de 7 a 14 dígitos')], verbose_name='Código material')),
                 ('codigo_compras_gov', models.CharField(blank=True, max_length=14, validators=[django.core.validators.RegexValidator('^\\d{7,14}$', 'Formato deve ter de 7 a 14 dígitos')], verbose_name='Código compras gov')),
                 ('codigo_contabiliza', models.CharField(blank=True, max_length=14, validators=[django.core.validators.RegexValidator('^\\d{7,14}$', 'Formato deve ter de 7 a 14 dígitos')], verbose_name='Código contabiliza')),
-                ('codigo_bem', models.CharField(blank=True, max_length=14, validators=[django.core.validators.RegexValidator('^\\d{7,14}$', 'Formato deve ter de 7 a 14 dígitos')], verbose_name='Código bem compras gov')),
+                ('codigo_bem', models.CharField(blank=True, max_length=14, validators=[django.core.validators.RegexValidator('^\\d{7,14}$', 'Formato deve ter de 7 a 14 dígitos')], verbose_name='Código bem')),
+
+                
                 ('descricao', models.CharField(blank=True, max_length=255, verbose_name='Descrição')),
                 ('item_despesa', models.CharField(blank=True, max_length=10, validators=[django.core.validators.RegexValidator('^\\d+$', 'Deve ser apenas números')], verbose_name='Item de despesa')),
                 ('valor_medio', models.DecimalField(blank=True, decimal_places=2, max_digits=14, null=True, validators=[django.core.validators.MinValueValidator(0)], verbose_name='Valor médio')),
@@ -62,7 +65,8 @@ class Migration(migrations.Migration):
                 ('nome_fornecedor', models.CharField(max_length=255, verbose_name='Nome do fornecedor')),
                 ('valor_unitario', models.DecimalField(blank=True, decimal_places=2, max_digits=14, null=True, verbose_name='Valor unitário')),
                 ('compra', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='pesquisas', to='compras.compra')),
-                ('item', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='pesquisas', to='compras.item')),
+                ('item', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='pesquisas', to='compras.item', null=True,
+    blank=True)),
             ],
         ),
     ]

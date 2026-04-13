@@ -22,7 +22,13 @@
         <tbody>
             {% for pesquisa in pesquisas %}
             <tr>
-                <td>{{ pesquisa.item.numero_ordem }} - {{ pesquisa.item.descricao|truncatechars:50 }}</td>
+                <td>
+                    {% if pesquisa.item %}
+                        {{ pesquisa.item.numero_ordem }} - {{ pesquisa.item.descricao|truncatechars:50 }}
+                    {% else %}
+                        <em>Importado da compra</em>
+                    {% endif %}
+                </td>
                 <td>{{ pesquisa.nome_fornecedor }}</td>
                 <td>{{ pesquisa.valor_unitario }}</td>
                 <td>

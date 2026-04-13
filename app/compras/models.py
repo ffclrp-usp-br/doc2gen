@@ -80,6 +80,13 @@ class Item(models.Model):
 
     numero_ordem = models.PositiveIntegerField('Ordem', editable=False, db_index=True)
 
+    codigo_material = models.CharField(
+        'Código material',
+        max_length=14,
+        validators=[RegexValidator(r'^\d{7,14}$', 'Formato deve ter de 7 a 14 dígitos')],
+        blank=True,
+    )
+
     codigo_compras_gov = models.CharField(
         'Código compras gov',
         max_length=14,
@@ -133,8 +140,11 @@ class Item(models.Model):
 class Pesquisa(models.Model):
     nome_fornecedor = models.CharField('Nome do fornecedor', max_length=255)
     valor_unitario = models.DecimalField('Valor unitário', max_digits=14, decimal_places=2, blank=True, null=True)
-    item = models.ForeignKey(Item, related_name='pesquisas', on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, related_name='pesquisas', on_delete=models.CASCADE, blank=True, null=True)
     compra = models.ForeignKey(Compra, related_name='pesquisas', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.item.compra.numero_compra} - {self.nome_fornecedor}'
+        if self.item:
+            return f'{self.item.compra.numero_compra} - {self.nome_fornecedor}'
+        else:
+            return f'{self.compra.numero_compra} - {self.nome_fornecedor}'
