@@ -61,16 +61,6 @@ class Migration(migrations.Migration):
             name='codigo_compras_gov',
             field=models.CharField(blank=True, max_length=14, validators=[django.core.validators.RegexValidator('^\\d{14}$', 'Formato deve ser 9999999')], verbose_name='Código compras gov'),
         ),
-        migrations.CreateModel(
-            name='Demanda',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('numero_demanda', models.CharField(max_length=14, unique=True, validators=[django.core.validators.RegexValidator('^\\d+/\\d{4}$', 'Formato deve ser n/yyyy')], verbose_name='Número da demanda')),
-                ('centro_despesa', models.CharField(blank=True, max_length=50, verbose_name='Centro de despesa')),
-                ('grupo_orcamentario', models.CharField(blank=True, max_length=8, validators=[django.core.validators.RegexValidator('^\\d{2}\\.\\d{3}$', 'Formato deve ser 59.001')], verbose_name='Grupo orçamentário')),
-                ('compra', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='demandas', to='compras.compra')),
-            ],
-        ),
         migrations.AlterUniqueTogether(
             name='item',
             unique_together=set(),
@@ -83,15 +73,6 @@ class Migration(migrations.Migration):
         migrations.AlterUniqueTogether(
             name='item',
             unique_together={('demanda', 'numero_ordem')},
-        ),
-        migrations.CreateModel(
-            name='Pesquisa',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('nome_fornecedor', models.CharField(max_length=255, verbose_name='Nome do fornecedor')),
-                ('valor_unitario', models.DecimalField(blank=True, decimal_places=2, max_digits=14, null=True, verbose_name='Valor unitário')),
-                ('item', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='pesquisas', to='compras.item')),
-            ],
         ),
         migrations.DeleteModel(
             name='Cotacao',

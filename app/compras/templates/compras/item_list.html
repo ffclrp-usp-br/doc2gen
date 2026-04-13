@@ -6,6 +6,7 @@
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h1>Itens da compra {{ compra.numero_compra }}</h1>
     <div>
+        <a href="{% url 'demanda_import_pdf' compra.id %}" class="btn btn-info me-2">Importar Demanda (PDF)</a>
         <a href="{% url 'item_create' compra.id %}" class="btn btn-primary me-2">Novo item</a>
         <a href="{% url 'compra_list' %}" class="btn btn-secondary">Lista de compras</a>
     </div>

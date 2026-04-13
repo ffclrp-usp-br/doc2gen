@@ -152,11 +152,12 @@ class CompraImportPDFView(FormView):
         )
 
     def _processar_compra(self, compra, dados):
+        # Sempre criar uma demanda padrão para a compra
+        demanda = self._get_demanda_padrao(compra)
+
         itens = dados.get('itens', [])
         if not itens:
             return
-
-        demanda = self._get_demanda_padrao(compra)
 
         for item_data in itens:
             item = self._get_or_create_item(demanda, item_data)
@@ -169,7 +170,10 @@ class CompraImportPDFView(FormView):
                 pesquisa, created = Pesquisa.objects.get_or_create(
                     item=item,
                     nome_fornecedor=fornecedor.strip(),
-                    defaults={'valor_unitario': valor_unitario},
+                    defaults={
+                        'valor_unitario': valor_unitario,
+                        'compra': compra,
+                    },
                 )
                 if not created and valor_unitario is not None and pesquisa.valor_unitario is None:
                     pesquisa.valor_unitario = valor_unitario
