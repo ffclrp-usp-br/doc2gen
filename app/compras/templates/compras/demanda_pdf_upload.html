@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Importar Demandas - {{ compra.numero_compra }}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title">Importar Demandas</h1>
+                <p class="text-muted">Compra: <strong>{{ compra.numero_compra }}</strong> - {{ compra.objeto }}</p>
+            </div>
+            <div class="card-body">
+                <p class="mb-3">
+                    Selecione um ou mais arquivos PDF de demanda para importar itens e informações relacionadas a esta compra.
+                </p>
+                
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        {{ form.arquivos.label_tag }}
+                        {{ form.arquivos }}
+                        {% if form.arquivos.errors %}
+                            <div class="text-danger">{{ form.arquivos.errors }}</div>
+                        {% endif %}
+                        <small class="form-text text-muted d-block mt-2">
+                            Os arquivos devem ser PDFs válidos de documentos de demanda.
+                            Você pode selecionar múltiplos arquivos segurando Ctrl/Cmd enquanto clica.
+                        </small>
+                    </div>
+                    
+                    {% if demandas_existentes %}
+                    <div class="alert alert-info" role="alert">
+                        <strong>Demandas já importadas para esta compra:</strong>
+                        <ul class="mb-0 mt-2">
+                            {% for demanda in demandas_existentes %}
+                            <li>{{ demanda.numero_demanda }} - {{ demanda.centro_despesa }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                    
+                    <button type="submit" class="btn btn-success">Importar</button>
+                    <a href="{% url 'compra_update' compra.pk %}" class="btn btn-secondary">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

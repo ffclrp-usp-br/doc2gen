@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Docgen2{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+    <header style="background: url('/static/img/bg-headtop.gif') repeat-x; height: 80px; position: relative;">
+        <div class="container-fluid h-100 d-flex align-items-center">
+            <img src="/static/img/usp-logo.png" alt="USP Logo" style="height: 60px; margin-right: 20px;">
+            <img src="/static/img/usp-logo-texto.png" alt="USP Texto" style="height: 40px;">
+        </div>
+    </header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Docgen2</a>
+            <div class="navbar-nav">
+                <a class="nav-link" href="{% url 'compra_list' %}">Compras</a>
+                <a class="nav-link" href="/admin/">Admin</a>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-4">
+        {% block content %}{% endblock %}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

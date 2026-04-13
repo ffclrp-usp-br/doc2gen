@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Importar Compra{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title">Importar Compra</h1>
+            </div>
+            <div class="card-body">
+                <p class="mb-3">
+                    Selecione um arquivo PDF de compra para importar as informações da compra.
+                </p>
+                
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        {{ form.arquivo.label_tag }}
+                        {{ form.arquivo }}
+                        {% if form.arquivo.errors %}
+                            <div class="text-danger">{{ form.arquivo.errors }}</div>
+                        {% endif %}
+                        <small class="form-text text-muted d-block mt-2">
+                            O arquivo deve ser um PDF válido de documento de compra.
+                        </small>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-success">Importar</button>
+                    <a href="{% url 'compra_list' %}" class="btn btn-secondary">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

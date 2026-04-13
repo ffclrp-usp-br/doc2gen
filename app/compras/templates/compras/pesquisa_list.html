@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Pesquisas da Compra{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Pesquisas da compra {{ compra.numero_compra }}</h1>
+    <div>
+        <a href="{% url 'compra_list' %}" class="btn btn-secondary">Lista de compras</a>
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Item</th>
+                <th>Fornecedor</th>
+                <th>Valor unitário</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pesquisa in pesquisas %}
+            <tr>
+                <td>{{ pesquisa.item.numero_ordem }} - {{ pesquisa.item.descricao|truncatechars:50 }}</td>
+                <td>{{ pesquisa.nome_fornecedor }}</td>
+                <td>{{ pesquisa.valor_unitario }}</td>
+                <td>
+                    <a href="{% url 'pesquisa_update' pesquisa.pk %}" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="{% url 'pesquisa_delete' pesquisa.pk %}" class="btn btn-sm btn-danger">Excluir</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="text-center">Nenhuma pesquisa cadastrada.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

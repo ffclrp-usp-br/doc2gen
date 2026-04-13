@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if view.object %}Editar Item{% else %}Novo Item{% endif %}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title">{% if view.object %}Editar Item{% else %}Novo Item{% endif %} para Compra {{ view.kwargs.compra_id|default:view.object.demanda.compra_id }}</h1>
+            </div>
+            <div class="card-body">
+                <form method="post">{% csrf_token %}
+                    <div class="mb-3">
+                        {{ form.numero_demanda.label_tag }}
+                        {{ form.numero_demanda }}
+                        {% if form.numero_demanda.errors %}
+                            <div class="text-danger">{{ form.numero_demanda.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.codigo_compras_gov.label_tag }}
+                        {{ form.codigo_compras_gov }}
+                        {% if form.codigo_compras_gov.errors %}
+                            <div class="text-danger">{{ form.codigo_compras_gov.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.codigo_contabiliza.label_tag }}
+                        {{ form.codigo_contabiliza }}
+                        {% if form.codigo_contabiliza.errors %}
+                            <div class="text-danger">{{ form.codigo_contabiliza.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.codigo_bem.label_tag }}
+                        {{ form.codigo_bem }}
+                        {% if form.codigo_bem.errors %}
+                            <div class="text-danger">{{ form.codigo_bem.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.descricao.label_tag }}
+                        {{ form.descricao }}
+                        {% if form.descricao.errors %}
+                            <div class="text-danger">{{ form.descricao.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.item_despesa.label_tag }}
+                        {{ form.item_despesa }}
+                        {% if form.item_despesa.errors %}
+                            <div class="text-danger">{{ form.item_despesa.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.valor_medio.label_tag }}
+                        {{ form.valor_medio }}
+                        {% if form.valor_medio.errors %}
+                            <div class="text-danger">{{ form.valor_medio.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <button type="submit" class="btn btn-success">Salvar</button>
+                    <a href="{% url 'item_list' view.kwargs.compra_id|default:view.object.demanda.compra_id %}" class="btn btn-secondary">Voltar para itens</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
