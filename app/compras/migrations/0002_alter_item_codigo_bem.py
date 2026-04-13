@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='item',
             name='codigo_bem',
-            field=models.CharField(blank=True, max_length=14, validators=[django.core.validators.RegexValidator('^\\d{7,14}$', 'Formato deve ter de 7 a 14 dígitos')], verbose_name='Código bem compras gov'),
+            field=models.CharField(blank=True, max_length=14, validators=[django.core.validators.RegexValidator('^\\d{7,14}$', 'Formato deve ter de 7 a 14 dígitos')], verbose_name='Código bem'),
         ),
     ]

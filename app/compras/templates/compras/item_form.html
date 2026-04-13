@@ -7,7 +7,7 @@
     <div class="col-md-8">
         <div class="card">
             <div class="card-header">
-                <h1 class="card-title">{% if view.object %}Editar Item{% else %}Novo Item{% endif %} para Compra {{ view.kwargs.compra_id|default:view.object.demanda.compra_id }}</h1>
+                <h1 class="card-title">{% if view.object %}Editar Item{% else %}Novo Item{% endif %} para Compra {{ compra_id }}</h1>
             </div>
             <div class="card-body">
                 <form method="post">{% csrf_token %}
@@ -68,7 +68,7 @@
                         {% endif %}
                     </div>
                     <button type="submit" class="btn btn-success">Salvar</button>
-                    <a href="{% url 'item_list' view.kwargs.compra_id|default:view.object.demanda.compra_id %}" class="btn btn-secondary">Voltar para itens</a>
+                    <a href="{% url 'item_list' compra_id %}" class="btn btn-secondary">Voltar para itens</a>
                 </form>
             </div>
         </div>

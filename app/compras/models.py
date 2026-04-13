@@ -83,28 +83,24 @@ class Item(models.Model):
     codigo_material = models.CharField(
         'Código material',
         max_length=14,
-        validators=[RegexValidator(r'^\d{7,14}$', 'Formato deve ter de 7 a 14 dígitos')],
         blank=True,
     )
 
     codigo_compras_gov = models.CharField(
         'Código compras gov',
         max_length=14,
-        validators=[RegexValidator(r'^\d{7,14}$', 'Formato deve ter de 7 a 14 dígitos')],
         blank=True,
     )
 
     codigo_contabiliza = models.CharField(
         'Código contabiliza',
         max_length=14,
-        validators=[RegexValidator(r'^\d{7,14}$', 'Formato deve ter de 7 a 14 dígitos')],
         blank=True,
     )
 
     codigo_bem = models.CharField(
         'Código bem compras gov',
         max_length=14,
-        validators=[RegexValidator(r'^\d{7,14}$', 'Formato deve ter de 7 a 14 dígitos')],
         blank=True,
     )
 

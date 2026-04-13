@@ -275,6 +275,11 @@ class DemandaImportPDFView(FormView):
 
         return super().form_valid(form)
 
+    def form_invalid(self, form):
+        # Garantir que o contexto seja passado mesmo com erros de validação
+        context = self.get_context_data(form=form)
+        return self.render_to_response(context)
+
     def get_success_url(self):
         return reverse_lazy('compra_update', kwargs={'pk': self.kwargs.get('pk')})
 
@@ -338,6 +343,11 @@ class ItemCreateView(CreateView):
     fields = ['demanda', 'codigo_material', 'codigo_compras_gov', 'codigo_contabiliza', 'codigo_bem', 'descricao', 'item_despesa', 'valor_medio']
     template_name = 'compras/item_form.html'
 
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx['compra_id'] = self.kwargs.get('compra_id')
+        return ctx
+
     def form_valid(self, form):
         compra_id = self.kwargs.get('compra_id')
         # Ensure the demanda belongs to the compra
@@ -360,6 +370,11 @@ class ItemUpdateView(UpdateView):
     model = Item
     fields = ['demanda', 'codigo_material', 'codigo_compras_gov', 'codigo_contabiliza', 'codigo_bem', 'descricao', 'item_despesa', 'valor_medio']
     template_name = 'compras/item_form.html'
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx['compra_id'] = self.object.demanda.compra_id
+        return ctx
 
     def form_valid(self, form):
         # Ensure the demanda belongs to the compra
