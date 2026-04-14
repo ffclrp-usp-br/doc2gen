@@ -106,33 +106,93 @@ class ExtratorDocumentoDemanda(ExtratorBase):
 
         return itens
 
-    def _extrair_dados_item(self, bloco: str) -> dict | None:
-        linhas = bloco.splitlines()
+
+
+    # -------------------------
+    # EXTRAIR DADOS DE UM ITEM
+    # -------------------------
+
+    def _extrair_dados_item(self, bloco: str)-> dict | None:
+        linhas = bloco.split("\n")
+
         if not linhas:
             return None
 
-        linha_principal = linhas[0].strip()
-        
-        # Tentar diferentes padrões para linhas de item
-        patterns = [
-            r'^\s*(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(.+)$',  # 7 números + texto
-        ]
-        
-        for pattern in patterns:
-            match = re.match(pattern, linha_principal)
-            if match:
-                groups = match.groups()
-                if len(groups) >= 5:  # Pelo menos item, classe, material, bem, contabiliza
-                    return {
-                        "item": groups[0] if len(groups) > 0 else "",
-                        "classe": groups[1] if len(groups) > 1 else "",
-                        "codigo_material": groups[2] if len(groups) > 2 else "",
-                        "codigo_compras_gov": groups[3] if len(groups) > 5 else "",
-                        "codigo_contabiliza": groups[4] if len(groups) > 4 else "",
-                        "codigo_bem": groups[5] if len(groups) > 3 else "",
-                        "qtd": groups[6] if len(groups) > 6 else "",
-                        "unidade": groups[7] if len(groups) > 7 else "",
-                        "itens_despesa": self._extrair_itens_despesa_do_bloco(linhas),
-                    }
-        
-        return None
+        linha = linhas[0].strip()
+        partes = re.split(r'\s+', linha)
+
+        if len(partes) < 2:
+            return None
+
+        item = partes[0]
+
+        # =========================
+        # CLASSE CONTABILIZA (4 dígitos ou vazio)
+        # =========================
+        idx = 1
+
+        if re.match(r'^\d{4}$', partes[idx]):
+            classe_contabiliza = partes[idx]
+            idx += 1
+        else:
+            classe_contabiliza = None
+
+        # =========================
+        # CAMPOS SEGUINTES (dinâmico)
+        # =========================
+        codigo_material = None
+        codigo_bem = None
+        codigo_contabiliza = None
+        codigo_compras_gov = None
+        quantidade = None
+        unidade = None
+
+        numeros = []
+        textos = []
+
+        for p in partes[idx:]:
+            if re.match(r'^\d+$', p):
+                numeros.append(p)
+            else:
+                textos.append(p)
+
+        # =========================
+        # ATRIBUIÇÃO INTELIGENTE
+        # =========================
+
+        # códigos geralmente grandes (>= 5 dígitos)
+        codigos = [n for n in numeros if len(n) >= 5]
+
+        if len(codigos) >= 1:
+            cod_mat = codigos[0]
+        if len(codigos) >= 2:
+            cod_bem = codigos[1]
+        if len(codigos) >= 3:
+            cod_contabiliza = codigos[2]
+        if len(codigos) >= 4:
+            cod_compras = codigos[3]
+
+        # quantidade = número pequeno (geralmente <= 4 dígitos)
+        candidatos_qtd = [n for n in numeros if len(n) <= 4]
+
+        if candidatos_qtd:
+            qtd = candidatos_qtd[-1]
+
+        # unidade = tudo após a quantidade
+        try:
+            idx_qtd = partes.index(qtd)
+            unidade = " ".join(partes[idx_qtd + 1:])
+        except:
+            unidade = None
+
+        return {
+            "item": item,
+            "classe_contabiliza": classe_contabiliza,
+            "codigo_material": cod_mat,
+            "codigo_bem": cod_bem,
+            "codigo_contabiliza": cod_contabiliza,
+            "codigo_compras_gov": cod_compras,
+            "quantidade": qtd,
+            "unidade": unidade,
+            "itens_despesa": self._extrair_itens_despesa_do_bloco(linhas),
+        }
