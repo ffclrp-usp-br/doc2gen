@@ -84,25 +84,13 @@ def extrair_blocos_itens(texto):
 # -------------------------
 def extrair_itens_despesa_do_bloco(linhas):
     itens = []
-    capturar = False
 
     for linha in linhas:
-        if re.search(r'Item\s+Despesa', linha, re.IGNORECASE):
-            capturar = True
-            continue
+        # Extrai códigos válidos direto, sem filtrar linha
+        encontrados = re.findall(r'\b(3[3-9]\d{6}|4[4-9]\d{6})\b', linha)
 
-        if capturar:
-            # Para ao encontrar outro cabeçalho comum
-            if re.search(r'(Observa|Total|Valor|Item\s+\d+)', linha, re.IGNORECASE):
-                break
-
-            # Ignora valores monetários (ex: 0,0000)
-            if re.search(r'\d+,\d+', linha):
-                continue
-
-            encontrados = re.findall(r'\b\d{8}\b', linha)
-            if encontrados:
-                itens.extend(encontrados)
+        if encontrados:
+            itens.extend(encontrados)
 
     # remove duplicados mantendo ordem
     vistos = set()
@@ -113,7 +101,6 @@ def extrair_itens_despesa_do_bloco(linhas):
             itens_unicos.append(i)
 
     return itens_unicos
-
 
 # -------------------------
 # EXTRAIR DADOS DE UM ITEM
@@ -184,24 +171,38 @@ def extrair_dados_item(bloco):
 
     if candidatos_qtd:
         qtd = candidatos_qtd[-1]
+    else:
+        qtd = None
 
     # unidade = tudo após a quantidade
     try:
-        idx_qtd = partes.index(qtd)
-        unidade = " ".join(partes[idx_qtd + 1:])
+        if qtd:
+            idx_qtd = partes.index(qtd)
+            unidade = " ".join(partes[idx_qtd + 1:])
+        else:
+            unidade = None
     except:
         unidade = None
 
+    itens_despesa = extrair_itens_despesa_do_bloco(linhas)
+
+    # =========================
+    # VALIDAÇÃO OBRIGATÓRIA PARA DESCARTAR NULOS
+    # =========================
+    if vazio(cod_mat) or vazio(cod_bem) or vazio(cod_contabiliza):
+        return None
+        
+    
     return {
         "item": item,
         "classe_contabiliza": classe_contabiliza,
-        "cod_mat": cod_mat,
-        "cod_bem": cod_bem,
-        "cod_contabiliza": cod_contabiliza,
-        "cod_compras_gov": cod_compras,
+        "codigo_material": cod_mat,
+        "codigo_bem": cod_bem,
+        "codigo_contabiliza": cod_contabiliza,
+        "codigo_compras_gov": cod_compras,
         "qtd": qtd,
         "unidade": unidade,
-        "itens_despesa": extrair_itens_despesa_do_bloco(linhas)
+        "item_despesa": itens_despesa
     }
 
 
@@ -232,6 +233,11 @@ def extrair_dados(pdf_path):
     dados["itens"] = itens
 
     return dados
+
+
+def vazio(valor):
+    return valor is None or str(valor).strip() == ""
+
 
 
 # -------------------------

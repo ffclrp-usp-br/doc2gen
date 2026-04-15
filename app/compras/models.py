@@ -109,7 +109,7 @@ class Item(models.Model):
     
     item_despesa = models.CharField(
         'Item de despesa',
-        max_length=10,
+        max_length=255,
         validators=[RegexValidator(r'^\d+$', 'Deve ser apenas números')],
         blank=True,
     )

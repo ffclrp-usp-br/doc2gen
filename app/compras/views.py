@@ -119,6 +119,7 @@ class CompraImportPDFView(FormView):
     def _get_or_create_item(self, demanda, item_data):
         bem = item_data.get('bem', '') or ''
         bec = item_data.get('bec', '') or ''
+        
         descricao = item_data.get('descricao', '') or ''
         valor_previsto = self._parse_decimal(item_data.get('valor_previsto'))
 
@@ -233,6 +234,10 @@ class DemandaImportPDFView(FormView):
                 codigo_contabiliza=item_data.get('codigo_contabiliza', ''),
                 codigo_bem=item_data.get('codigo_bem', ''),
             ).exists():
+                # Converte lista de item_despesa para string separada por vírgula
+                item_despesa_list = item_data.get('item_despesa', [])
+                item_despesa_str = ','.join(item_despesa_list) if isinstance(item_despesa_list, list) else ''
+                
                 Item.objects.create(
                     demanda=demanda,
                     codigo_material=item_data.get('codigo_material', ''),
@@ -240,7 +245,7 @@ class DemandaImportPDFView(FormView):
                     codigo_contabiliza=item_data.get('codigo_contabiliza', ''),
                     codigo_bem=item_data.get('codigo_bem', ''),
                     descricao='',
-                    item_despesa='',
+                    item_despesa=item_despesa_str,
                     valor_medio=None,
                 )
 

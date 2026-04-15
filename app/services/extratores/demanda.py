@@ -83,28 +83,28 @@ class ExtratorDocumentoDemanda(ExtratorBase):
 
         return blocos
 
-    def _extrair_itens_despesa_do_bloco(self, linhas: list[str]) -> list[str]:
+    # -------------------------
+    # EXTRAIR ITENS DE DESPESA DENTRO DO BLOCO
+    # -------------------------
+    def _extrair_itens_despesa_do_bloco(self, linhas):
         itens = []
-        capturar = False
 
         for linha in linhas:
-            if re.search(r'Item\s+Despesa', linha, re.IGNORECASE):
-                capturar = True
-                continue
+            # Extrai códigos válidos direto, sem filtrar linha
+            encontrados = re.findall(r'\b(3[3-9]\d{6}|4[4-9]\d{6})\b', linha)
 
-            if capturar:
-                if re.search(r'(Observa|Total|Valor|Item\s+\d+)', linha, re.IGNORECASE):
-                    break
+            if encontrados:
+                itens.extend(encontrados)
 
-                if re.search(r'\d+,\d+', linha):
-                    continue
+        # remove duplicados mantendo ordem
+        vistos = set()
+        itens_unicos = []
+        for i in itens:
+            if i not in vistos:
+                vistos.add(i)
+                itens_unicos.append(i)
 
-                encontrados = re.findall(r'\b\d{8}\b', linha)
-                for encontrado in encontrados:
-                    if encontrado not in itens:
-                        itens.append(encontrado)
-
-        return itens
+        return itens_unicos
 
 
 
@@ -140,10 +140,10 @@ class ExtratorDocumentoDemanda(ExtratorBase):
         # =========================
         # CAMPOS SEGUINTES (dinâmico)
         # =========================
-        codigo_material = None
-        codigo_bem = None
-        codigo_contabiliza = None
-        codigo_compras_gov = None
+        cod_mat = None
+        cod_bem = None
+        cod_contabiliza = None
+        cod_compras = None
         quantidade = None
         unidade = None
 
@@ -176,15 +176,29 @@ class ExtratorDocumentoDemanda(ExtratorBase):
         candidatos_qtd = [n for n in numeros if len(n) <= 4]
 
         if candidatos_qtd:
-            qtd = candidatos_qtd[-1]
+            quantidade = candidatos_qtd[-1]
+        else:
+            quantidade = None
 
         # unidade = tudo após a quantidade
         try:
-            idx_qtd = partes.index(qtd)
-            unidade = " ".join(partes[idx_qtd + 1:])
+            if quantidade:
+                idx_qtd = partes.index(quantidade)
+                unidade = " ".join(partes[idx_qtd + 1:])
+            else:
+                unidade = None
         except:
             unidade = None
 
+        itens_despesa = self._extrair_itens_despesa_do_bloco(linhas)
+
+        # =========================
+        # VALIDAÇÃO OBRIGATÓRIA PARA DESCARTAR NULOS
+        # =========================
+        if self._vazio(cod_mat) or self._vazio(cod_bem) or self._vazio(cod_contabiliza):
+            return None
+            
+                
         return {
             "item": item,
             "classe_contabiliza": classe_contabiliza,
@@ -192,7 +206,12 @@ class ExtratorDocumentoDemanda(ExtratorBase):
             "codigo_bem": cod_bem,
             "codigo_contabiliza": cod_contabiliza,
             "codigo_compras_gov": cod_compras,
-            "quantidade": qtd,
+            "quantidade": quantidade,
             "unidade": unidade,
-            "itens_despesa": self._extrair_itens_despesa_do_bloco(linhas),
+            "item_despesa": itens_despesa,
         }
+    
+    def _vazio(self, valor):
+        return valor is None or str(valor).strip() == ""
+
+    
