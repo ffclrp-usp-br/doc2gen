@@ -1,13 +1,13 @@
 # services/extratores/factory.py
 
 from .demanda import ExtratorDocumentoDemanda
-from .compra import ExtratorDocumentoCompra
+from .compra import ExtratorDocumentoGrade
 
 class ExtratorFactory:
 
     extratores = [
         ExtratorDocumentoDemanda(),
-        ExtratorDocumentoCompra(),
+        ExtratorDocumentoGrade(),
     ]
 
     @classmethod

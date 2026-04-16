@@ -49,13 +49,13 @@ class CompraImportPDFView(FormView):
     def form_valid(self, form):
         arquivo = form.cleaned_data['arquivo']
         try:
-            dados = ParserService.processar_pdf(arquivo, tipo='compra')
+            dados = ParserService.processar_pdf(arquivo, tipo='grade')
         except Exception as exc:
             form.add_error('arquivo', str(exc))
             return self.form_invalid(form)
 
-        if dados.get('tipo') != 'compra' or not dados.get('numero_compra'):
-            form.add_error('arquivo', 'O PDF não corresponde a um documento de compra válido.')
+        if dados.get('tipo') != 'grade' or not dados.get('numero_compra'):
+            form.add_error('arquivo', 'O PDF não corresponde a um documento de grade válido.')
             return self.form_invalid(form)
 
         compra, created = Compra.objects.get_or_create(
@@ -170,12 +170,25 @@ class CompraImportPDFView(FormView):
                     nome_fornecedor=fornecedor.strip(),
                     defaults={
                         'valor_unitario': valor_unitario,
+                        'codigo_contabiliza': item_data.get('codigo_contabiliza', ''),
+                        'codigo_bem': item_data.get('codigo_bem', ''),
                         'item': None,  # Pesquisa sem item para importação de compra
                     },
                 )
                 if not created and valor_unitario is not None and pesquisa.valor_unitario is None:
                     pesquisa.valor_unitario = valor_unitario
                     pesquisa.save()
+                elif not created:
+                    # Atualizar campos codigo_contabiliza e codigo_bem se estiverem vazios
+                    updated = False
+                    if not pesquisa.codigo_contabiliza and item_data.get('codigo_contabiliza'):
+                        pesquisa.codigo_contabiliza = item_data.get('codigo_contabiliza', '')
+                        updated = True
+                    if not pesquisa.codigo_bem and item_data.get('codigo_bem'):
+                        pesquisa.codigo_bem = item_data.get('codigo_bem', '')
+                        updated = True
+                    if updated:
+                        pesquisa.save()
 
 
 class DemandaImportPDFView(FormView):
@@ -407,8 +420,13 @@ class ItemDeleteView(DeleteView):
 
 class PesquisaUpdateView(UpdateView):
     model = Pesquisa
-    fields = ['nome_fornecedor', 'valor_unitario']
+    fields = ['nome_fornecedor', 'valor_unitario', 'codigo_contabiliza', 'codigo_bem']
     template_name = 'compras/pesquisa_form.html'
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx['compra'] = self.object.compra
+        return ctx
 
     def get_success_url(self):
         return reverse_lazy('pesquisa_list', kwargs={'compra_id': self.object.compra_id})

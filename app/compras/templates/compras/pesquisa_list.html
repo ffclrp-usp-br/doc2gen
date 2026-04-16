@@ -15,6 +15,8 @@
             <tr>
                 <th>Item</th>
                 <th>Fornecedor</th>
+                <th>Código Bem</th>
+                <th>Código Contabiliza</th>
                 <th>Valor unitário</th>
                 <th>Ações</th>
             </tr>
@@ -30,6 +32,8 @@
                     {% endif %}
                 </td>
                 <td>{{ pesquisa.nome_fornecedor }}</td>
+                <td>{{ pesquisa.codigo_bem }}</td>
+                <td>{{ pesquisa.codigo_contabiliza }}</td>
                 <td>{{ pesquisa.valor_unitario }}</td>
                 <td>
                     <a href="{% url 'pesquisa_update' pesquisa.pk %}" class="btn btn-sm btn-warning">Editar</a>
@@ -38,7 +42,7 @@
             </tr>
             {% empty %}
             <tr>
-                <td colspan="4" class="text-center">Nenhuma pesquisa cadastrada.</td>
+                <td colspan="6" class="text-center">Nenhuma pesquisa cadastrada.</td>
             </tr>
             {% endfor %}
         </tbody>

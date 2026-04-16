@@ -64,6 +64,8 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('nome_fornecedor', models.CharField(max_length=255, verbose_name='Nome do fornecedor')),
                 ('valor_unitario', models.DecimalField(blank=True, decimal_places=2, max_digits=14, null=True, verbose_name='Valor unitário')),
+                ('codigo_contabiliza', models.CharField(blank=True, max_length=14, validators=[django.core.validators.RegexValidator('^\\d{7,14}$', 'Formato deve ter de 7 a 14 dígitos')], verbose_name='Código contabiliza')),
+                ('codigo_bem', models.CharField(blank=True, max_length=14, validators=[django.core.validators.RegexValidator('^\\d{7,14}$', 'Formato deve ter de 7 a 14 dígitos')], verbose_name='Código bem')),
                 ('compra', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='pesquisas', to='compras.compra')),
                 ('item', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='pesquisas', to='compras.item', null=True,
     blank=True)),

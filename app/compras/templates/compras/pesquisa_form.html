@@ -25,6 +25,20 @@
                             <div class="text-danger">{{ form.valor_unitario.errors }}</div>
                         {% endif %}
                     </div>
+                    <div class="mb-3">
+                        {{ form.codigo_bem.label_tag }}
+                        {{ form.codigo_bem }}
+                        {% if form.codigo_bem.errors %}
+                            <div class="text-danger">{{ form.codigo_bem.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.codigo_contabiliza.label_tag }}
+                        {{ form.codigo_contabiliza }}
+                        {% if form.codigo_contabiliza.errors %}
+                            <div class="text-danger">{{ form.codigo_contabiliza.errors }}</div>
+                        {% endif %}
+                    </div>
                     <div class="d-flex justify-content-between">
                         <a href="{% url 'pesquisa_list' compra.id %}" class="btn btn-secondary">Cancelar</a>
                         <button type="submit" class="btn btn-primary">Salvar</button>

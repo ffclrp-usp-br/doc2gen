@@ -2,8 +2,8 @@ from .base import ExtratorBase
 import re
 
 
-class ExtratorDocumentoCompra(ExtratorBase):
-    tipo = 'compra'
+class ExtratorDocumentoGrade(ExtratorBase):
+    tipo = 'grade'
 
     # -------------------------
     # IDENTIFICA O DOCUMENTO
@@ -16,12 +16,12 @@ class ExtratorDocumentoCompra(ExtratorBase):
     # -------------------------
     def extrair(self, texto: str) -> dict:
         dados = {
-            "tipo": "compra",
-            "numero_compra": self._extrair_numero_compra(texto),
+            "tipo": "grade",
+            "numero_compra": self._extrair_numero_grade(texto),
             "numero_sei": self._extrair_numero_sei(texto),
             "objeto": self._extrair_campo(texto, "Objeto"),
             "modalidade": self._extrair_campo(texto, "Modalidade"),
-            "tipo_compra": self._extrair_tipo_compra(texto),
+            "tipo_compra": self._extrair_tipo_grade(texto),
             "itens": [],
         }
 
@@ -38,7 +38,7 @@ class ExtratorDocumentoCompra(ExtratorBase):
     # MÉTODOS INTERNOS
     # =========================
 
-    def _extrair_numero_compra(self, texto):
+    def _extrair_numero_grade(self, texto):
         match = re.search(r'Compra[:\s]*(\d+)\s*/\s*(\d{4})', texto, re.IGNORECASE)
         if match:
             return f"{match.group(1)}/{match.group(2)}"
@@ -56,13 +56,13 @@ class ExtratorDocumentoCompra(ExtratorBase):
             return match.group(1).strip()
         return None
 
-    def _extrair_tipo_compra(self, texto):
+    def _extrair_tipo_grade(self, texto):
         match = re.search(r'Tipo(?:\s+de\s+compra)?[:\s]+(.+)', texto, re.IGNORECASE)
         if match:
             tipo = match.group(1).strip().upper()
             if 'FORNECIMENTO' in tipo:
                 return 'FORNECIMENTO'
-            elif 'SERVIÇO' in tipo or 'SERVICO' in tipo:
+            elif 'SERVIÇO' in texto or 'SERVICO' in tipo:
                 return 'SERVIÇO'
         return None
 
@@ -124,8 +124,8 @@ class ExtratorDocumentoCompra(ExtratorBase):
 
         return {
             "item": item_num,
-            "bec": bec,
-            "bem": bem,
+            "codigo_contabiliza": bec,
+            "codigo_bem": bem,
             "descricao": descricao,
             "metodo": metodo,
             "valor_previsto": valor_prev,

@@ -136,6 +136,12 @@ class Item(models.Model):
 class Pesquisa(models.Model):
     nome_fornecedor = models.CharField('Nome do fornecedor', max_length=255)
     valor_unitario = models.DecimalField('Valor unitário', max_digits=14, decimal_places=2, blank=True, null=True)
+
+    codigo_contabiliza = models.CharField('Código contabiliza', max_length=14, blank=True)
+
+    codigo_bem = models.CharField('Código bem compras gov', max_length=14, blank=True)
+
+    
     item = models.ForeignKey(Item, related_name='pesquisas', on_delete=models.CASCADE, blank=True, null=True)
     compra = models.ForeignKey(Compra, related_name='pesquisas', on_delete=models.CASCADE)
 

@@ -136,8 +136,8 @@ def extrair_dados_item_compra(bloco):
 
     return {
         "item": item_num,
-        "bec": bec,
-        "bem": bem,
+        "codigo_contabiliza": bec,
+        "codigo_bem": bem,
         "descricao": descricao,
         "metodo": metodo,
         "valor_previsto": valor_prev,
@@ -162,7 +162,7 @@ def extrair_dados(pdf_path):
         item = extrair_dados_item_compra(bloco)
 
         # evita blocos inválidos
-        if any([item["bec"], item["bem"], item["descricao"]]):
+        if any([item["codigo_contabiliza"], item["codigo_bem"], item["descricao"]]):
             itens.append(item)
 
     dados["itens"] = itens
@@ -202,8 +202,8 @@ def main():
 
     for i, item in enumerate(dados["itens"], start=1):
         print(f"\nITEM {i}")
-        print(f"BEC: {item['bec']}")
-        print(f"BEM: {item['bem']}")
+        print(f"Código Contabiliza: {item['codigo_contabiliza']}")
+        print(f"Código Bem: {item['codigo_bem']}")
         print(f"Descrição: {item['descricao']}")
         print(f"Valor Previsto: {item['valor_previsto']}")
 
