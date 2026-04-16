@@ -141,7 +141,7 @@ class Pesquisa(models.Model):
 
     codigo_bem = models.CharField('Código bem compras gov', max_length=14, blank=True)
 
-    
+    descricao = models.CharField('Descrição', max_length=255, blank=True)
     item = models.ForeignKey(Item, related_name='pesquisas', on_delete=models.CASCADE, blank=True, null=True)
     compra = models.ForeignKey(Compra, related_name='pesquisas', on_delete=models.CASCADE)
 

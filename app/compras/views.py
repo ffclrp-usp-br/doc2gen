@@ -172,6 +172,7 @@ class CompraImportPDFView(FormView):
                         'valor_unitario': valor_unitario,
                         'codigo_contabiliza': item_data.get('codigo_contabiliza', ''),
                         'codigo_bem': item_data.get('codigo_bem', ''),
+                        'descricao': item_data.get('descricao', ''),
                         'item': None,  # Pesquisa sem item para importação de compra
                     },
                 )
@@ -179,13 +180,16 @@ class CompraImportPDFView(FormView):
                     pesquisa.valor_unitario = valor_unitario
                     pesquisa.save()
                 elif not created:
-                    # Atualizar campos codigo_contabiliza e codigo_bem se estiverem vazios
+                    # Atualizar campos codigo_contabiliza, codigo_bem e descricao se estiverem vazios
                     updated = False
                     if not pesquisa.codigo_contabiliza and item_data.get('codigo_contabiliza'):
                         pesquisa.codigo_contabiliza = item_data.get('codigo_contabiliza', '')
                         updated = True
                     if not pesquisa.codigo_bem and item_data.get('codigo_bem'):
                         pesquisa.codigo_bem = item_data.get('codigo_bem', '')
+                        updated = True
+                    if not pesquisa.descricao and item_data.get('descricao'):
+                        pesquisa.descricao = item_data.get('descricao', '')
                         updated = True
                     if updated:
                         pesquisa.save()
@@ -420,7 +424,7 @@ class ItemDeleteView(DeleteView):
 
 class PesquisaUpdateView(UpdateView):
     model = Pesquisa
-    fields = ['nome_fornecedor', 'valor_unitario', 'codigo_contabiliza', 'codigo_bem']
+    fields = ['nome_fornecedor', 'valor_unitario', 'codigo_contabiliza', 'codigo_bem', 'descricao']
     template_name = 'compras/pesquisa_form.html'
 
     def get_context_data(self, **kwargs):

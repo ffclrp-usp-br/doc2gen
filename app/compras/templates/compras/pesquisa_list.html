@@ -15,6 +15,7 @@
             <tr>
                 <th>Item</th>
                 <th>Fornecedor</th>
+                <th>Descrição</th>
                 <th>Código Bem</th>
                 <th>Código Contabiliza</th>
                 <th>Valor unitário</th>
@@ -32,6 +33,7 @@
                     {% endif %}
                 </td>
                 <td>{{ pesquisa.nome_fornecedor }}</td>
+                <td>{{ pesquisa.descricao|truncatechars:50 }}</td>
                 <td>{{ pesquisa.codigo_bem }}</td>
                 <td>{{ pesquisa.codigo_contabiliza }}</td>
                 <td>{{ pesquisa.valor_unitario }}</td>
@@ -42,7 +44,7 @@
             </tr>
             {% empty %}
             <tr>
-                <td colspan="6" class="text-center">Nenhuma pesquisa cadastrada.</td>
+                <td colspan="7" class="text-center">Nenhuma pesquisa cadastrada.</td>
             </tr>
             {% endfor %}
         </tbody>
