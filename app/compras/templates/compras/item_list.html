@@ -18,10 +18,10 @@
                 <th>#</th>
                 <th><small>Demanda</small></th>
                 <th><small>Centro Gerencial<br>Grupo Orçamentário</small></th>
+                <th><small>Qtde</small></th>
                 <th style="min-width: 15%;"><small>Códigos diversos</small></th>
                 <th><small>Descrição</small></th>
                 <th><small>Item de despesa</small></th>
-                <th><small>Qtd</small></th>
                 <th><small>Valor médio</small></th>
                 <th><small>Ações</small></th>
             </tr>
@@ -32,6 +32,7 @@
                 <td>{{ item.numero_ordem }}</td>
                 <td>{{ item.demanda.numero_demanda }}</td>
                 <td>{{ item.demanda.centro_gerencial }}<br>{{ item.demanda.grupo_orcamentario }}</td>
+                <td>{{ item.quantidade }}</td>
                 <td><small>
                     Material: {{ item.codigo_material }}<br>
                     Bem: {{ item.codigo_bem }}<br>
@@ -40,7 +41,6 @@
                 </small></td>
                 <td>{{ item.descricao }}</td>
                 <td>{{ item.item_despesa }}</td>
-                <td>{{ item.quantidade }}</td>
                 <td>{{ item.valor_medio }}</td>
                 <td>
                     <a href="{% url 'pesquisa_list' compra.id %}?item={{ item.pk }}" class="btn btn-sm btn-info">Pesquisas</a>
