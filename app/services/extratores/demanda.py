@@ -107,6 +107,25 @@ class ExtratorDocumentoDemanda(ExtratorBase):
         return itens_unicos
 
 
+    # -------------------------
+    # EXTRAIR DESCRIÇÃO DO ITEM
+    # -------------------------
+    def _extrair_descricao_item(self, linhas):
+        for i, linha in enumerate(linhas):
+            if "Descrição - Grupo/Item/Subitem" in linha:
+                # próxima linha contém a hierarquia
+                if i + 1 < len(linhas):
+                    descricao_linha = linhas[i + 1].strip()
+
+                    # separa por "/"
+                    partes = [p.strip() for p in descricao_linha.split("/")]
+
+                    if partes:
+                        return partes[-1].lower()  # pega o último nível
+
+        return None
+
+
 
     # -------------------------
     # EXTRAIR DADOS DE UM ITEM
@@ -146,6 +165,7 @@ class ExtratorDocumentoDemanda(ExtratorBase):
         cod_compras = None
         quantidade = None
         unidade = None
+        descricao = None
 
         numeros = []
         textos = []
@@ -209,6 +229,7 @@ class ExtratorDocumentoDemanda(ExtratorBase):
             "quantidade": quantidade,
             "unidade": unidade,
             "item_despesa": itens_despesa,
+            "descricao": self._extrair_descricao_item(linhas)
         }
     
     def _vazio(self, valor):

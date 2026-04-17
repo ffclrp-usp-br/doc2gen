@@ -116,6 +116,8 @@ class Item(models.Model):
     
     valor_medio = models.DecimalField('Valor médio', max_digits=14, decimal_places=2, validators=[MinValueValidator(0)], blank=True, null=True)
     
+    quantidade = models.PositiveIntegerField('Quantidade', blank=True, null=True)
+    
     demanda = models.ForeignKey(Demanda, related_name='itens', on_delete=models.CASCADE)
     
     

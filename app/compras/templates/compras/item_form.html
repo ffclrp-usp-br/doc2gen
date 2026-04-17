@@ -61,6 +61,13 @@
                         {% endif %}
                     </div>
                     <div class="mb-3">
+                        {{ form.quantidade.label_tag }}
+                        {{ form.quantidade }}
+                        {% if form.quantidade.errors %}
+                            <div class="text-danger">{{ form.quantidade.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="mb-3">
                         {{ form.valor_medio.label_tag }}
                         {{ form.valor_medio }}
                         {% if form.valor_medio.errors %}

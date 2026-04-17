@@ -51,6 +51,7 @@ class Migration(migrations.Migration):
                 ('descricao', models.CharField(blank=True, max_length=255, verbose_name='Descrição')),
                 ('item_despesa', models.CharField(blank=True, max_length=255, validators=[django.core.validators.RegexValidator('^\\d+$', 'Deve ser apenas números')], verbose_name='Item de despesa')),
                 ('valor_medio', models.DecimalField(blank=True, decimal_places=2, max_digits=14, null=True, validators=[django.core.validators.MinValueValidator(0)], verbose_name='Valor médio')),
+                ('quantidade', models.PositiveIntegerField(blank=True, null=True, verbose_name='Quantidade')),
                 ('demanda', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='itens', to='compras.demanda')),
             ],
             options={

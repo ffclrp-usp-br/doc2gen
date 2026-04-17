@@ -261,9 +261,10 @@ class DemandaImportPDFView(FormView):
                     codigo_compras_gov=item_data.get('codigo_compras_gov', ''),
                     codigo_contabiliza=item_data.get('codigo_contabiliza', ''),
                     codigo_bem=item_data.get('codigo_bem', ''),
-                    descricao='',
+                    descricao=item_data.get('descricao', ''),
                     item_despesa=item_despesa_str,
                     valor_medio=None,
+                    quantidade=item_data.get('quantidade'),
                 )
 
         return demanda, None
@@ -362,7 +363,7 @@ class PesquisaListView(ListView):
 
 class ItemCreateView(CreateView):
     model = Item
-    fields = ['demanda', 'codigo_material', 'codigo_compras_gov', 'codigo_contabiliza', 'codigo_bem', 'descricao', 'item_despesa', 'valor_medio']
+    fields = ['demanda', 'codigo_material', 'codigo_compras_gov', 'codigo_contabiliza', 'codigo_bem', 'descricao', 'item_despesa', 'quantidade', 'valor_medio']
     template_name = 'compras/item_form.html'
 
     def get_context_data(self, **kwargs):
@@ -390,7 +391,7 @@ class ItemCreateView(CreateView):
 
 class ItemUpdateView(UpdateView):
     model = Item
-    fields = ['demanda', 'codigo_material', 'codigo_compras_gov', 'codigo_contabiliza', 'codigo_bem', 'descricao', 'item_despesa', 'valor_medio']
+    fields = ['demanda', 'codigo_material', 'codigo_compras_gov', 'codigo_contabiliza', 'codigo_bem', 'descricao', 'item_despesa', 'quantidade', 'valor_medio']
     template_name = 'compras/item_form.html'
 
     def get_context_data(self, **kwargs):

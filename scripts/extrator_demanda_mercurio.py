@@ -140,6 +140,7 @@ def extrair_dados_item(bloco):
     cod_compras = None
     qtd = None
     unidade = None
+    descricao = extrair_descricao_item(linhas)
 
     numeros = []
     textos = []
@@ -202,7 +203,8 @@ def extrair_dados_item(bloco):
         "codigo_compras_gov": cod_compras,
         "qtd": qtd,
         "unidade": unidade,
-        "item_despesa": itens_despesa
+        "item_despesa": itens_despesa,
+        "descricao": descricao
     }
 
 
@@ -237,6 +239,26 @@ def extrair_dados(pdf_path):
 
 def vazio(valor):
     return valor is None or str(valor).strip() == ""
+
+
+
+# -------------------------
+# EXTRAIR DESCRIÇÃO DO ITEM
+# -------------------------
+def extrair_descricao_item(linhas):
+    for i, linha in enumerate(linhas):
+        if "Descrição - Grupo/Item/Subitem" in linha:
+            # próxima linha contém a hierarquia
+            if i + 1 < len(linhas):
+                descricao_linha = linhas[i + 1].strip()
+
+                # separa por "/"
+                partes = [p.strip() for p in descricao_linha.split("/")]
+
+                if partes:
+                    return partes[-1].lower()  # pega o último nível
+
+    return None
 
 
 
