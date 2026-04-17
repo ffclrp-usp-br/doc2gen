@@ -2,6 +2,7 @@ from decimal import Decimal, InvalidOperation
 
 from django import forms
 from django.urls import reverse_lazy
+from django.db.models import Prefetch
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView, FormView
 
 from .models import Compra, Demanda, Item, Pesquisa
@@ -27,6 +28,9 @@ class CompraListView(ListView):
 
     def get_queryset(self):
         return Compra.objects.prefetch_related('demandas__itens__pesquisas')
+        
+
+
 
 
 class UploadPDFForm(forms.Form):
@@ -253,7 +257,7 @@ class DemandaImportPDFView(FormView):
             ).exists():
                 # Converte lista de item_despesa para string separada por vírgula
                 item_despesa_list = item_data.get('item_despesa', [])
-                item_despesa_str = ','.join(item_despesa_list) if isinstance(item_despesa_list, list) else ''
+                item_despesa_str = ' '.join(item_despesa_list) if isinstance(item_despesa_list, list) else ''
                 
                 Item.objects.create(
                     demanda=demanda,
@@ -340,7 +344,7 @@ class ItemListView(ListView):
 
     def get_queryset(self):
         compra_id = self.kwargs.get('compra_id')
-        return Item.objects.filter(demanda__compra_id=compra_id).order_by('numero_ordem')
+        return Item.objects.filter(demanda__compra_id=compra_id).order_by('id', 'numero_ordem')
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
