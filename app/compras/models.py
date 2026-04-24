@@ -3,6 +3,41 @@ from django.db import models
 from django.db.models import Avg
 
 
+class CentroGerencialGrupoOrcamentario:
+    """Mapeamento de Centro Gerencial para Grupo Orçamentário."""
+    
+    MAPEAMENTO = {
+        r"\ADM\INF": "59.003",
+        r"\ADM\MANUT": "59.001",
+        r"\ADM\RECEITA\PROJETOS RECEITA": "59.007",
+        r"\ADM-SEG": "59.002",
+        r"\ADM-TREINA": "59.004",
+        r"\ADM\BIB": "59.131",
+        r"\ADM\PROJETOS COP": "59.174",
+    }
+    
+    PADRAO = "59.000"
+    
+    @classmethod
+    def obter_grupo_orcamentario(cls, centro_gerencial: str) -> str:
+        """
+        Retorna o grupo orçamentário baseado no centro gerencial.
+        Se não encontrar, retorna o padrão (59.000).
+        """
+        if not centro_gerencial:
+            return cls.PADRAO
+        
+        centro_gerencial = centro_gerencial.strip()
+        
+        # Buscar correspondência exata
+        for chave, valor in cls.MAPEAMENTO.items():
+            if chave.lstrip('\\').lstrip('r') == centro_gerencial.lstrip('\\'):
+                return valor
+        
+        # Se não encontrar, retornar padrão
+        return cls.PADRAO
+
+
 def demanda_validator(value):
     if not value or not RegexValidator(r'^\d+/\d{4}$')(value):
         return

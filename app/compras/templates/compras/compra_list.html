@@ -16,14 +16,10 @@
     <table class="table table-striped table-bordered">
         <thead class="table-light">
             <tr>
-                <th>Número</th>
+                <th>Compra</th>
                 <th>SEI</th>
-                <th>Modalidade</th>
-                <th>Tipo</th>
-                <th>Valor Estimado</th>
-                <th>Agente</th>
-                <th>Itens</th>
-                <th>Pesquisas</th>
+                <th>Modalidade/Tipo/Objeto</th>
+                <th>Detalhes</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -32,12 +28,12 @@
             <tr>
                 <td>{{ compra.numero_compra }}</td>
                 <td>{{ compra.numero_sei }}</td>
-                <td>{{ compra.modalidade }}</td>
-                <td>{{ compra.tipo }}</td>
-                <td>{{ compra.valor_estimado }}</td>
-                <td>{{ compra.nome_agente_contratacao }}</td>
-                <td><a href="{% url 'item_list' compra.id %}" class="btn btn-sm btn-outline-primary">Ver itens</a></td>
-                <td><a href="{% url 'pesquisa_list' compra.id %}" class="btn btn-sm btn-outline-info">Ver pesquisas</a></td>
+                <td><small>{{ compra.objeto }}</small><br>
+                    <small>{{ compra.tipo }}</small><br>
+                    <small>{{ compra.modalidade }}</small>
+                </td>
+                <td><a href="{% url 'item_list' compra.id %}" class="btn btn-sm btn-outline-primary">Itens</a>
+                <a href="{% url 'pesquisa_list' compra.id %}" class="btn btn-sm btn-outline-info">Pesquisas</a></td>
                 <td>
                     <a href="{% url 'compra_update' compra.pk %}" class="btn btn-sm btn-warning">Editar</a>
                     <a href="{% url 'compra_delete' compra.pk %}" class="btn btn-sm btn-danger">Excluir</a>

@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.db.models import Prefetch
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView, FormView
 
-from .models import Compra, Demanda, Item, Pesquisa
+from .models import Compra, Demanda, Item, Pesquisa, CentroGerencialGrupoOrcamentario
 
 from services.parser_service import ParserService
 
@@ -229,22 +229,25 @@ class DemandaImportPDFView(FormView):
         if not itens_validos:
             return None, 'Os itens da demanda não possuem os códigos necessários. Verifique se o PDF segue o formato esperado: "número número número número número número número descrição".'
 
+        centro_gerencial_valor = self._extrair_grupo_orcamentario(dados.get('centro_gerencial', ''))
+        grupo_orcamentario_valor = CentroGerencialGrupoOrcamentario.obter_grupo_orcamentario(centro_gerencial_valor)
+        
         demanda, created = Demanda.objects.get_or_create(
             numero_demanda=dados['numero_demanda'],
             compra=compra,
             defaults={
-                'centro_gerencial': self._extrair_grupo_orcamentario(dados.get('centro_gerencial', '')),
-                'grupo_orcamentario': self._extrair_grupo_orcamentario(dados.get('unidade_despesa', '')),
+                'centro_gerencial': centro_gerencial_valor,
+                'grupo_orcamentario': grupo_orcamentario_valor,
             }
         )
 
         if not created:
             updated = False
-            if not demanda.centro_gerencial and dados.get('unidade_despesa'):
-                demanda.centro_gerencial = self._extrair_grupo_orcamentario(dados.get('centro_gerencial'))
+            if not demanda.centro_gerencial and centro_gerencial_valor:
+                demanda.centro_gerencial = centro_gerencial_valor
                 updated = True
-            if not demanda.grupo_orcamentario and dados.get('centro_gerencial'):
-                demanda.grupo_orcamentario = self._extrair_grupo_orcamentario(dados.get('unidade_despesa'))
+            if not demanda.grupo_orcamentario:
+                demanda.grupo_orcamentario = CentroGerencialGrupoOrcamentario.obter_grupo_orcamentario(demanda.centro_gerencial or centro_gerencial_valor)
                 updated = True
             if updated:
                 demanda.save()
