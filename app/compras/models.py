@@ -1,5 +1,6 @@
 from django.core.validators import DecimalValidator, MinValueValidator, RegexValidator
 from django.db import models
+from django.db.models import Avg
 
 
 def demanda_validator(value):
@@ -130,6 +131,14 @@ class Item(models.Model):
             last = Item.objects.filter(demanda=self.demanda).order_by('-numero_ordem').first()
             self.numero_ordem = 1 if last is None else last.numero_ordem + 1
         super().save(*args, **kwargs)
+
+    def calcular_valor_medio(self):
+        """Calcula e atualiza o valor médio baseado nas pesquisas associadas."""
+        media = self.pesquisas.aggregate(avg_valor=Avg('valor_unitario'))['avg_valor']
+        if media is not None:
+            self.valor_medio = media
+            self.save(update_fields=['valor_medio'])
+        return media
 
     def __str__(self):
         return f'{self.demanda.compra.numero_compra} - Item {self.numero_ordem}'

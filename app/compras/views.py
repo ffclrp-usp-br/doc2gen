@@ -259,7 +259,7 @@ class DemandaImportPDFView(FormView):
                 item_despesa_list = item_data.get('item_despesa', [])
                 item_despesa_str = ' '.join(item_despesa_list) if isinstance(item_despesa_list, list) else ''
                 
-                Item.objects.create(
+                item = Item.objects.create(
                     demanda=demanda,
                     codigo_material=item_data.get('codigo_material', ''),
                     codigo_compras_gov=item_data.get('codigo_compras_gov', ''),
@@ -270,8 +270,47 @@ class DemandaImportPDFView(FormView):
                     valor_medio=None,
                     quantidade=item_data.get('quantidade'),
                 )
+                
+                # Associar pesquisas existentes ao item baseado em codigo_bem e codigo_contabiliza
+                self._associar_pesquisas_ao_item(item, compra)
 
         return demanda, None
+    
+    def _associar_pesquisas_ao_item(self, item, compra):
+        """Associa pesquisas existentes ao item baseado em codigo_bem e codigo_contabiliza."""
+        filter_kwargs = {'compra': compra, 'item': None}
+        
+        if item.codigo_bem and item.codigo_contabiliza:
+            # Se ambos os campos existem, buscar por ambos
+            pesquisas = Pesquisa.objects.filter(
+                compra=compra,
+                item__isnull=True,
+                codigo_bem=item.codigo_bem,
+                codigo_contabiliza=item.codigo_contabiliza,
+            )
+        elif item.codigo_bem:
+            # Se apenas codigo_bem existe, buscar por este
+            pesquisas = Pesquisa.objects.filter(
+                compra=compra,
+                item__isnull=True,
+                codigo_bem=item.codigo_bem,
+            )
+        elif item.codigo_contabiliza:
+            # Se apenas codigo_contabiliza existe, buscar por este
+            pesquisas = Pesquisa.objects.filter(
+                compra=compra,
+                item__isnull=True,
+                codigo_contabiliza=item.codigo_contabiliza,
+            )
+        else:
+            # Se nenhum dos campos existe, não fazer associação
+            return
+        
+        # Atualizar as pesquisas encontradas para associar ao item
+        pesquisas.update(item=item)
+        
+        # Calcular e atualizar o valor médio do item
+        item.calcular_valor_medio()
 
     def form_valid(self, form):
         compra = Compra.objects.get(pk=self.kwargs.get('pk'))
@@ -344,7 +383,7 @@ class ItemListView(ListView):
 
     def get_queryset(self):
         compra_id = self.kwargs.get('compra_id')
-        return Item.objects.filter(demanda__compra_id=compra_id).order_by('id', 'numero_ordem')
+        return Item.objects.filter(demanda__compra_id=compra_id).prefetch_related('pesquisas').order_by('id', 'numero_ordem')
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
