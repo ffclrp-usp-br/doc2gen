@@ -61,46 +61,76 @@ def extrair_blocos_itens_compra(texto):
 # EXTRAIR COTAÇÕES (ROBUSTO)
 # -------------------------
 def extrair_cotacoes(bloco):
-    linhas = bloco.split("\n")
+    linhas = [l.strip() for l in bloco.split("\n") if l.strip()]
     cotacoes = []
 
-    buffer = ""
+    indices = []
 
-    for linha in linhas:
-        linha = linha.strip()
+    # localizar início de cada cotação
+    for i, linha in enumerate(linhas):
+        if re.match(r'^\d+\s+\d{2}/\d{2}/\d{4}', linha):
+            indices.append(i)
 
-        if not linha:
-            continue
+    # processar cada bloco individual
+    for n in range(len(indices)):
+        ini = indices[n]
 
-        buffer += " " + linha
+        if n < len(indices) - 1:
+            fim = indices[n + 1]
+        else:
+            fim = len(linhas)
 
-        # fim de uma cotação
-        if " Sim " in buffer or buffer.endswith(" Sim"):
+        bloco_cot = linhas[ini:fim]
 
-            pattern = r'''
-                (\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2})?   # CNPJ opcional
-                \s*
-                (\d+)\s+                             # índice
-                (\d{2}/\d{2}/\d{4})\s+               # data
-                (.*?)\s+                             # empresa
-                (\d+,\d+)\s+                         # quantidade
-                ([\d\.,]+)\s+                        # valor unitário
-                ([\d\.,]+)\s+                        # valor total
-                Sim
-            '''
-
-            match = re.search(pattern, buffer, re.VERBOSE)
-
-            if match:
-                cotacoes.append({
-                    "empresa": match.group(4).strip(),
-                    "quantidade": match.group(5),
-                    "valor_unitario": match.group(6),
-                })
-
-            buffer = ""
+        cot = processar_cotacao(bloco_cot)
+        if cot:
+            cotacoes.append(cot)
 
     return cotacoes
+
+
+def processar_cotacao(linhas):
+    texto = " ".join(linhas)
+
+    # pega todos valores monetários
+    nums = re.findall(r'\d{1,3}(?:\.\d{3})*,\d{2}', texto)
+
+    if len(nums) < 3:
+        return None
+
+    quantidade = nums[-3]
+    valor_unitario = nums[-2]
+
+    # remove prefixo índice + data
+    texto = re.sub(r'^\d+\s+\d{2}/\d{2}/\d{4}\s+', '', texto)
+
+    # nome vai até CNPJ/CPF ou validade
+    cortes = [
+        r'\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}',
+        r'\d{3}\.\d{3}\.\d{3}-\d{2}',
+        r'60 dias',
+        quantidade
+    ]
+
+    posicoes = []
+
+    for c in cortes:
+        m = re.search(c, texto)
+        if m:
+            posicoes.append(m.start())
+
+    if posicoes:
+        empresa = texto[:min(posicoes)]
+    else:
+        empresa = texto
+
+    empresa = re.sub(r'\s+', ' ', empresa).strip()
+
+    return {
+        "empresa": empresa,
+        "quantidade": quantidade,
+        "valor_unitario": valor_unitario
+    }
 
 
 # -------------------------

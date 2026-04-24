@@ -144,24 +144,74 @@ class ExtratorDocumentoGrade(ExtratorBase):
     # EXTRAIR COTAÇÕES
     # -------------------------
     def _extrair_cotacoes(self, bloco):
-        linhas = [linha.strip() for linha in bloco.splitlines() if linha.strip()]
+        linhas = [l.strip() for l in bloco.split("\n") if l.strip()]
         cotacoes = []
-        buffer = ""
 
-        for linha in linhas:
-            buffer += " " + linha
-            if linha.endswith(" Sim") or " Sim " in linha:
-                match = re.search(
-                    r'(\d+)\s+(\d{2}/\d{2}/\d{4})\s+(.+?)\s+(\d+,\d+)\s+([\d\.,]+)\s+([\d\.,]+)\s+Sim',
-                    buffer,
-                    re.IGNORECASE | re.DOTALL,
-                )
-                if match:
-                    cotacoes.append({
-                        "empresa": match.group(3).strip(),
-                        "quantidade": match.group(4).strip(),
-                        "valor_unitario": match.group(5).strip(),
-                    })
-                buffer = ""
+        indices = []
+
+        # localizar início de cada cotação
+        for i, linha in enumerate(linhas):
+            if re.match(r'^\d+\s+\d{2}/\d{2}/\d{4}', linha):
+                indices.append(i)
+
+        # processar cada bloco individual
+        for n in range(len(indices)):
+            ini = indices[n]
+
+            if n < len(indices) - 1:
+                fim = indices[n + 1]
+            else:
+                fim = len(linhas)
+
+            bloco_cot = linhas[ini:fim]
+
+            cot = self._processar_cotacao(bloco_cot)
+            if cot:
+                cotacoes.append(cot)
 
         return cotacoes
+        
+
+
+    def _processar_cotacao(self, linhas):
+        texto = " ".join(linhas)
+
+        # pega todos valores monetários
+        nums = re.findall(r'\d{1,3}(?:\.\d{3})*,\d{2}', texto)
+
+        if len(nums) < 3:
+            return None
+
+        quantidade = nums[-3]
+        valor_unitario = nums[-2]
+
+        # remove prefixo índice + data
+        texto = re.sub(r'^\d+\s+\d{2}/\d{2}/\d{4}\s+', '', texto)
+
+        # nome vai até CNPJ/CPF ou validade
+        cortes = [
+            r'\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}',
+            r'\d{3}\.\d{3}\.\d{3}-\d{2}',
+            r'60 dias',
+            quantidade
+        ]
+
+        posicoes = []
+
+        for c in cortes:
+            m = re.search(c, texto)
+            if m:
+                posicoes.append(m.start())
+
+        if posicoes:
+            empresa = texto[:min(posicoes)]
+        else:
+            empresa = texto
+
+        empresa = re.sub(r'\s+', ' ', empresa).strip()
+
+        return {
+            "empresa": empresa,
+            "quantidade": quantidade,
+            "valor_unitario": valor_unitario
+        }
