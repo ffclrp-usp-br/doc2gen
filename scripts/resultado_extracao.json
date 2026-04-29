@@ -1,0 +1,792 @@
+{
+    "numero_compra": "202600052737 / 59",
+    "numero_sei": "154.00005677/2026-46",
+    "modalidade": "Pregão - Lei nº 14.133/21 - Bens e serviços comuns",
+    "valor_total_previsto": "108.343,95",
+    "itens": [
+        {
+            "item": "1",
+            "codigo_bem": "10243275",
+            "codigo_bec": "6534210",
+            "codigo_material": "314650",
+            "item_despesa": "44905234",
+            "descricao": "",
+            "quantidade": "2",
+            "valor_unitario_previsto": "1.581,96",
+            "pesquisas": [
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "1.238,60"
+                },
+                {
+                    "fornecedor": "Everest Refrigeração (33.079.641/0001-32)",
+                    "valor_unitario": "1.382,27"
+                },
+                {
+                    "fornecedor": "BEM ESTAR (27.509.823/0001-01)",
+                    "valor_unitario": "1.471,00"
+                },
+                {
+                    "fornecedor": "Givanildo Camargo da Silva (58.347.120/0001-40)",
+                    "valor_unitario": "2.236,00"
+                }
+            ]
+        },
+        {
+            "item": "2",
+            "codigo_bem": "9841857",
+            "codigo_bec": "6162789",
+            "codigo_material": "341592",
+            "item_despesa": "44905234",
+            "descricao": "",
+            "quantidade": "2",
+            "valor_unitario_previsto": "709,05",
+            "pesquisas": [
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "632,69"
+                },
+                {
+                    "fornecedor": "Grupo Casas Banhia SA (33.041.260/0652-90)",
+                    "valor_unitario": "644,68"
+                },
+                {
+                    "fornecedor": "Givanildo Camargo da Silva (58.347.120/0001-40)",
+                    "valor_unitario": "849,80"
+                }
+            ]
+        },
+        {
+            "item": "3",
+            "codigo_bem": "6926029",
+            "codigo_bec": "4265882",
+            "codigo_material": "340464",
+            "item_despesa": "33903013",
+            "descricao": "",
+            "quantidade": "2",
+            "valor_unitario_previsto": "425,48",
+            "pesquisas": [
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "317,44"
+                },
+                {
+                    "fornecedor": "Amazon -Serviços de Varejo do Brasil (15.436.940/0001-03)",
+                    "valor_unitario": "399,00"
+                },
+                {
+                    "fornecedor": "Givanildo Camargo da Silva (58.347.120/0001-40)",
+                    "valor_unitario": "560,00"
+                }
+            ]
+        },
+        {
+            "item": "4",
+            "codigo_bem": "9949771",
+            "codigo_bec": "6264816",
+            "codigo_material": "309990",
+            "item_despesa": "44905234",
+            "descricao": "",
+            "quantidade": "4",
+            "valor_unitario_previsto": "4.267,72",
+            "pesquisas": [
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "3.704,26"
+                },
+                {
+                    "fornecedor": "Grupo Casas Banhia SA (33.041.260/0652-90)",
+                    "valor_unitario": "4.248,90"
+                },
+                {
+                    "fornecedor": "Givanildo Camargo da Silva (58.347.120/0001-40)",
+                    "valor_unitario": "4.850,00"
+                }
+            ]
+        },
+        {
+            "item": "5",
+            "codigo_bem": "9426337",
+            "codigo_bec": "5762464",
+            "codigo_material": "340553",
+            "item_despesa": "33903013, 44905234",
+            "descricao": "",
+            "quantidade": "4",
+            "valor_unitario_previsto": "919,61",
+            "pesquisas": [
+                {
+                    "fornecedor": "Grupo Casas Banhia SA (33.041.260/0652-90)",
+                    "valor_unitario": "736,66"
+                },
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "741,90"
+                },
+                {
+                    "fornecedor": "Magazine Luíza SA (47.960.950/1088-36)",
+                    "valor_unitario": "949,90"
+                },
+                {
+                    "fornecedor": "Givanildo Camargo da Silva (58.347.120/0001-40)",
+                    "valor_unitario": "1.250,00"
+                }
+            ]
+        },
+        {
+            "item": "6",
+            "codigo_bem": "9538437",
+            "codigo_bec": "5870291",
+            "codigo_material": "338338",
+            "item_despesa": "44905234",
+            "descricao": "",
+            "quantidade": "3",
+            "valor_unitario_previsto": "3.213,99",
+            "pesquisas": [
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "2.428,96"
+                },
+                {
+                    "fornecedor": "Amazon -Serviços de Varejo do Brasil (15.436.940/0001-03)",
+                    "valor_unitario": "2.619,01"
+                },
+                {
+                    "fornecedor": "Givanildo Camargo da Silva (58.347.120/0001-40)",
+                    "valor_unitario": "3.850,00"
+                },
+                {
+                    "fornecedor": "Magazine Luíza SA (47.960.950/1088-36)",
+                    "valor_unitario": "3.958,00"
+                }
+            ]
+        },
+        {
+            "item": "7",
+            "codigo_bem": "10130390",
+            "codigo_bec": "6431160",
+            "codigo_material": "309770",
+            "item_despesa": "44905234",
+            "descricao": "",
+            "quantidade": "4",
+            "valor_unitario_previsto": "446,57",
+            "pesquisas": [
+                {
+                    "fornecedor": "GURGELMIX (29.302.348/0001-15)",
+                    "valor_unitario": "330,01"
+                },
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "429,70"
+                },
+                {
+                    "fornecedor": "Givanildo Camargo da Silva (58.347.120/0001-40)",
+                    "valor_unitario": "580,00"
+                }
+            ]
+        },
+        {
+            "item": "8",
+            "codigo_bem": "8700087",
+            "codigo_bec": "5080835",
+            "codigo_material": "342408",
+            "item_despesa": "33903013",
+            "descricao": "",
+            "quantidade": "4",
+            "valor_unitario_previsto": "111,05",
+            "pesquisas": [
+                {
+                    "fornecedor": "Amazon -Serviços de Varejo do Brasil (15.436.940/0001-03)",
+                    "valor_unitario": "69,90"
+                },
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "107,47"
+                },
+                {
+                    "fornecedor": "Givanildo Camargo da Silva (58.347.120/0001-40)",
+                    "valor_unitario": "155,80"
+                }
+            ]
+        },
+        {
+            "item": "9",
+            "codigo_bem": "10182071",
+            "codigo_bec": "6480462",
+            "codigo_material": "338397",
+            "item_despesa": "33903042, 44905234",
+            "descricao": "",
+            "quantidade": "3",
+            "valor_unitario_previsto": "139,01",
+            "pesquisas": [
+                {
+                    "fornecedor": "Amazon -Serviços de Varejo do Brasil (15.436.940/0001-03)",
+                    "valor_unitario": "120,00"
+                },
+                {
+                    "fornecedor": "Givanildo Camargo da Silva (58.347.120/0001-40)",
+                    "valor_unitario": "132,00"
+                },
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "165,03"
+                }
+            ]
+        },
+        {
+            "item": "10",
+            "codigo_bem": "8798010",
+            "codigo_bec": "5175844",
+            "codigo_material": "340979",
+            "item_despesa": "44905234, 449052341",
+            "descricao": "",
+            "quantidade": "2",
+            "valor_unitario_previsto": "247,74",
+            "pesquisas": [
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "218,74"
+                },
+                {
+                    "fornecedor": "Givanildo Camargo da Silva (58.347.120/0001-40)",
+                    "valor_unitario": "235,90"
+                },
+                {
+                    "fornecedor": "Magazine Luíza SA (47.960.950/1088-36)",
+                    "valor_unitario": "288,60"
+                }
+            ]
+        },
+        {
+            "item": "11",
+            "codigo_bem": "9586598",
+            "codigo_bec": "5917310",
+            "codigo_material": "314650",
+            "item_despesa": "44905234",
+            "descricao": "",
+            "quantidade": "1",
+            "valor_unitario_previsto": "2.038,12",
+            "pesquisas": [
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "1.876,25"
+                },
+                {
+                    "fornecedor": "Givanildo Camargo da Silva (58.347.120/0001-40)",
+                    "valor_unitario": "2.200,00"
+                }
+            ]
+        },
+        {
+            "item": "12",
+            "codigo_bem": "9628924",
+            "codigo_bec": "5958261",
+            "codigo_material": "340979",
+            "item_despesa": "44905234, 449052341",
+            "descricao": "",
+            "quantidade": "1",
+            "valor_unitario_previsto": "718,72",
+            "pesquisas": [
+                {
+                    "fornecedor": "Magazine Luíza SA (47.960.950/1088-36)",
+                    "valor_unitario": "611,58"
+                },
+                {
+                    "fornecedor": "Ebazar Comércio br Ltda (03.007.331/0001-41)",
+                    "valor_unitario": "689,90"
+                },
+                {
+                    "fornecedor": "Ponto Frio (33.041.260/0652-90)",
+                    "valor_unitario": "710,99"
+                },
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "732,16"
+                },
+                {
+                    "fornecedor": "Givanildo Camargo da Silva (58.347.120/0001-40)",
+                    "valor_unitario": "849,00"
+                }
+            ]
+        },
+        {
+            "item": "13",
+            "codigo_bem": "6925510",
+            "codigo_bec": "4145755",
+            "codigo_material": "340553",
+            "item_despesa": "44905234",
+            "descricao": "",
+            "quantidade": "1",
+            "valor_unitario_previsto": "814,66",
+            "pesquisas": [
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "745,98"
+                },
+                {
+                    "fornecedor": "Loja Eletrolux (13.986.197/0001-21)",
+                    "valor_unitario": "829,00"
+                },
+                {
+                    "fornecedor": "Givanildo Camargo da Silva (58.347.120/0001-40)",
+                    "valor_unitario": "869,00"
+                }
+            ]
+        },
+        {
+            "item": "14",
+            "codigo_bem": "9082077",
+            "codigo_bec": "5435889",
+            "codigo_material": "310018",
+            "item_despesa": "44905234",
+            "descricao": "",
+            "quantidade": "1",
+            "valor_unitario_previsto": "3.248,45",
+            "pesquisas": [
+                {
+                    "fornecedor": "Magazine Luíza SA (47.960.950/1088-36)",
+                    "valor_unitario": "3.194,89"
+                },
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "3.200,48"
+                },
+                {
+                    "fornecedor": "Givanildo Camargo da Silva (58.347.120/0001-40)",
+                    "valor_unitario": "3.350,00"
+                }
+            ]
+        },
+        {
+            "item": "15",
+            "codigo_bem": "8704783",
+            "codigo_bec": "5085756",
+            "codigo_material": "314650",
+            "item_despesa": "33903090, 44905234",
+            "descricao": "",
+            "quantidade": "1",
+            "valor_unitario_previsto": "3.400,77",
+            "pesquisas": [
+                {
+                    "fornecedor": "Dutra Máquinas (50.970.342/0001-02)",
+                    "valor_unitario": "3.102,12"
+                },
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "3.121,11"
+                },
+                {
+                    "fornecedor": "Givanildo Camargo da Silva (58.347.120/0001-40)",
+                    "valor_unitario": "3.480,00"
+                },
+                {
+                    "fornecedor": "Loja do Bebedouro (29.730.943/0002-32)",
+                    "valor_unitario": "3.899,85"
+                }
+            ]
+        },
+        {
+            "item": "16",
+            "codigo_bem": "8104778",
+            "codigo_bec": "4632869",
+            "codigo_material": "335274",
+            "item_despesa": "33903032, 44905234",
+            "descricao": "",
+            "quantidade": "1",
+            "valor_unitario_previsto": "247,11",
+            "pesquisas": [
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "170,68"
+                },
+                {
+                    "fornecedor": "Magazine Luíza SA (47.960.950/1088-36)",
+                    "valor_unitario": "281,06"
+                },
+                {
+                    "fornecedor": "Tecnoferramentas (09.353.055/0001-50)",
+                    "valor_unitario": "289,59"
+                }
+            ]
+        },
+        {
+            "item": "17",
+            "codigo_bem": "9529217",
+            "codigo_bec": "5861314",
+            "codigo_material": "341851",
+            "item_despesa": "33903013",
+            "descricao": "",
+            "quantidade": "8",
+            "valor_unitario_previsto": "121,83",
+            "pesquisas": [
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "74,31"
+                },
+                {
+                    "fornecedor": "Ebazar Comércio br Ltda (03.007.331/0001-41)",
+                    "valor_unitario": "77,74"
+                },
+                {
+                    "fornecedor": "Givanildo Camargo da Silva (58.347.120/0001-40)",
+                    "valor_unitario": "132,10"
+                },
+                {
+                    "fornecedor": "Agropeperi (14.482.779/0002-14)",
+                    "valor_unitario": "203,17"
+                }
+            ]
+        },
+        {
+            "item": "18",
+            "codigo_bem": "9879013",
+            "codigo_bec": "6201580",
+            "codigo_material": "260258",
+            "item_despesa": "33903050",
+            "descricao": "",
+            "quantidade": "10",
+            "valor_unitario_previsto": "126,22",
+            "pesquisas": [
+                {
+                    "fornecedor": "Fogo Forte (13.714.181/0001-60)",
+                    "valor_unitario": "92,03"
+                },
+                {
+                    "fornecedor": "Ebazar Comércio br Ltda (03.007.331/0001-41)",
+                    "valor_unitario": "105,85"
+                },
+                {
+                    "fornecedor": "Magazine Luíza SA (47.960.950/1088-36)",
+                    "valor_unitario": "125,00"
+                },
+                {
+                    "fornecedor": "Givanildo Camargo da Silva (58.347.120/0001-40)",
+                    "valor_unitario": "182,00"
+                }
+            ]
+        },
+        {
+            "item": "19",
+            "codigo_bem": "9366288",
+            "codigo_bec": "5703239",
+            "codigo_material": "314650",
+            "item_despesa": "44905234",
+            "descricao": "",
+            "quantidade": "3",
+            "valor_unitario_previsto": "2.589,83",
+            "pesquisas": [
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "2.290,78"
+                },
+                {
+                    "fornecedor": "Refrisol (02.551.354/0001-50)",
+                    "valor_unitario": "2.615,71"
+                },
+                {
+                    "fornecedor": "Givanildo Camargo da Silva (58.347.120/0001-40)",
+                    "valor_unitario": "2.863,00"
+                }
+            ]
+        },
+        {
+            "item": "20",
+            "codigo_bem": "9707379",
+            "codigo_bec": "6031536",
+            "codigo_material": "340553",
+            "item_despesa": "44905234",
+            "descricao": "",
+            "quantidade": "2",
+            "valor_unitario_previsto": "725,25",
+            "pesquisas": [
+                {
+                    "fornecedor": "Amazon -Serviços de Varejo do Brasil (15.436.940/0001-03)",
+                    "valor_unitario": "594,50"
+                },
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "601,25"
+                },
+                {
+                    "fornecedor": "Givanildo Camargo da Silva (58.347.120/0001-40)",
+                    "valor_unitario": "980,00"
+                }
+            ]
+        },
+        {
+            "item": "21",
+            "codigo_bem": "6922503",
+            "codigo_bec": "3616991",
+            "codigo_material": "341738",
+            "item_despesa": "44905234",
+            "descricao": "",
+            "quantidade": "4",
+            "valor_unitario_previsto": "453,71",
+            "pesquisas": [
+                {
+                    "fornecedor": "Ponto Frio (33.041.260/0652-90)",
+                    "valor_unitario": "336,80"
+                },
+                {
+                    "fornecedor": "Givanildo Camargo da Silva (58.347.120/0001-40)",
+                    "valor_unitario": "438,00"
+                },
+                {
+                    "fornecedor": "Magazine Luíza SA (47.960.950/1088-36)",
+                    "valor_unitario": "479,00"
+                },
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "561,07"
+                }
+            ]
+        },
+        {
+            "item": "22",
+            "codigo_bem": "8655871",
+            "codigo_bec": "5037603",
+            "codigo_material": "341754",
+            "item_despesa": "44905234",
+            "descricao": "",
+            "quantidade": "2",
+            "valor_unitario_previsto": "358,08",
+            "pesquisas": [
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "244,02"
+                },
+                {
+                    "fornecedor": "Angeloni & Cia Ltda (83.646.984/0069-06)",
+                    "valor_unitario": "341,28"
+                },
+                {
+                    "fornecedor": "Havan (79.379.491/0008-50)",
+                    "valor_unitario": "351,19"
+                },
+                {
+                    "fornecedor": "Givanildo Camargo da Silva (58.347.120/0001-40)",
+                    "valor_unitario": "424,15"
+                },
+                {
+                    "fornecedor": "Magazine Luíza SA (47.960.950/1088-36)",
+                    "valor_unitario": "429,80"
+                }
+            ]
+        },
+        {
+            "item": "23",
+            "codigo_bem": "9130179",
+            "codigo_bec": "5480876",
+            "codigo_material": "309990",
+            "item_despesa": "44905234",
+            "descricao": "",
+            "quantidade": "1",
+            "valor_unitario_previsto": "3.815,09",
+            "pesquisas": [
+                {
+                    "fornecedor": "BUD Com. Eletrodomésticos (62.058.318/0007-76)",
+                    "valor_unitario": "3.499,00"
+                },
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "3.617,48"
+                },
+                {
+                    "fornecedor": "Givanildo Camargo da Silva (58.347.120/0001-40)",
+                    "valor_unitario": "3.685,00"
+                },
+                {
+                    "fornecedor": "Magazine Luíza SA (47.960.950/1088-36)",
+                    "valor_unitario": "4.458,90"
+                }
+            ]
+        },
+        {
+            "item": "24",
+            "codigo_bem": "10243275",
+            "codigo_bec": "6534210",
+            "codigo_material": "314650",
+            "item_despesa": "44905234",
+            "descricao": "",
+            "quantidade": "1",
+            "valor_unitario_previsto": "1.375,46",
+            "pesquisas": [
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "1.254,11"
+                },
+                {
+                    "fornecedor": "Everest Refrigeração (33.079.641/0001-32)",
+                    "valor_unitario": "1.382,27"
+                },
+                {
+                    "fornecedor": "Givanildo Camargo da Silva (58.347.120/0001-40)",
+                    "valor_unitario": "1.490,00"
+                }
+            ]
+        },
+        {
+            "item": "25",
+            "codigo_bem": "9149287",
+            "codigo_bec": "5496489",
+            "codigo_material": "340553",
+            "item_despesa": "44905234",
+            "descricao": "",
+            "quantidade": "1",
+            "valor_unitario_previsto": "1.021,42",
+            "pesquisas": [
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "892,90"
+                },
+                {
+                    "fornecedor": "Magazine Luíza SA (47.960.950/1088-36)",
+                    "valor_unitario": "953,90"
+                },
+                {
+                    "fornecedor": "Loja Eletrolux (13.986.197/0001-21)",
+                    "valor_unitario": "958,90"
+                },
+                {
+                    "fornecedor": "Givanildo Camargo da Silva (58.347.120/0001-40)",
+                    "valor_unitario": "1.280,00"
+                }
+            ]
+        },
+        {
+            "item": "26",
+            "codigo_bem": "9632018",
+            "codigo_bec": "5960525",
+            "codigo_material": "340979",
+            "item_despesa": "44905234, 449052341",
+            "descricao": "",
+            "quantidade": "2",
+            "valor_unitario_previsto": "381,92",
+            "pesquisas": [
+                {
+                    "fornecedor": "Amazon -Serviços de Varejo do Brasil (15.436.940/0001-03)",
+                    "valor_unitario": "264,89"
+                },
+                {
+                    "fornecedor": "Philco (11.283.356/0002-87)",
+                    "valor_unitario": "319,99"
+                },
+                {
+                    "fornecedor": "Magazine Luíza SA (47.960.950/1088-36)",
+                    "valor_unitario": "419,00"
+                },
+                {
+                    "fornecedor": "Frigelar (92.660.406/0001-19)",
+                    "valor_unitario": "437,72"
+                },
+                {
+                    "fornecedor": "Givanildo Camargo da Silva (58.347.120/0001-40)",
+                    "valor_unitario": "468,00"
+                }
+            ]
+        },
+        {
+            "item": "27",
+            "codigo_bem": "8812381",
+            "codigo_bec": "5186978",
+            "codigo_material": "340979",
+            "item_despesa": "44905234, 449052341",
+            "descricao": "",
+            "quantidade": "1",
+            "valor_unitario_previsto": "1.356,14",
+            "pesquisas": [
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "1.239,54"
+                },
+                {
+                    "fornecedor": "Magazine Luíza SA (47.960.950/1088-36)",
+                    "valor_unitario": "1.378,90"
+                },
+                {
+                    "fornecedor": "Givanildo Camargo da Silva (58.347.120/0001-40)",
+                    "valor_unitario": "1.450,00"
+                }
+            ]
+        },
+        {
+            "item": "28",
+            "codigo_bem": "6565263",
+            "codigo_bec": "3574571",
+            "codigo_material": "309990",
+            "item_despesa": "44905234",
+            "descricao": "",
+            "quantidade": "1",
+            "valor_unitario_previsto": "2.067,53",
+            "pesquisas": [
+                {
+                    "fornecedor": "Magazine Luíza SA (47.960.950/1088-36)",
+                    "valor_unitario": "2.052,39"
+                },
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "2.082,67"
+                }
+            ]
+        },
+        {
+            "item": "29",
+            "codigo_bem": "6563252",
+            "codigo_bec": "3432637",
+            "codigo_material": "309990",
+            "item_despesa": "44905234",
+            "descricao": "",
+            "quantidade": "1",
+            "valor_unitario_previsto": "4.761,15",
+            "pesquisas": [
+                {
+                    "fornecedor": "Philco (11.283.356/0002-87)",
+                    "valor_unitario": "4.451,30"
+                },
+                {
+                    "fornecedor": "Givanildo Camargo da Silva (58.347.120/0001-40)",
+                    "valor_unitario": "4.782,00"
+                },
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "5.050,15"
+                }
+            ]
+        },
+        {
+            "item": "30",
+            "codigo_bem": "6556833",
+            "codigo_bec": "1723197",
+            "codigo_material": "309788",
+            "item_despesa": "44905234",
+            "descricao": "",
+            "quantidade": "4",
+            "valor_unitario_previsto": "7.835,59",
+            "pesquisas": [
+                {
+                    "fornecedor": "Biovera Equips. (06.936.105/0001-33)",
+                    "valor_unitario": "5.711,90"
+                },
+                {
+                    "fornecedor": "Givanildo Camargo da Silva (58.347.120/0001-40)",
+                    "valor_unitario": "5.850,00"
+                },
+                {
+                    "fornecedor": "TAJFIF (54.481.442/0001-26)",
+                    "valor_unitario": "6.934,95"
+                },
+                {
+                    "fornecedor": "ARSEC (52.203.858/0001-57)",
+                    "valor_unitario": "8.237,25"
+                },
+                {
+                    "fornecedor": "Grama Cultivo (38.369.241/0001-85)",
+                    "valor_unitario": "9.070,49"
+                },
+                {
+                    "fornecedor": "Biosystems (03.995.303/0001-80)",
+                    "valor_unitario": "11.209,00"
+                }
+            ]
+        }
+    ]
+}

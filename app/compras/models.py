@@ -66,8 +66,8 @@ class Compra(models.Model):
 
     numero_compra = models.CharField(
         'Número de compra',
-        max_length=14,
-        validators=[RegexValidator(r'^\d+/\d{4}$', 'Formato deve ser n/yyyy')],
+        max_length=20,
+        validators=[RegexValidator(r'^(\d{12}|\d+/\d{4})$', 'Formato deve ser 12 dígitos ou n/yyyy')],
         unique=True,
     )
     numero_sei = models.CharField(
@@ -78,7 +78,7 @@ class Compra(models.Model):
         blank=True,
     )
     objeto = models.CharField('Objeto', max_length=255, blank=True)
-    modalidade = models.CharField('Modalidade', max_length=30, choices=MODALIDADE_CHOICES, blank=True)
+    modalidade = models.CharField('Modalidade', max_length=255, blank=True)
     tipo = models.CharField('Tipo', max_length=20, choices=TIPO_CHOICES, blank=True)
     valor_estimado = models.DecimalField('Valor estimado', max_digits=14, decimal_places=2, validators=[MinValueValidator(0)], blank=True, null=True)
     nome_agente_contratacao = models.CharField('Agente de contratação', max_length=255, choices=AGENTE_CHOICES, blank=True)
@@ -91,8 +91,8 @@ class Compra(models.Model):
 class Demanda(models.Model):
     numero_demanda = models.CharField(
         'Número da demanda',
-        max_length=14,
-        validators=[RegexValidator(r'^\d+/\d{4}$', 'Formato deve ser n/yyyy')],
+        max_length=20,
+        validators=[RegexValidator(r'^(\d{12}|\d+/\d{4})$', 'Formato deve ser 12 dígitos ou n/yyyy')],
         unique=True,
     )
 

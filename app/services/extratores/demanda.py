@@ -36,7 +36,12 @@ class ExtratorDocumentoDemanda(ExtratorBase):
             return {}
 
     def _extrair_numero_demanda(self, texto: str) -> str | None:
-        # Tentar diferentes padrões
+        # Tentar primeiro o padrão novo: 12 dígitos contínuos
+        match = re.search(r'(?:Documento\s+da\s+Demanda[:\s]*)?(\d{12})', texto, re.IGNORECASE)
+        if match:
+            return match.group(1)
+        
+        # Tentar padrões antigos: n/yyyy
         patterns = [
             r'N[ºo°\.]?\s*(\d+)\s*-\s*Ano\s*(\d{4})',
             r'Documento\s+da\s+Demanda.*?N[ºo°\.]?\s*(\d+).*?Ano\s*(\d{4})',

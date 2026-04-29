@@ -110,22 +110,34 @@ class CompraImportPDFView(FormView):
             return None
 
     def _get_demanda_padrao(self, compra):
-        demanda, _ = Demanda.objects.get_or_create(
-            numero_demanda=compra.numero_compra,
+        numero_demanda = compra.numero_compra
+        print(f"\n[DEBUG] Criando demanda padrão:")
+        print(f"  numero_compra: '{numero_demanda}'")
+        print(f"  comprimento: {len(numero_demanda)} caracteres")
+        print(f"  bytes: {numero_demanda.encode('utf-8')}")
+        
+        demanda, created = Demanda.objects.get_or_create(
+            numero_demanda=numero_demanda,
             compra=compra,
             defaults={
                 'centro_gerencial': '',
                 'grupo_orcamentario': '',
             }
         )
+        
+        if created:
+            print(f"  ✓ Demanda criada com sucesso")
+        else:
+            print(f"  ℹ Demanda já existe")
+        
         return demanda
 
     def _get_or_create_item(self, demanda, item_data):
-        bem = item_data.get('bem', '') or ''
-        bec = item_data.get('bec', '') or ''
+        bem = item_data.get('codigo_bem', '') or ''
+        bec = item_data.get('codigo_bec', '') or ''
         
         descricao = item_data.get('descricao', '') or ''
-        valor_previsto = self._parse_decimal(item_data.get('valor_previsto'))
+        valor_previsto = self._parse_decimal(item_data.get('valor_unitario_previsto'))
 
         queryset = Item.objects.filter(demanda=demanda)
         if bem:
@@ -149,20 +161,27 @@ class CompraImportPDFView(FormView):
         return Item.objects.create(
             demanda=demanda,
             codigo_compras_gov=bec,
-            codigo_contabiliza='',
+            codigo_contabiliza=item_data.get('codigo_contabiliza', ''),
             codigo_bem=bem,
             descricao=descricao,
-            item_despesa='',
+            item_despesa=item_data.get('item_despesa', ''),
             valor_medio=valor_previsto,
         )
 
     def _processar_compra(self, compra, dados):
-        # Para importação de compra, criar apenas Pesquisa diretamente (sem Demanda/Item)
+        # Para importação de compra, criar Item (que precisa de Demanda) e Pesquisa
         itens = dados.get('itens', [])
         if not itens:
             return
 
+        # Criar/obter Demanda padrão para a compra
+        demanda = self._get_demanda_padrao(compra)
+
         for item_data in itens:
+            # Criar Item para cada item_data
+            item = self._get_or_create_item(demanda, item_data)
+
+            # Criar Pesquisas para cada cotação do item
             for cotacao in item_data.get('cotacoes', []):
                 fornecedor = cotacao.get('empresa')
                 if not fornecedor:
@@ -171,13 +190,13 @@ class CompraImportPDFView(FormView):
                 valor_unitario = self._parse_decimal(cotacao.get('valor_unitario'))
                 pesquisa, created = Pesquisa.objects.get_or_create(
                     compra=compra,
+                    item=item,
                     nome_fornecedor=fornecedor.strip(),
                     defaults={
                         'valor_unitario': valor_unitario,
                         'codigo_contabiliza': item_data.get('codigo_contabiliza', ''),
                         'codigo_bem': item_data.get('codigo_bem', ''),
                         'descricao': item_data.get('descricao', ''),
-                        'item': None,  # Pesquisa sem item para importação de compra
                     },
                 )
                 if not created and valor_unitario is not None and pesquisa.valor_unitario is None:

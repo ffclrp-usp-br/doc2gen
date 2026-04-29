@@ -1,0 +1,1468 @@
+Valor Total Previsto
+108.343,95
+Item #1 | Lote: | Situação: Em análise | Quantidade | Valor Unitário | Valor Total
+Bem: 10243275 | BEC: 6534210 | Material: 314650 | 2 UNIDADE | 1.581,96 | 1.581,96
+# | Data | Pesquisado em | Prazos | Valor Unitário
+1 | 23/04/2026 | COMPRASGOVBR (980.823.298-15)
+Parâmetros: II [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 1.238,60
+2 | 07/04/2026 | Everest Refrigeração (33.079.641/0001-32)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 1.382,27
+3 | 07/04/2026 | BEM ESTAR (27.509.823/0001-01)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 1.471,00
+4 | 07/04/2026 | Givanildo Camargo da Silva (58.347.120/0001-40)
+Parâmetros: IV [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 2.236,00
+Item #2 | Lote: | Situação: Em análise | Quantidade | Valor Unitário | Valor Total
+Bem: 9841857 | BEC: 6162789 | Material: 341592 | 2 UNIDADE | 709,05 | 1.418,10
+# | Data | Pesquisado em | Prazos | Valor Unitário
+1 | 23/04/2026 | COMPRASGOVBR (980.823.298-15)
+Parâmetros: II [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 632,69
+5 | 07/04/2026 | Grupo Casas Banhia SA (33.041.260/0652-90)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 644,68
+4 | 07/04/2026 | Givanildo Camargo da Silva (58.347.120/0001-40)
+Parâmetros: IV [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 849,80
+Item #3 | Lote: | Situação: Em análise | Quantidade | Valor Unitário | Valor Total
+Bem: 6926029 | BEC: 4265882 | Material: 340464 | 2 UNIDADE | 425,48 | 850,96
+UNIVERSIDADE DE SÃO PAULO
+Documento da Compra: 202600052737 / 59 - FFCLRP
+Id PCA no PNCP:63025530000104-0-000026/2026 Data de Publicação no PNCP:18/06/2025
+Processo:154.00005677/2026-46 Data de Atualização da Compra:23/04/2026 09:02
+Modalidade:Pregão - Lei nº 14.133/21 - Bens e serviços comuns
+Critério de Julgamento:Menor preço Contrato:Não
+Origem do Recurso: Pagamento em:1 parcela(s)
+Prazo de Entrega:30 dias corridos
+Prazo de Pagamento:28 dias corridos Redução de Prazo (GR 8.249/23):Não Valor Total Previsto
+Validade da Proposta:60 dias corridos
+108.343,95
+Observações:
+Item #1 | Lote: | Situação: Em análise Quantidade Valor Unitário Valor Total
+Bem: 10243275 | BEC: 6534210 | Material: 314650 2 UNIDADE 1.581,96 1.581,96
+BEBEDOURO ELETRICO 127V,50 LITROS,02 TORNEIRAS (EQUIPAMENTOS PARA PURIFICACAO E FILTRAG./EQUIPAMENTOS PARA PURIFICACAO DE
+AGUA/BEBEDOURO ELETRICO) Purificador de água
+Demanda: 202600000753 - FFCLRP - \ADM\DIR Item de Despesa: 44905234
+Contratação gov.br:
+# Data Pesquisado em Prazos Valor Unitário
+Entrega: 30 dias corridos
+COMPRASGOVBR (980.823.298-15)
+1 23/04/2026 Pagamento: 28 dias corridos 1.238,60
+Parâmetros: II [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Everest Refrigeração (33.079.641/0001-32)
+2 07/04/2026 Pagamento: 28 dias corridos 1.382,27
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+BEM ESTAR (27.509.823/0001-01)
+3 07/04/2026 Pagamento: 28 dias corridos 1.471,00
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Givanildo Camargo da Silva (58.347.120/0001-40)
+4 07/04/2026 Pagamento: 28 dias corridos 2.236,00
+Parâmetros: IV [Tabela 1]
+Validade: 60 dias corridos
+Método de Cálculo do Valor Unitário:Média
+Item #2 | Lote: | Situação: Em análise Quantidade Valor Unitário Valor Total
+Bem: 9841857 | BEC: 6162789 | Material: 341592 2 UNIDADE 709,05 1.418,10
+FRITADEIRA,PP, ELETRICA, 1800W, 5 L, PRETA (EQUIPAMENTOS E UTENSILIOS PARA REFEITOR./RECIPIENTES E UTENSILIOS DE COZINHA/FRITADEIRA)
+Fritadeira elétrica
+Demanda: 202600000753 - FFCLRP - \ADM\DIR Item de Despesa: 44905234
+Contratação gov.br:
+# Data Pesquisado em Prazos Valor Unitário
+Entrega: 30 dias corridos
+COMPRASGOVBR (980.823.298-15)
+1 23/04/2026 Pagamento: 28 dias corridos 632,69
+Parâmetros: II [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Grupo Casas Banhia SA (33.041.260/0652-90)
+5 07/04/2026 Pagamento: 28 dias corridos 644,68
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Givanildo Camargo da Silva (58.347.120/0001-40)
+4 07/04/2026 Pagamento: 28 dias corridos 849,80
+Parâmetros: IV [Tabela 1]
+Validade: 60 dias corridos
+Método de Cálculo do Valor Unitário:Média
+Item #3 | Lote: | Situação: Em análise Quantidade Valor Unitário Valor Total
+Bem: 6926029 | BEC: 4265882 | Material: 340464 2 UNIDADE 425,48 850,96
+CAFETEIRA,ACO INOX,COPO INOX,30XICS.,PRETA/PRATA,110V,DISPLAY,TIMER (EQUIPAMENTOS E UTENSILIOS PARA REFEITOR./EQUIPAMENTOS DE
+Documento gerado em: 29/04/2026 14:32 Página 1 /14
+# | Data | Pesquisado em | Prazos | Valor Unitário
+1 | 23/04/2026 | COMPRASGOVBR (980.823.298-15)
+Parâmetros: II [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 317,44
+6 | 07/04/2026 | Amazon -Serviços de Varejo do Brasil (15.436.940/0001-03)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 399,00
+4 | 07/04/2026 | Givanildo Camargo da Silva (58.347.120/0001-40)
+Parâmetros: IV [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 560,00
+Item #4 | Lote: | Situação: Em análise | Quantidade | Valor Unitário | Valor Total
+Bem: 9949771 | BEC: 6264816 | Material: 309990 | 4 UNIDADE | 4.267,72 | 17.070,88
+# | Data | Pesquisado em | Prazos | Valor Unitário
+1 | 23/04/2026 | COMPRASGOVBR (980.823.298-15)
+Parâmetros: II [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 3.704,26
+5 | 07/04/2026 | Grupo Casas Banhia SA (33.041.260/0652-90)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 4.248,90
+4 | 07/04/2026 | Givanildo Camargo da Silva (58.347.120/0001-40)
+Parâmetros: IV [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 4.850,00
+Item #5 | Lote: | Situação: Em análise | Quantidade | Valor Unitário | Valor Total
+Bem: 9426337 | BEC: 5762464 | Material: 340553 | 4 UNIDADE | 919,61 | 3.678,44
+# | Data | Pesquisado em | Prazos | Valor Unitário
+5 | 07/04/2026 | Grupo Casas Banhia SA (33.041.260/0652-90)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 736,66
+UNIVERSIDADE DE SÃO PAULO
+Documento da Compra: 202600052737 / 59 - FFCLRP
+COZINHA/CAFETEIRA) Cafeteira
+Demanda: 202600000753 - FFCLRP - \ADM\DIR Item de Despesa: 33903013
+Contratação gov.br:
+# Data Pesquisado em Prazos Valor Unitário
+Entrega: 30 dias corridos
+COMPRASGOVBR (980.823.298-15)
+1 23/04/2026 Pagamento: 28 dias corridos 317,44
+Parâmetros: II [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Amazon -Serviços de Varejo do Brasil (15.436.940/0001-03)
+6 07/04/2026 Pagamento: 28 dias corridos 399,00
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Givanildo Camargo da Silva (58.347.120/0001-40)
+4 07/04/2026 Pagamento: 28 dias corridos 560,00
+Parâmetros: IV [Tabela 1]
+Validade: 60 dias corridos
+Método de Cálculo do Valor Unitário:Média
+Item #4 | Lote: | Situação: Em análise Quantidade Valor Unitário Valor Total
+Bem: 9949771 | BEC: 6264816 | Material: 309990 4 UNIDADE 4.267,72 17.070,88
+REFRIGERADOR DOMESTICO INVERTER 460L BIVOLT (EQUIPAMENTOS PARA REFRIGERACAO, CONDICI./EQUIPAMENTOS DE
+REFRIGERACAO/REFRIGERADOR DOMESTICO) Geladeira Frost Free - Inverse Inverter com Fresh&Flex 488L Branca - 110V
+Especificações Técnicas:
+Capacidade de armazenagem total (L): 488 Litros-488 Litros
+Capacidade de armazenagem do refrigerador (L): 328 L-328 L
+Tensão/Voltagem: 110V-110V
+Capacidadede armazenagem do freezer (L): 160 L-160 L
+Capacidade de armazenagem do congelador (L): 160 L-160 L
+Cor: Branco-Branco
+Garantia: 1 ano-1 ano
+Eficiência Energética: A-A
+Capacidade total: De 401 a 500 litros-De 401 a 500 litros
+Altura: De 1,71 a 1,80 m-De 1,71 a 1,80 m
+Largura: De 61 a 70,9 cm-De 61 a 70,9 cm
+Profundidade: De 71 a 80,9 cm-De 71 a 80,9 cm
+Demanda: 202600000753 - FFCLRP - \ADM\DIR Item de Despesa: 44905234
+Contratação gov.br:
+# Data Pesquisado em Prazos Valor Unitário
+Entrega: 30 dias corridos
+COMPRASGOVBR (980.823.298-15)
+1 23/04/2026 Pagamento: 28 dias corridos 3.704,26
+Parâmetros: II [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Grupo Casas Banhia SA (33.041.260/0652-90)
+5 07/04/2026 Pagamento: 28 dias corridos 4.248,90
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Givanildo Camargo da Silva (58.347.120/0001-40)
+4 07/04/2026 Pagamento: 28 dias corridos 4.850,00
+Parâmetros: IV [Tabela 1]
+Validade: 60 dias corridos
+Método de Cálculo do Valor Unitário:Média
+Item #5 | Lote: | Situação: Em análise Quantidade Valor Unitário Valor Total
+Bem: 9426337 | BEC: 5762464 | Material: 340553 4 UNIDADE 919,61 3.678,44
+FORNO,DOMEST.MICROONDAS,INOX,32LS,10 NIVEIS POTENCIA,DIGITAL,110V (EQUIPAMENTOS E UTENSILIOS PARA REFEITOR./EQUIPAMENTOS DE
+COZINHA/FORNO) FORNO MICROONDAS, MATERIAL: AÇO INOXIDÁVEL , CAPACIDADE: 31 L, POTÊNCIA: 900 W, VOLTAGEM: 110 V, CARACTERÍSTICAS
+ADICIONAIS: COM PRATO GIRATÓRIO , COR: BRANCA
+Demanda: 202600000753 - FFCLRP - \ADM\DIR Item de Despesa: 33903013, 44905234
+Contratação gov.br:
+# Data Pesquisado em Prazos Valor Unitário
+Entrega: 30 dias corridos
+Grupo Casas Banhia SA (33.041.260/0652-90)
+5 07/04/2026 Pagamento: 28 dias corridos 736,66
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Documento gerado em: 29/04/2026 14:32 Página 2 /14
+# | Data | Pesquisado em | Prazos | Valor Unitário
+1 | 23/04/2026 | COMPRASGOVBR (980.823.298-15)
+Parâmetros: II [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 741,90
+7 | 07/04/2026 | Magazine Luíza SA (47.960.950/1088-36)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 949,90
+4 | 07/04/2026 | Givanildo Camargo da Silva (58.347.120/0001-40)
+Parâmetros: IV [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 1.250,00
+Item #6 | Lote: | Situação: Em análise | Quantidade | Valor Unitário | Valor Total
+Bem: 9538437 | BEC: 5870291 | Material: 338338 | 3 UNIDADE | 3.213,99 | 9.641,97
+# | Data | Pesquisado em | Prazos | Valor Unitário
+1 | 23/04/2026 | COMPRASGOVBR (980.823.298-15)
+Parâmetros: II [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 2.428,96
+6 | 07/04/2026 | Amazon -Serviços de Varejo do Brasil (15.436.940/0001-03)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 2.619,01
+4 | 07/04/2026 | Givanildo Camargo da Silva (58.347.120/0001-40)
+Parâmetros: IV [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 3.850,00
+7 | 07/04/2026 | Magazine Luíza SA (47.960.950/1088-36)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 3.958,00
+Item #7 | Lote: | Situação: Em análise | Quantidade | Valor Unitário | Valor Total
+Bem: 10130390 | BEC: 6431160 | Material: 309770 | 4 UNIDADE | 446,57 | 1.786,28
+UNIVERSIDADE DE SÃO PAULO
+Documento da Compra: 202600052737 / 59 - FFCLRP
+# Data Pesquisado em Prazos Valor Unitário
+Entrega: 30 dias corridos
+COMPRASGOVBR (980.823.298-15)
+1 23/04/2026 Pagamento: 28 dias corridos 741,90
+Parâmetros: II [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Magazine Luíza SA (47.960.950/1088-36)
+7 07/04/2026 Pagamento: 28 dias corridos 949,90
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Givanildo Camargo da Silva (58.347.120/0001-40)
+4 07/04/2026 Pagamento: 28 dias corridos 1.250,00
+Parâmetros: IV [Tabela 1]
+Validade: 60 dias corridos
+Método de Cálculo do Valor Unitário:Média
+Item #6 | Lote: | Situação: Em análise Quantidade Valor Unitário Valor Total
+Bem: 9538437 | BEC: 5870291 | Material: 338338 3 UNIDADE 3.213,99 9.641,97
+TELEVISAO, CORES, SMART, 55 POLEGADAS, LED, BIVOLT (EQUIPAMENTOS FOTOGRAFICOS, FILMOGRAFICO./EQUIPAMENTOS DE PROJECAO/TELEVISAO)
+Especificações:
+Certificação: 15652-20-01960
+Interface do hardware: HDMI
+Resolução: 4K
+Características especiais: Plana
+Peças para montagem: Controle remoto
+Número de unidades: 1
+Tecnologia da tela: &#x200eProporção da tela: 16:9
+Diagonal da tela: 16:9
+Resolução: 3840 x 2160
+Entrada de áudio compatível com o produto: HDMI
+Etiqueta Nacional de Eficiência Energética (ENCE): A+
+Tipo de fonte de energia: Energia ee atualização: 60
+Tecnologia de conexão: HDMI
+Tipo de suporte ou fixação: Montagem na parede
+Conexões: HDMI
+Garantia do fabricante: 1 ano com o fabricante
+Peso do produto: 15,8 Kilograms
+Dimensões do produtoMarca de referência: LG
+Demanda: 202600000753 - FFCLRP - \ADM\DIR Item de Despesa: 44905234
+Contratação gov.br:
+# Data Pesquisado em Prazos Valor Unitário
+Entrega: 30 dias corridos
+COMPRASGOVBR (980.823.298-15)
+1 23/04/2026 Pagamento: 28 dias corridos 2.428,96
+Parâmetros: II [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Amazon -Serviços de Varejo do Brasil (15.436.940/0001-03)
+6 07/04/2026 Pagamento: 28 dias corridos 2.619,01
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Givanildo Camargo da Silva (58.347.120/0001-40)
+4 07/04/2026 Pagamento: 28 dias corridos 3.850,00
+Parâmetros: IV [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Magazine Luíza SA (47.960.950/1088-36)
+7 07/04/2026 Pagamento: 28 dias corridos 3.958,00
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Método de Cálculo do Valor Unitário:Média
+Item #7 | Lote: | Situação: Em análise Quantidade Valor Unitário Valor Total
+Bem: 10130390 | BEC: 6431160 | Material: 309770 4 UNIDADE 446,57 1.786,28
+VENTILADOR; DE PAREDE ; 60 CM ;PRETO (EQUIPAMENTOS PARA REFRIGERACAO, CONDICI./EQUIPAMENTOS DE VENTILACAO E
+CIRCULACAO./VENTILADOR) Modelo: Ventilador de Parede 3 Pás 60cm - 110v
+Peso e dimensões
+Altura: 60 cm
+Profundidade: 22 cm
+Largura: 60 cm
+Peso: 2,7 kg
+Especificações
+Tipo de ventilador: De parede
+Quantidade de velocidades: 3
+Características da estrutura
+Documento gerado em: 29/04/2026 14:32 Página 3 /14
+# | Data | Pesquisado em | Prazos | Valor Unitário
+8 | 07/04/2026 | GURGELMIX (29.302.348/0001-15)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 330,01
+1 | 23/04/2026 | COMPRASGOVBR (980.823.298-15)
+Parâmetros: II [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 429,70
+4 | 07/04/2026 | Givanildo Camargo da Silva (58.347.120/0001-40)
+Parâmetros: IV [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 580,00
+Item #8 | Lote: | Situação: Em análise | Quantidade | Valor Unitário | Valor Total
+Bem: 8700087 | BEC: 5080835 | Material: 342408 | 4 UNIDADE | 111,05 | 444,20
+# | Data | Pesquisado em | Prazos | Valor Unitário
+6 | 07/04/2026 | Amazon -Serviços de Varejo do Brasil (15.436.940/0001-03)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 69,90
+1 | 23/04/2026 | COMPRASGOVBR (980.823.298-15)
+Parâmetros: II [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 107,47
+4 | 07/04/2026 | Givanildo Camargo da Silva (58.347.120/0001-40)
+Parâmetros: IV [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 155,80
+Item #9 | Lote: | Situação: Em análise | Quantidade | Valor Unitário | Valor Total
+Bem: 10182071 | BEC: 6480462 | Material: 338397 | 3 UNIDADE | 139,01 | 417,03
+# | Data | Pesquisado em | Prazos | Valor Unitário
+6 | 07/04/2026 | Amazon -Serviços de Varejo do Brasil (15.436.940/0001-03)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 120,00
+4 | 07/04/2026 | Givanildo Camargo da Silva (58.347.120/0001-40)
+Parâmetros: IV [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 132,00
+UNIVERSIDADE DE SÃO PAULO
+Documento da Compra: 202600052737 / 59 - FFCLRP
+Material da grade: aço
+Material das Pás: Plástico
+Controle de velocidade: chave de parede
+Demanda: 202600000753 - FFCLRP - \ADM\DIR Item de Despesa: 44905234
+Contratação gov.br:
+# Data Pesquisado em Prazos Valor Unitário
+Entrega: 30 dias corridos
+GURGELMIX (29.302.348/0001-15)
+8 07/04/2026 Pagamento: 28 dias corridos 330,01
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+COMPRASGOVBR (980.823.298-15)
+1 23/04/2026 Pagamento: 28 dias corridos 429,70
+Parâmetros: II [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Givanildo Camargo da Silva (58.347.120/0001-40)
+4 07/04/2026 Pagamento: 28 dias corridos 580,00
+Parâmetros: IV [Tabela 1]
+Validade: 60 dias corridos
+Método de Cálculo do Valor Unitário:Média
+Item #8 | Lote: | Situação: Em análise Quantidade Valor Unitário Valor Total
+Bem: 8700087 | BEC: 5080835 | Material: 342408 4 UNIDADE 111,05 444,20
+SUPORTE DE USO EM COZINHA EM ACO CARBONO,P/MICROONDAS,C/4POSICOES,BCO (EQUIPAMENTOS E UTENSILIOS PARA REFEITOR./ACESSORIOS E
+PECAS P/ REPOSICAO DE EQUI./SUPORTE DE USO EM COZINHA) Peças para montagem:
+2 conjuntos de bases de parede, 2 bases fixas e 2 bases telescópicas, Ferragens para instalação do suporte na parede, Gabarito de
+instalação na parede, Manual.
+Tipo de material: Aço inoxidável
+T i p o d e i n s t a l a ç ã o : N a p a d o p r o d u t o
+28 x 12 x 1 cm; 1,06 quilogramas
+Hastes telescópicas com ajustes de 28,4 a 41,4cm.
+Demanda: 202600000753 - FFCLRP - \ADM\DIR Item de Despesa: 33903013
+Contratação gov.br:
+# Data Pesquisado em Prazos Valor Unitário
+Entrega: 30 dias corridos
+Amazon -Serviços de Varejo do Brasil (15.436.940/0001-03)
+6 07/04/2026 Pagamento: 28 dias corridos 69,90
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+COMPRASGOVBR (980.823.298-15)
+1 23/04/2026 Pagamento: 28 dias corridos 107,47
+Parâmetros: II [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Givanildo Camargo da Silva (58.347.120/0001-40)
+4 07/04/2026 Pagamento: 28 dias corridos 155,80
+Parâmetros: IV [Tabela 1]
+Validade: 60 dias corridos
+Método de Cálculo do Valor Unitário:Média
+Item #9 | Lote: | Situação: Em análise Quantidade Valor Unitário Valor Total
+Bem: 10182071 | BEC: 6480462 | Material: 338397 3 UNIDADE 139,01 417,03
+SUPORTE PARA TELEVISOR 32" A 70" INCLINAVEL E ARTICULADO (EQUIPAMENTOS FOTOGRAFICOS, FILMOGRAFICO./ACESSORIOS DE EQUIPAMENTOS DE
+PROJECAO/SUPORTE PARA TELEVISOR) Suporte Articulado para TVs LCD, LED, Plasma, 3D e Smart TV de 10 até 55 polegadas (com VESA máximo de
+400x400mm). Permite articulação, inclinação e rotação de 360º graus da base (4 movimentos). Permite Ajustar a TV para assistir de vários ângulos.
+Demanda: 202600000753 - FFCLRP - \ADM\DIR Item de Despesa: 33903042, 44905234
+Contratação gov.br:
+# Data Pesquisado em Prazos Valor Unitário
+Entrega: 30 dias corridos
+Amazon -Serviços de Varejo do Brasil (15.436.940/0001-03)
+6 07/04/2026 Pagamento: 28 dias corridos 120,00
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Givanildo Camargo da Silva (58.347.120/0001-40)
+4 07/04/2026 Pagamento: 28 dias corridos 132,00
+Parâmetros: IV [Tabela 1]
+Validade: 60 dias corridos
+Documento gerado em: 29/04/2026 14:32 Página 4 /14
+# | Data | Pesquisado em | Prazos | Valor Unitário
+1 | 23/04/2026 | COMPRASGOVBR (980.823.298-15)
+Parâmetros: II [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 165,03
+Item #10 | Lote: | Situação: Em análise | Quantidade | Valor Unitário | Valor Total
+Bem: 8798010 | BEC: 5175844 | Material: 340979 | 2 UNIDADE | 247,74 | 495,48
+# | Data | Pesquisado em | Prazos | Valor Unitário
+1 | 23/04/2026 | COMPRASGOVBR (980.823.298-15)
+Parâmetros: II [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 218,74
+4 | 07/04/2026 | Givanildo Camargo da Silva (58.347.120/0001-40)
+Parâmetros: IV [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 235,90
+7 | 07/04/2026 | Magazine Luíza SA (47.960.950/1088-36)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 288,60
+Item #11 | Lote: | Situação: Em análise | Quantidade | Valor Unitário | Valor Total
+Bem: 9586598 | BEC: 5917310 | Material: 314650 | 1 UNIDADE | 2.038,12 | 2.038,12
+# | Data | Pesquisado em | Prazos | Valor Unitário
+1 | 23/04/2026 | COMPRASGOVBR (980.823.298-15)
+Parâmetros: II [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 1.876,25
+4 | 07/04/2026 | Givanildo Camargo da Silva (58.347.120/0001-40)
+Parâmetros: IV [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 2.200,00
+Item #12 | Lote: | Situação: Em análise | Quantidade | Valor Unitário | Valor Total
+Bem: 9628924 | BEC: 5958261 | Material: 340979 | 1 UNIDADE | 718,72 | 718,72
+# | Data | Pesquisado em | Prazos | Valor Unitário
+7 | 07/04/2026 | Magazine Luíza SA (47.960.950/1088-36)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 611,58
+9 | 07/04/2026 | Ebazar Comércio br Ltda (03.007.331/0001-41)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 689,90
+UNIVERSIDADE DE SÃO PAULO
+Documento da Compra: 202600052737 / 59 - FFCLRP
+# Data Pesquisado em Prazos Valor Unitário
+Entrega: 30 dias corridos
+COMPRASGOVBR (980.823.298-15)
+1 23/04/2026 Pagamento: 28 dias corridos 165,03
+Parâmetros: II [Tabela 1]
+Validade: 60 dias corridos
+Método de Cálculo do Valor Unitário:Média
+Item #10 | Lote: | Situação: Em análise Quantidade Valor Unitário Valor Total
+Bem: 8798010 | BEC: 5175844 | Material: 340979 2 UNIDADE 247,74 495,48
+FOGAO DOMESTICO DE MESA ELETRICO COM 2 BOCAS CINCO NIVEIS TEMPERATURA (EQUIPAMENTOS E UTENSILIOS PARA REFEITOR./EQUIPAMENTOS DE
+COZINHA/FOGAO) Eletrodomésticos - 02
+Demanda: 202600001431 - FFCLRP - \ADM\ATAD Item de Despesa: 44905234, 449052341
+Contratação gov.br:
+# Data Pesquisado em Prazos Valor Unitário
+Entrega: 30 dias corridos
+COMPRASGOVBR (980.823.298-15)
+1 23/04/2026 Pagamento: 28 dias corridos 218,74
+Parâmetros: II [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Givanildo Camargo da Silva (58.347.120/0001-40)
+4 07/04/2026 Pagamento: 28 dias corridos 235,90
+Parâmetros: IV [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Magazine Luíza SA (47.960.950/1088-36)
+7 07/04/2026 Pagamento: 28 dias corridos 288,60
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Método de Cálculo do Valor Unitário:Média
+Item #11 | Lote: | Situação: Em análise Quantidade Valor Unitário Valor Total
+Bem: 9586598 | BEC: 5917310 | Material: 314650 1 UNIDADE 2.038,12 2.038,12
+BEBEDOURO ELETRICO DE COLUNA MOD.INDUSTRIAL 2 TORNEIRAS (EQUIPAMENTOS PARA PURIFICACAO E FILTRAG./EQUIPAMENTOS PARA PURIFICACAO
+DE AGUA/BEBEDOURO ELETRICO) BEBEDOURO ÁGUA, TIPO: INDUSTRIAL , CARACTERÍSTICAS ADICIONAIS: 01 TORNEIRA E 01 TORNEIRA JATO
+INCLINADO, SUSPENSO , VOLTAGEM: 110/220 V, MATERIAL GABINETE: AÇO INOXIDÁVEL , MATERIAL CORPO: AÇO INOXIDÁVEL
+Demanda: 202600002195 - FFCLRP - \ADM\ATAD\SCEXP Item de Despesa: 44905234
+Contratação gov.br:
+# Data Pesquisado em Prazos Valor Unitário
+Entrega: 30 dias corridos
+COMPRASGOVBR (980.823.298-15)
+1 23/04/2026 Pagamento: 28 dias corridos 1.876,25
+Parâmetros: II [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Givanildo Camargo da Silva (58.347.120/0001-40)
+4 07/04/2026 Pagamento: 28 dias corridos 2.200,00
+Parâmetros: IV [Tabela 1]
+Validade: 60 dias corridos
+Método de Cálculo do Valor Unitário:Média
+Item #12 | Lote: | Situação: Em análise Quantidade Valor Unitário Valor Total
+Bem: 9628924 | BEC: 5958261 | Material: 340979 1 UNIDADE 718,72 718,72
+FOGAO DOMESTICO,ELETR.MESA VITROCER..COOKTOP,110V,2BOCA2PLACAS,5REGULA (EQUIPAMENTOS E UTENSILIOS PARA REFEITOR./EQUIPAMENTOS
+DE COZINHA/FOGAO)
+Demanda: 202600003582 - FFCLRP - \ADM\DCM Item de Despesa: 44905234, 449052341
+Contratação gov.br:
+# Data Pesquisado em Prazos Valor Unitário
+Entrega: 30 dias corridos
+Magazine Luíza SA (47.960.950/1088-36)
+7 07/04/2026 Pagamento: 28 dias corridos 611,58
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Ebazar Comércio br Ltda (03.007.331/0001-41)
+9 07/04/2026 Pagamento: 28 dias corridos 689,90
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Documento gerado em: 29/04/2026 14:32 Página 5 /14
+# | Data | Pesquisado em | Prazos | Valor Unitário
+10 | 07/04/2026 | Ponto Frio (33.041.260/0652-90)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 710,99
+1 | 23/04/2026 | COMPRASGOVBR (980.823.298-15)
+Parâmetros: II [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 732,16
+4 | 07/04/2026 | Givanildo Camargo da Silva (58.347.120/0001-40)
+Parâmetros: IV [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 849,00
+Item #13 | Lote: | Situação: Em análise | Quantidade | Valor Unitário | Valor Total
+Bem: 6925510 | BEC: 4145755 | Material: 340553 | 1 UNIDADE | 814,66 | 814,66
+# | Data | Pesquisado em | Prazos | Valor Unitário
+1 | 23/04/2026 | COMPRASGOVBR (980.823.298-15)
+Parâmetros: II [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 745,98
+11 | 07/04/2026 | Loja Eletrolux (13.986.197/0001-21)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 829,00
+4 | 07/04/2026 | Givanildo Camargo da Silva (58.347.120/0001-40)
+Parâmetros: IV [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 869,00
+Item #14 | Lote: | Situação: Em análise | Quantidade | Valor Unitário | Valor Total
+Bem: 9082077 | BEC: 5435889 | Material: 310018 | 1 UNIDADE | 3.248,45 | 3.248,45
+# | Data | Pesquisado em | Prazos | Valor Unitário
+7 | 07/04/2026 | Magazine Luíza SA (47.960.950/1088-36)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 3.194,89
+1 | 23/04/2026 | COMPRASGOVBR (980.823.298-15)
+Parâmetros: II [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 3.200,48
+4 | 07/04/2026 | Givanildo Camargo da Silva (58.347.120/0001-40)
+Parâmetros: IV [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 3.350,00
+Item #15 | Lote: | Situação: Em análise | Quantidade | Valor Unitário | Valor Total
+Bem: 8704783 | BEC: 5085756 | Material: 314650 | 1 UNIDADE | 3.400,77 | 3.400,77
+UNIVERSIDADE DE SÃO PAULO
+Documento da Compra: 202600052737 / 59 - FFCLRP
+# Data Pesquisado em Prazos Valor Unitário
+Entrega: 30 dias corridos
+Ponto Frio (33.041.260/0652-90)
+10 07/04/2026 Pagamento: 28 dias corridos 710,99
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+COMPRASGOVBR (980.823.298-15)
+1 23/04/2026 Pagamento: 28 dias corridos 732,16
+Parâmetros: II [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Givanildo Camargo da Silva (58.347.120/0001-40)
+4 07/04/2026 Pagamento: 28 dias corridos 849,00
+Parâmetros: IV [Tabela 1]
+Validade: 60 dias corridos
+Método de Cálculo do Valor Unitário:Média
+Item #13 | Lote: | Situação: Em análise Quantidade Valor Unitário Valor Total
+Bem: 6925510 | BEC: 4145755 | Material: 340553 1 UNIDADE 814,66 814,66
+FORNO,MICROONDAS,ACO ESMAL.BRANCO,31LS,PRATO GIRA,10NIVEL POT.110V (EQUIPAMENTOS E UTENSILIOS PARA REFEITOR./EQUIPAMENTOS DE
+COZINHA/FORNO) FORNO MICROONDAS, MATERIAL: AÇO INOXIDÁVEL , CAPACIDADE: 31 L, POTÊNCIA: 900 W, VOLTAGEM: 110 V, CARACTERÍSTICAS
+ADICIONAIS: COM PRATO GIRATÓRIO , COR: BRANCA
+Demanda: 202600003701 - FFCLRP - \ADM\ATAD Item de Despesa: 44905234
+Contratação gov.br:
+# Data Pesquisado em Prazos Valor Unitário
+Entrega: 30 dias corridos
+COMPRASGOVBR (980.823.298-15)
+1 23/04/2026 Pagamento: 28 dias corridos 745,98
+Parâmetros: II [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Loja Eletrolux (13.986.197/0001-21)
+11 07/04/2026 Pagamento: 28 dias corridos 829,00
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Givanildo Camargo da Silva (58.347.120/0001-40)
+4 07/04/2026 Pagamento: 28 dias corridos 869,00
+Parâmetros: IV [Tabela 1]
+Validade: 60 dias corridos
+Método de Cálculo do Valor Unitário:Média
+Item #14 | Lote: | Situação: Em análise Quantidade Valor Unitário Valor Total
+Bem: 9082077 | BEC: 5435889 | Material: 310018 1 UNIDADE 3.248,45 3.248,45
+FREEZER DOMESTICO, VERTICAL, 01 PORTA, 110V, BRANCO, 121 L (EQUIPAMENTOS PARA REFRIGERACAO, CONDICI./EQUIPAMENTOS DE
+REFRIGERACAO/FREEZER DOMESTICO) FREEZER VERTICAL, CAPACIDADE: 120 A 150 L, COR: BRANCA
+Demanda: 202600004678 - FFCLRP - \ADM\DQ\QUIM-RECEITA Item de Despesa: 44905234
+Contratação gov.br:
+# Data Pesquisado em Prazos Valor Unitário
+Entrega: 30 dias corridos
+Magazine Luíza SA (47.960.950/1088-36)
+7 07/04/2026 Pagamento: 28 dias corridos 3.194,89
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+COMPRASGOVBR (980.823.298-15)
+1 23/04/2026 Pagamento: 28 dias corridos 3.200,48
+Parâmetros: II [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Givanildo Camargo da Silva (58.347.120/0001-40)
+4 07/04/2026 Pagamento: 28 dias corridos 3.350,00
+Parâmetros: IV [Tabela 1]
+Validade: 60 dias corridos
+Método de Cálculo do Valor Unitário:Média
+Item #15 | Lote: | Situação: Em análise Quantidade Valor Unitário Valor Total
+Bem: 8704783 | BEC: 5085756 | Material: 314650 1 UNIDADE 3.400,77 3.400,77
+BEBEDOURO ELETRICO,INDUSTRIAL,100 LITROS,03 TORNEIRAS (EQUIPAMENTOS PARA PURIFICACAO E FILTRAG./EQUIPAMENTOS PARA PURIFICACAO DE
+AGUA/BEBEDOURO ELETRICO) Responsável: Max Cardoso Langer (Chefe). Local: Hall do bloco 02.
+Documento gerado em: 29/04/2026 14:32 Página 6 /14
+# | Data | Pesquisado em | Prazos | Valor Unitário
+12 | 07/04/2026 | Dutra Máquinas (50.970.342/0001-02)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 3.102,12
+1 | 23/04/2026 | COMPRASGOVBR (980.823.298-15)
+Parâmetros: II [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 3.121,11
+4 | 07/04/2026 | Givanildo Camargo da Silva (58.347.120/0001-40)
+Parâmetros: IV [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 3.480,00
+13 | 07/04/2026 | Loja do Bebedouro (29.730.943/0002-32)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 3.899,85
+Item #16 | Lote: | Situação: Em análise | Quantidade | Valor Unitário | Valor Total
+Bem: 8104778 | BEC: 4632869 | Material: 335274 | 1 UNIDADE | 247,11 | 247,11
+# | Data | Pesquisado em | Prazos | Valor Unitário
+1 | 23/04/2026 | COMPRASGOVBR (980.823.298-15)
+Parâmetros: II [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 170,68
+7 | 07/04/2026 | Magazine Luíza SA (47.960.950/1088-36)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 281,06
+14 | 07/04/2026 | Tecnoferramentas (09.353.055/0001-50)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 289,59
+Item #17 | Lote: | Situação: Em análise | Quantidade | Valor Unitário | Valor Total
+Bem: 9529217 | BEC: 5861314 | Material: 341851 | 8 UNIDADE | 121,83 | 974,64
+# | Data | Pesquisado em | Prazos | Valor Unitário
+1 | 23/04/2026 | COMPRASGOVBR (980.823.298-15)
+Parâmetros: II [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 74,31
+9 | 07/04/2026 | Ebazar Comércio br Ltda (03.007.331/0001-41)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 77,74
+4 | 07/04/2026 | Givanildo Camargo da Silva (58.347.120/0001-40)
+Parâmetros: IV [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 132,10
+UNIVERSIDADE DE SÃO PAULO
+Documento da Compra: 202600052737 / 59 - FFCLRP
+Demanda: 202600014703 - FFCLRP - \ADM\DB Item de Despesa: 33903090, 44905234
+Contratação gov.br:
+# Data Pesquisado em Prazos Valor Unitário
+Entrega: 30 dias corridos
+Dutra Máquinas (50.970.342/0001-02)
+12 07/04/2026 Pagamento: 28 dias corridos 3.102,12
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+COMPRASGOVBR (980.823.298-15)
+1 23/04/2026 Pagamento: 28 dias corridos 3.121,11
+Parâmetros: II [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Givanildo Camargo da Silva (58.347.120/0001-40)
+4 07/04/2026 Pagamento: 28 dias corridos 3.480,00
+Parâmetros: IV [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Loja do Bebedouro (29.730.943/0002-32)
+13 07/04/2026 Pagamento: 28 dias corridos 3.899,85
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Método de Cálculo do Valor Unitário:Média
+Item #16 | Lote: | Situação: Em análise Quantidade Valor Unitário Valor Total
+Bem: 8104778 | BEC: 4632869 | Material: 335274 1 UNIDADE 247,11 247,11
+TERMOMETRO DIGITAL DE -40 A 250°C, PORTATIL, TIPO ESPETO (INSTRUMENTOS E EQUIPAMENTOS DE CONTROLE./INSTRUMENTOS PARA MEDICAO E
+CONTROLE DE./TERMOMETRO DIGITAL) Solicitação da Profa. Maria Sol Brassesco.
+Demanda: 202600014703 - FFCLRP - \ADM\DB Item de Despesa: 33903032, 44905234
+Contratação gov.br:
+# Data Pesquisado em Prazos Valor Unitário
+Entrega: 30 dias corridos
+COMPRASGOVBR (980.823.298-15)
+1 23/04/2026 Pagamento: 28 dias corridos 170,68
+Parâmetros: II [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Magazine Luíza SA (47.960.950/1088-36)
+7 07/04/2026 Pagamento: 28 dias corridos 281,06
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Tecnoferramentas (09.353.055/0001-50)
+14 07/04/2026 Pagamento: 28 dias corridos 289,59
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Método de Cálculo do Valor Unitário:Média
+Item #17 | Lote: | Situação: Em análise Quantidade Valor Unitário Valor Total
+Bem: 9529217 | BEC: 5861314 | Material: 341851 8 UNIDADE 121,83 974,64
+FERVEDOR ELETRICO,MELGULHAO/RABO QUENTE,ALUMINIO,CABO PRETO,1200W,220V (EQUIPAMENTOS E UTENSILIOS PARA REFEITOR./EQUIPAMENTOS
+DE COZINHA/FERVEDOR ELETRICO) MERGULHÃO ELÉTRICO, EM AÇO INOXIDÁVEL, TAMANHO: MÉDIO (HASTE: 37CM) , POTÊNCIA: 2000 W , TENSÃO: 220
+V.
+Demanda: 202600018970 - FFCLRP - \ADM\DQ Item de Despesa: 33903013
+Contratação gov.br:
+# Data Pesquisado em Prazos Valor Unitário
+Entrega: 30 dias corridos
+COMPRASGOVBR (980.823.298-15)
+1 23/04/2026 Pagamento: 28 dias corridos 74,31
+Parâmetros: II [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Ebazar Comércio br Ltda (03.007.331/0001-41)
+9 07/04/2026 Pagamento: 28 dias corridos 77,74
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Givanildo Camargo da Silva (58.347.120/0001-40)
+4 07/04/2026 Pagamento: 28 dias corridos 132,10
+Parâmetros: IV [Tabela 1]
+Validade: 60 dias corridos
+Documento gerado em: 29/04/2026 14:32 Página 7 /14
+# | Data | Pesquisado em | Prazos | Valor Unitário
+15 | 07/04/2026 | Agropeperi (14.482.779/0002-14)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 203,17
+Item #18 | Lote: | Situação: Em análise | Quantidade | Valor Unitário | Valor Total
+Bem: 9879013 | BEC: 6201580 | Material: 260258 | 10 UNIDADE | 126,22 | 1.262,20
+# | Data | Pesquisado em | Prazos | Valor Unitário
+16 | 07/04/2026 | Fogo Forte (13.714.181/0001-60)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 92,03
+9 | 07/04/2026 | Ebazar Comércio br Ltda (03.007.331/0001-41)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 105,85
+7 | 07/04/2026 | Magazine Luíza SA (47.960.950/1088-36)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 125,00
+4 | 07/04/2026 | Givanildo Camargo da Silva (58.347.120/0001-40)
+Parâmetros: IV [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 182,00
+Item #19 | Lote: | Situação: Em análise | Quantidade | Valor Unitário | Valor Total
+Bem: 9366288 | BEC: 5703239 | Material: 314650 | 3 UNIDADE | 2.589,83 | 7.769,49
+# | Data | Pesquisado em | Prazos | Valor Unitário
+1 | 23/04/2026 | COMPRASGOVBR (980.823.298-15)
+Parâmetros: II [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 2.290,78
+17 | 07/04/2026 | Refrisol (02.551.354/0001-50)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 2.615,71
+4 | 07/04/2026 | Givanildo Camargo da Silva (58.347.120/0001-40)
+Parâmetros: IV [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 2.863,00
+Item #20 | Lote: | Situação: Em análise | Quantidade | Valor Unitário | Valor Total
+Bem: 9707379 | BEC: 6031536 | Material: 340553 | 2 UNIDADE | 725,25 | 1.450,50
+# | Data | Pesquisado em | Prazos | Valor Unitário
+UNIVERSIDADE DE SÃO PAULO
+Documento da Compra: 202600052737 / 59 - FFCLRP
+# Data Pesquisado em Prazos Valor Unitário
+Entrega: 30 dias corridos
+Agropeperi (14.482.779/0002-14)
+15 07/04/2026 Pagamento: 28 dias corridos 203,17
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Método de Cálculo do Valor Unitário:Média
+Item #18 | Lote: | Situação: Em análise Quantidade Valor Unitário Valor Total
+Bem: 9879013 | BEC: 6201580 | Material: 260258 10 UNIDADE 126,22 1.262,20
+PECA PARA AUTOCLAVE HOSPITALAR PHOENIX/LUFERCO AV300 (EQUIPAMENTOS E ARTIGOS DE USO MEDICO, O./COMPONENTES PARA EQUIPAMENTOS
+MEDICO HO./PECA DE REPOSICAO PARA AUTOCLAVE HOSPITALAR) RESISTÊNCIA ELÉTRICA CIRCULAR, EM AÇO INOXIDÁVEL OU COBRE NIQUELADO,
+POTÊNCIA: 700 a 750 W, TENSÃO: 127 V
+Demanda: 202600018970 - FFCLRP - \ADM\DQ Item de Despesa: 33903050
+Contratação gov.br:
+# Data Pesquisado em Prazos Valor Unitário
+Entrega: 30 dias corridos
+Fogo Forte (13.714.181/0001-60)
+16 07/04/2026 Pagamento: 28 dias corridos 92,03
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Ebazar Comércio br Ltda (03.007.331/0001-41)
+9 07/04/2026 Pagamento: 28 dias corridos 105,85
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Magazine Luíza SA (47.960.950/1088-36)
+7 07/04/2026 Pagamento: 28 dias corridos 125,00
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Givanildo Camargo da Silva (58.347.120/0001-40)
+4 07/04/2026 Pagamento: 28 dias corridos 182,00
+Parâmetros: IV [Tabela 1]
+Validade: 60 dias corridos
+Método de Cálculo do Valor Unitário:Média
+Item #19 | Lote: | Situação: Em análise Quantidade Valor Unitário Valor Total
+Bem: 9366288 | BEC: 5703239 | Material: 314650 3 UNIDADE 2.589,83 7.769,49
+BEBEDOURO ELETRICO, 2 TORNEIRAS (EQUIPAMENTOS PARA PURIFICACAO E FILTRAG./EQUIPAMENTOS PARA PURIFICACAO DE AGUA/BEBEDOURO
+ELETRICO) BEBEDOURO ÁGUA, TIPO: INDUSTRIAL , CARACTERÍSTICAS ADICIONAIS: 2 TORNEIRAS GELADAS , VOLTAGEM: 110 V, MATERIAL GABINETE:
+AÇO INOXIDÁVEL , CAPACIDADE ÁGUA: 50 L, MATERIAL CORPO: AÇO INOXIDÁVEL
+Demanda: 202600019489 - FFCLRP - \ADM\PROJETOS ORÇAMENTO Item de Despesa: 44905234
+Contratação gov.br:
+# Data Pesquisado em Prazos Valor Unitário
+Entrega: 30 dias corridos
+COMPRASGOVBR (980.823.298-15)
+1 23/04/2026 Pagamento: 28 dias corridos 2.290,78
+Parâmetros: II [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Refrisol (02.551.354/0001-50)
+17 07/04/2026 Pagamento: 28 dias corridos 2.615,71
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Givanildo Camargo da Silva (58.347.120/0001-40)
+4 07/04/2026 Pagamento: 28 dias corridos 2.863,00
+Parâmetros: IV [Tabela 1]
+Validade: 60 dias corridos
+Método de Cálculo do Valor Unitário:Média
+Item #20 | Lote: | Situação: Em análise Quantidade Valor Unitário Valor Total
+Bem: 9707379 | BEC: 6031536 | Material: 340553 2 UNIDADE 725,25 1.450,50
+FORNO MICROONDAS CAPACIDADE 20 LITROS ACO INOXIDAVEL (EQUIPAMENTOS E UTENSILIOS PARA REFEITOR./EQUIPAMENTOS DE COZINHA/FORNO)
+FORNO MICROONDAS, CAPACIDADE: 20 L, POTÊNCIA: 1100 W, VOLTAGEM: 110 V, CARACTERÍSTICAS ADICIONAIS: COM PRATO GIRATÓRIO.
+Demanda: 202600019489 - FFCLRP - \ADM\PROJETOS ORÇAMENTO Item de Despesa: 44905234
+Contratação gov.br:
+# Data Pesquisado em Prazos Valor Unitário
+Documento gerado em: 29/04/2026 14:32 Página 8 /14
+# | Data | Pesquisado em | Prazos | Valor Unitário
+6 | 07/04/2026 | Amazon -Serviços de Varejo do Brasil (15.436.940/0001-03)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 594,50
+1 | 23/04/2026 | COMPRASGOVBR (980.823.298-15)
+Parâmetros: II [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 601,25
+4 | 07/04/2026 | Givanildo Camargo da Silva (58.347.120/0001-40)
+Parâmetros: IV [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 980,00
+Item #21 | Lote: | Situação: Em análise | Quantidade | Valor Unitário | Valor Total
+Bem: 6922503 | BEC: 3616991 | Material: 341738 | 4 UNIDADE | 453,71 | 1.814,84
+# | Data | Pesquisado em | Prazos | Valor Unitário
+10 | 07/04/2026 | Ponto Frio (33.041.260/0652-90)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 336,80
+4 | 07/04/2026 | Givanildo Camargo da Silva (58.347.120/0001-40)
+Parâmetros: IV [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 438,00
+7 | 07/04/2026 | Magazine Luíza SA (47.960.950/1088-36)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 479,00
+1 | 23/04/2026 | COMPRASGOVBR (980.823.298-15)
+Parâmetros: II [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 561,07
+Item #22 | Lote: | Situação: Em análise | Quantidade | Valor Unitário | Valor Total
+Bem: 8655871 | BEC: 5037603 | Material: 341754 | 2 UNIDADE | 358,08 | 716,16
+# | Data | Pesquisado em | Prazos | Valor Unitário
+1 | 23/04/2026 | COMPRASGOVBR (980.823.298-15)
+Parâmetros: II [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 244,02
+19 | 07/04/2026 | Angeloni & Cia Ltda (83.646.984/0069-06)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 341,28
+18 | 07/04/2026 | Havan (79.379.491/0008-50)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 351,19
+4 | 07/04/2026 | Givanildo Camargo da Silva (58.347.120/0001-40)
+Parâmetros: IV [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 424,15
+UNIVERSIDADE DE SÃO PAULO
+Documento da Compra: 202600052737 / 59 - FFCLRP
+# Data Pesquisado em Prazos Valor Unitário
+Entrega: 30 dias corridos
+Amazon -Serviços de Varejo do Brasil (15.436.940/0001-03)
+6 07/04/2026 Pagamento: 28 dias corridos 594,50
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+COMPRASGOVBR (980.823.298-15)
+1 23/04/2026 Pagamento: 28 dias corridos 601,25
+Parâmetros: II [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Givanildo Camargo da Silva (58.347.120/0001-40)
+4 07/04/2026 Pagamento: 28 dias corridos 980,00
+Parâmetros: IV [Tabela 1]
+Validade: 60 dias corridos
+Método de Cálculo do Valor Unitário:Média
+Item #21 | Lote: | Situação: Em análise Quantidade Valor Unitário Valor Total
+Bem: 6922503 | BEC: 3616991 | Material: 341738 4 UNIDADE 453,71 1.814,84
+LIQUIDIFICADOR,INDL,TODO ACO INOX,2LITROS,220V,3500RPM,CERTIF.INMETRO (EQUIPAMENTOS E UTENSILIOS PARA REFEITOR./EQUIPAMENTOS DE
+COZINHA/LIQUIDIFICADOR) LIQUIDIFICADOR, VOLTAGEM: 220 V, CARACTERÍSTICAS ADICIONAIS: MOTOR DE ALTA ROTAÇÃO E COPO REFORÇADO.
+Demanda: 202600019489 - FFCLRP - \ADM\PROJETOS ORÇAMENTO Item de Despesa: 44905234
+Contratação gov.br:
+# Data Pesquisado em Prazos Valor Unitário
+Entrega: 30 dias corridos
+Ponto Frio (33.041.260/0652-90)
+10 07/04/2026 Pagamento: 28 dias corridos 336,80
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Givanildo Camargo da Silva (58.347.120/0001-40)
+4 07/04/2026 Pagamento: 28 dias corridos 438,00
+Parâmetros: IV [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Magazine Luíza SA (47.960.950/1088-36)
+7 07/04/2026 Pagamento: 28 dias corridos 479,00
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+COMPRASGOVBR (980.823.298-15)
+1 23/04/2026 Pagamento: 28 dias corridos 561,07
+Parâmetros: II [Tabela 1]
+Validade: 60 dias corridos
+Método de Cálculo do Valor Unitário:Média
+Item #22 | Lote: | Situação: Em análise Quantidade Valor Unitário Valor Total
+Bem: 8655871 | BEC: 5037603 | Material: 341754 2 UNIDADE 358,08 716,16
+PROCESSADOR DE ALIMENTO,INDL,MIXER,HASTE 305MM,P/30LS,LAMINA INOX,220 (EQUIPAMENTOS E UTENSILIOS PARA REFEITOR./EQUIPAMENTOS DE
+COZINHA/PROCESSADOR DE ALIMENTO) PROCESSADOR ALIMENTOS, Acessórios: Copo 600ml, Mini processador de Alimentos e Batedor de Claras.
+Frequência: 60Hz; Voltagem: 127 Volts; Potência: 400 W;
+Demanda: 202600019489 - FFCLRP - \ADM\PROJETOS ORÇAMENTO Item de Despesa: 44905234
+Contratação gov.br:
+# Data Pesquisado em Prazos Valor Unitário
+Entrega: 30 dias corridos
+COMPRASGOVBR (980.823.298-15)
+1 23/04/2026 Pagamento: 28 dias corridos 244,02
+Parâmetros: II [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Angeloni & Cia Ltda (83.646.984/0069-06)
+19 07/04/2026 Pagamento: 28 dias corridos 341,28
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Havan (79.379.491/0008-50)
+18 07/04/2026 Pagamento: 28 dias corridos 351,19
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Givanildo Camargo da Silva (58.347.120/0001-40)
+4 07/04/2026 Pagamento: 28 dias corridos 424,15
+Parâmetros: IV [Tabela 1]
+Validade: 60 dias corridos
+Documento gerado em: 29/04/2026 14:32 Página 9 /14
+# | Data | Pesquisado em | Prazos | Valor Unitário
+7 | 07/04/2026 | Magazine Luíza SA (47.960.950/1088-36)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 429,80
+Item #23 | Lote: | Situação: Em análise | Quantidade | Valor Unitário | Valor Total
+Bem: 9130179 | BEC: 5480876 | Material: 309990 | 1 UNIDADE | 3.815,09 | 3.815,09
+# | Data | Pesquisado em | Prazos | Valor Unitário
+20 | 07/04/2026 | BUD Com. Eletrodomésticos (62.058.318/0007-76)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 3.499,00
+1 | 23/04/2026 | COMPRASGOVBR (980.823.298-15)
+Parâmetros: II [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 3.617,48
+4 | 07/04/2026 | Givanildo Camargo da Silva (58.347.120/0001-40)
+Parâmetros: IV [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 3.685,00
+7 | 07/04/2026 | Magazine Luíza SA (47.960.950/1088-36)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 4.458,90
+Item #24 | Lote: | Situação: Em análise | Quantidade | Valor Unitário | Valor Total
+Bem: 10243275 | BEC: 6534210 | Material: 314650 | 1 UNIDADE | 1.375,46 | 1.375,46
+# | Data | Pesquisado em | Prazos | Valor Unitário
+1 | 23/04/2026 | COMPRASGOVBR (980.823.298-15)
+Parâmetros: II [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 1.254,11
+2 | 07/04/2026 | Everest Refrigeração (33.079.641/0001-32)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 1.382,27
+4 | 07/04/2026 | Givanildo Camargo da Silva (58.347.120/0001-40)
+Parâmetros: IV [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 1.490,00
+Item #25 | Lote: | Situação: Em análise | Quantidade | Valor Unitário | Valor Total
+Bem: 9149287 | BEC: 5496489 | Material: 340553 | 1 UNIDADE | 1.021,42 | 1.021,42
+# | Data | Pesquisado em | Prazos | Valor Unitário
+UNIVERSIDADE DE SÃO PAULO
+Documento da Compra: 202600052737 / 59 - FFCLRP
+# Data Pesquisado em Prazos Valor Unitário
+Entrega: 30 dias corridos
+Magazine Luíza SA (47.960.950/1088-36)
+7 07/04/2026 Pagamento: 28 dias corridos 429,80
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Método de Cálculo do Valor Unitário:Média
+Item #23 | Lote: | Situação: Em análise Quantidade Valor Unitário Valor Total
+Bem: 9130179 | BEC: 5480876 | Material: 309990 1 UNIDADE 3.815,09 3.815,09
+REFRIGERADOR DOMESTICO, DUPLEX, BRANCO, 110V, FROST FREE (EQUIPAMENTOS PARA REFRIGERACAO, CONDICI./EQUIPAMENTOS DE
+REFRIGERACAO/REFRIGERADOR DOMESTICO)
+Demanda: 202600024342 - FFCLRP - \ADM\DEDIC Item de Despesa: 44905234
+Contratação gov.br:
+# Data Pesquisado em Prazos Valor Unitário
+Entrega: 30 dias corridos
+BUD Com. Eletrodomésticos (62.058.318/0007-76)
+20 07/04/2026 Pagamento: 28 dias corridos 3.499,00
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+COMPRASGOVBR (980.823.298-15)
+1 23/04/2026 Pagamento: 28 dias corridos 3.617,48
+Parâmetros: II [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Givanildo Camargo da Silva (58.347.120/0001-40)
+4 07/04/2026 Pagamento: 28 dias corridos 3.685,00
+Parâmetros: IV [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Magazine Luíza SA (47.960.950/1088-36)
+7 07/04/2026 Pagamento: 28 dias corridos 4.458,90
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Método de Cálculo do Valor Unitário:Média
+Item #24 | Lote: | Situação: Em análise Quantidade Valor Unitário Valor Total
+Bem: 10243275 | BEC: 6534210 | Material: 314650 1 UNIDADE 1.375,46 1.375,46
+BEBEDOURO ELETRICO 127V,50 LITROS,02 TORNEIRAS (EQUIPAMENTOS PARA PURIFICACAO E FILTRAG./EQUIPAMENTOS PARA PURIFICACAO DE
+AGUA/BEBEDOURO ELETRICO)
+Demanda: 202600024342 - FFCLRP - \ADM\DEDIC Item de Despesa: 44905234
+Contratação gov.br:
+# Data Pesquisado em Prazos Valor Unitário
+Entrega: 30 dias corridos
+COMPRASGOVBR (980.823.298-15)
+1 23/04/2026 Pagamento: 28 dias corridos 1.254,11
+Parâmetros: II [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Everest Refrigeração (33.079.641/0001-32)
+2 07/04/2026 Pagamento: 28 dias corridos 1.382,27
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Givanildo Camargo da Silva (58.347.120/0001-40)
+4 07/04/2026 Pagamento: 28 dias corridos 1.490,00
+Parâmetros: IV [Tabela 1]
+Validade: 60 dias corridos
+Método de Cálculo do Valor Unitário:Média
+Item #25 | Lote: | Situação: Em análise Quantidade Valor Unitário Valor Total
+Bem: 9149287 | BEC: 5496489 | Material: 340553 1 UNIDADE 1.021,42 1.021,42
+FORNO MICROONDAS NA COR BRANCA 515X315X405 MM CAPACIDADE 34 LITROS (EQUIPAMENTOS E UTENSILIOS PARA REFEITOR./EQUIPAMENTOS DE
+COZINHA/FORNO)
+Demanda: 202600024342 - FFCLRP - \ADM\DEDIC Item de Despesa: 44905234
+Contratação gov.br:
+# Data Pesquisado em Prazos Valor Unitário
+Documento gerado em: 29/04/2026 14:32 Página 10 /14
+# | Data | Pesquisado em | Prazos | Valor Unitário
+1 | 23/04/2026 | COMPRASGOVBR (980.823.298-15)
+Parâmetros: II [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 892,90
+7 | 07/04/2026 | Magazine Luíza SA (47.960.950/1088-36)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 953,90
+11 | 07/04/2026 | Loja Eletrolux (13.986.197/0001-21)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 958,90
+4 | 07/04/2026 | Givanildo Camargo da Silva (58.347.120/0001-40)
+Parâmetros: IV [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 1.280,00
+Item #26 | Lote: | Situação: Em análise | Quantidade | Valor Unitário | Valor Total
+Bem: 9632018 | BEC: 5960525 | Material: 340979 | 2 UNIDADE | 381,92 | 763,84
+# | Data | Pesquisado em | Prazos | Valor Unitário
+6 | 07/04/2026 | Amazon -Serviços de Varejo do Brasil (15.436.940/0001-03)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 264,89
+22 | 07/04/2026 | Philco (11.283.356/0002-87)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 319,99
+7 | 07/04/2026 | Magazine Luíza SA (47.960.950/1088-36)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 419,00
+21 | 07/04/2026 | Frigelar (92.660.406/0001-19)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 437,72
+4 | 07/04/2026 | Givanildo Camargo da Silva (58.347.120/0001-40)
+Parâmetros: IV [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 468,00
+Item #27 | Lote: | Situação: Em análise | Quantidade | Valor Unitário | Valor Total
+Bem: 8812381 | BEC: 5186978 | Material: 340979 | 1 UNIDADE | 1.356,14 | 1.356,14
+# | Data | Pesquisado em | Prazos | Valor Unitário
+1 | 23/04/2026 | COMPRASGOVBR (980.823.298-15)
+Parâmetros: II [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 1.239,54
+7 | 07/04/2026 | Magazine Luíza SA (47.960.950/1088-36)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 1.378,90
+UNIVERSIDADE DE SÃO PAULO
+Documento da Compra: 202600052737 / 59 - FFCLRP
+# Data Pesquisado em Prazos Valor Unitário
+Entrega: 30 dias corridos
+COMPRASGOVBR (980.823.298-15)
+1 23/04/2026 Pagamento: 28 dias corridos 892,90
+Parâmetros: II [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Magazine Luíza SA (47.960.950/1088-36)
+7 07/04/2026 Pagamento: 28 dias corridos 953,90
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Loja Eletrolux (13.986.197/0001-21)
+11 07/04/2026 Pagamento: 28 dias corridos 958,90
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Givanildo Camargo da Silva (58.347.120/0001-40)
+4 07/04/2026 Pagamento: 28 dias corridos 1.280,00
+Parâmetros: IV [Tabela 1]
+Validade: 60 dias corridos
+Método de Cálculo do Valor Unitário:Média
+Item #26 | Lote: | Situação: Em análise Quantidade Valor Unitário Valor Total
+Bem: 9632018 | BEC: 5960525 | Material: 340979 2 UNIDADE 381,92 763,84
+FOGAO DOMESTICOELETRICO,MESA,ACO INOX,110V,1QUEIMADOR,6NIVEIS,S/FORNO (EQUIPAMENTOS E UTENSILIOS PARA REFEITOR./EQUIPAMENTOS
+DE COZINHA/FOGAO)
+Demanda: 202600024342 - FFCLRP - \ADM\DEDIC Item de Despesa: 44905234, 449052341
+Contratação gov.br:
+# Data Pesquisado em Prazos Valor Unitário
+Entrega: 30 dias corridos
+Amazon -Serviços de Varejo do Brasil (15.436.940/0001-03)
+6 07/04/2026 Pagamento: 28 dias corridos 264,89
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Philco (11.283.356/0002-87)
+22 07/04/2026 Pagamento: 28 dias corridos 319,99
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Magazine Luíza SA (47.960.950/1088-36)
+7 07/04/2026 Pagamento: 28 dias corridos 419,00
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Frigelar (92.660.406/0001-19)
+21 07/04/2026 Pagamento: 28 dias corridos 437,72
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Givanildo Camargo da Silva (58.347.120/0001-40)
+4 07/04/2026 Pagamento: 28 dias corridos 468,00
+Parâmetros: IV [Tabela 1]
+Validade: 60 dias corridos
+Método de Cálculo do Valor Unitário:Média
+Item #27 | Lote: | Situação: Em análise Quantidade Valor Unitário Valor Total
+Bem: 8812381 | BEC: 5186978 | Material: 340979 1 UNIDADE 1.356,14 1.356,14
+FOGAO DOMESTICO CONVENCIONAL A GAS 4 BOCAS ACENDIMENTO AUTOM. BIVOLT (EQUIPAMENTOS E UTENSILIOS PARA REFEITOR./EQUIPAMENTOS
+DE COZINHA/FOGAO) Eletrodomésticos
+Demanda: 202600032086 - FFCLRP - \ADM\DM Item de Despesa: 44905234, 449052341
+Contratação gov.br:
+# Data Pesquisado em Prazos Valor Unitário
+Entrega: 30 dias corridos
+COMPRASGOVBR (980.823.298-15)
+1 23/04/2026 Pagamento: 28 dias corridos 1.239,54
+Parâmetros: II [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Magazine Luíza SA (47.960.950/1088-36)
+7 07/04/2026 Pagamento: 28 dias corridos 1.378,90
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Documento gerado em: 29/04/2026 14:32 Página 11 /14
+# | Data | Pesquisado em | Prazos | Valor Unitário
+4 | 07/04/2026 | Givanildo Camargo da Silva (58.347.120/0001-40)
+Parâmetros: IV [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 1.450,00
+Item #28 | Lote: | Situação: Em análise | Quantidade | Valor Unitário | Valor Total
+Bem: 6565263 | BEC: 3574571 | Material: 309990 | 1 UNIDADE | 2.067,53 | 2.067,53
+# | Data | Pesquisado em | Prazos | Valor Unitário
+7 | 07/04/2026 | Magazine Luíza SA (47.960.950/1088-36)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 2.052,39
+1 | 23/04/2026 | COMPRASGOVBR (980.823.298-15)
+Parâmetros: II [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 2.082,67
+Item #29 | Lote: | Situação: Em análise | Quantidade | Valor Unitário | Valor Total
+Bem: 6563252 | BEC: 3432637 | Material: 309990 | 1 UNIDADE | 4.761,15 | 4.761,15
+# | Data | Pesquisado em | Prazos | Valor Unitário
+22 | 07/04/2026 | Philco (11.283.356/0002-87)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 4.451,30
+4 | 07/04/2026 | Givanildo Camargo da Silva (58.347.120/0001-40)
+Parâmetros: IV [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 4.782,00
+1 | 23/04/2026 | COMPRASGOVBR (980.823.298-15)
+Parâmetros: II [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 5.050,15
+Item #30 | Lote: | Situação: Em análise | Quantidade | Valor Unitário | Valor Total
+Bem: 6556833 | BEC: 1723197 | Material: 309788 | 4 UNIDADE | 7.835,59 | 31.342,36
+# | Data | Pesquisado em | Prazos | Valor Unitário
+25 | 07/04/2026 | Biovera Equips. (06.936.105/0001-33)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 5.711,90
+4 | 07/04/2026 | Givanildo Camargo da Silva (58.347.120/0001-40)
+Parâmetros: IV [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 5.850,00
+UNIVERSIDADE DE SÃO PAULO
+Documento da Compra: 202600052737 / 59 - FFCLRP
+# Data Pesquisado em Prazos Valor Unitário
+Entrega: 30 dias corridos
+Givanildo Camargo da Silva (58.347.120/0001-40)
+4 07/04/2026 Pagamento: 28 dias corridos 1.450,00
+Parâmetros: IV [Tabela 1]
+Validade: 60 dias corridos
+Método de Cálculo do Valor Unitário:Média
+Item #28 | Lote: | Situação: Em análise Quantidade Valor Unitário Valor Total
+Bem: 6565263 | BEC: 3574571 | Material: 309990 1 UNIDADE 2.067,53 2.067,53
+REFRIGERADOR DOMESTICO, 240L, UMA PORTA, COR BRANCA (EQUIPAMENTOS PARA REFRIGERACAO, CONDICI./EQUIPAMENTOS DE
+REFRIGERACAO/REFRIGERADOR DOMESTICO) Eletrodomésticos
+Demanda: 202600032086 - FFCLRP - \ADM\DM Item de Despesa: 44905234
+Contratação gov.br:
+# Data Pesquisado em Prazos Valor Unitário
+Entrega: 30 dias corridos
+Magazine Luíza SA (47.960.950/1088-36)
+7 07/04/2026 Pagamento: 28 dias corridos 2.052,39
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+COMPRASGOVBR (980.823.298-15)
+1 23/04/2026 Pagamento: 28 dias corridos 2.082,67
+Parâmetros: II [Tabela 1]
+Validade: 60 dias corridos
+Método de Cálculo do Valor Unitário:Média
+Item #29 | Lote: | Situação: Em análise Quantidade Valor Unitário Valor Total
+Bem: 6563252 | BEC: 3432637 | Material: 309990 1 UNIDADE 4.761,15 4.761,15
+REFRIGERADOR DOMEST.VERTICAL FROST FREE 342L, CONTROLE TEMPERATURA (EQUIPAMENTOS PARA REFRIGERACAO, CONDICI./EQUIPAMENTOS DE
+REFRIGERACAO/REFRIGERADOR DOMESTICO)
+Demanda: 202600044815 - FFCLRP - \ADM\PROJETOS ORÇAMENTO Item de Despesa: 44905234
+Contratação gov.br:
+# Data Pesquisado em Prazos Valor Unitário
+Entrega: 30 dias corridos
+Philco (11.283.356/0002-87)
+22 07/04/2026 Pagamento: 28 dias corridos 4.451,30
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Givanildo Camargo da Silva (58.347.120/0001-40)
+4 07/04/2026 Pagamento: 28 dias corridos 4.782,00
+Parâmetros: IV [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+COMPRASGOVBR (980.823.298-15)
+1 23/04/2026 Pagamento: 28 dias corridos 5.050,15
+Parâmetros: II [Tabela 1]
+Validade: 60 dias corridos
+Método de Cálculo do Valor Unitário:Média
+Item #30 | Lote: | Situação: Em análise Quantidade Valor Unitário Valor Total
+Bem: 6556833 | BEC: 1723197 | Material: 309788 4 UNIDADE 7.835,59 31.342,36
+DESUMIDIFICADOR DE AR, EM ACO, 12L/DIA,150M3,500M3/H,290W,110V (EQUIPAMENTOS PARA REFRIGERACAO, CONDICI./EQUIPAMENTOS DE
+CONDICIONAMENTO DE AR/DESUMIDIFICADOR DE AR) DESUMIDIFICADOR, VOLTAGEM: 110 V, CARACTERÍSTICAS ADICIONAIS: PORTÁTIL, COM
+DESLIGAMENTO AUTOMÁTICO , COLETOR: 3 L, APLICAÇÃO: CONTROLE DE TEMPERATURA E UMIDADE
+Demanda: 202600044831 - FFCLRP - \ADM\PROJETOS ORÇAMENTO Item de Despesa: 44905234
+Contratação gov.br:
+# Data Pesquisado em Prazos Valor Unitário
+Entrega: 30 dias corridos
+Biovera Equips. (06.936.105/0001-33)
+25 07/04/2026 Pagamento: 28 dias corridos 5.711,90
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Givanildo Camargo da Silva (58.347.120/0001-40)
+4 07/04/2026 Pagamento: 28 dias corridos 5.850,00
+Parâmetros: IV [Tabela 1]
+Validade: 60 dias corridos
+Documento gerado em: 29/04/2026 14:32 Página 12 /14
+# | Data | Pesquisado em | Prazos | Valor Unitário
+23 | 07/04/2026 | TAJFIF (54.481.442/0001-26)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 6.934,95
+24 | 07/04/2026 | ARSEC (52.203.858/0001-57)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 8.237,25
+26 | 07/04/2026 | Grama Cultivo (38.369.241/0001-85)
+Parâmetros: III [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 9.070,49
+27 | 10/04/2026 | Biosystems (03.995.303/0001-80)
+Parâmetros: IV [Tabela 1] | Entrega: 30 dias corridos
+Pagamento: 28 dias corridos
+Validade: 60 dias corridos | 11.209,00
+Tabela 1 - Parâmetros da Pesquisa | 
+# | Descrição do Parâmetro
+I | Composição de custos unitários menores ou iguais à mediana do item nos sistemas oficiais de governo.
+II | Contratações similares feitas pela Administração Pública, em execução ou concluídas no período de 1 ano anterior à data de pesquisa.
+III | Dados de pesquisa publicada em mídia especializada, de tabela de referência formalmente aprovada pelo Poder Executivo federal ou
+estadual e de sítios eletrônicos especializados ou de domínio amplo, desde que atualizados e com antecedência de 6 meses da data de
+divulgação do aviso de contratação direta;
+IV | Pesquisa direta com, no mínimo, 3 fornecedores, com solicitação formal de cotação e justificativa da escolha desses fornecedores, observada
+a antecedência de 6 meses da data de divulgação do aviso de contratação direta.
+V | Pesquisa na base nacional de notas fiscais eletrônicas e/ou em bases do Estado de São Paulo, com datas compreendidas no período de até 1
+ano anterior à data de divulgação do aviso de contratação direta.
+VI | Nas contratações diretas decorrentes de dispensa ou de inexigibilidade de licitação, quando não for possível estimar o valor do objeto na
+forma estabelecida no artigo 3°, a justificativa de preços será dada com base em valores de contratações de objetos idênticos,
+comercializados pela futura contratada, por meio da apresentação de notas fiscais emitidas para outros contratantes, públicos ou privados,
+no período de até 1 (um) ano anterior à data da contratação pela Administração, ou por outro meio idôneo (Art. 10, § 1º, Decreto nº
+67.888/23).
+VII | Composição de custos unitários menores ou iguais à mediana do item correspondente do Sistema de Custos Referenciais de Obras (Sicro),
+para serviços e obras de infraestrutura de transportes, ou do Sistema Nacional de Pesquisa de Custos e Índices de Construção Civil (Sinapi),
+para as demais obras e serviços de engenharia ou correspondentes no âmbito estadual. (Art. 23, §2º, I da Lei nº 14.133/21).
+UNIVERSIDADE DE SÃO PAULO
+Documento da Compra: 202600052737 / 59 - FFCLRP
+# Data Pesquisado em Prazos Valor Unitário
+Entrega: 30 dias corridos
+TAJFIF (54.481.442/0001-26)
+23 07/04/2026 Pagamento: 28 dias corridos 6.934,95
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+ARSEC (52.203.858/0001-57)
+24 07/04/2026 Pagamento: 28 dias corridos 8.237,25
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Grama Cultivo (38.369.241/0001-85)
+26 07/04/2026 Pagamento: 28 dias corridos 9.070,49
+Parâmetros: III [Tabela 1]
+Validade: 60 dias corridos
+Entrega: 30 dias corridos
+Biosystems (03.995.303/0001-80)
+27 10/04/2026 Pagamento: 28 dias corridos 11.209,00
+Parâmetros: IV [Tabela 1]
+Validade: 60 dias corridos
+Método de Cálculo do Valor Unitário:Média
+Tabela 1 - Parâmetros da Pesquisa
+# Descrição do Parâmetro
+I Composição de custos unitários menores ou iguais à mediana do item nos sistemas oficiais de governo.
+II Contratações similares feitas pela Administração Pública, em execução ou concluídas no período de 1 ano anterior à data de pesquisa.
+Dados de pesquisa publicada em mídia especializada, de tabela de referência formalmente aprovada pelo Poder Executivo federal ou
+III estadual e de sítios eletrônicos especializados ou de domínio amplo, desde que atualizados e com antecedência de 6 meses da data de
+divulgação do aviso de contratação direta;
+Pesquisa direta com, no mínimo, 3 fornecedores, com solicitação formal de cotação e justificativa da escolha desses fornecedores, observada
+IV
+a antecedência de 6 meses da data de divulgação do aviso de contratação direta.
+Pesquisa na base nacional de notas fiscais eletrônicas e/ou em bases do Estado de São Paulo, com datas compreendidas no período de até 1
+V
+ano anterior à data de divulgação do aviso de contratação direta.
+Nas contratações diretas decorrentes de dispensa ou de inexigibilidade de licitação, quando não for possível estimar o valor do objeto na
+forma estabelecida no artigo 3°, a justificativa de preços será dada com base em valores de contratações de objetos idênticos,
+VI comercializados pela futura contratada, por meio da apresentação de notas fiscais emitidas para outros contratantes, públicos ou privados,
+no período de até 1 (um) ano anterior à data da contratação pela Administração, ou por outro meio idôneo (Art. 10, § 1º, Decreto nº
+67.888/23).
+Composição de custos unitários menores ou iguais à mediana do item correspondente do Sistema de Custos Referenciais de Obras (Sicro),
+VII para serviços e obras de infraestrutura de transportes, ou do Sistema Nacional de Pesquisa de Custos e Índices de Construção Civil (Sinapi),
+para as demais obras e serviços de engenharia ou correspondentes no âmbito estadual. (Art. 23, §2º, I da Lei nº 14.133/21).
+Documento gerado em: 29/04/2026 14:32 Página 13 /14
+Pesquisa de Preços
+Data: 29/04/2026 14:32
+Responsável: Aparecida Regina Gonzalez (2425557)
+UNIVERSIDADE DE SÃO PAULO
+Documento da Compra: 202600052737 / 59 - FFCLRP
+Pesquisa de Preços
+Data: 29/04/2026 14:32
+Responsável: Aparecida Regina Gonzalez (2425557)
+Autorizo a abertura do(a) Pregão - Lei nº 14.133/21 tipo Bens e serviços comuns e respectivo início da fase preparatória,
+conforme estabelecido no Art. 1º, inciso I, alínea “a”, da Portaria GR nº 8.321/2024 e justifico que o valor estimado da presente
+aquisição/contratação é compatível com os valores praticados pelo mercado.
+Manifesto expressamente minha ciência e concordância com o dimensionamento e o detalhamento do objeto, incluindo os
+quantitativos especificados no presente Documento da Compra, bem como com as especificações técnicas e condições estabelecidas
+no Anexo - Termo de Referência Preliminar (TRP) que integra os autos.
+Christie Ramos Andrade Leite Panissi (425709)
+Diretor de Unidade de Ensino
+Documento gerado em: 29/04/2026 14:32 Página 14 /14
