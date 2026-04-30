@@ -112,7 +112,7 @@ class CompraImportPDFView(FormView):
     def _get_demanda_padrao(self, compra):
         numero_demanda = compra.numero_compra
         print(f"\n[DEBUG] Criando demanda padrão:")
-        print(f"  numero_compra: '{numero_demanda}'")
+        print(f"  numero_demanda: '{numero_demanda}'")
         print(f"  comprimento: {len(numero_demanda)} caracteres")
         print(f"  bytes: {numero_demanda.encode('utf-8')}")
         
@@ -166,6 +166,7 @@ class CompraImportPDFView(FormView):
             descricao=descricao,
             item_despesa=item_data.get('item_despesa', ''),
             valor_medio=valor_previsto,
+            quantidade=item_data.get('quantidade'),
         )
 
     def _processar_compra(self, compra, dados):
@@ -280,6 +281,7 @@ class DemandaImportPDFView(FormView):
                 # Converte lista de item_despesa para string separada por vírgula
                 item_despesa_list = item_data.get('item_despesa', [])
                 item_despesa_str = ' '.join(item_despesa_list) if isinstance(item_despesa_list, list) else ''
+                
                 
                 item = Item.objects.create(
                     demanda=demanda,
