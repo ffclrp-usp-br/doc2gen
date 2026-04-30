@@ -43,7 +43,7 @@ def extrair_texto(pdf_path):
 # ==========================================================
 def extrair_numero_compra(texto):
     m = re.search(r'Documento da Compra:\s*(\d+)\s*/\s*(\d+)', texto)
-    return f"{m.group(1)} / {m.group(2)}" if m else None
+    return f"{m.group(1)}" if m else None
 
 
 def extrair_numero_sei(texto):
@@ -108,6 +108,24 @@ def extrair_descricao(bloco):
     return ""
 
 
+
+# ==========================================================
+# NÚMERO DE DEMANDA
+# Ex:
+# Demanda: 202600000753 - FFCLRP - \ADM\DIR
+# ==========================================================
+def extrair_numero_demanda(bloco):
+    m = re.search(
+          r'\s*(\d{12})',
+        bloco
+    )
+
+    if m:
+        return limpar(m.group(0))
+
+    return None
+
+
 # ==========================================================
 # CENTRO DE DESPESA
 # Ex:
@@ -123,6 +141,8 @@ def extrair_centro_despesa(bloco):
         return limpar(m.group(1))
 
     return None
+
+
 
 
 # ==========================================================
@@ -215,6 +235,7 @@ def extrair_item(bloco):
 
     return {
         "item": numero,
+        "numero_demanda": extrair_numero_demanda(bloco),  
         "codigo_bem": codigo_bem,
         "codigo_bec": codigo_bec,
         "codigo_material": material,
@@ -284,6 +305,7 @@ def main():
         print("Código BEC:", item["codigo_bec"])
         print("Material:", item["codigo_material"])
         print("Item Despesa:", item["item_despesa"])
+        print("Número de Demanda:", item["numero_demanda"])
         print("Centro de Despesa:", item["centro_despesa"])
         print("Grupo Orçamentário:", item["grupo_orcamentario"])
         print("Descrição:", item["descricao"])

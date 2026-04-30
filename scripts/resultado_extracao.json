@@ -1,11 +1,12 @@
 {
-    "numero_compra": "202600052737 / 59",
+    "numero_compra": "202600052737",
     "numero_sei": "154.00005677/2026-46",
     "modalidade": "Pregão - Lei nº 14.133/21 - Bens e serviços comuns",
     "valor_total_previsto": "108.343,95",
     "itens": [
         {
             "item": "1",
+            "numero_demanda": "202600000753",
             "codigo_bem": "10243275",
             "codigo_bec": "6534210",
             "codigo_material": "314650",
@@ -36,6 +37,7 @@
         },
         {
             "item": "2",
+            "numero_demanda": "202600000753",
             "codigo_bem": "9841857",
             "codigo_bec": "6162789",
             "codigo_material": "341592",
@@ -62,6 +64,7 @@
         },
         {
             "item": "3",
+            "numero_demanda": "202600052737",
             "codigo_bem": "6926029",
             "codigo_bec": "4265882",
             "codigo_material": "340464",
@@ -88,6 +91,7 @@
         },
         {
             "item": "4",
+            "numero_demanda": "202600000753",
             "codigo_bem": "9949771",
             "codigo_bec": "6264816",
             "codigo_material": "309990",
@@ -114,6 +118,7 @@
         },
         {
             "item": "5",
+            "numero_demanda": "202600000753",
             "codigo_bem": "9426337",
             "codigo_bec": "5762464",
             "codigo_material": "340553",
@@ -144,6 +149,7 @@
         },
         {
             "item": "6",
+            "numero_demanda": "202600000753",
             "codigo_bem": "9538437",
             "codigo_bec": "5870291",
             "codigo_material": "338338",
@@ -174,6 +180,7 @@
         },
         {
             "item": "7",
+            "numero_demanda": "202600052737",
             "codigo_bem": "10130390",
             "codigo_bec": "6431160",
             "codigo_material": "309770",
@@ -200,6 +207,7 @@
         },
         {
             "item": "8",
+            "numero_demanda": "202600000753",
             "codigo_bem": "8700087",
             "codigo_bec": "5080835",
             "codigo_material": "342408",
@@ -226,6 +234,7 @@
         },
         {
             "item": "9",
+            "numero_demanda": "202600000753",
             "codigo_bem": "10182071",
             "codigo_bec": "6480462",
             "codigo_material": "338397",
@@ -252,6 +261,7 @@
         },
         {
             "item": "10",
+            "numero_demanda": "202600001431",
             "codigo_bem": "8798010",
             "codigo_bec": "5175844",
             "codigo_material": "340979",
@@ -278,6 +288,7 @@
         },
         {
             "item": "11",
+            "numero_demanda": "202600002195",
             "codigo_bem": "9586598",
             "codigo_bec": "5917310",
             "codigo_material": "314650",
@@ -300,6 +311,7 @@
         },
         {
             "item": "12",
+            "numero_demanda": "202600003582",
             "codigo_bem": "9628924",
             "codigo_bec": "5958261",
             "codigo_material": "340979",
@@ -334,6 +346,7 @@
         },
         {
             "item": "13",
+            "numero_demanda": "202600003701",
             "codigo_bem": "6925510",
             "codigo_bec": "4145755",
             "codigo_material": "340553",
@@ -360,6 +373,7 @@
         },
         {
             "item": "14",
+            "numero_demanda": "202600004678",
             "codigo_bem": "9082077",
             "codigo_bec": "5435889",
             "codigo_material": "310018",
@@ -386,6 +400,7 @@
         },
         {
             "item": "15",
+            "numero_demanda": "202600052737",
             "codigo_bem": "8704783",
             "codigo_bec": "5085756",
             "codigo_material": "314650",
@@ -416,6 +431,7 @@
         },
         {
             "item": "16",
+            "numero_demanda": "202600014703",
             "codigo_bem": "8104778",
             "codigo_bec": "4632869",
             "codigo_material": "335274",
@@ -442,6 +458,7 @@
         },
         {
             "item": "17",
+            "numero_demanda": "202600018970",
             "codigo_bem": "9529217",
             "codigo_bec": "5861314",
             "codigo_material": "341851",
@@ -472,6 +489,7 @@
         },
         {
             "item": "18",
+            "numero_demanda": "202600018970",
             "codigo_bem": "9879013",
             "codigo_bec": "6201580",
             "codigo_material": "260258",
@@ -502,6 +520,7 @@
         },
         {
             "item": "19",
+            "numero_demanda": "202600019489",
             "codigo_bem": "9366288",
             "codigo_bec": "5703239",
             "codigo_material": "314650",
@@ -528,6 +547,7 @@
         },
         {
             "item": "20",
+            "numero_demanda": "202600019489",
             "codigo_bem": "9707379",
             "codigo_bec": "6031536",
             "codigo_material": "340553",
@@ -554,6 +574,7 @@
         },
         {
             "item": "21",
+            "numero_demanda": "202600019489",
             "codigo_bem": "6922503",
             "codigo_bec": "3616991",
             "codigo_material": "341738",
@@ -584,6 +605,7 @@
         },
         {
             "item": "22",
+            "numero_demanda": "202600019489",
             "codigo_bem": "8655871",
             "codigo_bec": "5037603",
             "codigo_material": "341754",
@@ -618,6 +640,7 @@
         },
         {
             "item": "23",
+            "numero_demanda": "202600024342",
             "codigo_bem": "9130179",
             "codigo_bec": "5480876",
             "codigo_material": "309990",
@@ -648,6 +671,7 @@
         },
         {
             "item": "24",
+            "numero_demanda": "202600024342",
             "codigo_bem": "10243275",
             "codigo_bec": "6534210",
             "codigo_material": "314650",
@@ -674,6 +698,7 @@
         },
         {
             "item": "25",
+            "numero_demanda": "202600024342",
             "codigo_bem": "9149287",
             "codigo_bec": "5496489",
             "codigo_material": "340553",
@@ -704,6 +729,7 @@
         },
         {
             "item": "26",
+            "numero_demanda": "202600024342",
             "codigo_bem": "9632018",
             "codigo_bec": "5960525",
             "codigo_material": "340979",
@@ -738,6 +764,7 @@
         },
         {
             "item": "27",
+            "numero_demanda": "202600032086",
             "codigo_bem": "8812381",
             "codigo_bec": "5186978",
             "codigo_material": "340979",
@@ -764,6 +791,7 @@
         },
         {
             "item": "28",
+            "numero_demanda": "202600032086",
             "codigo_bem": "6565263",
             "codigo_bec": "3574571",
             "codigo_material": "309990",
@@ -786,6 +814,7 @@
         },
         {
             "item": "29",
+            "numero_demanda": "202600044815",
             "codigo_bem": "6563252",
             "codigo_bec": "3432637",
             "codigo_material": "309990",
@@ -812,6 +841,7 @@
         },
         {
             "item": "30",
+            "numero_demanda": "202600044831",
             "codigo_bem": "6556833",
             "codigo_bec": "1723197",
             "codigo_material": "309788",

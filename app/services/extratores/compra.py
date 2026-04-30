@@ -46,7 +46,7 @@ class ExtratorDocumentoCompra(ExtratorBase):
             re.IGNORECASE
         )
         if match:
-            return f"{match.group(1)} / {match.group(2)}"
+            return f"{match.group(1)}"
         
         # Tenta o novo padrão: 12 dígitos contínuos
         match = re.search(
