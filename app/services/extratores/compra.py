@@ -131,6 +131,8 @@ class ExtratorDocumentoCompra(ExtratorBase):
             "quantidade": self._extrair_quantidade(bloco),
             "valor_unitario_previsto": self._extrair_valor_unitario_previsto(bloco),
             "cotacoes": self._extrair_cotacoes(bloco),
+            "numero_demanda": self._extrair_numero_demanda(bloco),
+            "centro_gerencial": self._extrair_centro_gerencial(bloco),
         }
 
     def _extrair_numero_do_item(self, bloco):
@@ -205,6 +207,18 @@ class ExtratorDocumentoCompra(ExtratorBase):
             bloco
         )
         return match.group(2) if match else None
+
+    def _extrair_numero_demanda(self, bloco):
+        """Extrai o número da demanda"""
+        match = re.search(r'Demanda:\s*(\d+)', bloco, re.IGNORECASE)
+        return match.group(1) if match else None
+
+    def _extrair_centro_gerencial(self, bloco):
+        """Extrai o centro gerencial / centro de despesa da demanda"""
+        match = re.search(r'Demanda:\s*\d+\s*-\s*[^-\n]+-\s*(\\.*?)(?=\s+Item de Despesa:|\n|$)', bloco, re.IGNORECASE)
+        if match:
+            return self._limpar(match.group(1))
+        return None
 
     # -------------------------
     # MÉTODOS - EXTRAIR COTAÇÕES

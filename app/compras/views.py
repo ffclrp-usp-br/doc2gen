@@ -69,7 +69,7 @@ class CompraImportPDFView(FormView):
                 'objeto': dados.get('objeto') or '',
                 'modalidade': dados.get('modalidade') or '',
                 'tipo': dados.get('tipo_compra') or '',
-                'valor_estimado': None,
+                'valor_estimado': dados.get('valor_estimado') or None,
                 'nome_agente_contratacao': '',
             }
         )
@@ -175,10 +175,37 @@ class CompraImportPDFView(FormView):
         if not itens:
             return
 
-        # Criar/obter Demanda padrão para a compra
-        demanda = self._get_demanda_padrao(compra)
+        demanda_padrao = None
 
         for item_data in itens:
+            numero_demanda = item_data.get('numero_demanda')
+            centro_gerencial = item_data.get('centro_gerencial')
+
+            if numero_demanda:
+                grupo_orcamentario = CentroGerencialGrupoOrcamentario.obter_grupo_orcamentario(centro_gerencial)
+                demanda, created = Demanda.objects.get_or_create(
+                    numero_demanda=numero_demanda,
+                    compra=compra,
+                    defaults={
+                        'centro_gerencial': centro_gerencial or '',
+                        'grupo_orcamentario': grupo_orcamentario or '',
+                    }
+                )
+                if not created:
+                    updated = False
+                    if not demanda.centro_gerencial and centro_gerencial:
+                        demanda.centro_gerencial = centro_gerencial
+                        updated = True
+                    if not demanda.grupo_orcamentario and demanda.centro_gerencial:
+                        demanda.grupo_orcamentario = CentroGerencialGrupoOrcamentario.obter_grupo_orcamentario(demanda.centro_gerencial)
+                        updated = True
+                    if updated:
+                        demanda.save()
+            else:
+                if not demanda_padrao:
+                    demanda_padrao = self._get_demanda_padrao(compra)
+                demanda = demanda_padrao
+
             # Criar Item para cada item_data
             item = self._get_or_create_item(demanda, item_data)
 
