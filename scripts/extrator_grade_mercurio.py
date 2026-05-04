@@ -97,13 +97,30 @@ def extrair_blocos_itens(texto):
 # ==========================================================
 def extrair_descricao(bloco):
     m = re.search(
-        r'Material:\s*\d+\s+(.*?)\s+\d+(?:,\d+)?\s+UNIDADE',
+        r'(?:Bem:|Material:)[^\n]*\n(.*?)(?=\n\s*Demanda:|\n\s*Item de Despesa:|$)',
         bloco,
         re.S
     )
 
     if m:
-        return limpar(m.group(1))
+        texto = limpar(m.group(1))
+        if not texto:
+            return ""
+
+        # Encontrar a primeira ocorrência de vírgula ou ponto e vírgula
+        m_delim = re.search(r'[,;]', texto)
+
+        if m_delim:
+            idx = m_delim.start()
+            antes_delim = texto[:idx].strip()
+            palavras_antes = antes_delim.split()
+
+            if len(palavras_antes) <= 5:
+                return antes_delim.capitalize()
+
+        # Se não tem delimitador, ou se o delimitador está depois da 5ª palavra
+        palavras = texto.split()
+        return " ".join(palavras[:4]).capitalize()
 
     return ""
 
@@ -255,6 +272,8 @@ def extrair_item(bloco):
 def extrair_dados(pdf_path):
 
     texto = extrair_texto(pdf_path)
+
+    print(texto)
 
     dados = {
         "numero_compra": extrair_numero_compra(texto),

@@ -13,7 +13,7 @@
             "item_despesa": "44905234",
             "centro_despesa": "\\ADM\\DIR",
             "grupo_orcamentario": "59.000",
-            "descricao": "",
+            "descricao": "Bebedouro eletrico 127v",
             "quantidade": "2",
             "valor_unitario_previsto": "1.581,96",
             "pesquisas": [
@@ -44,7 +44,7 @@
             "item_despesa": "44905234",
             "centro_despesa": "\\ADM\\DIR",
             "grupo_orcamentario": "59.000",
-            "descricao": "",
+            "descricao": "Fritadeira",
             "quantidade": "2",
             "valor_unitario_previsto": "709,05",
             "pesquisas": [
@@ -71,7 +71,7 @@
             "item_despesa": "33903013",
             "centro_despesa": "\\ADM\\DIR",
             "grupo_orcamentario": "59.000",
-            "descricao": "",
+            "descricao": "Cafeteira",
             "quantidade": "2",
             "valor_unitario_previsto": "425,48",
             "pesquisas": [
@@ -98,7 +98,7 @@
             "item_despesa": "44905234",
             "centro_despesa": "\\ADM\\DIR",
             "grupo_orcamentario": "59.000",
-            "descricao": "",
+            "descricao": "Refrigerador domestico inverter 460l",
             "quantidade": "4",
             "valor_unitario_previsto": "4.267,72",
             "pesquisas": [
@@ -125,7 +125,7 @@
             "item_despesa": "33903013, 44905234",
             "centro_despesa": "\\ADM\\DIR",
             "grupo_orcamentario": "59.000",
-            "descricao": "",
+            "descricao": "Forno",
             "quantidade": "4",
             "valor_unitario_previsto": "919,61",
             "pesquisas": [
@@ -156,7 +156,7 @@
             "item_despesa": "44905234",
             "centro_despesa": "\\ADM\\DIR",
             "grupo_orcamentario": "59.000",
-            "descricao": "",
+            "descricao": "Televisao",
             "quantidade": "3",
             "valor_unitario_previsto": "3.213,99",
             "pesquisas": [
@@ -187,7 +187,7 @@
             "item_despesa": "44905234",
             "centro_despesa": "\\ADM\\DIR",
             "grupo_orcamentario": "59.000",
-            "descricao": "",
+            "descricao": "Ventilador",
             "quantidade": "4",
             "valor_unitario_previsto": "446,57",
             "pesquisas": [
@@ -214,7 +214,7 @@
             "item_despesa": "33903013",
             "centro_despesa": "\\ADM\\DIR",
             "grupo_orcamentario": "59.000",
-            "descricao": "",
+            "descricao": "Suporte de uso em",
             "quantidade": "4",
             "valor_unitario_previsto": "111,05",
             "pesquisas": [
@@ -241,7 +241,7 @@
             "item_despesa": "33903042, 44905234",
             "centro_despesa": "\\ADM\\DIR",
             "grupo_orcamentario": "59.000",
-            "descricao": "",
+            "descricao": "Suporte para televisor 32\"",
             "quantidade": "3",
             "valor_unitario_previsto": "139,01",
             "pesquisas": [
@@ -268,7 +268,7 @@
             "item_despesa": "44905234, 449052341",
             "centro_despesa": "\\ADM\\ATAD",
             "grupo_orcamentario": "59.000",
-            "descricao": "",
+            "descricao": "Fogao domestico de mesa",
             "quantidade": "2",
             "valor_unitario_previsto": "247,74",
             "pesquisas": [
@@ -295,7 +295,7 @@
             "item_despesa": "44905234",
             "centro_despesa": "\\ADM\\ATAD\\SCEXP",
             "grupo_orcamentario": "59.000",
-            "descricao": "",
+            "descricao": "Bebedouro eletrico de coluna",
             "quantidade": "1",
             "valor_unitario_previsto": "2.038,12",
             "pesquisas": [
@@ -318,7 +318,7 @@
             "item_despesa": "44905234, 449052341",
             "centro_despesa": "\\ADM\\DCM",
             "grupo_orcamentario": "59.000",
-            "descricao": "",
+            "descricao": "Fogao domestico",
             "quantidade": "1",
             "valor_unitario_previsto": "718,72",
             "pesquisas": [
@@ -353,7 +353,7 @@
             "item_despesa": "44905234",
             "centro_despesa": "\\ADM\\ATAD",
             "grupo_orcamentario": "59.000",
-            "descricao": "",
+            "descricao": "Forno",
             "quantidade": "1",
             "valor_unitario_previsto": "814,66",
             "pesquisas": [
@@ -380,7 +380,7 @@
             "item_despesa": "44905234",
             "centro_despesa": "\\ADM\\DQ\\QUIM-RECEITA",
             "grupo_orcamentario": "59.000",
-            "descricao": "",
+            "descricao": "Freezer domestico",
             "quantidade": "1",
             "valor_unitario_previsto": "3.248,45",
             "pesquisas": [
@@ -407,7 +407,7 @@
             "item_despesa": "33903090, 44905234",
             "centro_despesa": "\\ADM\\DB",
             "grupo_orcamentario": "59.000",
-            "descricao": "",
+            "descricao": "Bebedouro eletrico",
             "quantidade": "1",
             "valor_unitario_previsto": "3.400,77",
             "pesquisas": [
@@ -438,7 +438,7 @@
             "item_despesa": "33903032, 44905234",
             "centro_despesa": "\\ADM\\DB",
             "grupo_orcamentario": "59.000",
-            "descricao": "",
+            "descricao": "Termometro digital de -40",
             "quantidade": "1",
             "valor_unitario_previsto": "247,11",
             "pesquisas": [
@@ -465,7 +465,7 @@
             "item_despesa": "33903013",
             "centro_despesa": "\\ADM\\DQ",
             "grupo_orcamentario": "59.000",
-            "descricao": "",
+            "descricao": "Fervedor eletrico",
             "quantidade": "8",
             "valor_unitario_previsto": "121,83",
             "pesquisas": [
@@ -496,7 +496,7 @@
             "item_despesa": "33903050",
             "centro_despesa": "\\ADM\\DQ",
             "grupo_orcamentario": "59.000",
-            "descricao": "",
+            "descricao": "Peca para autoclave hospitalar",
             "quantidade": "10",
             "valor_unitario_previsto": "126,22",
             "pesquisas": [
@@ -527,7 +527,7 @@
             "item_despesa": "44905234",
             "centro_despesa": "\\ADM\\PROJETOS ORÇAMENTO",
             "grupo_orcamentario": "59.000",
-            "descricao": "",
+            "descricao": "Bebedouro eletrico",
             "quantidade": "3",
             "valor_unitario_previsto": "2.589,83",
             "pesquisas": [
@@ -554,7 +554,7 @@
             "item_despesa": "44905234",
             "centro_despesa": "\\ADM\\PROJETOS ORÇAMENTO",
             "grupo_orcamentario": "59.000",
-            "descricao": "",
+            "descricao": "Forno microondas capacidade 20",
             "quantidade": "2",
             "valor_unitario_previsto": "725,25",
             "pesquisas": [
@@ -581,7 +581,7 @@
             "item_despesa": "44905234",
             "centro_despesa": "\\ADM\\PROJETOS ORÇAMENTO",
             "grupo_orcamentario": "59.000",
-            "descricao": "",
+            "descricao": "Liquidificador",
             "quantidade": "4",
             "valor_unitario_previsto": "453,71",
             "pesquisas": [
@@ -612,7 +612,7 @@
             "item_despesa": "44905234",
             "centro_despesa": "\\ADM\\PROJETOS ORÇAMENTO",
             "grupo_orcamentario": "59.000",
-            "descricao": "",
+            "descricao": "Processador de alimento",
             "quantidade": "2",
             "valor_unitario_previsto": "358,08",
             "pesquisas": [
@@ -647,7 +647,7 @@
             "item_despesa": "44905234",
             "centro_despesa": "\\ADM\\DEDIC",
             "grupo_orcamentario": "59.000",
-            "descricao": "",
+            "descricao": "Refrigerador domestico",
             "quantidade": "1",
             "valor_unitario_previsto": "3.815,09",
             "pesquisas": [
@@ -678,7 +678,7 @@
             "item_despesa": "44905234",
             "centro_despesa": "\\ADM\\DEDIC",
             "grupo_orcamentario": "59.000",
-            "descricao": "",
+            "descricao": "Bebedouro eletrico 127v",
             "quantidade": "1",
             "valor_unitario_previsto": "1.375,46",
             "pesquisas": [
@@ -705,7 +705,7 @@
             "item_despesa": "44905234",
             "centro_despesa": "\\ADM\\DEDIC",
             "grupo_orcamentario": "59.000",
-            "descricao": "",
+            "descricao": "Forno microondas na cor",
             "quantidade": "1",
             "valor_unitario_previsto": "1.021,42",
             "pesquisas": [
@@ -736,7 +736,7 @@
             "item_despesa": "44905234, 449052341",
             "centro_despesa": "\\ADM\\DEDIC",
             "grupo_orcamentario": "59.000",
-            "descricao": "",
+            "descricao": "Fogao domesticoeletrico",
             "quantidade": "2",
             "valor_unitario_previsto": "381,92",
             "pesquisas": [
@@ -771,7 +771,7 @@
             "item_despesa": "44905234, 449052341",
             "centro_despesa": "\\ADM\\DM",
             "grupo_orcamentario": "59.000",
-            "descricao": "",
+            "descricao": "Fogao domestico convencional a",
             "quantidade": "1",
             "valor_unitario_previsto": "1.356,14",
             "pesquisas": [
@@ -798,7 +798,7 @@
             "item_despesa": "44905234",
             "centro_despesa": "\\ADM\\DM",
             "grupo_orcamentario": "59.000",
-            "descricao": "",
+            "descricao": "Refrigerador domestico",
             "quantidade": "1",
             "valor_unitario_previsto": "2.067,53",
             "pesquisas": [
@@ -821,7 +821,7 @@
             "item_despesa": "44905234",
             "centro_despesa": "\\ADM\\PROJETOS ORÇAMENTO",
             "grupo_orcamentario": "59.000",
-            "descricao": "",
+            "descricao": "Refrigerador domest.vertical frost free 342l",
             "quantidade": "1",
             "valor_unitario_previsto": "4.761,15",
             "pesquisas": [
@@ -848,7 +848,7 @@
             "item_despesa": "44905234",
             "centro_despesa": "\\ADM\\PROJETOS ORÇAMENTO",
             "grupo_orcamentario": "59.000",
-            "descricao": "",
+            "descricao": "Desumidificador de ar",
             "quantidade": "4",
             "valor_unitario_previsto": "7.835,59",
             "pesquisas": [
