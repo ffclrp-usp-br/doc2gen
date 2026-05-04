@@ -48,7 +48,7 @@
                 <th><small>Qtde</small></th>
                 <th style="min-width: 15%;"><small>Códigos diversos</small></th>
                 <th><small>Descrição</small></th>
-                <th><small>Pesquisas</small></th>
+                <th><small>Pesquisas<br>Valor médio</small></th>
                 <th><small>Ações</small></th>
             </tr>
         </thead>
@@ -61,30 +61,31 @@
                     {{ item.demanda.grupo_orcamentario }}<br>
                     <small>{{ item.item_despesa }}</small> <br>
                 </td>
-                
+
                 <td>{{ item.quantidade }}</td>
                 <td><small>
-                    Material: {{ item.codigo_material }}<br>
-                    Bem: {{ item.codigo_bem }}<br>
-                    Contabiliza: {{ item.codigo_contabiliza }}<br>
-                    Compras gov: {{ item.codigo_compras_gov }} <br>
-                </small></td>
+                        Material: {{ item.codigo_material }}<br>
+                        Bem: {{ item.codigo_bem }}<br>
+                        Contabiliza: {{ item.codigo_contabiliza }}<br>
+                        Compras gov: {{ item.codigo_compras_gov }} <br>
+                    </small></td>
                 <td>{{ item.descricao }}</td>
                 <td>
                     {% if item.pesquisas.all %}
-                        <small>
-                            {% for pesquisa in item.pesquisas.all %}
-                                <strong>{{ pesquisa.nome_fornecedor }}:</strong> R$ {{ pesquisa.valor_unitario|default:"N/A" }}<br>
-                            {% endfor %}
-                            <hr class="my-1">
-                            <strong>Média:</strong> R$ {{ item.valor_medio|default:"N/A" }}
-                        </small>
+                    <small>
+                        {% for pesquisa in item.pesquisas.all %}
+                        R$ {{ pesquisa.valor_unitario|default:"N/A" }} {{ pesquisa.nome_fornecedor }} <br>
+                        {% endfor %}
+                        <hr class="my-1">
+                        <strong>R$ {{ item.valor_medio|default:"N/A" }} </strong>
+                    </small>
                     {% else %}
-                        <small><em>Nenhuma pesquisa</em></small>
+                    <small><em>Nenhuma pesquisa</em></small>
                     {% endif %}
                 </td>
                 <td>
-                    <a href="{% url 'pesquisa_list' compra.id %}?item={{ item.pk }}" class="btn btn-sm btn-info">Pesquisas</a>
+                    <a href="{% url 'pesquisa_list' compra.id %}?item={{ item.pk }}"
+                        class="btn btn-sm btn-info">Pesquisas</a>
                     <a href="{% url 'item_update' item.pk %}" class="btn btn-sm btn-warning">Editar</a>
                     <a href="{% url 'item_delete' item.pk %}" class="btn btn-sm btn-danger">Excluir</a>
                 </td>

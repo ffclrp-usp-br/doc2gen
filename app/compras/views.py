@@ -69,7 +69,7 @@ class CompraImportPDFView(FormView):
                 'objeto': dados.get('objeto') or '',
                 'modalidade': dados.get('modalidade') or '',
                 'tipo': dados.get('tipo_compra') or '',
-                'valor_estimado': dados.get('valor_estimado') or None,
+                'valor_estimado': self._parse_decimal(dados.get('valor_total_previsto') or None),
                 'nome_agente_contratacao': '',
             }
         )

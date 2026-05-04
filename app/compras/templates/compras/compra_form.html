@@ -15,54 +15,61 @@
                         {{ form.numero_compra.label_tag }}
                         {{ form.numero_compra }}
                         {% if form.numero_compra.errors %}
-                            <div class="text-danger">{{ form.numero_compra.errors }}</div>
+                        <div class="text-danger">{{ form.numero_compra.errors }}</div>
                         {% endif %}
                     </div>
                     <div class="mb-3">
                         {{ form.numero_sei.label_tag }}
                         {{ form.numero_sei }}
                         {% if form.numero_sei.errors %}
-                            <div class="text-danger">{{ form.numero_sei.errors }}</div>
+                        <div class="text-danger">{{ form.numero_sei.errors }}</div>
                         {% endif %}
                     </div>
                     <div class="mb-3">
                         {{ form.objeto.label_tag }}
                         {{ form.objeto }}
                         {% if form.objeto.errors %}
-                            <div class="text-danger">{{ form.objeto.errors }}</div>
+                        <div class="text-danger">{{ form.objeto.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.valor_estimado.label_tag }}
+                        {{ form.valor_estimado }}
+                        {% if form.valor_estimado.errors %}
+                        <div class="text-danger">{{ form.valor_estimado.errors }}</div>
                         {% endif %}
                     </div>
                     <div class="mb-3">
                         {{ form.modalidade.label_tag }}
                         {{ form.modalidade }}
                         {% if form.modalidade.errors %}
-                            <div class="text-danger">{{ form.modalidade.errors }}</div>
+                        <div class="text-danger">{{ form.modalidade.errors }}</div>
                         {% endif %}
                     </div>
                     <div class="mb-3">
                         {{ form.tipo.label_tag }}
                         {{ form.tipo }}
                         {% if form.tipo.errors %}
-                            <div class="text-danger">{{ form.tipo.errors }}</div>
+                        <div class="text-danger">{{ form.tipo.errors }}</div>
                         {% endif %}
                     </div>
                     <div class="mb-3">
                         {{ form.valor.label_tag }}
                         {{ form.valor }}
                         {% if form.valor.errors %}
-                            <div class="text-danger">{{ form.valor.errors }}</div>
+                        <div class="text-danger">{{ form.valor.errors }}</div>
                         {% endif %}
                     </div>
                     <div class="mb-3">
                         {{ form.nome_agente_contratacao.label_tag }}
                         {{ form.nome_agente_contratacao }}
                         {% if form.nome_agente_contratacao.errors %}
-                            <div class="text-danger">{{ form.nome_agente_contratacao.errors }}</div>
+                        <div class="text-danger">{{ form.nome_agente_contratacao.errors }}</div>
                         {% endif %}
                     </div>
                     <button type="submit" class="btn btn-success">Salvar</button>
                     {% if object %}
-                        <a href="{% url 'demanda_import_pdf' object.pk %}" class="btn btn-info">Importar Demanda</a>
+                    <a href="{% url 'demanda_import_pdf' object.pk %}" class="btn btn-info">Importar Demanda</a>
                     {% endif %}
                     <a href="{% url 'compra_list' %}" class="btn btn-secondary">Voltar ao cadastro</a>
                 </form>

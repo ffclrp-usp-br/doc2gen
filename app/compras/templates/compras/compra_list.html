@@ -29,11 +29,13 @@
                 <td>{{ compra.numero_compra }}</td>
                 <td>{{ compra.numero_sei }}</td>
                 <td><small>{{ compra.objeto }}</small><br>
+                    <small>R$ {{ compra.valor_estimado }}</small><br>
                     <small>{{ compra.tipo }}</small><br>
                     <small>{{ compra.modalidade }}</small>
                 </td>
                 <td><a href="{% url 'item_list' compra.id %}" class="btn btn-sm btn-outline-primary">Itens</a>
-                <a href="{% url 'pesquisa_list' compra.id %}" class="btn btn-sm btn-outline-info">Pesquisas</a></td>
+                    <a href="{% url 'pesquisa_list' compra.id %}" class="btn btn-sm btn-outline-info">Pesquisas</a>
+                </td>
                 <td>
                     <a href="{% url 'compra_update' compra.pk %}" class="btn btn-sm btn-warning">Editar</a>
                     <a href="{% url 'compra_delete' compra.pk %}" class="btn btn-sm btn-danger">Excluir</a>
