@@ -45,11 +45,17 @@ def demanda_validator(value):
 
 class Compra(models.Model):
     MODALIDADE_CHOICES = [
-        ('COMPRA DIRETA COM DISPUTA', 'COMPRA DIRETA COM DISPUTA'),
-        ('COMPRA DIRETA SEM DISPUTA', 'COMPRA DIRETA SEM DISPUTA'),
-        ('PREGÃO', 'PREGÃO'),
-        ('INEXIGIBILIADE', 'INEXIGIBILIADE'),
-        ('CONCURSO', 'CONCURSO'),
+        ('Audiência Pública', 'Audiência Pública'),
+        ('Concorrência', 'Concorrência'),
+        ('Concurso', 'Concurso'),
+        ('Credenciamento', 'Credenciamento'),
+        ('Dispensa', 'Dispensa'),
+        ('Inexigibilidade', 'Inexigibilidade'),
+        ('Leilão', 'Leilão'),
+        ('Manifestação de interesse', 'Manifestação de interesse'),
+        ('Pré-Qualificação', 'Pré-Qualificação'),
+        ('Pregão', 'Pregão'),
+        ('Registro de Preços', 'Registro de Preços'),
     ]
 
     TIPO_CHOICES = [
@@ -78,7 +84,7 @@ class Compra(models.Model):
         blank=True,
     )
     objeto = models.CharField('Objeto', max_length=255, blank=True)
-    modalidade = models.CharField('Modalidade', max_length=255, blank=True)
+    modalidade = models.CharField('Modalidade', max_length=255, choices=MODALIDADE_CHOICES, blank=True)
     tipo = models.CharField('Tipo', max_length=20, choices=TIPO_CHOICES, blank=True)
     valor_estimado = models.DecimalField('Valor estimado', max_digits=14, decimal_places=2, validators=[MinValueValidator(0)], blank=True, null=True)
     nome_agente_contratacao = models.CharField('Agente de contratação', max_length=255, choices=AGENTE_CHOICES, blank=True)
