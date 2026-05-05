@@ -53,8 +53,16 @@ def extrair_numero_sei(texto):
 
 def extrair_modalidade(texto):
     m = re.search(r'Modalidade:\s*(.+?)(?:\n|$)', texto)
-    return limpar(m.group(1)) if m else None
+    
+    if not m:
+        return None
 
+    modalidade = limpar(m.group(1))
+
+    # Remove tudo a partir de "- Lei nº 14.133/21" (com variações de espaço)
+    modalidade = re.split(r'\s*-\s*Lei nº 14\.133/21.*', modalidade)[0]
+
+    return modalidade.strip()
 
 def extrair_valor_total_previsto(texto):
     m = re.search(
@@ -273,7 +281,7 @@ def extrair_dados(pdf_path):
 
     texto = extrair_texto(pdf_path)
 
-    print(texto)
+    # print(texto)
 
     dados = {
         "numero_compra": extrair_numero_compra(texto),

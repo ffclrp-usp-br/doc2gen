@@ -48,7 +48,7 @@
                 <th><small>Qtde</small></th>
                 <th style="min-width: 15%;"><small>Códigos diversos</small></th>
                 <th><small>Descrição</small></th>
-                <th><small>Pesquisas<br>Valor médio</small></th>
+                <th><small>Valor Médio</small><br><small>Pesquisas</small></th>
                 <th><small>Ações</small></th>
             </tr>
         </thead>
@@ -72,12 +72,12 @@
                 <td>{{ item.descricao }}</td>
                 <td>
                     {% if item.pesquisas.all %}
+                    R$ {{ item.valor_medio|default:"N/A" }}
+                    <hr class="my-1">
                     <small>
                         {% for pesquisa in item.pesquisas.all %}
                         R$ {{ pesquisa.valor_unitario|default:"N/A" }} {{ pesquisa.nome_fornecedor }} <br>
                         {% endfor %}
-                        <hr class="my-1">
-                        <strong>R$ {{ item.valor_medio|default:"N/A" }} </strong>
                     </small>
                     {% else %}
                     <small><em>Nenhuma pesquisa</em></small>

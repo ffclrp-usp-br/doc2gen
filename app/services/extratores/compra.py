@@ -68,16 +68,24 @@ class ExtratorDocumentoCompra(ExtratorBase):
         )
         return match.group(1) if match else None
 
+
+
     def _extrair_modalidade(self, texto):
-        """Extrai modalidade da compra"""
-        match = re.search(
-            r'Modalidade[:\s]*(.+?)(?:\n|$)',
-            texto,
-            re.IGNORECASE
-        )
-        if match:
-            return match.group(1).strip()
-        return None
+        m = re.search(r'Modalidade:\s*(.+?)(?:\n|$)', texto)
+        
+        if not m:
+            return None
+
+        modalidade = self._limpar(m.group(1))
+
+        # Remove tudo a partir de "- Lei nº 14.133/21" (com variações de espaço)
+        modalidade = re.split(r'\s*-\s*Lei nº 14\.133/21.*', modalidade)[0]
+
+        return modalidade.strip()
+
+
+
+
 
     def _extrair_valor_total_previsto(self, texto):
         """Extrai valor total previsto"""
