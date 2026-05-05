@@ -82,6 +82,7 @@ class Compra(models.Model):
     tipo = models.CharField('Tipo', max_length=20, choices=TIPO_CHOICES, blank=True)
     valor_estimado = models.DecimalField('Valor estimado', max_digits=14, decimal_places=2, validators=[MinValueValidator(0)], blank=True, null=True)
     nome_agente_contratacao = models.CharField('Agente de contratação', max_length=255, choices=AGENTE_CHOICES, blank=True)
+    disputa = models.BooleanField('Disputa', default=True)
     pdf_file = models.FileField('Arquivo PDF', upload_to='compras/', blank=True, null=True)
 
     def __str__(self):

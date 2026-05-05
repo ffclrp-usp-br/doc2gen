@@ -19,6 +19,7 @@
                 <th>Compra</th>
                 <th>SEI</th>
                 <th>Modalidade/Tipo/Objeto</th>
+                <th>Disputa</th>
                 <th>Detalhes</th>
                 <th>Ações</th>
             </tr>
@@ -32,6 +33,13 @@
                     <small>R$ {{ compra.valor_estimado }}</small><br>
                     <small>{{ compra.tipo }}</small><br>
                     <small>{{ compra.modalidade }}</small>
+                </td>
+                <td>
+                    {% if compra.disputa %}
+                        <span class="badge bg-success">Sim</span>
+                    {% else %}
+                        <span class="badge bg-secondary">Não</span>
+                    {% endif %}
                 </td>
                 <td><a href="{% url 'item_list' compra.id %}" class="btn btn-sm btn-outline-primary">Itens</a>
                     <a href="{% url 'pesquisa_list' compra.id %}" class="btn btn-sm btn-outline-info">Pesquisas</a>

@@ -409,14 +409,14 @@ class DemandaImportPDFView(FormView):
 
 class CompraCreateView(CreateView):
     model = Compra
-    fields = ['numero_compra', 'numero_sei', 'objeto', 'modalidade', 'tipo', 'valor_estimado', 'nome_agente_contratacao']
+    fields = ['numero_compra', 'numero_sei', 'objeto', 'modalidade', 'tipo', 'valor_estimado', 'nome_agente_contratacao', 'disputa']
     template_name = 'compras/compra_form.html'
     success_url = reverse_lazy('compra_list')
 
 
 class CompraUpdateView(UpdateView):
     model = Compra
-    fields = ['numero_compra', 'numero_sei', 'objeto', 'modalidade', 'tipo', 'valor_estimado', 'nome_agente_contratacao']
+    fields = ['numero_compra', 'numero_sei', 'objeto', 'modalidade', 'tipo', 'valor_estimado', 'nome_agente_contratacao', 'disputa']
     template_name = 'compras/compra_form.html'
     success_url = reverse_lazy('compra_list')
 

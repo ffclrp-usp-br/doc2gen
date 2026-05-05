@@ -67,6 +67,13 @@
                         <div class="text-danger">{{ form.nome_agente_contratacao.errors }}</div>
                         {% endif %}
                     </div>
+                    <div class="mb-3 form-check">
+                        {{ form.disputa }}
+                        <label class="form-check-label" for="{{ form.disputa.id_for_label }}">Possui disputa?</label>
+                        {% if form.disputa.errors %}
+                        <div class="text-danger">{{ form.disputa.errors }}</div>
+                        {% endif %}
+                    </div>
                     <button type="submit" class="btn btn-success">Salvar</button>
                     {% if object %}
                     <a href="{% url 'demanda_import_pdf' object.pk %}" class="btn btn-info">Importar Demanda</a>
