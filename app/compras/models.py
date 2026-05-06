@@ -19,19 +19,19 @@ class CentroGerencialGrupoOrcamentario:
     PADRAO = "59.000"
     
     @classmethod
-    def obter_grupo_orcamentario(cls, centro_gerencial: str) -> str:
+    def obter_grupo_orcamentario(cls, centro_despesa: str) -> str:
         """
         Retorna o grupo orçamentário baseado no centro gerencial.
         Se não encontrar, retorna o padrão (59.000).
         """
-        if not centro_gerencial:
+        if not centro_despesa:
             return cls.PADRAO
         
-        centro_gerencial = centro_gerencial.strip()
+        centro_despesa = centro_despesa.strip()
         
         # Buscar correspondência exata
         for chave, valor in cls.MAPEAMENTO.items():
-            if chave.lstrip('\\').lstrip('r') == centro_gerencial.lstrip('\\'):
+            if chave.lstrip('\\').lstrip('r') == centro_despesa.lstrip('\\'):
                 return valor
         
         # Se não encontrar, retornar padrão
@@ -86,7 +86,7 @@ class Compra(models.Model):
     objeto = models.CharField('Objeto', max_length=255, blank=True)
     modalidade = models.CharField('Modalidade', max_length=255, choices=MODALIDADE_CHOICES, blank=True)
     tipo = models.CharField('Tipo', max_length=20, choices=TIPO_CHOICES, blank=True)
-    valor_estimado = models.DecimalField('Valor estimado', max_digits=14, decimal_places=2, validators=[MinValueValidator(0)], blank=True, null=True)
+    valor_total_previsto = models.DecimalField('Valor total previsto', max_digits=14, decimal_places=2, validators=[MinValueValidator(0)], blank=True, null=True)
     nome_agente_contratacao = models.CharField('Agente de contratação', max_length=255, choices=AGENTE_CHOICES, blank=True)
     disputa = models.BooleanField('Disputa', default=True)
     pdf_file = models.FileField('Arquivo PDF', upload_to='compras/', blank=True, null=True)
@@ -103,7 +103,7 @@ class Demanda(models.Model):
         unique=True,
     )
 
-    centro_gerencial = models.CharField('Centro Gerencial', max_length=50, blank=True)
+    centro_despesa = models.CharField('Centro Despesa', max_length=50, blank=True)
 
     grupo_orcamentario = models.CharField(
         'Grupo orçamentário',

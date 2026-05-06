@@ -19,7 +19,6 @@
                 <th>Compra</th>
                 <th>SEI</th>
                 <th>Modalidade/Tipo/Objeto</th>
-                <th>Disputa</th>
                 <th>Detalhes</th>
                 <th>Ações</th>
             </tr>
@@ -30,15 +29,13 @@
                 <td>{{ compra.numero_compra }}</td>
                 <td>{{ compra.numero_sei }}</td>
                 <td><small>{{ compra.objeto }}</small><br>
-                    <small>R$ {{ compra.valor_estimado }}</small><br>
+                    <small>R$ {{ compra.valor_total_previsto }}</small><br>
                     <small>{{ compra.tipo }}</small><br>
                     <small>{{ compra.modalidade }}</small>
-                </td>
-                <td>
                     {% if compra.disputa %}
-                        <span class="badge bg-success">Sim</span>
+                    <small><span class="badge bg-success">Com disputa</span></small>
                     {% else %}
-                        <span class="badge bg-secondary">Não</span>
+                    <small><span class="badge bg-danger">Sem disputa</span></small>
                     {% endif %}
                 </td>
                 <td><a href="{% url 'item_list' compra.id %}" class="btn btn-sm btn-outline-primary">Itens</a>
@@ -47,6 +44,8 @@
                 <td>
                     <a href="{% url 'compra_update' compra.pk %}" class="btn btn-sm btn-warning">Editar</a>
                     <a href="{% url 'compra_delete' compra.pk %}" class="btn btn-sm btn-danger">Excluir</a>
+                    <a href="{% url 'kit_conferencia' compra.pk %}" class="btn btn-sm btn-info">Kit de
+                        conferência</a>
                 </td>
             </tr>
             {% empty %}

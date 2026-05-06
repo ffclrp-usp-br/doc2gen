@@ -33,10 +33,10 @@
                         {% endif %}
                     </div>
                     <div class="mb-3">
-                        {{ form.valor_estimado.label_tag }}
-                        {{ form.valor_estimado }}
-                        {% if form.valor_estimado.errors %}
-                        <div class="text-danger">{{ form.valor_estimado.errors }}</div>
+                        {{ form.valor_total_previsto.label_tag }}
+                        {{ form.valor_total_previsto }}
+                        {% if form.valor_total_previsto.errors %}
+                        <div class="text-danger">{{ form.valor_total_previsto.errors }}</div>
                         {% endif %}
                     </div>
                     <div class="mb-3">
@@ -53,13 +53,7 @@
                         <div class="text-danger">{{ form.tipo.errors }}</div>
                         {% endif %}
                     </div>
-                    <div class="mb-3">
-                        {{ form.valor.label_tag }}
-                        {{ form.valor }}
-                        {% if form.valor.errors %}
-                        <div class="text-danger">{{ form.valor.errors }}</div>
-                        {% endif %}
-                    </div>
+
                     <div class="mb-3">
                         {{ form.nome_agente_contratacao.label_tag }}
                         {{ form.nome_agente_contratacao }}

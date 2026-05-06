@@ -1,0 +1,111 @@
+import os
+import re
+import io
+import zipfile
+from django.conf import settings
+from docxtpl import DocxTemplate
+from ..models import Compra
+
+class KitConferenciaService:
+    @staticmethod
+    def format_currency(value):
+        if value is None:
+            return "R$ 0,00"
+        return f"R$ {value:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+
+    @staticmethod
+    def parse_sei(sei):
+        """
+        Extracts year and number from SEI string.
+        Format: 154.00009999/2026-99
+        Returns: (year, number) or (None, None)
+        """
+        if not sei:
+            return None, None
+        match = re.search(r'\.(\d+)/(\d{4})-', sei)
+        if match:
+            numero = match.group(1).lstrip('0')
+            ano = match.group(2)
+            return ano, numero
+        return None, None
+
+    @classmethod
+    def generate_kit(cls, compra_id):
+        compra = Compra.objects.prefetch_related('demandas__itens').get(pk=compra_id)
+        
+        # 1. Determine template
+        template_dir = os.path.join(settings.BASE_DIR, 'compras', 'templates_docs')
+        template_name = ""
+        
+        modalidade_upper = (compra.modalidade or "").upper()
+        
+        if 'PREGÃO' in modalidade_upper or 'PREGAO' in modalidade_upper:
+            template_name = "CONFERENCIA_PREGAO.docx"
+        elif 'DISPENSA' in modalidade_upper or 'COMPRA DIRETA' in modalidade_upper:
+            if compra.disputa:
+                template_name = "CONFERENCIA_CD_COM_DISPUTA.docx"
+            else:
+                template_name = "CONFERENCIA_CD_SEM_DISPUTA.docx"
+        else:
+            raise ValueError(f"Modalidade '{compra.modalidade}' não suportada para o Kit Conferência.")
+
+        template_path = os.path.join(template_dir, template_name)
+        if not os.path.exists(template_path):
+            raise FileNotFoundError(f"Template não encontrado: {template_path}")
+
+        # 2. Prepare context
+        itens_context = []
+        for demanda in compra.demandas.all():
+            for item in demanda.itens.all():
+                itens_context.append({
+                    'numero_demanda': demanda.numero_demanda,
+                    'centro_despesa': demanda.centro_despesa,
+                    'item': item.numero_ordem,
+                    'qtde': item.quantidade,
+                    'codigo_comprasgov': item.codigo_compras_gov,
+                    'descricao': item.descricao,
+                    'item_despesa': item.item_despesa,
+                })
+
+        context = {
+            'numero_sei': compra.numero_sei,
+            'numero_compra': compra.numero_compra,
+            'objeto': compra.objeto,
+            'modalidade': compra.modalidade,
+            'nome_agente_contratacao': compra.nome_agente_contratacao,
+            'valor_total_previsto': cls.format_currency(compra.valor_total_previsto),
+            'itens': itens_context,
+        }
+
+        # 3. Render DOCX
+        doc = DocxTemplate(template_path)
+        doc.render(context)
+        
+        docx_io = io.BytesIO()
+        doc.save(docx_io)
+        docx_io.seek(0)
+
+        # 4. Generate ZIP
+        zip_io = io.BytesIO()
+        with zipfile.ZipFile(zip_io, 'w', zipfile.ZIP_DEFLATED) as zip_file:
+            # Add DOCX
+            docx_filename = f"{template_name.replace('.docx', '')}_preenchido.docx"
+            zip_file.writestr(docx_filename, docx_io.getvalue())
+            
+            # Add XLSX (renamed to CONFERÊNCIA.xlsx)
+            xlsx_path = os.path.join(template_dir, "CONFERENCIA_LICITACAO_MODELO.xlsx")
+            if os.path.exists(xlsx_path):
+                zip_file.write(xlsx_path, "CONFERÊNCIA.xlsx")
+            
+        zip_io.seek(0)
+
+        # 5. Generate filename
+        ano_sei, num_sei = cls.parse_sei(compra.numero_sei)
+        if ano_sei and num_sei:
+            zip_filename = f"{ano_sei} - SEI {num_sei} - {compra.objeto}.zip"
+        else:
+            # Fallback if SEI parsing fails
+            clean_objeto = re.sub(r'[^\w\s-]', '', compra.objeto)[:50]
+            zip_filename = f"KIT_CONFERENCIA_{compra.numero_compra.replace('/', '_')}_{clean_objeto}.zip"
+
+        return zip_io, zip_filename

@@ -8,6 +8,9 @@ from django.views.generic import CreateView, ListView, UpdateView, DeleteView, F
 from .models import Compra, Demanda, Item, Pesquisa, CentroGerencialGrupoOrcamentario
 
 from services.parser_service import ParserService
+from django.http import FileResponse
+from django.views import View
+from .services.kit_conferencia import KitConferenciaService
 
 
 class MultipleFileInput(forms.FileInput):
@@ -69,7 +72,7 @@ class CompraImportPDFView(FormView):
                 'objeto': dados.get('objeto') or '',
                 'modalidade': dados.get('modalidade') or '',
                 'tipo': dados.get('tipo_compra') or '',
-                'valor_estimado': self._parse_decimal(dados.get('valor_total_previsto') or None),
+                'valor_total_previsto': self._parse_decimal(dados.get('valor_total_previsto') or None),
                 'nome_agente_contratacao': '',
             }
         )
@@ -120,7 +123,7 @@ class CompraImportPDFView(FormView):
             numero_demanda=numero_demanda,
             compra=compra,
             defaults={
-                'centro_gerencial': '',
+                'centro_despesa': '',
                 'grupo_orcamentario': '',
             }
         )
@@ -179,25 +182,25 @@ class CompraImportPDFView(FormView):
 
         for item_data in itens:
             numero_demanda = item_data.get('numero_demanda')
-            centro_gerencial = item_data.get('centro_gerencial')
+            centro_despesa = item_data.get('centro_despesa')
 
             if numero_demanda:
-                grupo_orcamentario = CentroGerencialGrupoOrcamentario.obter_grupo_orcamentario(centro_gerencial)
+                grupo_orcamentario = CentroGerencialGrupoOrcamentario.obter_grupo_orcamentario(centro_despesa)
                 demanda, created = Demanda.objects.get_or_create(
                     numero_demanda=numero_demanda,
                     compra=compra,
                     defaults={
-                        'centro_gerencial': centro_gerencial or '',
+                        'centro_despesa': centro_despesa or '',
                         'grupo_orcamentario': grupo_orcamentario or '',
                     }
                 )
                 if not created:
                     updated = False
-                    if not demanda.centro_gerencial and centro_gerencial:
-                        demanda.centro_gerencial = centro_gerencial
+                    if not demanda.centro_despesa and centro_despesa:
+                        demanda.centro_despesa = centro_despesa
                         updated = True
-                    if not demanda.grupo_orcamentario and demanda.centro_gerencial:
-                        demanda.grupo_orcamentario = CentroGerencialGrupoOrcamentario.obter_grupo_orcamentario(demanda.centro_gerencial)
+                    if not demanda.grupo_orcamentario and demanda.centro_despesa:
+                        demanda.grupo_orcamentario = CentroGerencialGrupoOrcamentario.obter_grupo_orcamentario(demanda.centro_despesa)
                         updated = True
                     if updated:
                         demanda.save()
@@ -276,25 +279,25 @@ class DemandaImportPDFView(FormView):
         if not itens_validos:
             return None, 'Os itens da demanda não possuem os códigos necessários. Verifique se o PDF segue o formato esperado: "número número número número número número número descrição".'
 
-        centro_gerencial_valor = self._extrair_grupo_orcamentario(dados.get('centro_gerencial', ''))
-        grupo_orcamentario_valor = CentroGerencialGrupoOrcamentario.obter_grupo_orcamentario(centro_gerencial_valor)
+        centro_despesa_valor = self._extrair_grupo_orcamentario(dados.get('centro_despesa', ''))
+        grupo_orcamentario_valor = CentroGerencialGrupoOrcamentario.obter_grupo_orcamentario(centro_despesa_valor)
         
         demanda, created = Demanda.objects.get_or_create(
             numero_demanda=dados['numero_demanda'],
             compra=compra,
             defaults={
-                'centro_gerencial': centro_gerencial_valor,
+                'centro_despesa': centro_despesa_valor,
                 'grupo_orcamentario': grupo_orcamentario_valor,
             }
         )
 
         if not created:
             updated = False
-            if not demanda.centro_gerencial and centro_gerencial_valor:
-                demanda.centro_gerencial = centro_gerencial_valor
+            if not demanda.centro_despesa and centro_despesa_valor:
+                demanda.centro_despesa = centro_despesa_valor
                 updated = True
             if not demanda.grupo_orcamentario:
-                demanda.grupo_orcamentario = CentroGerencialGrupoOrcamentario.obter_grupo_orcamentario(demanda.centro_gerencial or centro_gerencial_valor)
+                demanda.grupo_orcamentario = CentroGerencialGrupoOrcamentario.obter_grupo_orcamentario(demanda.centro_despesa or centro_despesa_valor)
                 updated = True
             if updated:
                 demanda.save()
@@ -409,14 +412,14 @@ class DemandaImportPDFView(FormView):
 
 class CompraCreateView(CreateView):
     model = Compra
-    fields = ['numero_compra', 'numero_sei', 'objeto', 'modalidade', 'tipo', 'valor_estimado', 'nome_agente_contratacao', 'disputa']
+    fields = ['numero_compra', 'numero_sei', 'objeto', 'modalidade', 'tipo', 'valor_total_previsto', 'nome_agente_contratacao', 'disputa']
     template_name = 'compras/compra_form.html'
     success_url = reverse_lazy('compra_list')
 
 
 class CompraUpdateView(UpdateView):
     model = Compra
-    fields = ['numero_compra', 'numero_sei', 'objeto', 'modalidade', 'tipo', 'valor_estimado', 'nome_agente_contratacao', 'disputa']
+    fields = ['numero_compra', 'numero_sei', 'objeto', 'modalidade', 'tipo', 'valor_total_previsto', 'nome_agente_contratacao', 'disputa']
     template_name = 'compras/compra_form.html'
     success_url = reverse_lazy('compra_list')
 
@@ -540,3 +543,14 @@ class PesquisaDeleteView(DeleteView):
 
 
 
+class KitConferenciaView(View):
+    def get(self, request, pk):
+        try:
+            zip_io, filename = KitConferenciaService.generate_kit(pk)
+            response = FileResponse(zip_io, content_type='application/zip')
+            response['Content-Disposition'] = f'attachment; filename="{filename}"'
+            return response
+        except Exception as e:
+            # For now, just return a simple error. In a real app, maybe redirect with message.
+            from django.http import HttpResponse
+            return HttpResponse(f"Erro ao gerar kit: {str(e)}", status=500)

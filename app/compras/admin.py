@@ -16,16 +16,16 @@ class DemandaInline(admin.TabularInline):
 
 @admin.register(Compra)
 class CompraAdmin(admin.ModelAdmin):
-    list_display = ('numero_compra', 'numero_sei', 'modalidade', 'tipo', 'valor_estimado', 'nome_agente_contratacao')
+    list_display = ('numero_compra', 'numero_sei', 'modalidade', 'tipo', 'valor_total_previsto', 'nome_agente_contratacao')
     search_fields = ('numero_compra', 'numero_sei', 'objeto')
     inlines = [DemandaInline]
 
 
 @admin.register(Demanda)
 class DemandaAdmin(admin.ModelAdmin):
-    list_display = ('numero_demanda', 'centro_gerencial', 'grupo_orcamentario', 'compra')
+    list_display = ('numero_demanda', 'centro_despesa', 'grupo_orcamentario', 'compra')
     list_filter = ('compra',)
-    search_fields = ('numero_demanda', 'centro_gerencial')
+    search_fields = ('numero_demanda', 'centro_despesa')
 
 
 @admin.register(Item)

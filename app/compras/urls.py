@@ -16,4 +16,5 @@ urlpatterns = [
     path('<int:compra_id>/pesquisas/', views.PesquisaListView.as_view(), name='pesquisa_list'),
     path('pesquisa/<int:pk>/editar/', views.PesquisaUpdateView.as_view(), name='pesquisa_update'),
     path('pesquisa/<int:pk>/deletar/', views.PesquisaDeleteView.as_view(), name='pesquisa_delete'),
+    path('<int:pk>/kit_conferencia/', views.KitConferenciaView.as_view(), name='kit_conferencia'),
 ]
