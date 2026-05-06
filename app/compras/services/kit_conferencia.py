@@ -57,6 +57,7 @@ class KitConferenciaService:
         itens_context = []
         for demanda in compra.demandas.all():
             for item in demanda.itens.all():
+                
                 itens_context.append({
                     'numero_demanda': demanda.numero_demanda,
                     'centro_despesa': demanda.centro_despesa,
@@ -65,6 +66,10 @@ class KitConferenciaService:
                     'codigo_comprasgov': item.codigo_compras_gov,
                     'descricao': item.descricao,
                     'item_despesa': item.item_despesa,
+                    'valor_unitario_previsto': item.valor_medio,
+                    'grupo_orcamentario': demanda.grupo_orcamentario,
+                    'centro_despesa': demanda.centro_despesa,    
+                    
                 })
 
         context = {
@@ -72,6 +77,7 @@ class KitConferenciaService:
             'numero_compra': compra.numero_compra,
             'objeto': compra.objeto,
             'modalidade': compra.modalidade,
+            'tipo': compra.tipo,
             'nome_agente_contratacao': compra.nome_agente_contratacao,
             'valor_total_previsto': cls.format_currency(compra.valor_total_previsto),
             'itens': itens_context,
