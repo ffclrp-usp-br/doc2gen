@@ -27,11 +27,11 @@ class CentroGerencialGrupoOrcamentario:
         if not centro_despesa:
             return cls.PADRAO
         
-        centro_despesa = centro_despesa.strip()
+        centro_despesa = centro_despesa.strip().upper().lstrip('\\')
         
-        # Buscar correspondência exata
+        # Buscar correspondência
         for chave, valor in cls.MAPEAMENTO.items():
-            if chave.lstrip('\\').lstrip('r') == centro_despesa.lstrip('\\'):
+            if chave.strip().upper().lstrip('\\') == centro_despesa:
                 return valor
         
         # Se não encontrar, retornar padrão
@@ -169,7 +169,7 @@ class Item(models.Model):
         ordering = ['demanda', 'numero_ordem']
 
     def save(self, *args, **kwargs):
-        if not self.pk:
+        if not self.pk and not self.numero_ordem:
             last = Item.objects.filter(demanda=self.demanda).order_by('-numero_ordem').first()
             self.numero_ordem = 1 if last is None else last.numero_ordem + 1
         super().save(*args, **kwargs)

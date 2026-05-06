@@ -112,19 +112,21 @@ class CompraImportPDFView(FormView):
         except (InvalidOperation, TypeError):
             return None
 
-    def _get_demanda_padrao(self, compra):
+    def _get_demanda_padrao(self, compra, centro_despesa=None):
         numero_demanda = compra.numero_compra
         print(f"\n[DEBUG] Criando demanda padrão:")
         print(f"  numero_demanda: '{numero_demanda}'")
         print(f"  comprimento: {len(numero_demanda)} caracteres")
         print(f"  bytes: {numero_demanda.encode('utf-8')}")
         
+        grupo_orcamentario = CentroGerencialGrupoOrcamentario.obter_grupo_orcamentario(centro_despesa) if centro_despesa else ''
+
         demanda, created = Demanda.objects.get_or_create(
             numero_demanda=numero_demanda,
             compra=compra,
             defaults={
-                'centro_despesa': '',
-                'grupo_orcamentario': '',
+                'centro_despesa': centro_despesa or '',
+                'grupo_orcamentario': grupo_orcamentario,
             }
         )
         
@@ -163,6 +165,7 @@ class CompraImportPDFView(FormView):
 
         return Item.objects.create(
             demanda=demanda,
+            numero_ordem=item_data.get('item'),
             codigo_compras_gov=bec,
             codigo_contabiliza=item_data.get('codigo_contabiliza', ''),
             codigo_bem=bem,
@@ -182,7 +185,7 @@ class CompraImportPDFView(FormView):
 
         for item_data in itens:
             numero_demanda = item_data.get('numero_demanda')
-            centro_despesa = item_data.get('centro_despesa')
+            centro_despesa = item_data.get('centro_gerencial')
 
             if numero_demanda:
                 grupo_orcamentario = CentroGerencialGrupoOrcamentario.obter_grupo_orcamentario(centro_despesa)
@@ -206,7 +209,7 @@ class CompraImportPDFView(FormView):
                         demanda.save()
             else:
                 if not demanda_padrao:
-                    demanda_padrao = self._get_demanda_padrao(compra)
+                    demanda_padrao = self._get_demanda_padrao(compra, centro_despesa)
                 demanda = demanda_padrao
 
             # Criar Item para cada item_data
@@ -279,7 +282,7 @@ class DemandaImportPDFView(FormView):
         if not itens_validos:
             return None, 'Os itens da demanda não possuem os códigos necessários. Verifique se o PDF segue o formato esperado: "número número número número número número número descrição".'
 
-        centro_despesa_valor = self._extrair_grupo_orcamentario(dados.get('centro_despesa', ''))
+        centro_despesa_valor = self._extrair_grupo_orcamentario(dados.get('centro_gerencial', ''))
         grupo_orcamentario_valor = CentroGerencialGrupoOrcamentario.obter_grupo_orcamentario(centro_despesa_valor)
         
         demanda, created = Demanda.objects.get_or_create(
@@ -315,6 +318,7 @@ class DemandaImportPDFView(FormView):
                 
                 item = Item.objects.create(
                     demanda=demanda,
+                    numero_ordem=item_data.get('item'),
                     codigo_material=item_data.get('codigo_material', ''),
                     codigo_compras_gov=item_data.get('codigo_compras_gov', ''),
                     codigo_contabiliza=item_data.get('codigo_contabiliza', ''),
