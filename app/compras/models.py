@@ -133,6 +133,7 @@ class Item(models.Model):
         'Código compras gov',
         max_length=14,
         blank=True,
+        null=True,
     )
 
     codigo_contabiliza = models.CharField(

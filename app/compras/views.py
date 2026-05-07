@@ -166,7 +166,7 @@ class CompraImportPDFView(FormView):
         return Item.objects.create(
             demanda=demanda,
             numero_ordem=item_data.get('item'),
-            codigo_compras_gov=bec,
+            codigo_compras_gov=None, #TODO: aqui seria interessante puxar do compras GOV.BR
             codigo_contabiliza=item_data.get('codigo_contabiliza', ''),
             codigo_bem=bem,
             descricao=descricao,
