@@ -58,18 +58,18 @@ class KitConferenciaService:
         for demanda in compra.demandas.all():
             for item in demanda.itens.all():
                 itens_context.append({
-                    'demanda': demanda.numero_demanda,
-                    'numero_demanda': demanda.numero_demanda,
-                    'centro_despesa': demanda.centro_despesa,
-                    'grupo_orcamentario': demanda.grupo_orcamentario,                    
-                    'numero_ordem': item.numero_ordem,
-                    'numero_item': item.numero_ordem,
-                    'numero_ordem': item.numero_ordem,
-                    'quantidade': item.quantidade,
-                    'codigo_comprasgov': item.codigo_compras_gov,
-                    'descricao': item.descricao,
-                    'item_despesa': item.item_despesa,
-                    'valor_unitario_previsto': item.valor_medio
+                    'demanda': demanda.numero_demanda or '',
+                    'numero_demanda': demanda.numero_demanda or '',
+                    'centro_despesa': demanda.centro_despesa or '',
+                    'grupo_orcamentario': demanda.grupo_orcamentario or '',                    
+                    'numero_ordem': item.numero_ordem or '',
+                    'numero_item': item.numero_ordem or '',
+                    'numero_ordem': item.numero_ordem or '',
+                    'quantidade': item.quantidade or '',
+                    'codigo_comprasgov': item.codigo_compras_gov or '',
+                    'descricao': item.descricao or '',
+                    'item_despesa': item.item_despesa or '',
+                    'valor_unitario_previsto': item.valor_medio or ''
                 })
 
         context = {
