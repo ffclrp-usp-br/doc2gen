@@ -156,7 +156,7 @@ def extrair_numero_demanda(bloco):
 # Ex:
 # Demanda: 202600000753 - FFCLRP - \ADM\DIR
 # ==========================================================
-def extrair_centro_despesa(bloco):
+def extrair_centro_gerencial(bloco):
     m = re.search(
          r'Demanda:\s*\d+\s*-\s*[^-\n]+-\s*(\\.*?)(?=\s+Item de Despesa:|\n|$)',
         bloco
@@ -265,7 +265,7 @@ def extrair_item(bloco):
         "codigo_bec": codigo_bec,
         "codigo_material": material,
         "item_despesa": item_despesa,
-        "centro_despesa": extrair_centro_despesa(bloco),
+        "centro_gerencial": extrair_centro_gerencial(bloco),
         "grupo_orcamentario": extrair_grupo_orcamentario(bloco),
         "descricao": extrair_descricao(bloco),
         "quantidade": quantidade,
@@ -333,7 +333,7 @@ def main():
         print("Material:", item["codigo_material"])
         print("Item Despesa:", item["item_despesa"])
         print("Número de Demanda:", item["numero_demanda"])
-        print("Centro de Despesa:", item["centro_despesa"])
+        print("Centro de Despesa:", item["centro_gerencial"])
         print("Grupo Orçamentário:", item["grupo_orcamentario"])
         print("Descrição:", item["descricao"])
         print("Quantidade:", item["quantidade"])

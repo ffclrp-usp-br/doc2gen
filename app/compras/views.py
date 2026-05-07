@@ -112,20 +112,20 @@ class CompraImportPDFView(FormView):
         except (InvalidOperation, TypeError):
             return None
 
-    def _get_demanda_padrao(self, compra, centro_despesa=None):
+    def _get_demanda_padrao(self, compra, centro_gerencial=None):
         numero_demanda = compra.numero_compra
         print(f"\n[DEBUG] Criando demanda padrão:")
         print(f"  numero_demanda: '{numero_demanda}'")
         print(f"  comprimento: {len(numero_demanda)} caracteres")
         print(f"  bytes: {numero_demanda.encode('utf-8')}")
         
-        grupo_orcamentario = CentroGerencialGrupoOrcamentario.obter_grupo_orcamentario(centro_despesa) if centro_despesa else ''
+        grupo_orcamentario = CentroGerencialGrupoOrcamentario.obter_grupo_orcamentario(centro_gerencial) if centro_gerencial else ''
 
         demanda, created = Demanda.objects.get_or_create(
             numero_demanda=numero_demanda,
             compra=compra,
             defaults={
-                'centro_despesa': centro_despesa or '',
+                'centro_gerencial': centro_gerencial or '',
                 'grupo_orcamentario': grupo_orcamentario,
             }
         )
@@ -185,31 +185,31 @@ class CompraImportPDFView(FormView):
 
         for item_data in itens:
             numero_demanda = item_data.get('numero_demanda')
-            centro_despesa = item_data.get('centro_gerencial')
+            centro_gerencial = item_data.get('centro_gerencial')
 
             if numero_demanda:
-                grupo_orcamentario = CentroGerencialGrupoOrcamentario.obter_grupo_orcamentario(centro_despesa)
+                grupo_orcamentario = CentroGerencialGrupoOrcamentario.obter_grupo_orcamentario(centro_gerencial)
                 demanda, created = Demanda.objects.get_or_create(
                     numero_demanda=numero_demanda,
                     compra=compra,
                     defaults={
-                        'centro_despesa': centro_despesa or '',
+                        'centro_gerencial': centro_gerencial or '',
                         'grupo_orcamentario': grupo_orcamentario or '',
                     }
                 )
                 if not created:
                     updated = False
-                    if not demanda.centro_despesa and centro_despesa:
-                        demanda.centro_despesa = centro_despesa
+                    if not demanda.centro_gerencial and centro_gerencial:
+                        demanda.centro_gerencial = centro_gerencial
                         updated = True
-                    if not demanda.grupo_orcamentario and demanda.centro_despesa:
-                        demanda.grupo_orcamentario = CentroGerencialGrupoOrcamentario.obter_grupo_orcamentario(demanda.centro_despesa)
+                    if not demanda.grupo_orcamentario and demanda.centro_gerencial:
+                        demanda.grupo_orcamentario = CentroGerencialGrupoOrcamentario.obter_grupo_orcamentario(demanda.centro_gerencial)
                         updated = True
                     if updated:
                         demanda.save()
             else:
                 if not demanda_padrao:
-                    demanda_padrao = self._get_demanda_padrao(compra, centro_despesa)
+                    demanda_padrao = self._get_demanda_padrao(compra, centro_gerencial)
                 demanda = demanda_padrao
 
             # Criar Item para cada item_data
@@ -282,25 +282,25 @@ class DemandaImportPDFView(FormView):
         if not itens_validos:
             return None, 'Os itens da demanda não possuem os códigos necessários. Verifique se o PDF segue o formato esperado: "número número número número número número número descrição".'
 
-        centro_despesa_valor = self._extrair_grupo_orcamentario(dados.get('centro_gerencial', ''))
-        grupo_orcamentario_valor = CentroGerencialGrupoOrcamentario.obter_grupo_orcamentario(centro_despesa_valor)
+        centro_gerencial_valor = self._extrair_grupo_orcamentario(dados.get('centro_gerencial', ''))
+        grupo_orcamentario_valor = CentroGerencialGrupoOrcamentario.obter_grupo_orcamentario(centro_gerencial_valor)
         
         demanda, created = Demanda.objects.get_or_create(
             numero_demanda=dados['numero_demanda'],
             compra=compra,
             defaults={
-                'centro_despesa': centro_despesa_valor,
+                'centro_gerencial': centro_gerencial_valor,
                 'grupo_orcamentario': grupo_orcamentario_valor,
             }
         )
 
         if not created:
             updated = False
-            if not demanda.centro_despesa and centro_despesa_valor:
-                demanda.centro_despesa = centro_despesa_valor
+            if not demanda.centro_gerencial and centro_gerencial_valor:
+                demanda.centro_gerencial = centro_gerencial_valor
                 updated = True
             if not demanda.grupo_orcamentario:
-                demanda.grupo_orcamentario = CentroGerencialGrupoOrcamentario.obter_grupo_orcamentario(demanda.centro_despesa or centro_despesa_valor)
+                demanda.grupo_orcamentario = CentroGerencialGrupoOrcamentario.obter_grupo_orcamentario(demanda.centro_gerencial or centro_gerencial_valor)
                 updated = True
             if updated:
                 demanda.save()

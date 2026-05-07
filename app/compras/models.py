@@ -14,24 +14,27 @@ class CentroGerencialGrupoOrcamentario:
         r"\ADM-TREINA": "59.004",
         r"\ADM\BIB": "59.131",
         r"\ADM\PROJETOS COP": "59.174",
+        r"\ADM\PROJETOS ORÇAMENTO": "59.___",        
     }
     
     PADRAO = "59.000"
     
     @classmethod
-    def obter_grupo_orcamentario(cls, centro_despesa: str) -> str:
+    def obter_grupo_orcamentario(cls, centro_gerencial: str) -> str:
         """
         Retorna o grupo orçamentário baseado no centro gerencial.
         Se não encontrar, retorna o padrão (59.000).
         """
-        if not centro_despesa:
+        if not centro_gerencial:
             return cls.PADRAO
         
-        centro_despesa = centro_despesa.strip().upper().lstrip('\\')
+        # Normalizar para comparação (sem espaços, tudo maiúsculo, sem \ no início)
+        centro_gerencial_norm = centro_gerencial.replace(" ", "").upper().lstrip('\\')
         
         # Buscar correspondência
         for chave, valor in cls.MAPEAMENTO.items():
-            if chave.strip().upper().lstrip('\\') == centro_despesa:
+            chave_norm = chave.replace(" ", "").upper().lstrip('\\')
+            if chave_norm == centro_gerencial_norm:
                 return valor
         
         # Se não encontrar, retornar padrão
@@ -103,7 +106,7 @@ class Demanda(models.Model):
         unique=True,
     )
 
-    centro_despesa = models.CharField('Centro Despesa', max_length=50, blank=True)
+    centro_gerencial = models.CharField('Centro Gerencial', max_length=50, blank=True)
 
     grupo_orcamentario = models.CharField(
         'Grupo orçamentário',
@@ -127,6 +130,7 @@ class Item(models.Model):
         'Código material',
         max_length=14,
         blank=True,
+        null=True,
     )
 
     codigo_compras_gov = models.CharField(
@@ -140,22 +144,25 @@ class Item(models.Model):
         'Código contabiliza',
         max_length=14,
         blank=True,
+        null=True,
     )
 
     codigo_bem = models.CharField(
         'Código bem compras gov',
         max_length=14,
         blank=True,
+        null=True,
     )
 
 
-    descricao = models.CharField('Descrição', max_length=255, blank=True)
+    descricao = models.CharField('Descrição', max_length=255, blank=True, null=True)
     
     item_despesa = models.CharField(
         'Item de despesa',
         max_length=255,
         validators=[RegexValidator(r'^\d+$', 'Deve ser apenas números')],
         blank=True,
+        null=True,
     )
     
     valor_medio = models.DecimalField('Valor médio', max_digits=14, decimal_places=2, validators=[MinValueValidator(0)], blank=True, null=True)

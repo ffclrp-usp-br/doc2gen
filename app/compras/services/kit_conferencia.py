@@ -60,7 +60,7 @@ class KitConferenciaService:
                 itens_context.append({
                     'demanda': demanda.numero_demanda or '',
                     'numero_demanda': demanda.numero_demanda or '',
-                    'centro_despesa': demanda.centro_despesa or '',
+                    'centro_gerencial': demanda.centro_gerencial or '',
                     'grupo_orcamentario': demanda.grupo_orcamentario or '',                    
                     'numero_ordem': item.numero_ordem or '',
                     'numero_item': item.numero_ordem or '',

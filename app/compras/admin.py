@@ -23,9 +23,9 @@ class CompraAdmin(admin.ModelAdmin):
 
 @admin.register(Demanda)
 class DemandaAdmin(admin.ModelAdmin):
-    list_display = ('numero_demanda', 'centro_despesa', 'grupo_orcamentario', 'compra')
+    list_display = ('numero_demanda', 'centro_gerencial', 'grupo_orcamentario', 'compra')
     list_filter = ('compra',)
-    search_fields = ('numero_demanda', 'centro_despesa')
+    search_fields = ('numero_demanda', 'centro_gerencial')
 
 
 @admin.register(Item)

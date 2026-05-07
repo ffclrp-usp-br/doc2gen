@@ -222,7 +222,7 @@ class ExtratorDocumentoCompra(ExtratorBase):
         return match.group(1) if match else None
 
     def _extrair_centro_gerencial(self, bloco):
-        """Extrai o centro gerencial / centro de despesa da demanda"""
+        """Extrai o centro gerencial """
         match = re.search(r'Demanda:\s*\d+\s*-\s*[^-\n]+-\s*(\\.*?)(?=\s+Item de Despesa:|\n|$)', bloco, re.IGNORECASE)
         if match:
             return self._limpar(match.group(1))
