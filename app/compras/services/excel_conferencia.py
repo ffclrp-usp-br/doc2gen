@@ -5,7 +5,7 @@ from openpyxl.utils import get_column_letter
 from copy import copy
 from django.conf import settings
 from ..models import Compra
-from compras.utils.string_utils import StringUtils
+
 
 class ExcelConferenciaService:
     @staticmethod
@@ -88,7 +88,7 @@ class ExcelConferenciaService:
                 # C: Elemento de despesa (Item de despesa)
                 ws.cell(row=current_row, column=3, value=item.item_despesa)
                 # D: DFD (Demanda)
-                ws.cell(row=current_row, column=4, value= StringUtils.formatar_numero_demanda(demanda.numero_demanda))
+                ws.cell(row=current_row, column=4, value= demanda.numero_demanda)
                 # E: CATMAT (Material code)
                 ws.cell(row=current_row, column=5, value=item.codigo_material)
                 

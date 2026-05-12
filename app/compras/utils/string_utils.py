@@ -1,7 +1,7 @@
 class StringUtils:
 
     @staticmethod
-    def formatar_numero_demanda(valor):
+    def formatar_numero_demanda_compra(valor):
 
         if not valor or len(valor) < 5:
             return ''

@@ -1,3 +1,5 @@
+from compras.utils.string_utils import StringUtils
+
 from .base import ExtratorBase
 import re
 
@@ -46,7 +48,7 @@ class ExtratorDocumentoCompra(ExtratorBase):
             re.IGNORECASE
         )
         if match:
-            return f"{match.group(1)}"
+            return StringUtils.formatar_numero_demanda_compra(f"{match.group(1)}")
         
         # Tenta o novo padrão: 12 dígitos contínuos
         match = re.search(
@@ -55,7 +57,7 @@ class ExtratorDocumentoCompra(ExtratorBase):
             re.IGNORECASE
         )
         if match:
-            return match.group(1)
+            return StringUtils.formatar_numero_demanda_compra(match.group(1))
         
         return None
 
@@ -219,7 +221,7 @@ class ExtratorDocumentoCompra(ExtratorBase):
     def _extrair_numero_demanda(self, bloco):
         """Extrai o número da demanda"""
         match = re.search(r'Demanda:\s*(\d+)', bloco, re.IGNORECASE)
-        return match.group(1) if match else None
+        return StringUtils.formatar_numero_demanda_compra(match.group(1)) if match else None
 
     def _extrair_centro_gerencial(self, bloco):
         """Extrai o centro gerencial """
