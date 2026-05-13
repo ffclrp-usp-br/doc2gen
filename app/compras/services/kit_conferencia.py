@@ -116,7 +116,10 @@ class KitConferenciaService:
         # 5. Generate filename
         ano_sei, num_sei = cls.parse_sei(compra.numero_sei)
         if ano_sei and num_sei:
-            zip_filename = f"{ano_sei} - SEI {num_sei} - {compra.objeto}.zip"
+            if 'PREGÃO' in modalidade_upper or 'PREGAO' in modalidade_upper:
+                zip_filename = f"Pregão {ano_sei}--SEI {num_sei} - {compra.objeto}.zip"
+            else:
+                zip_filename = f"{ano_sei} - SEI {num_sei} - {compra.objeto}.zip"
         else:
             # Fallback if SEI parsing fails
             clean_objeto = re.sub(r'[^\w\s-]', '', compra.objeto)[:50]
