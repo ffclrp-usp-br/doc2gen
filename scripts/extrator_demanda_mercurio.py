@@ -200,7 +200,7 @@ def extrair_dados_item(bloco):
         "codigo_material": cod_mat,
         "codigo_bem": cod_bem,
         "codigo_contabiliza": cod_contabiliza,
-        "codigo_compras_gov": cod_compras,
+        "codigo_comprasgov": cod_compras,
         "qtd": qtd,
         "unidade": unidade,
         "item_despesa": itens_despesa,

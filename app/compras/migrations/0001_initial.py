@@ -44,7 +44,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('numero_ordem', models.PositiveIntegerField(db_index=True, editable=False, verbose_name='Ordem')),
                 ('codigo_material', models.CharField(blank=True, max_length=14, null=True, verbose_name='Código material')),
-                ('codigo_compras_gov', models.CharField(blank=True, max_length=14, null=True, verbose_name='Código compras gov')),
+                ('codigo_comprasgov', models.CharField(blank=True, max_length=14, null=True, verbose_name='Código compras gov')),
                 ('codigo_contabiliza', models.CharField(blank=True, max_length=14, null=True, verbose_name='Código contabiliza')),
                 ('codigo_bem', models.CharField(blank=True, max_length=14, null=True, verbose_name='Código bem compras gov')),
                 ('descricao', models.CharField(blank=True, max_length=255, null=True, verbose_name='Descrição')),

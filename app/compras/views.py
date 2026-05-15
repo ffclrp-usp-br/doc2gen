@@ -148,7 +148,7 @@ class CompraImportPDFView(FormView):
         if bem:
             queryset = queryset.filter(codigo_bem=bem)
         if bec:
-            queryset = queryset.filter(codigo_compras_gov=bec)
+            queryset = queryset.filter(codigo_comprasgov=bec)
 
         item = queryset.first()
         if item:
@@ -166,7 +166,7 @@ class CompraImportPDFView(FormView):
         return Item.objects.create(
             demanda=demanda,
             numero_ordem=item_data.get('item'),
-            codigo_compras_gov=None, #TODO: aqui seria interessante puxar do compras GOV.BR
+            codigo_comprasgov=None, #TODO: aqui seria interessante puxar do compras GOV.BR
             codigo_contabiliza=item_data.get('codigo_contabiliza', ''),
             codigo_bem=bem,
             descricao=descricao,
@@ -278,7 +278,7 @@ class DemandaImportPDFView(FormView):
             return None, 'Não foi possível extrair os itens da demanda. Verifique se o PDF segue o formato esperado: "número número número número número número número descrição".'
 
         # Verificar se pelo menos um item tem os campos obrigatórios
-        itens_validos = [item for item in itens if item.get('codigo_material') or item.get('codigo_compras_gov') or item.get('codigo_contabiliza') or item.get('codigo_bem')]
+        itens_validos = [item for item in itens if item.get('codigo_material') or item.get('codigo_comprasgov') or item.get('codigo_contabiliza') or item.get('codigo_bem')]
         if not itens_validos:
             return None, 'Os itens da demanda não possuem os códigos necessários. Verifique se o PDF segue o formato esperado: "número número número número número número número descrição".'
 
@@ -320,7 +320,7 @@ class DemandaImportPDFView(FormView):
                     demanda=demanda,
                     numero_ordem=item_data.get('item'),
                     codigo_material=item_data.get('codigo_material', ''),
-                    codigo_compras_gov=item_data.get('codigo_compras_gov', ''),
+                    codigo_comprasgov=item_data.get('codigo_comprasgov', ''),
                     codigo_contabiliza=item_data.get('codigo_contabiliza', ''),
                     codigo_bem=item_data.get('codigo_bem', ''),
                     descricao=item_data.get('descricao', ''),
@@ -464,7 +464,7 @@ class PesquisaListView(ListView):
 
 class ItemCreateView(CreateView):
     model = Item
-    fields = ['demanda', 'codigo_material', 'codigo_compras_gov', 'codigo_contabiliza', 'codigo_bem', 'descricao', 'item_despesa', 'quantidade', 'valor_medio']
+    fields = ['demanda', 'codigo_material', 'codigo_comprasgov', 'codigo_contabiliza', 'codigo_bem', 'descricao', 'item_despesa', 'quantidade', 'valor_medio']
     template_name = 'compras/item_form.html'
 
     def get_context_data(self, **kwargs):
@@ -492,7 +492,7 @@ class ItemCreateView(CreateView):
 
 class ItemUpdateView(UpdateView):
     model = Item
-    fields = ['demanda', 'codigo_material', 'codigo_compras_gov', 'codigo_contabiliza', 'codigo_bem', 'descricao', 'item_despesa', 'quantidade', 'valor_medio']
+    fields = ['demanda', 'codigo_material', 'codigo_comprasgov', 'codigo_contabiliza', 'codigo_bem', 'descricao', 'item_despesa', 'quantidade', 'valor_medio']
     template_name = 'compras/item_form.html'
 
     def get_context_data(self, **kwargs):

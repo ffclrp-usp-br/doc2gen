@@ -79,6 +79,27 @@ class Compra(models.Model):
         validators=[RegexValidator(r'^(\d{12}|\d+/\d{4})$', 'Formato deve ser 12 dígitos ou n/yyyy')],
         unique=True,
     )
+    
+    numero_comprasgov = models.CharField(
+        'Número comprasgov',
+        max_length=20,
+        validators=[
+            RegexValidator(
+                r'^(\d{12}|\d+/\d{4})$',
+                'Formato deve ser 12 dígitos ou n/yyyy'
+            )
+        ],
+        unique=True,
+        null=True,
+        blank=True,
+    )
+
+    data_proposta_comercial = models.DateField(
+        'Data da proposta comercial',
+        null=True,
+        blank=True
+    )
+
     numero_sei = models.CharField(
         'Número SEI',
         max_length=20,
@@ -90,7 +111,13 @@ class Compra(models.Model):
     modalidade = models.CharField('Modalidade', max_length=255, choices=MODALIDADE_CHOICES, blank=True)
     tipo = models.CharField('Tipo', max_length=20, choices=TIPO_CHOICES, blank=True)
     valor_total_previsto = models.DecimalField('Valor total previsto', max_digits=14, decimal_places=2, validators=[MinValueValidator(0)], blank=True, null=True)
+    valor_efetivo = models.DecimalField('Valor efetivo', max_digits=14, decimal_places=2, validators=[MinValueValidator(0)], blank=True, null=True)
     nome_agente_contratacao = models.CharField('Agente de contratação', max_length=255, choices=AGENTE_CHOICES, blank=True)
+    data_estimativa_orcamento = models.DateField(
+        'Data da proposta comercial',
+        null=True,
+        blank=True
+    )
     disputa = models.BooleanField('Disputa', default=True)
     pdf_file = models.FileField('Arquivo PDF', upload_to='compras/', blank=True, null=True)
 
@@ -133,7 +160,7 @@ class Item(models.Model):
         null=True,
     )
 
-    codigo_compras_gov = models.CharField(
+    codigo_comprasgov = models.CharField(
         'Código compras gov',
         max_length=14,
         blank=True,
@@ -211,3 +238,159 @@ class Pesquisa(models.Model):
             return f'{self.item.compra.numero_compra} - {self.nome_fornecedor}'
         else:
             return f'{self.compra.numero_compra} - {self.nome_fornecedor}'
+        
+
+
+class Contrato(models.Model):
+
+    MODALIDADE_GARANTIA_CHOICES = (
+        ('CAUCAO_DINHEIRO', 'Caução em dinheiro'),
+        ('CAUCAO_TITULOS', 'Caução em títulos públicos'),
+        ('SEGURO_GARANTIA', 'Seguro-garantia'),
+        ('FIANCA_BANCARIA', 'Fiança bancária'),
+        ('TITULO_CAPITALIZACAO', 'Título de capitalização'),
+    )
+
+    numero = models.CharField(
+        'Número do contrato',
+        max_length=50
+    )
+
+    modalidade_garantia = models.CharField(
+        'Modalidade de garantia',
+        max_length=30,
+        choices=MODALIDADE_GARANTIA_CHOICES,
+        null=True,
+        blank=True
+    )
+
+    valor_garantia = models.DecimalField(
+        'Valor da garantia',
+        max_digits=15,
+        decimal_places=2,
+        null=True,
+        blank=True
+    )
+
+    data = models.DateField(
+        'Data do contrato',
+        null=True,
+        blank=True
+    )
+
+    compra = models.ForeignKey(
+        'Compra',
+        on_delete=models.CASCADE,
+        related_name='contratos',
+        null=True,
+        blank=True
+    )
+
+    def __str__(self):
+        return self.numero
+
+
+class PessoaJuridica(models.Model):
+
+    razao_social = models.CharField(
+        'Razão social',
+        max_length=255
+    )
+
+    nome_fantasia = models.CharField(
+        'Nome fantasia',
+        max_length=255,
+        null=True,
+        blank=True
+    )
+
+    cnpj = models.CharField(
+        'CNPJ',
+        max_length=18,
+        unique=True
+    )
+
+    endereco = models.CharField(
+        'Endereço',
+        max_length=255,
+        null=True,
+        blank=True
+    )
+
+    cidade = models.CharField(
+        'Cidade',
+        max_length=100,
+        null=True,
+        blank=True
+    )
+
+    estado = models.CharField(
+        'Estado',
+        max_length=2,
+        null=True,
+        blank=True
+    )
+
+    is_propria_instituicao = models.BooleanField(
+        'É a própria instituição',
+        default=False
+    )
+
+    def __str__(self):
+        return self.razao_social
+
+
+class PessoaFisica(models.Model):
+
+    nome = models.CharField(
+        'Nome',
+        max_length=255
+    )
+
+    cpf = models.CharField(
+        'CPF',
+        max_length=14
+    )
+
+    email = models.EmailField(
+        'E-mail',
+        null=True,
+        blank=True
+    )
+
+    def __str__(self):
+        return self.nome
+
+
+class RepresentanteContrato(models.Model):
+
+    contrato = models.ForeignKey(
+        Contrato,
+        on_delete=models.CASCADE,
+        related_name='representantes'
+    )
+
+    empresa = models.ForeignKey(
+        PessoaJuridica,
+        on_delete=models.CASCADE,
+        related_name='representantes_contratos'
+    )
+
+    pessoa = models.ForeignKey(
+        PessoaFisica,
+        on_delete=models.CASCADE,
+        related_name='contratos_representados'
+    )
+
+    cargo = models.CharField(
+        'Cargo',
+        max_length=255
+    )
+
+    responsavel_assinatura = models.BooleanField(
+        'Responsável pela assinatura',
+        default=True
+    )
+
+    def __str__(self):
+        return f'{self.pessoa} - {self.empresa}'    

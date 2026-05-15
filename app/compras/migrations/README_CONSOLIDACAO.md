@@ -23,7 +23,7 @@ Todas as migrations foram consolidadas em uma única migration inicial (0001_ini
 
 ### Item
 - numero_ordem (PositiveIntegerField, db_index=True, editable=False)
-- codigo_compras_gov (CharField, blank=True, max_length=14)
+- codigo_comprasgov (CharField, blank=True, max_length=14)
 - codigo_contabiliza (CharField, blank=True, max_length=14)
 - codigo_bem (CharField, blank=True, max_length=14)
 - descricao (CharField, blank=True, max_length=255)
@@ -48,8 +48,8 @@ As seguintes migrations foram consolidadas e removidas:
 - 0004_alter_compra_modalidade_and_more.py
 - 0005_cotacao.py
 - 0006_alter_item_options_remove_compra_valor_and_more.py
-- 0007_alter_item_codigo_bem_alter_item_codigo_compras_gov_and_more.py
-- 0008_alter_item_codigo_bem_alter_item_codigo_compras_gov_and_more.py
+- 0007_alter_item_codigo_bem_alter_item_codigo_comprasgov_and_more.py
+- 0008_alter_item_codigo_bem_alter_item_codigo_comprasgov_and_more.py
 
 ## Backup
 As migrations antigas foram preservadas em: `app/compras/migrations/backup/`

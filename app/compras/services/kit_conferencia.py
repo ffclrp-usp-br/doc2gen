@@ -67,7 +67,7 @@ class KitConferenciaService:
                     'numero_item': item.numero_ordem or '',
                     'numero_ordem': item.numero_ordem or '',
                     'quantidade': item.quantidade or '',
-                    'codigo_comprasgov': item.codigo_compras_gov or '',
+                    'codigo_comprasgov': item.codigo_comprasgov or '',
                     'descricao': item.descricao or '',
                     'item_despesa': item.item_despesa or '',
                     'valor_unitario_previsto': item.valor_medio or ''

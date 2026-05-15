@@ -230,7 +230,7 @@ class ExtratorDocumentoDemanda(ExtratorBase):
             "codigo_material": cod_mat,
             "codigo_bem": cod_bem,
             "codigo_contabiliza": cod_contabiliza,
-            "codigo_compras_gov": cod_compras,
+            "codigo_comprasgov": cod_compras,
             "quantidade": quantidade,
             "unidade": unidade,
             "item_despesa": itens_despesa,
