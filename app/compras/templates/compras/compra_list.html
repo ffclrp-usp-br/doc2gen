@@ -19,8 +19,7 @@
                 <th>Compra</th>
                 <th>SEI</th>
                 <th>Modalidade/Tipo/Objeto</th>
-                <th>Detalhes</th>
-                <th>Ações</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -38,14 +37,20 @@
                     <small><span class="badge bg-danger">Sem disputa</span></small>
                     {% endif %}
                 </td>
+                <!--
                 <td><a href="{% url 'item_list' compra.id %}" class="btn btn-sm btn-outline-primary">Itens</a>
+                  
                     <a href="{% url 'pesquisa_list' compra.id %}" class="btn btn-sm btn-outline-info">Pesquisas</a>
+                
                 </td>
-                <td>
+                    -->
+                    <td>
+                        <a href="{% url 'kit_conferencia' compra.pk %}" class="btn btn-sm btn-info">Kit de
+                            conferência</a>
+                            <br><br>
+                        <a href="{% url 'item_list' compra.id %}" class="btn btn-sm btn-outline-primary">Itens</a>
                     <a href="{% url 'compra_update' compra.pk %}" class="btn btn-sm btn-warning">Editar</a>
                     <a href="{% url 'compra_delete' compra.pk %}" class="btn btn-sm btn-danger">Excluir</a>
-                    <a href="{% url 'kit_conferencia' compra.pk %}" class="btn btn-sm btn-info">Kit de
-                        conferência</a>
                 </td>
             </tr>
             {% empty %}

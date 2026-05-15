@@ -50,3 +50,4 @@ class StringUtils:
             elementos.discard('339036')
 
         return ', '.join(sorted(elementos))
+    

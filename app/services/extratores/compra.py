@@ -204,16 +204,21 @@ class ExtratorDocumentoCompra(ExtratorBase):
 
     def _extrair_quantidade(self, bloco):
         """Extrai quantidade"""
+
         match = re.search(
-            r'(\d+(?:,\d+)?)\s+UNIDADE\s+(\d{1,3}(?:\.\d{3})*,\d{2})',
-            bloco
+            r'(\d+(?:,\d+)?)\s+(?:UNIDADE|UNIDADES|SERVIÇO|SERVIÇOS)\s+(\d{1,3}(?:\.\d{3})*,\d{2})',
+            bloco,
+            re.IGNORECASE
         )
+
         return match.group(1) if match else None
+
+    
 
     def _extrair_valor_unitario_previsto(self, bloco):
         """Extrai valor unitário previsto"""
         match = re.search(
-            r'(\d+(?:,\d+)?)\s+UNIDADE\s+(\d{1,3}(?:\.\d{3})*,\d{2})',
+            r'(\d+(?:,\d+)?)\s+(?:UNIDADE|UNIDADES|SERVIÇO|SERVIÇOS)\s+(\d{1,3}(?:\.\d{3})*,\d{2})',
             bloco
         )
         return match.group(2) if match else None
@@ -238,7 +243,8 @@ class ExtratorDocumentoCompra(ExtratorBase):
         """Extrai cotações (pesquisas) de fornecedores do item"""
         # pega somente a tabela entre os dois textos
         match = re.search(
-            r'Contratação\s+gov\.br:(.*?)(?:Método\s+de\s+Cálculo|$)',
+            #r'Contratação\s+gov\.br:(.*?)(?:Método\s+de\s+Cálculo|$)',
+            r'Demanda:\s*(.*?)(?:Método\s+de\s+Cálculo|$)',
             bloco,
             re.IGNORECASE | re.DOTALL
         )
