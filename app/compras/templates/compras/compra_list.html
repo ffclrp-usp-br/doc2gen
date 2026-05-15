@@ -19,7 +19,7 @@
                 <th>Compra</th>
                 <th>SEI</th>
                 <th>Modalidade/Tipo/Objeto</th>
-                <th></th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -37,25 +37,21 @@
                     <small><span class="badge bg-danger">Sem disputa</span></small>
                     {% endif %}
                 </td>
-                <!--
-                <td><a href="{% url 'item_list' compra.id %}" class="btn btn-sm btn-outline-primary">Itens</a>
-                  
-                    <a href="{% url 'pesquisa_list' compra.id %}" class="btn btn-sm btn-outline-info">Pesquisas</a>
-                
-                </td>
-                    -->
-                    <td>
-                        <a href="{% url 'kit_conferencia' compra.pk %}" class="btn btn-sm btn-info">Kit de
-                            conferência</a>
-                            <br><br>
+                <td>
+                    <div class="d-flex flex-column gap-1">
+                        <a href="{% url 'kit_conferencia' compra.pk %}" class="btn btn-sm btn-info">Kit Conferência</a>
                         <a href="{% url 'item_list' compra.id %}" class="btn btn-sm btn-outline-primary">Itens</a>
-                    <a href="{% url 'compra_update' compra.pk %}" class="btn btn-sm btn-warning">Editar</a>
-                    <a href="{% url 'compra_delete' compra.pk %}" class="btn btn-sm btn-danger">Excluir</a>
+                        <a href="{% url 'contrato_create' %}?compra_id={{ compra.id }}" class="btn btn-sm btn-outline-success">Criar Contrato</a>
+                        <div class="btn-group">
+                            <a href="{% url 'compra_update' compra.pk %}" class="btn btn-sm btn-warning">Editar</a>
+                            <a href="{% url 'compra_delete' compra.pk %}" class="btn btn-sm btn-danger">Excluir</a>
+                        </div>
+                    </div>
                 </td>
             </tr>
             {% empty %}
             <tr>
-                <td colspan="9" class="text-center">Nenhuma compra cadastrada.</td>
+                <td colspan="4" class="text-center">Nenhuma compra cadastrada.</td>
             </tr>
             {% endfor %}
         </tbody>

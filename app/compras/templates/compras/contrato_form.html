@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}{% if object %}Editar{% else %}Novo{% endif %} Contrato - Doc2gen{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow">
+                <div class="card-header bg-dark text-white">
+                    <h4 class="mb-0">{% if object %}Editar{% else %}Novo{% endif %} Contrato</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Número do Contrato</label>
+                                {{ form.numero }}
+                                {% if form.numero.errors %}<div class="text-danger small">{{ form.numero.errors }}</div>{% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Data</label>
+                                {{ form.data }}
+                                {% if form.data.errors %}<div class="text-danger small">{{ form.data.errors }}</div>{% endif %}
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label">Compra Relacionada</label>
+                                {{ form.compra }}
+                                {% if form.compra.errors %}<div class="text-danger small">{{ form.compra.errors }}</div>{% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Contratante (Instituição)</label>
+                                {{ form.contratante }}
+                                {% if form.contratante.errors %}<div class="text-danger small">{{ form.contratante.errors }}</div>{% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Contratada (Fornecedor)</label>
+                                {{ form.contratada }}
+                                {% if form.contratada.errors %}<div class="text-danger small">{{ form.contratada.errors }}</div>{% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Modalidade de Garantia</label>
+                                {{ form.modalidade_garantia }}
+                                {% if form.modalidade_garantia.errors %}<div class="text-danger small">{{ form.modalidade_garantia.errors }}</div>{% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Valor da Garantia</label>
+                                {{ form.valor_garantia }}
+                                {% if form.valor_garantia.errors %}<div class="text-danger small">{{ form.valor_garantia.errors }}</div>{% endif %}
+                            </div>
+                        </div>
+
+                        <div class="mt-4 border-top pt-3 text-end">
+                            <a href="{% url 'contrato_list' %}" class="btn btn-outline-secondary">Cancelar</a>
+                            <button type="submit" class="btn btn-primary">Salvar Contrato</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

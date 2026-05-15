@@ -5,11 +5,13 @@ from django.urls import reverse_lazy
 from django.db.models import Prefetch
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView, FormView
 
-from .models import Compra, Demanda, Item, Pesquisa, CentroGerencialGrupoOrcamentario
+from .models import Compra, Demanda, Item, Pesquisa, CentroGerencialGrupoOrcamentario, Organizacao, PessoaFisica, Contrato, VinculoOrganizacao
+from .forms import OrganizacaoForm, PessoaFisicaForm, ContratoForm, VinculoOrganizacaoForm
 
 from services.parser_service import ParserService
 from django.http import FileResponse
 from django.views import View
+from django.shortcuts import render, get_object_or_404, redirect
 from .services.kit_conferencia import KitConferenciaService
 
 
@@ -558,3 +560,131 @@ class KitConferenciaView(View):
             # For now, just return a simple error. In a real app, maybe redirect with message.
             from django.http import HttpResponse
             return HttpResponse(f"Erro ao gerar kit: {str(e)}", status=500)
+
+
+# --- Views para Organização ---
+
+class OrganizacaoListView(ListView):
+    model = Organizacao
+    template_name = 'compras/organizacao_list.html'
+    context_object_name = 'organizacoes'
+
+class OrganizacaoCreateView(CreateView):
+    model = Organizacao
+    form_class = OrganizacaoForm
+    template_name = 'compras/organizacao_form.html'
+    success_url = reverse_lazy('organizacao_list')
+
+class OrganizacaoUpdateView(UpdateView):
+    model = Organizacao
+    form_class = OrganizacaoForm
+    template_name = 'compras/organizacao_form.html'
+    success_url = reverse_lazy('organizacao_list')
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx['vinculos'] = self.object.vinculos.all()
+        ctx['pessoas'] = PessoaFisica.objects.all()
+        return ctx
+
+
+# --- Views para Pessoa Física ---
+
+class PessoaFisicaListView(ListView):
+    model = PessoaFisica
+    template_name = 'compras/pessoa_list.html'
+    context_object_name = 'pessoas'
+
+class PessoaFisicaCreateView(CreateView):
+    model = PessoaFisica
+    form_class = PessoaFisicaForm
+    template_name = 'compras/pessoa_form.html'
+    success_url = reverse_lazy('pessoa_list')
+
+class PessoaFisicaUpdateView(UpdateView):
+    model = PessoaFisica
+    form_class = PessoaFisicaForm
+    template_name = 'compras/pessoa_form.html'
+    success_url = reverse_lazy('pessoa_list')
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx['vinculos'] = self.object.vinculos.all()
+        ctx['organizacoes'] = Organizacao.objects.all()
+        return ctx
+
+
+# --- Views para Contrato ---
+
+class ContratoListView(ListView):
+    model = Contrato
+    template_name = 'compras/contrato_list.html'
+    context_object_name = 'contratos'
+
+    def get_queryset(self):
+        return Contrato.objects.select_related('compra', 'contratante', 'contratada')
+
+class ContratoCreateView(CreateView):
+    model = Contrato
+    form_class = ContratoForm
+    template_name = 'compras/contrato_form.html'
+    success_url = reverse_lazy('contrato_list')
+
+    def get_initial(self):
+        initial = super().get_initial()
+        compra_id = self.request.GET.get('compra_id')
+        if compra_id:
+            initial['compra'] = compra_id
+        return initial
+
+class ContratoUpdateView(UpdateView):
+    model = Contrato
+    form_class = ContratoForm
+    template_name = 'compras/contrato_form.html'
+    success_url = reverse_lazy('contrato_list')
+
+class ContratoDeleteView(DeleteView):
+    model = Contrato
+    success_url = reverse_lazy('contrato_list')
+    template_name = 'compras/contrato_confirm_delete.html'
+
+
+# Helper for AJAX
+from django.http import JsonResponse
+
+def buscar_organizacao_cnpj(request):
+    cnpj = request.GET.get('cnpj', '').replace('.', '').replace('/', '').replace('-', '')
+    # Tenta buscar por CNPJ limpo ou formatado
+    organizacao = Organizacao.objects.filter(cnpj__icontains=cnpj).first()
+    if organizacao:
+        return JsonResponse({
+            'success': True,
+            'id': organizacao.id,
+            'nome': organizacao.nome,
+            'cnpj': organizacao.cnpj,
+        })
+    return JsonResponse({'success': False})
+
+def gerenciar_vinculos_ajax(request, org_id):
+    organizacao = get_object_or_404(Organizacao, id=org_id)
+    vinculos = VinculoOrganizacao.objects.filter(organizacao=organizacao)
+    pessoas = PessoaFisica.objects.all()
+    
+    if request.method == 'POST':
+        pessoa_id = request.POST.get('pessoa')
+        cargo = request.POST.get('cargo')
+        responsavel = request.POST.get('responsavel_assinatura') == 'on'
+        
+        VinculoOrganizacao.objects.create(
+            organizacao=organizacao,
+            pessoa_id=pessoa_id,
+            cargo=cargo,
+            responsavel_assinatura=responsavel
+        )
+        return JsonResponse({'success': True})
+
+    return render(request, 'compras/partials/vinculos_lista.html', {
+        'organizacao': organizacao,
+        'vinculos': vinculos,
+        'pessoas': pessoas,
+    })
