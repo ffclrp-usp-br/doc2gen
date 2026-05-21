@@ -34,4 +34,5 @@ urlpatterns = [
     path('contratos/novo/', views.ContratoCreateView.as_view(), name='contrato_create'),
     path('contratos/<int:pk>/editar/', views.ContratoUpdateView.as_view(), name='contrato_update'),
     path('contratos/<int:pk>/deletar/', views.ContratoDeleteView.as_view(), name='contrato_delete'),
+    path('contratos/<int:pk>/preencher/', views.ContratoPreencherView.as_view(), name='contrato_preencher'),
 ]

@@ -688,3 +688,30 @@ def gerenciar_vinculos_ajax(request, org_id):
         'vinculos': vinculos,
         'pessoas': pessoas,
     })
+
+
+from django.contrib import messages
+from django.http import HttpResponse
+
+class ContratoPreencherView(View):
+    def post(self, request, pk, *args, **kwargs):
+        contrato = get_object_or_404(Contrato, pk=pk)
+        docx_file = request.FILES.get('docx_file')
+        if not docx_file:
+            messages.error(request, "Nenhum arquivo de modelo DOCX foi enviado.")
+            return redirect('contrato_list')
+        
+        try:
+            from .services.preenchedor_contrato import PreenchedorContratoService
+            filled_io, filename = PreenchedorContratoService.fill_docx(docx_file, contrato)
+            
+            response = HttpResponse(
+                filled_io.getvalue(),
+                content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+            )
+            response['Content-Disposition'] = f'attachment; filename="{filename}"'
+            return response
+        except Exception as e:
+            messages.error(request, f"Erro ao preencher o contrato: {str(e)}")
+            return redirect('contrato_list')
+

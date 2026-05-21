@@ -31,11 +31,20 @@
                         <td>{{ contrato.contratada.nome }}</td>
                         <td>{{ contrato.data|date:"d/m/Y"|default:"-" }}</td>
                         <td>
-                            <div class="btn-group">
-                                <a href="{% url 'contrato_update' contrato.id %}"
-                                    class="btn btn-sm btn-outline-primary">Editar</a>
-                                <a href="{% url 'contrato_delete' contrato.id %}"
-                                    class="btn btn-sm btn-outline-danger">Excluir</a>
+                            <div class="d-flex gap-1">
+                                <div class="btn-group">
+                                    <a href="{% url 'contrato_update' contrato.id %}"
+                                        class="btn btn-sm btn-outline-primary">Editar</a>
+                                    <a href="{% url 'contrato_delete' contrato.id %}"
+                                        class="btn btn-sm btn-outline-danger">Excluir</a>
+                                </div>
+                                <form method="post" action="{% url 'contrato_preencher' contrato.id %}" enctype="multipart/form-data" class="d-inline" id="form-preencher-{{ contrato.id }}">
+                                    {% csrf_token %}
+                                    <input type="file" name="docx_file" id="file-{{ contrato.id }}" class="d-none" onchange="document.getElementById('form-preencher-{{ contrato.id }}').submit();" accept=".docx">
+                                    <button type="button" class="btn btn-sm btn-outline-success" onclick="document.getElementById('file-{{ contrato.id }}').click();">
+                                        Preencher contrato
+                                    </button>
+                                </form>
                             </div>
                         </td>
                     </tr>
