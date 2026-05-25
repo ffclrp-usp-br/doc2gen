@@ -1,5 +1,5 @@
 from django import forms
-from .models import Organizacao, PessoaFisica, Contrato, VinculoOrganizacao, Compra
+from .models import Organizacao, PessoaFisica, Contrato, VinculoOrganizacao, Compra, Item
 
 class OrganizacaoForm(forms.ModelForm):
     class Meta:
@@ -59,3 +59,25 @@ class ContratoForm(forms.ModelForm):
         # Se houver apenas uma própria instituição, já deixa selecionada por padrão
         if proprias.count() == 1:
             self.fields['contratante'].initial = proprias.first()
+
+
+class ItemForm(forms.ModelForm):
+    class Meta:
+        model = Item
+        fields = [
+            'demanda', 'codigo_material', 'codigo_comprasgov', 'codigo_contabiliza',
+            'codigo_bem', 'descricao', 'item_despesa', 'unidade_medida', 'quantidade', 'valor_medio'
+        ]
+        widgets = {
+            'demanda': forms.Select(attrs={'class': 'form-select'}),
+            'codigo_material': forms.TextInput(attrs={'class': 'form-control'}),
+            'codigo_comprasgov': forms.TextInput(attrs={'class': 'form-control'}),
+            'codigo_contabiliza': forms.TextInput(attrs={'class': 'form-control'}),
+            'codigo_bem': forms.TextInput(attrs={'class': 'form-control'}),
+            'descricao': forms.TextInput(attrs={'class': 'form-control'}),
+            'item_despesa': forms.TextInput(attrs={'class': 'form-control'}),
+            'unidade_medida': forms.TextInput(attrs={'class': 'form-control'}),
+            'quantidade': forms.NumberInput(attrs={'class': 'form-control'}),
+            'valor_medio': forms.NumberInput(attrs={'class': 'form-control'}),
+        }
+

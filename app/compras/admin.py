@@ -30,7 +30,7 @@ class DemandaAdmin(admin.ModelAdmin):
 
 @admin.register(Item)
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ('demanda', 'numero_ordem', 'codigo_comprasgov', 'codigo_contabiliza', 'codigo_bem', 'descricao', 'item_despesa', 'valor_medio')
+    list_display = ('demanda', 'numero_ordem', 'codigo_comprasgov', 'codigo_contabiliza', 'codigo_bem', 'descricao', 'item_despesa', 'unidade_medida', 'valor_medio')
     list_filter = ('demanda__compra',)
     search_fields = ('demanda__numero_demanda', 'descricao', 'codigo_comprasgov')
 

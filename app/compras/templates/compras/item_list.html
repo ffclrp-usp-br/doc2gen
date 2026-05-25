@@ -62,7 +62,7 @@
                     <small>{{ item.item_despesa }}</small> <br>
                 </td>
 
-                <td>{{ item.quantidade }}</td>
+                <td>{{ item.quantidade }}<br><small class="text-muted">{{ item.unidade_medida|default:"" }}</small></td>
                 <td><small>
                         Material: {{ item.codigo_material }}<br>
                         Bem: {{ item.codigo_bem }}<br>

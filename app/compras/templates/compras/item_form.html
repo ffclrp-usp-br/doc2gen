@@ -68,6 +68,13 @@
                         {% endif %}
                     </div>
                     <div class="mb-3">
+                        {{ form.unidade_medida.label_tag }}
+                        {{ form.unidade_medida }}
+                        {% if form.unidade_medida.errors %}
+                            <div class="text-danger">{{ form.unidade_medida.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="mb-3">
                         {{ form.valor_medio.label_tag }}
                         {{ form.valor_medio }}
                         {% if form.valor_medio.errors %}

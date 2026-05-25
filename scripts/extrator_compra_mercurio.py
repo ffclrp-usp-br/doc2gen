@@ -251,12 +251,13 @@ def extrair_item(bloco):
     item_despesa = limpar(m.group(1)) if m else None
 
     m = re.search(
-        r'(\d+(?:,\d+)?)\s+UNIDADE\s+(\d{1,3}(?:\.\d{3})*,\d{2})',
+        r'(\d+(?:,\d+)?)\s+([A-ZÇÃÁÉÍÓÚÂÊÔÜ\s]+?)\s+(\d{1,3}(?:\.\d{3})*,\d{2})',
         bloco
     )
 
     quantidade = m.group(1) if m else None
-    valor_prev = m.group(2) if m else None
+    unidade_medida = m.group(2) if m else None
+    valor_prev = m.group(3) if m else None
 
     return {
         "item": numero,
@@ -269,6 +270,7 @@ def extrair_item(bloco):
         "grupo_orcamentario": extrair_grupo_orcamentario(bloco),
         "descricao": extrair_descricao(bloco),
         "quantidade": quantidade,
+        "unidade_medida": unidade_medida,
         "valor_unitario_previsto": valor_prev,
         "pesquisas": extrair_pesquisas(bloco)
     }
@@ -337,6 +339,7 @@ def main():
         print("Grupo Orçamentário:", item["grupo_orcamentario"])
         print("Descrição:", item["descricao"])
         print("Quantidade:", item["quantidade"])
+        print("Unidade de Medida:", item["unidade_medida"])
         print("Valor Previsto:", item["valor_unitario_previsto"])
 
         print("\nPESQUISAS:")

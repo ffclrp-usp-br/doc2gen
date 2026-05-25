@@ -139,6 +139,7 @@ class ExtratorDocumentoCompra(ExtratorBase):
             "item_despesa": self._extrair_item_despesa(bloco),
             "descricao": self._extrair_descricao(bloco),
             "quantidade": self._extrair_quantidade(bloco),
+            "unidade_medida": self._extrair_unidade_medida(bloco),
             "valor_unitario_previsto": self._extrair_valor_unitario_previsto(bloco),
             "cotacoes": self._extrair_cotacoes(bloco),
             "numero_demanda": self._extrair_numero_demanda(bloco),
@@ -206,14 +207,21 @@ class ExtratorDocumentoCompra(ExtratorBase):
         """Extrai quantidade"""
 
         match = re.search(
-            r'(\d+(?:,\d+)?)\s+(?:UNIDADE|UNIDADES|SERVIÇO|SERVIÇOS)\s+(\d{1,3}(?:\.\d{3})*,\d{2})',
+            r'(\d+(?:,\d+)?)\s+([A-ZÇÃÁÉÍÓÚÂÊÔÜ\s]+?)\s+(\d{1,3}(?:\.\d{3})*,\d{2})',
             bloco,
             re.IGNORECASE
         )
 
         return match.group(1) if match else None
 
-    
+    def _extrair_unidade_medida(self, bloco):
+        """Extrai unidade de medida"""
+        match = re.search(
+            r'(\d+(?:,\d+)?)\s+([A-ZÇÃÁÉÍÓÚÂÊÔÜ\s]+?)\s+(\d{1,3}(?:\.\d{3})*,\d{2})',
+            bloco
+        )
+        return match.group(2) if match else None
+
 
     def _extrair_valor_unitario_previsto(self, bloco):
         """Extrai valor unitário previsto"""

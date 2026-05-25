@@ -6,7 +6,7 @@ from django.db.models import Prefetch
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView, FormView
 
 from .models import Compra, Demanda, Item, Pesquisa, CentroGerencialGrupoOrcamentario, Organizacao, PessoaFisica, Contrato, VinculoOrganizacao
-from .forms import OrganizacaoForm, PessoaFisicaForm, ContratoForm, VinculoOrganizacaoForm
+from .forms import OrganizacaoForm, PessoaFisicaForm, ContratoForm, VinculoOrganizacaoForm, ItemForm
 
 from services.parser_service import ParserService
 from django.http import FileResponse
@@ -161,6 +161,10 @@ class CompraImportPDFView(FormView):
             if valor_previsto is not None and item.valor_medio is None:
                 item.valor_medio = valor_previsto
                 updated = True
+            unidade_medida = item_data.get('unidade_medida', '')
+            if unidade_medida and not item.unidade_medida:
+                item.unidade_medida = unidade_medida
+                updated = True
             if updated:
                 item.save()
             return item
@@ -173,6 +177,7 @@ class CompraImportPDFView(FormView):
             codigo_bem=bem,
             descricao=descricao,
             item_despesa=item_data.get('item_despesa', ''),
+            unidade_medida=item_data.get('unidade_medida', ''),
             valor_medio=valor_previsto,
             quantidade=item_data.get('quantidade'),
         )
@@ -327,6 +332,7 @@ class DemandaImportPDFView(FormView):
                     codigo_bem=item_data.get('codigo_bem', ''),
                     descricao=item_data.get('descricao', ''),
                     item_despesa=item_despesa_str,
+                    unidade_medida=item_data.get('unidade', ''),
                     valor_medio=None,
                     quantidade=item_data.get('quantidade'),
                 )
@@ -466,7 +472,7 @@ class PesquisaListView(ListView):
 
 class ItemCreateView(CreateView):
     model = Item
-    fields = ['demanda', 'codigo_material', 'codigo_comprasgov', 'codigo_contabiliza', 'codigo_bem', 'descricao', 'item_despesa', 'quantidade', 'valor_medio']
+    form_class = ItemForm
     template_name = 'compras/item_form.html'
 
     def get_context_data(self, **kwargs):
@@ -494,7 +500,7 @@ class ItemCreateView(CreateView):
 
 class ItemUpdateView(UpdateView):
     model = Item
-    fields = ['demanda', 'codigo_material', 'codigo_comprasgov', 'codigo_contabiliza', 'codigo_bem', 'descricao', 'item_despesa', 'quantidade', 'valor_medio']
+    form_class = ItemForm
     template_name = 'compras/item_form.html'
 
     def get_context_data(self, **kwargs):
