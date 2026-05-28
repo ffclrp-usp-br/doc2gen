@@ -67,11 +67,13 @@ class CompraImportPDFView(FormView):
             form.add_error('arquivo', 'O PDF não corresponde a um documento de grade válido.')
             return self.form_invalid(form)
 
+        objeto = dados.get('objeto') or self._inferir_objeto_do_arquivo(arquivo.name)
+
         compra, created = Compra.objects.get_or_create(
             numero_compra=dados['numero_compra'],
             defaults={
                 'numero_sei': dados.get('numero_sei') or '',
-                'objeto': dados.get('objeto') or '',
+                'objeto': objeto,
                 'modalidade': dados.get('modalidade') or '',
                 'tipo': dados.get('tipo_compra') or '',
                 'valor_total_previsto': self._parse_decimal(dados.get('valor_total_previsto') or None),
@@ -83,7 +85,7 @@ class CompraImportPDFView(FormView):
             updated = False
             for field, value in {
                 'numero_sei': dados.get('numero_sei', ''),
-                'objeto': dados.get('objeto', ''),
+                'objeto': objeto,
                 'modalidade': dados.get('modalidade', ''),
                 'tipo': dados.get('tipo_compra', ''),
             }.items():
@@ -96,6 +98,22 @@ class CompraImportPDFView(FormView):
         self._processar_compra(compra, dados)
 
         return super().form_valid(form)
+
+    def _inferir_objeto_do_arquivo(self, nome_arquivo):
+        """Infere o objeto da compra a partir do nome do arquivo.
+
+        Exemplo: '67335_serviço_manutenção_equipamentos_agrícolas.pdf'
+              -> 'Serviço manutenção equipamentos agrícolas'
+        """
+        import re as _re
+        # Remove extensão .pdf
+        nome = nome_arquivo.rsplit('.', 1)[0] if '.' in nome_arquivo else nome_arquivo
+        # Remove número(s) inicial(is) seguido(s) de underscore
+        nome = _re.sub(r'^\d+_', '', nome)
+        # Substitui underscores por espaços
+        nome = nome.replace('_', ' ')
+        # Primeira letra maiúscula, restante preservado
+        return nome[0].upper() + nome[1:] if nome else ''
 
     def _parse_decimal(self, valor):
         if valor is None:
