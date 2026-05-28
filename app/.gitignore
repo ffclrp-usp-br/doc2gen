@@ -26,3 +26,7 @@ docker-compose.override.yml
 #App
 app/db.sqlite3
 *.sqlite3
+
+dist/
+build/
+*.spec

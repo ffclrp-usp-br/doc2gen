@@ -80,6 +80,10 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+APP_DIR = os.path.join( os.path.expanduser("~"), "doc2gen" )
+
+os.makedirs(APP_DIR, exist_ok=True)
+
 DB_ENGINE = os.getenv(
     'DB_ENGINE',
     'django.db.backends.sqlite3'
@@ -90,10 +94,7 @@ if DB_ENGINE == 'django.db.backends.sqlite3':
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.getenv(
-                'DB_NAME',
-                BASE_DIR / 'db.sqlite3'
-            ),
+            'NAME': os.path.join(APP_DIR, 'docgen_db.sqlite3'),
         }
     }
 
