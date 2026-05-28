@@ -258,7 +258,22 @@ class CompraImportPDFView(FormView):
                     if updated:
                         pesquisa.save()
 
+# Determinar tipo da compra com base na unidade de medida dos itens
+        self._definir_tipo_compra(compra)
 
+    def _definir_tipo_compra(self, compra):
+        """Define o tipo da compra com base na unidade de medida dos itens.
+        
+        Se algum item tiver unidade de medida contendo 'SERVIÇO',
+        o tipo é definido como 'SERVIÇO'. Caso contrário, 'FORNECIMENTO'.
+        """
+        itens = Item.objects.filter(demanda__compra=compra)
+        tem_servico = itens.filter(
+            unidade_medida__icontains='SERVIÇO'
+        ).exists()
+
+        compra.tipo = 'SERVIÇO' if tem_servico else 'FORNECIMENTO'
+        compra.save(update_fields=['tipo'])
 class DemandaImportPDFView(FormView):
     template_name = 'compras/demanda_pdf_upload.html'
     form_class = UploadDemandaPDFForm
