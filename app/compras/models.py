@@ -342,6 +342,14 @@ class Contrato(models.Model):
         null=True
     )
 
+    porcentual_garantia = models.DecimalField(
+        'Porcentual de garantia',
+        max_digits=5,
+        decimal_places=2,
+        blank=True,
+        null=True
+    )
+
     valor_garantia = models.DecimalField(
         max_digits=15,
         decimal_places=2,
@@ -353,6 +361,18 @@ class Contrato(models.Model):
         blank=True,
         null=True
     )
+
+    def clean(self):
+        super().clean()
+        if self.porcentual_garantia is not None and self.compra and self.compra.valor_efetivo is not None:
+            from decimal import Decimal
+            self.valor_garantia = self.compra.valor_efetivo * (self.porcentual_garantia / Decimal('100.00'))
+
+    def save(self, *args, **kwargs):
+        if self.porcentual_garantia is not None and self.compra and self.compra.valor_efetivo is not None:
+            from decimal import Decimal
+            self.valor_garantia = self.compra.valor_efetivo * (self.porcentual_garantia / Decimal('100.00'))
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.numero

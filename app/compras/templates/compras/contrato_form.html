@@ -11,7 +11,7 @@
                     <h4 class="mb-0">{% if object %}Editar{% else %}Novo{% endif %} Contrato</h4>
                 </div>
                 <div class="card-body">
-                    <form method="post">
+                    <form method="post" id="form-contrato">
                         {% csrf_token %}
                         <div class="row g-3">
                             <div class="col-md-6">
@@ -29,31 +29,78 @@
                                 {{ form.compra }}
                                 {% if form.compra.errors %}<div class="text-danger small">{{ form.compra.errors }}</div>{% endif %}
                             </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Contratante (Instituição)</label>
-                                {{ form.contratante }}
-                                {% if form.contratante.errors %}<div class="text-danger small">{{ form.contratante.errors }}</div>{% endif %}
+
+                            <!-- Campos da Compra Relacionada -->
+                            <div class="col-12 mt-3 border-top pt-3">
+                                <h6 class="text-muted mb-3"><i class="bi bi-info-circle me-1"></i>Dados da Compra Relacionada</h6>
+                                <div class="row g-3">
+                                    <div class="col-md-4">
+                                        <label class="form-label">Valor Efetivo</label>
+                                        {{ form.valor_efetivo }}
+                                        {% if form.valor_efetivo.errors %}<div class="text-danger small">{{ form.valor_efetivo.errors }}</div>{% endif %}
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Data Estimativa Orçamento</label>
+                                        {{ form.data_estimativa_orcamento }}
+                                        {% if form.data_estimativa_orcamento.errors %}<div class="text-danger small">{{ form.data_estimativa_orcamento.errors }}</div>{% endif %}
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Data Proposta Comercial</label>
+                                        {{ form.data_proposta_comercial }}
+                                        {% if form.data_proposta_comercial.errors %}<div class="text-danger small">{{ form.data_proposta_comercial.errors }}</div>{% endif %}
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Contratada (Fornecedor)</label>
-                                {{ form.contratada }}
-                                {% if form.contratada.errors %}<div class="text-danger small">{{ form.contratada.errors }}</div>{% endif %}
+
+                            <div class="col-md-12 mt-3 border-top pt-3">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">Contratante (Instituição)</label>
+                                        {{ form.contratante }}
+                                        {% if form.contratante.errors %}<div class="text-danger small">{{ form.contratante.errors }}</div>{% endif %}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Contratada (Fornecedor)</label>
+                                        {{ form.contratada }}
+                                        {% if form.contratada.errors %}<div class="text-danger small">{{ form.contratada.errors }}</div>{% endif %}
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Modalidade de Garantia</label>
-                                {{ form.modalidade_garantia }}
-                                {% if form.modalidade_garantia.errors %}<div class="text-danger small">{{ form.modalidade_garantia.errors }}</div>{% endif %}
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Valor da Garantia</label>
-                                {{ form.valor_garantia }}
-                                {% if form.valor_garantia.errors %}<div class="text-danger small">{{ form.valor_garantia.errors }}</div>{% endif %}
+
+                            <div class="col-md-12">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">Modalidade de Garantia</label>
+                                        {{ form.modalidade_garantia }}
+                                        {% if form.modalidade_garantia.errors %}<div class="text-danger small">{{ form.modalidade_garantia.errors }}</div>{% endif %}
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label">Porcentual de Garantia (%)</label>
+                                        {{ form.porcentual_garantia }}
+                                        {% if form.porcentual_garantia.errors %}<div class="text-danger small">{{ form.porcentual_garantia.errors }}</div>{% endif %}
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label">Valor da Garantia</label>
+                                        {{ form.valor_garantia }}
+                                        {% if form.valor_garantia.errors %}<div class="text-danger small">{{ form.valor_garantia.errors }}</div>{% endif %}
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="mt-4 border-top pt-3 text-end">
-                            <a href="{% url 'contrato_list' %}" class="btn btn-outline-secondary">Cancelar</a>
-                            <button type="submit" class="btn btn-primary">Salvar Contrato</button>
+                        <div class="mt-4 border-top pt-3 d-flex justify-content-between align-items-center">
+                            <div>
+                                {% if object %}
+                                    <a href="{% url 'contrato_delete' object.id %}" class="btn btn-danger me-2">Excluir</a>
+                                    <button type="button" class="btn btn-success" onclick="document.getElementById('file-{{ object.id }}').click();">
+                                        Preencher contrato
+                                    </button>
+                                {% endif %}
+                            </div>
+                            <div>
+                                <a href="{% url 'contrato_list' %}" class="btn btn-outline-secondary me-2">Cancelar</a>
+                                <button type="submit" class="btn btn-primary">Salvar Contrato</button>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -61,4 +108,62 @@
         </div>
     </div>
 </div>
+
+{% if object %}
+<form method="post" action="{% url 'contrato_preencher' object.id %}" enctype="multipart/form-data" class="d-none" id="form-preencher-{{ object.id }}">
+    {% csrf_token %}
+    <input type="file" name="docx_file" id="file-{{ object.id }}" onchange="document.getElementById('form-preencher-{{ object.id }}').submit();" accept=".docx">
+</form>
+{% endif %}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const inputPorcentual = document.getElementById('id_porcentual_garantia');
+        const inputValorEfetivo = document.getElementById('id_valor_efetivo');
+        const inputValorGarantia = document.getElementById('id_valor_garantia');
+        const selectCompra = document.getElementById('id_compra');
+
+        function calcularGarantia() {
+            const porcentual = parseFloat(inputPorcentual.value);
+            const valorEfetivo = parseFloat(inputValorEfetivo.value);
+
+            if (!isNaN(porcentual) && !isNaN(valorEfetivo)) {
+                const valorGarantia = (valorEfetivo * (porcentual / 100)).toFixed(2);
+                inputValorGarantia.value = valorGarantia;
+            }
+        }
+
+        if (inputPorcentual && inputValorEfetivo && inputValorGarantia) {
+            inputPorcentual.addEventListener('input', calcularGarantia);
+            inputValorEfetivo.addEventListener('input', calcularGarantia);
+        }
+
+        if (selectCompra) {
+            selectCompra.addEventListener('change', function() {
+                const compraId = this.value;
+                if (compraId) {
+                    fetch(`/api/compra/buscar/?compra_id=${compraId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                if (inputValorEfetivo) {
+                                    inputValorEfetivo.value = data.valor_efetivo;
+                                }
+                                const inputEstimativa = document.getElementById('id_data_estimativa_orcamento');
+                                if (inputEstimativa) {
+                                    inputEstimativa.value = data.data_estimativa_orcamento;
+                                }
+                                const inputProposta = document.getElementById('id_data_proposta_comercial');
+                                if (inputProposta) {
+                                    inputProposta.value = data.data_proposta_comercial;
+                                }
+                                calcularGarantia();
+                            }
+                        })
+                        .catch(err => console.error("Erro ao buscar detalhes da compra:", err));
+                }
+            });
+        }
+    });
+</script>
 {% endblock %}

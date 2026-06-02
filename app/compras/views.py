@@ -704,6 +704,19 @@ def buscar_organizacao_cnpj(request):
         })
     return JsonResponse({'success': False})
 
+def buscar_compra_detalhes_ajax(request):
+    compra_id = request.GET.get('compra_id')
+    if compra_id:
+        compra = Compra.objects.filter(id=compra_id).first()
+        if compra:
+            return JsonResponse({
+                'success': True,
+                'valor_efetivo': str(compra.valor_efetivo) if compra.valor_efetivo is not None else '',
+                'data_estimativa_orcamento': compra.data_estimativa_orcamento.strftime('%Y-%m-%d') if compra.data_estimativa_orcamento else '',
+                'data_proposta_comercial': compra.data_proposta_comercial.strftime('%Y-%m-%d') if compra.data_proposta_comercial else '',
+            })
+    return JsonResponse({'success': False})
+
 def gerenciar_vinculos_ajax(request, org_id):
     organizacao = get_object_or_404(Organizacao, id=org_id)
     vinculos = VinculoOrganizacao.objects.filter(organizacao=organizacao)

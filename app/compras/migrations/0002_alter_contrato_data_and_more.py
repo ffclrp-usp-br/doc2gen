@@ -37,11 +37,6 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterField(
             model_name='pessoafisica',
-            name='email',
-            field=models.EmailField(blank=True, max_length=254, null=True),
-        ),
-        migrations.AlterField(
-            model_name='pessoafisica',
             name='nome',
             field=models.CharField(max_length=255),
         ),

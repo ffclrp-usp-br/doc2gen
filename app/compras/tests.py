@@ -75,3 +75,72 @@ class PreenchedorContratoServiceTest(TestCase):
         res2 = service.substituir_texto(p2, "[PLACEHOLDER]", "Novo [PLACEHOLDER] texto")
         self.assertTrue(res2)
         self.assertIn("Texto com Novo [PLACEHOLDER] texto", p2.text)
+
+
+from .models import Compra, Contrato, Organizacao
+from .forms import ContratoForm
+
+class ContratoGarantiaTest(TestCase):
+    def setUp(self):
+        self.organizacao_contratante = Organizacao.objects.create(
+            nome="Instituição Contratante",
+            cnpj="11.111.111/0001-11",
+            is_propria_instituicao=True
+        )
+        self.organizacao_contratada = Organizacao.objects.create(
+            nome="Fornecedor Contratado",
+            cnpj="22.222.222/0001-22",
+            is_propria_instituicao=False
+        )
+        self.compra = Compra.objects.create(
+            numero_compra="123456789012",
+            objeto="Compra Teste",
+            valor_efetivo=Decimal("10000.00"),
+            data_estimativa_orcamento="2026-06-01",
+            data_proposta_comercial="2026-06-02"
+        )
+
+    def test_contrato_calcula_garantia_no_model(self):
+        contrato = Contrato.objects.create(
+            numero="CON-001/2026",
+            compra=self.compra,
+            contratante=self.organizacao_contratante,
+            contratada=self.organizacao_contratada,
+            porcentual_garantia=Decimal("5.00")
+        )
+        self.assertEqual(contrato.valor_garantia, Decimal("500.00"))
+
+    def test_contrato_form_salva_campos_compra_e_garantia(self):
+        contrato = Contrato.objects.create(
+            numero="CON-002/2026",
+            compra=self.compra,
+            contratante=self.organizacao_contratante,
+            contratada=self.organizacao_contratada,
+        )
+        
+        # Simula submissão do form com edições
+        form_data = {
+            'numero': 'CON-002/2026-EDITADO',
+            'compra': self.compra.id,
+            'contratante': self.organizacao_contratante.id,
+            'contratada': self.organizacao_contratada.id,
+            'porcentual_garantia': '10.00',
+            'valor_garantia': '',  # deve ser calculado
+            'valor_efetivo': '20000.00',  # Novo valor efetivo
+            'data_estimativa_orcamento': '2026-07-01',
+            'data_proposta_comercial': '2026-07-02',
+            'data': '2026-06-15'
+        }
+        
+        form = ContratoForm(data=form_data, instance=contrato)
+        self.assertTrue(form.is_valid())
+        saved_contrato = form.save()
+        
+        # Verifica se o valor_garantia foi recalculado para 2000 (10% de 20000)
+        self.assertEqual(saved_contrato.valor_garantia, Decimal("2000.00"))
+        
+        # Verifica se os campos da compra foram salvos
+        self.compra.refresh_from_db()
+        self.assertEqual(self.compra.valor_efetivo, Decimal("20000.00"))
+        self.assertEqual(str(self.compra.data_estimativa_orcamento), '2026-07-01')
+        self.assertEqual(str(self.compra.data_proposta_comercial), '2026-07-02')
