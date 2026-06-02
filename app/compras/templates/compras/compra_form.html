@@ -69,10 +69,13 @@
                         {% endif %}
                     </div>
                     <button type="submit" class="btn btn-success">Salvar</button>
-                    {% if object %}
-                    <a href="{% url 'demanda_import_pdf' object.pk %}" class="btn btn-info">Importar Demanda</a>
-                    {% endif %}
+
+                    <a href="{% url 'compra_delete' compra.pk %}" class="btn btn-danger">Excluir</a>
+
                     <a href="{% url 'compra_list' %}" class="btn btn-secondary">Voltar ao cadastro</a>
+
+
+
                 </form>
             </div>
         </div>

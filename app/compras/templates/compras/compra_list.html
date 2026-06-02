@@ -19,7 +19,7 @@
                 <th>Compra</th>
                 <th>SEI</th>
                 <th>Modalidade/Tipo/Objeto</th>
-                <th>Ações</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -39,12 +39,14 @@
                 </td>
                 <td>
                     <div class="d-flex flex-column gap-1">
-                        <a href="{% url 'kit_conferencia' compra.pk %}" class="btn btn-sm btn-info">Kit Conferência</a>
-                        <a href="{% url 'item_list' compra.id %}" class="btn btn-sm btn-outline-primary">Itens</a>
-                        <a href="{% url 'contrato_create' %}?compra_id={{ compra.id }}" class="btn btn-sm btn-outline-success">Criar Contrato</a>
+                        <a href="{% url 'kit_conferencia' compra.pk %}" class="btn btn-sm btn-outline-info">Kit
+                            Conferência</a>
+                        <a href="{% url 'item_list' compra.id %}" class="btn btn-sm  btn-outline-primary">Itens</a>
                         <div class="btn-group">
-                            <a href="{% url 'compra_update' compra.pk %}" class="btn btn-sm btn-warning">Editar</a>
-                            <a href="{% url 'compra_delete' compra.pk %}" class="btn btn-sm btn-danger">Excluir</a>
+                            <a href="{% url 'compra_update' compra.pk %}"
+                                class="btn btn-sm btn-outline-warning">Editar</a>
+                            <a href="{% url 'compra_delete' compra.pk %}"
+                                class="btn btn-sm btn-outline-danger">Excluir</a>
                         </div>
                     </div>
                 </td>
