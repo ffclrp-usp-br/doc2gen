@@ -292,24 +292,66 @@ class PreenchedorContratoService:
     @classmethod
     def processar_paragrafo_geral(cls, paragraph, data):
         """Process general placeholders that are independent of context state."""
-        # Processo SEI
+
+        
+        
+        if "ANEXO III – MINUTA DE CONTRATO" in paragraph.text:
+            novo_texto = paragraph.text.replace(
+                "ANEXO III – MINUTA DE CONTRATO",
+                "TERMO DE CONTRATO"
+            )
+
+            if paragraph.runs:
+                paragraph.runs[0].text = novo_texto
+
+                for run in paragraph.runs[1:]:
+                    run.text = ""
+      
+      
         if "Processo SEI" in paragraph.text:
-            sei_pattern = r'Processo SEI nº [0-9NNAA./_-]+'
-            if re.search(sei_pattern, paragraph.text):
-                paragraph.text = re.sub(sei_pattern, f"Processo SEI nº {data.get('numero_sei', '')}", paragraph.text)
-            else:
-                cls.substituir_texto(paragraph, "154.NNNNNNN/AAAA-NN", data.get('numero_sei', ''))
+            m = re.search(
+                r'Processo SEI nº ([0-9NNAA./_-]+)',
+                paragraph.text
+            )
+
+            if m:
+                cls.substituir_texto(
+                    paragraph,
+                    m.group(1),
+                    data.get('numero_sei', '')
+                )
 
         # Número do contrato
-        cls.substituir_texto(paragraph, "[NN/ANO]", data.get("contrato_numero", ""))
-        cls.substituir_texto(paragraph, "[SIGLA DA UNIDADE]", data.get("contratante_nome_fantasia", ""))
         
+        if "Contrato nº" in paragraph.text:
+            novo_texto = (
+                f"Contrato nº {data.get('contrato_numero', '')} "
+                f"{data.get('contratante_nome_fantasia', '')}"
+            )
+
+            if paragraph.runs:
+                paragraph.runs[0].text = novo_texto
+
+                for run in paragraph.runs[1:]:
+                    run.text = ""
+
+        # Contratada
+        substituicoes = {
+            "[CNPJ nº]": data.get("contratada_cnpj", ""),
+            "[endereço completo]": data.get("contratada_endereco_completo", ""),
+        }
+
+        for placeholder, valor in substituicoes.items():
+            if placeholder in paragraph.text:
+                cls.substituir_texto(paragraph, placeholder, valor)
+
+
         # Objeto
         cls.substituir_texto(paragraph, "[DESCRIÇÃO SUCINTA DO OBJETO]", data.get("objeto", ""))
         
         # Data por extenso (DD de MMM de AAAA)
         cls.substituir_texto(paragraph, "DD", data.get("data_dd", ""))
-        cls.substituir_texto(paragraph, "MMM", data.get("data_mmm", ""))
+        cls.substituir_texto(paragraph, "MMM", data.get("data_mmm", "").upper())
         cls.substituir_texto(paragraph, "AAAA", data.get("data_aaaa", ""))
         
         # Proposta comercial
@@ -530,6 +572,6 @@ class PreenchedorContratoService:
         
         # 7. Generate clean filename
         clean_num = contrato.numero.replace("/", "_").replace("\\", "_")
-        filename = f"Contrato_{clean_num}_Preenchido.docx"
+        filename = f"Termo_Contrato_{contratante.nome_fantasia}_{clean_num}_{contratada.nome_fantasia}.docx"
         
         return output_io, filename
