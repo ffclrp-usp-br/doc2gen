@@ -18,11 +18,10 @@ class OrganizacaoForm(forms.ModelForm):
 class PessoaFisicaForm(forms.ModelForm):
     class Meta:
         model = PessoaFisica
-        fields = ['nome', 'cpf', 'email']
+        fields = ['nome', 'cpf']
         widgets = {
             'nome': forms.TextInput(attrs={'class': 'form-control'}),
             'cpf': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '000.000.000-00'}),
-            'email': forms.EmailInput(attrs={'class': 'form-control'}),
         }
 
 class VinculoOrganizacaoForm(forms.ModelForm):
