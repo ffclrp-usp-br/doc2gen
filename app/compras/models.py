@@ -253,11 +253,6 @@ class PessoaFisica(models.Model):
         unique=True
     )
 
-    email = models.EmailField(
-        blank=True,
-        null=True
-    )
-
     def __str__(self):
         return self.nome
 

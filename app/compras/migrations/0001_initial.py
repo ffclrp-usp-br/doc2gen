@@ -38,7 +38,6 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('nome', models.CharField(max_length=255, verbose_name='Nome')),
                 ('cpf', models.CharField(max_length=14, verbose_name='CPF')),
-                ('email', models.EmailField(blank=True, max_length=254, null=True, verbose_name='E-mail')),
             ],
         ),
         migrations.CreateModel(

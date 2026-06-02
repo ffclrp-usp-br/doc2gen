@@ -16,7 +16,6 @@
                     <tr>
                         <th>Nome</th>
                         <th>CPF</th>
-                        <th>Email</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -25,7 +24,6 @@
                     <tr>
                         <td>{{ pessoa.nome }}</td>
                         <td>{{ pessoa.cpf }}</td>
-                        <td>{{ pessoa.email|default:"-" }}</td>
                         <td>
                             <a href="{% url 'pessoa_update' pessoa.id %}"
                                 class="btn btn-sm btn-outline-primary">Editar</a>
