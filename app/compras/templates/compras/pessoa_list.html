@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1>Pessoas Física</h1>
+    <h3>Pessoas</h3>
     <a href="{% url 'pessoa_create' %}" class="btn btn-primary">Nova Pessoa</a>
 </div>
 
@@ -27,7 +27,8 @@
                         <td>{{ pessoa.cpf }}</td>
                         <td>{{ pessoa.email|default:"-" }}</td>
                         <td>
-                            <a href="{% url 'pessoa_update' pessoa.id %}" class="btn btn-sm btn-outline-primary">Editar</a>
+                            <a href="{% url 'pessoa_update' pessoa.id %}"
+                                class="btn btn-sm btn-outline-primary">Editar</a>
                         </td>
                     </tr>
                     {% empty %}
