@@ -24,10 +24,20 @@ staticfiles/
 # Docker
 docker-compose.override.yml
 
-#App
+# Banco local
 app/db.sqlite3
 *.sqlite3
 
+
+# Build PyInstaller
 dist/
 build/
 *.spec
+
+
+# IDEs
+.vscode/
+.idea/
+
+# Linux
+*.swp
