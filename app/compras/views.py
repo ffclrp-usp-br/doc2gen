@@ -1,5 +1,5 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from decimal import Decimal, InvalidOperation
-
 from django import forms
 from django.urls import reverse_lazy
 from django.db.models import Prefetch
@@ -26,7 +26,7 @@ class MultipleFileInput(forms.FileInput):
         return context
 
 
-class CompraListView(ListView):
+class CompraListView(LoginRequiredMixin,ListView):
     model = Compra
     template_name = 'compras/compra_list.html'
     context_object_name = 'compras'
@@ -292,7 +292,7 @@ class CompraImportPDFView(FormView):
 
         compra.tipo = 'SERVIÇO' if tem_servico else 'FORNECIMENTO'
         compra.save(update_fields=['tipo'])
-class DemandaImportPDFView(FormView):
+class DemandaImportPDFView(LoginRequiredMixin, FormView):
     template_name = 'compras/demanda_pdf_upload.html'
     form_class = UploadDemandaPDFForm
 
@@ -455,27 +455,27 @@ class DemandaImportPDFView(FormView):
         return ctx
 
 
-class CompraCreateView(CreateView):
+class CompraCreateView(LoginRequiredMixin, CreateView):
     model = Compra
     fields = ['numero_compra', 'numero_sei', 'objeto', 'modalidade', 'tipo', 'valor_total_previsto', 'nome_agente_contratacao', 'disputa']
     template_name = 'compras/compra_form.html'
     success_url = reverse_lazy('compra_list')
 
 
-class CompraUpdateView(UpdateView):
+class CompraUpdateView(LoginRequiredMixin, UpdateView):
     model = Compra
     fields = ['numero_compra', 'numero_sei', 'objeto', 'modalidade', 'tipo', 'valor_total_previsto', 'nome_agente_contratacao', 'disputa']
     template_name = 'compras/compra_form.html'
     success_url = reverse_lazy('compra_list')
 
 
-class CompraDeleteView(DeleteView):
+class CompraDeleteView(LoginRequiredMixin, DeleteView):
     model = Compra
     success_url = reverse_lazy('compra_list')
     template_name = 'compras/compra_confirm_delete.html'
 
 
-class ItemListView(ListView):
+class ItemListView(LoginRequiredMixin, ListView):
     model = Item
     template_name = 'compras/item_list.html'
     context_object_name = 'itens'
@@ -489,7 +489,7 @@ class ItemListView(ListView):
         ctx['compra'] = Compra.objects.get(pk=self.kwargs.get('compra_id'))
         return ctx
 
-class PesquisaListView(ListView):
+class PesquisaListView(LoginRequiredMixin,ListView):
     model = Pesquisa
     template_name = 'compras/pesquisa_list.html'
     context_object_name = 'pesquisas'
@@ -503,7 +503,7 @@ class PesquisaListView(ListView):
         context['compra'] = Compra.objects.get(id=self.kwargs.get('compra_id'))
         return context
 
-class ItemCreateView(CreateView):
+class ItemCreateView(LoginRequiredMixin, CreateView):
     model = Item
     form_class = ItemForm
     template_name = 'compras/item_form.html'
@@ -531,7 +531,7 @@ class ItemCreateView(CreateView):
         return form
 
 
-class ItemUpdateView(UpdateView):
+class ItemUpdateView(LoginRequiredMixin, UpdateView):
     model = Item
     form_class = ItemForm
     template_name = 'compras/item_form.html'
@@ -557,7 +557,7 @@ class ItemUpdateView(UpdateView):
         return form
 
 
-class ItemDeleteView(DeleteView):
+class ItemDeleteView(LoginRequiredMixin, DeleteView):
     model = Item
     template_name = 'compras/item_confirm_delete.html'
 
@@ -565,7 +565,7 @@ class ItemDeleteView(DeleteView):
         return reverse_lazy('item_list', kwargs={'compra_id': self.object.demanda.compra_id})
 
 
-class PesquisaUpdateView(UpdateView):
+class PesquisaUpdateView(LoginRequiredMixin, UpdateView):
     model = Pesquisa
     fields = ['nome_fornecedor', 'valor_unitario', 'codigo_contabiliza', 'codigo_bem', 'descricao']
     template_name = 'compras/pesquisa_form.html'
@@ -579,7 +579,7 @@ class PesquisaUpdateView(UpdateView):
         return reverse_lazy('pesquisa_list', kwargs={'compra_id': self.object.compra_id})
 
 
-class PesquisaDeleteView(DeleteView):
+class PesquisaDeleteView(LoginRequiredMixin, DeleteView):
     model = Pesquisa
     template_name = 'compras/pesquisa_confirm_delete.html'
 
@@ -588,7 +588,7 @@ class PesquisaDeleteView(DeleteView):
 
 
 
-class KitConferenciaView(View):
+class KitConferenciaView(LoginRequiredMixin, View):
     def get(self, request, pk):
         try:
             zip_io, filename = KitConferenciaService.generate_kit(pk)
@@ -603,18 +603,18 @@ class KitConferenciaView(View):
 
 # --- Views para Organização ---
 
-class OrganizacaoListView(ListView):
+class OrganizacaoListView(LoginRequiredMixin, ListView):
     model = Organizacao
     template_name = 'compras/organizacao_list.html'
     context_object_name = 'organizacoes'
 
-class OrganizacaoCreateView(CreateView):
+class OrganizacaoCreateView(LoginRequiredMixin, CreateView):
     model = Organizacao
     form_class = OrganizacaoForm
     template_name = 'compras/organizacao_form.html'
     success_url = reverse_lazy('organizacao_list')
 
-class OrganizacaoUpdateView(UpdateView):
+class OrganizacaoUpdateView(LoginRequiredMixin, UpdateView):
     model = Organizacao
     form_class = OrganizacaoForm
     template_name = 'compras/organizacao_form.html'
@@ -629,18 +629,18 @@ class OrganizacaoUpdateView(UpdateView):
 
 # --- Views para Pessoa Física ---
 
-class PessoaFisicaListView(ListView):
+class PessoaFisicaListView(LoginRequiredMixin, ListView):
     model = PessoaFisica
     template_name = 'compras/pessoa_list.html'
     context_object_name = 'pessoas'
 
-class PessoaFisicaCreateView(CreateView):
+class PessoaFisicaCreateView(LoginRequiredMixin, CreateView):
     model = PessoaFisica
     form_class = PessoaFisicaForm
     template_name = 'compras/pessoa_form.html'
     success_url = reverse_lazy('pessoa_list')
 
-class PessoaFisicaUpdateView(UpdateView):
+class PessoaFisicaUpdateView(LoginRequiredMixin, UpdateView):
     model = PessoaFisica
     form_class = PessoaFisicaForm
     template_name = 'compras/pessoa_form.html'
@@ -655,7 +655,7 @@ class PessoaFisicaUpdateView(UpdateView):
 
 # --- Views para Contrato ---
 
-class ContratoListView(ListView):
+class ContratoListView(LoginRequiredMixin, ListView):
     model = Contrato
     template_name = 'compras/contrato_list.html'
     context_object_name = 'contratos'
@@ -663,7 +663,7 @@ class ContratoListView(ListView):
     def get_queryset(self):
         return Contrato.objects.select_related('compra', 'contratante', 'contratada')
 
-class ContratoCreateView(CreateView):
+class ContratoCreateView(LoginRequiredMixin, CreateView):
     model = Contrato
     form_class = ContratoForm
     template_name = 'compras/contrato_form.html'
@@ -676,13 +676,13 @@ class ContratoCreateView(CreateView):
             initial['compra'] = compra_id
         return initial
 
-class ContratoUpdateView(UpdateView):
+class ContratoUpdateView(LoginRequiredMixin, UpdateView):
     model = Contrato
     form_class = ContratoForm
     template_name = 'compras/contrato_form.html'
     success_url = reverse_lazy('contrato_list')
 
-class ContratoDeleteView(DeleteView):
+class ContratoDeleteView(LoginRequiredMixin, DeleteView):
     model = Contrato
     success_url = reverse_lazy('contrato_list')
     template_name = 'compras/contrato_confirm_delete.html'
@@ -732,7 +732,7 @@ def gerenciar_vinculos_ajax(request, org_id):
 from django.contrib import messages
 from django.http import HttpResponse
 
-class ContratoPreencherView(View):
+class ContratoPreencherView(LoginRequiredMixin, View):
     def post(self, request, pk, *args, **kwargs):
         contrato = get_object_or_404(Contrato, pk=pk)
         docx_file = request.FILES.get('docx_file')

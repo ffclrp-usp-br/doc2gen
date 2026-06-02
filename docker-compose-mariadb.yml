@@ -1,4 +1,4 @@
-ervices:
+services:
 
   db:
     image: mariadb:10.6
