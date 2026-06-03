@@ -1,11 +1,18 @@
 import io
 import re
+import logging
 from datetime import date
 from decimal import Decimal
 from docx import Document
 from ..models import Contrato, VinculoOrganizacao, Organizacao, Compra
 
+
+logger = logging.getLogger(__name__)
+
+
 class PreenchedorContratoService:
+
+
     
     MESES = {
         1: "janeiro", 2: "fevereiro", 3: "março", 4: "abril",
@@ -217,17 +224,13 @@ class PreenchedorContratoService:
         """
         text = paragraph.text
         
-        # 1. Signature fields (Nome, Cargo, CPF) under representative contexts
+        # 1. Signature fields (Nome) under representative contexts
         if context_state == 'REPRESENTANTE_CONTRATANTE':
-            cls._preencher_assinatura(paragraph, "Nome", data.get("contratante_resp_nome", ""))
-            cls._preencher_assinatura(paragraph, "Cargo", data.get("contratante_resp_cargo", ""))
-            cls._preencher_assinatura(paragraph, "CPF", data.get("contratante_resp_cpf", ""))
+            cls._preencher_assinatura(paragraph, data.get("contratante_resp_nome", ""))
             return
             
         if context_state == 'REPRESENTANTE_CONTRATADA':
-            cls._preencher_assinatura(paragraph, "Nome", data.get("contrada_resp_nome", ""))
-            cls._preencher_assinatura(paragraph, "Cargo", data.get("contrada_resp_cargo", ""))
-            cls._preencher_assinatura(paragraph, "CPF", data.get("contrada_resp_cpf", ""))
+            cls._preencher_assinatura(paragraph, data.get("contrada_resp_nome", ""))
             return
 
         # 2. General contextual replacements
@@ -255,39 +258,20 @@ class PreenchedorContratoService:
             cls.substituir_texto(paragraph, target, replacement)
 
     @classmethod
-    def _preencher_assinatura(cls, paragraph, label, valor):
-        """Helper to fill representative signature block (Nome, Cargo, CPF)."""
-        text = paragraph.text
-        if label.lower() in text.lower():
-            underscore_pat = r'_{3,}'
-            bracket_pat = r'\[(nome|cargo|cpf|representante)\]'
-            
-            replaced = False
-            for run in paragraph.runs:
-                if label.lower() in run.text.lower():
-                    if re.search(underscore_pat, run.text):
-                        run.text = re.sub(underscore_pat, valor, run.text)
-                        replaced = True
-                    elif re.search(r'\[.*?\]', run.text):
-                        run.text = re.sub(r'\[.*?\]', valor, run.text)
-                        replaced = True
-                else:
-                    if re.search(underscore_pat, run.text):
-                        run.text = re.sub(underscore_pat, valor, run.text)
-                        replaced = True
-                    elif re.search(r'\[.*?\]', run.text):
-                        run.text = re.sub(r'\[.*?\]', valor, run.text)
-                        replaced = True
-            
-            if not replaced:
-                if re.search(underscore_pat, paragraph.text):
-                    paragraph.text = re.sub(underscore_pat, valor, paragraph.text)
-                elif re.search(bracket_pat, paragraph.text, re.IGNORECASE):
-                    paragraph.text = re.sub(bracket_pat, valor, paragraph.text, flags=re.IGNORECASE)
-                else:
-                    parts = re.split(r'(?i)' + label + r'\s*:\s*', paragraph.text, maxsplit=1)
-                    if len(parts) > 1:
-                        paragraph.text = f"{parts[0]}{label}: {valor}"
+    def _preencher_assinatura(cls, paragraph, valor):
+        """Fill signature line with the name by replacing underscores."""
+        if not valor:  # Se não há valor, não faz nada
+            return
+        
+        # Procura e substitui underscores nos runs (preservando formatação)
+        for run in paragraph.runs:
+            if re.search(r'_{3,}', run.text):
+                run.text = re.sub(r'_{3,}', valor, run.text, count=1)
+                return
+        
+        # Se não achou nos runs, substitui no parágrafo todo
+        if re.search(r'_{3,}', paragraph.text):
+            paragraph.text = re.sub(r'_{3,}', valor, paragraph.text, count=1)
 
     @classmethod
     def processar_paragrafo_geral(cls, paragraph, data):
@@ -349,6 +333,10 @@ class PreenchedorContratoService:
         # Objeto
         cls.substituir_texto(paragraph, "[DESCRIÇÃO SUCINTA DO OBJETO]", data.get("objeto", ""))
         
+        # Data do orçamento estimado (DEVE VIR ANTES DAS SUBSTITUIÇÕES GENÉRICAS DE DD/MM/AAAA)
+        if "data do orçamento estimado, em" in paragraph.text.lower():
+            cls.substituir_texto(paragraph, "DD/MM/AAAA", data.get("data_estimativa", ""))
+        
         # Data por extenso (DD de MMM de AAAA)
         cls.substituir_texto(paragraph, "DD", data.get("data_dd", ""))
         cls.substituir_texto(paragraph, "MMM", data.get("data_mmm", "").upper())
@@ -359,25 +347,39 @@ class PreenchedorContratoService:
         
         # Valor do contrato (R$ e extenso)
         if "valor total" in paragraph.text.lower() or "valor da contratação" in paragraph.text.lower():
-            val_pattern = r'R\$\s*[\._]+(?:\s*\([\._]+\))?'
-            if re.search(val_pattern, paragraph.text):
-                replacement = f"{data.get('valor_formatado', '')} ({data.get('valor_extenso', '')})"
-                paragraph.text = re.sub(val_pattern, replacement, paragraph.text)
-            else:
-                cls.substituir_texto(paragraph, "R$.......... (.....)", f"{data.get('valor_formatado', '')} ({data.get('valor_extenso', '')})")
-                cls.substituir_texto(paragraph, "R$ __________ (__________)", f"{data.get('valor_formatado', '')} ({data.get('valor_extenso', '')})")
-                
-        # Data do orçamento estimado
-        if "orçamento estimado" in paragraph.text.lower() or "estimativa" in paragraph.text.lower():
-            cls.substituir_texto(paragraph, "DD/MM/AAAA", data.get("data_estimativa", ""))
+            replacement = (
+                f"{data.get('valor_formatado', '')} "
+                f"({data.get('valor_extenso', '')})"
+            )
+
+            cls.substituir_texto(
+                paragraph,
+                "R$.......... (.....)",
+                replacement
+            )
+
+            cls.substituir_texto(
+                paragraph,
+                "R$ __________ (__________)",
+                replacement
+            )
             
         # Garantia contratual
-        if "modalidade" in paragraph.text.lower() and "__________________" in paragraph.text:
-            cls.substituir_texto(paragraph, "modalidade __________________", f"modalidade {data.get('garantia_modalidade', '')}")
-        if "valor de R$" in paragraph.text or "R$ _______________" in paragraph.text:
-            cls.substituir_texto(paragraph, "valor de R$ _______________", f"valor de {data.get('garantia_valor_formatado', '')}")
-            cls.substituir_texto(paragraph, "R$ _______________", data.get('garantia_valor_formatado', ''))
-            
+        if "modalidade" in paragraph.text.lower():
+            cls.substituir_texto(
+                paragraph,
+                "__________________",
+                f"{data.get('garantia_modalidade', '')}"
+            )
+
+        if "valor de r$" in paragraph.text.lower():
+            cls.substituir_texto(
+                paragraph,
+                "R$ _______________",
+                f"{data.get('garantia_valor_formatado', '')}"
+            )
+
+                    
         # Local e data da assinatura
         cls.substituir_texto(paragraph, "[Local]", data.get("contratante_cidade", ""))
         cls.substituir_texto(paragraph, "[dia]", data.get("assinatura_dia", ""))
@@ -427,24 +429,12 @@ class PreenchedorContratoService:
         # Representatives data
         if v_contratante:
             data["contratante_resp_nome"] = v_contratante.pessoa.nome
-            data["contratante_resp_cargo"] = v_contratante.cargo
-            data["contratante_resp_cpf"] = v_contratante.pessoa.cpf
-            data["contratante_resp_completo"] = f"{v_contratante.cargo}, {v_contratante.pessoa.nome}"
         else:
             data["contratante_resp_nome"] = ""
-            data["contratante_resp_cargo"] = ""
-            data["contratante_resp_cpf"] = ""
-            data["contratante_resp_completo"] = ""
-            
         if v_contratada:
             data["contrada_resp_nome"] = v_contratada.pessoa.nome
-            data["contrada_resp_cargo"] = v_contratada.cargo
-            data["contrada_resp_cpf"] = v_contratada.pessoa.cpf
         else:
             data["contrada_resp_nome"] = ""
-            data["contrada_resp_cargo"] = ""
-            data["contrada_resp_cpf"] = ""
-            
         # Contract Dates
         if contrato.data:
             dd, mmm, aaaa = cls.formatar_datas(contrato.data, "por_extenso")
@@ -504,14 +494,25 @@ class PreenchedorContratoService:
         # 5. Process sections with context state machine
         context_state = 'PREAMBULO'
         
-        # Define a helper function to process a list of paragraphs
-        def process_paragraphs(paragraphs):
+        # Define a helper function to process a list of paragraphs with index
+        def process_paragraphs_with_index(paragraphs):
             nonlocal context_state
-            for p in paragraphs:
+            for idx, p in enumerate(paragraphs):
                 if not p.text.strip():
                     continue
                 # Update context state based on section headings
                 context_state = cls.localizar_secao(p.text, context_state)
+                
+                # Se encontramos "Representante legal", procura underscores no parágrafo anterior
+                is_signature_header = False
+                if "REPRESENTANTE LEGAL DO CONTRATANTE" in p.text.upper():
+                    if idx > 0:
+                        cls._preencher_assinatura(paragraphs[idx - 1], data.get("contratante_resp_nome", ""))
+                    is_signature_header = True
+                elif "REPRESENTANTE LEGAL DO CONTRATAD" in p.text.upper():  # Captura CONTRATADO, CONTRATADA
+                    if idx > 0:
+                        cls._preencher_assinatura(paragraphs[idx - 1], data.get("contrada_resp_nome", ""))
+                    is_signature_header = True
                 
                 # Check if modality specific replacement is needed
                 if compra:
@@ -525,13 +526,14 @@ class PreenchedorContratoService:
                             cls.substituir_texto(p, "NN/AAAA", compra.numero_comprasgov or "")
                             cls.substituir_texto(p, "[SIGLA DA UNIDADE]", data.get("contratante_nome_fantasia", ""))
                 
-                # Apply contextual labels first
-                cls.preencher_labels_contextuais(p, context_state, data)
+                # Apply contextual labels first (mas não para parágrafos de assinatura)
+                if not is_signature_header:
+                    cls.preencher_labels_contextuais(p, context_state, data)
                 # Apply general placeholders
                 cls.processar_paragrafo_geral(p, data)
 
         # Process main document body
-        process_paragraphs(doc.paragraphs)
+        process_paragraphs_with_index(doc.paragraphs)
         
         # Process tables
         for table in doc.tables:
@@ -542,7 +544,18 @@ class PreenchedorContratoService:
                     cell_state = cls.localizar_secao(cell.text, context_state)
                     
                     # For each paragraph in cell
-                    for p in cell.paragraphs:
+                    for p_idx, p in enumerate(cell.paragraphs):
+                        # Se encontramos "Representante legal", procura underscores no parágrafo anterior
+                        is_signature_header = False
+                        if "REPRESENTANTE LEGAL DO CONTRATANTE" in p.text.upper():
+                            if p_idx > 0:
+                                cls._preencher_assinatura(cell.paragraphs[p_idx - 1], data.get("contratante_resp_nome", ""))
+                            is_signature_header = True
+                        elif "REPRESENTANTE LEGAL DO CONTRATAD" in p.text.upper():  # Captura CONTRATADO, CONTRATADA
+                            if p_idx > 0:
+                                cls._preencher_assinatura(cell.paragraphs[p_idx - 1], data.get("contrada_resp_nome", ""))
+                            is_signature_header = True
+                        
                         # Modalidade rules inside cells
                         if compra:
                             modalidade_upper = (compra.modalidade or "").upper()
@@ -555,15 +568,16 @@ class PreenchedorContratoService:
                                     cls.substituir_texto(p, "NN/AAAA", compra.numero_comprasgov or "")
                                     cls.substituir_texto(p, "[SIGLA DA UNIDADE]", data.get("contratante_nome_fantasia", ""))
                                     
-                        cls.preencher_labels_contextuais(p, cell_state, data)
+                        if not is_signature_header:
+                            cls.preencher_labels_contextuais(p, cell_state, data)
                         cls.processar_paragrafo_geral(p, data)
 
-        # Process headers and footers to be thoroughly premium
+        # Process headers and footers
         for section in doc.sections:
             if section.header:
-                process_paragraphs(section.header.paragraphs)
+                process_paragraphs_with_index(section.header.paragraphs)
             if section.footer:
-                process_paragraphs(section.footer.paragraphs)
+                process_paragraphs_with_index(section.footer.paragraphs)
 
         # 6. Save filled document to memory
         output_io = io.BytesIO()
