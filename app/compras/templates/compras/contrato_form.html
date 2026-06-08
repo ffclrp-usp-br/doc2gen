@@ -13,6 +13,7 @@
                 <div class="card-body">
                     <form method="post" id="form-contrato">
                         {% csrf_token %}
+                        {{ form.empenho_id }}
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label class="form-label">Número do Contrato</label>
@@ -59,10 +60,54 @@
                                         {{ form.contratante }}
                                         {% if form.contratante.errors %}<div class="text-danger small">{{ form.contratante.errors }}</div>{% endif %}
                                     </div>
-                                    <div class="col-md-6">
+                                </div>
+                            </div>
+
+                            <!-- Seção de Empenho -->
+                            <div class="col-md-12 mt-3 border-top pt-3">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h6 class="text-muted mb-0"><i class="bi bi-file-earmark-pdf me-1"></i>Nota de Empenho</h6>
+                                    <button type="button" class="btn btn-sm btn-info" id="btn-carregar-empenho">
+                                        Carregar Empenho
+                                    </button>
+                                </div>
+                                <div id="empenho-content">
+                                    {% if empenho %}
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-bordered mb-0">
+                                            <tbody>
+                                                <tr><th style="width:200px">Número NE</th><td>{{ empenho.numero }}</td></tr>
+                                                <tr><th>Data do Empenho</th><td>{{ empenho.data_empenho|date:"d/m/Y"|default:"-" }}</td></tr>
+                                                <tr><th>Dotação</th><td>{{ empenho.dotacao|default:"-" }}</td></tr>
+                                                <tr><th>Grupo</th><td>{{ empenho.grupo|default:"-" }}</td></tr>
+                                                <tr><th>Unidade</th><td>{{ empenho.unidade|default:"-" }}</td></tr>
+                                                <tr><th>Fonte de Recurso</th><td>{{ empenho.fonte_recurso|default:"-" }}</td></tr>
+                                                <tr><th>Funcional Programática</th><td>{{ empenho.funcional_programatica|default:"-" }}</td></tr>
+                                                <tr><th>Categoria Econômica</th><td>{{ empenho.categoria_economica|default:"-" }}</td></tr>
+                                                <tr><th>Grupo de Despesa</th><td>{{ empenho.grupo_despesa|default:"-" }}</td></tr>
+                                                <tr><th>Modalidade</th><td>{{ empenho.modalidade|default:"-" }}</td></tr>
+                                                <tr><th>Elemento</th><td>{{ empenho.elemento|default:"-" }}</td></tr>
+                                                <tr><th>Item</th><td>{{ empenho.item|default:"-" }}</td></tr>
+                                                <tr><th>Organização</th><td>{{ empenho.organizacao.nome }} ({{ empenho.organizacao.cnpj }})</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    {% else %}
+                                    <p class="text-muted text-center mb-0" id="empenho-empty">Nenhuma nota de empenho cadastrada. Carregue o PDF da nota de empenho para identificar a empresa contratada.</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <!-- Contratada (preenchida automaticamente pelo empenho) -->
+                            <div class="col-md-12 mt-3 border-top pt-3">
+                                <div class="row g-3">
+                                    <div class="col-md-12">
                                         <label class="form-label">Contratada (Fornecedor)</label>
                                         {{ form.contratada }}
                                         {% if form.contratada.errors %}<div class="text-danger small">{{ form.contratada.errors }}</div>{% endif %}
+                                        <small class="text-muted" id="contratada-hint">
+                                            {% if not empenho %}A empresa será preenchida automaticamente ao carregar a nota de empenho.{% endif %}
+                                        </small>
                                     </div>
                                 </div>
                             </div>
@@ -92,7 +137,7 @@
                             <div>
                                 {% if object %}
                                     <a href="{% url 'contrato_delete' object.id %}" class="btn btn-danger me-2">Excluir</a>
-                                    <button type="button" class="btn btn-success" onclick="document.getElementById('file-{{ object.id }}').click();">
+                                    <button type="button" class="btn btn-success me-2" onclick="document.getElementById('file-{{ object.id }}').click();">
                                         Preencher contrato
                                     </button>
                                 {% endif %}
@@ -108,6 +153,8 @@
         </div>
     </div>
 </div>
+
+<input type="file" id="input-empenho-pdf" accept=".pdf" class="d-none">
 
 {% if object %}
 <form method="post" action="{% url 'contrato_preencher' object.id %}" enctype="multipart/form-data" class="d-none" id="form-preencher-{{ object.id }}">
@@ -142,7 +189,7 @@
             selectCompra.addEventListener('change', function() {
                 const compraId = this.value;
                 if (compraId) {
-                    fetch(`/api/compra/buscar/?compra_id=${compraId}`)
+                    fetch(`/compras/api/compra/buscar/?compra_id=${compraId}`)
                         .then(response => response.json())
                         .then(data => {
                             if (data.success) {
@@ -164,6 +211,107 @@
                 }
             });
         }
+
+        // Empenho upload
+        const btnEmpenho = document.getElementById('btn-carregar-empenho');
+        const inputEmpenhoPdf = document.getElementById('input-empenho-pdf');
+
+        btnEmpenho.addEventListener('click', function() {
+            inputEmpenhoPdf.click();
+        });
+
+        inputEmpenhoPdf.addEventListener('change', function() {
+            const file = this.files[0];
+            if (!file) return;
+
+            const formData = new FormData();
+            formData.append('pdf_file', file);
+
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+            const contratoId = '{{ object.id|default:"" }}';
+            const url = contratoId
+                ? `/compras/contratos/${contratoId}/empenho/upload/`
+                : '/compras/contratos/empenho/upload/';
+
+            btnEmpenho.disabled = true;
+            btnEmpenho.textContent = 'Carregando...';
+
+            fetch(url, {
+                method: 'POST',
+                headers: { 'X-CSRFToken': csrfToken },
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                btnEmpenho.disabled = false;
+                btnEmpenho.textContent = 'Carregar Empenho';
+
+                if (data.success) {
+                    const e = data.empenho;
+                    document.getElementById('empenho-content').innerHTML = `
+                        <div class="table-responsive">
+                            <table class="table table-sm table-bordered mb-0">
+                                <tbody>
+                                    <tr><th style="width:200px">Número NE</th><td>${e.numero}</td></tr>
+                                    <tr><th>Data do Empenho</th><td>${e.data_empenho || '-'}</td></tr>
+                                    <tr><th>Dotação</th><td>${e.dotacao || '-'}</td></tr>
+                                    <tr><th>Grupo</th><td>${e.grupo || '-'}</td></tr>
+                                    <tr><th>Unidade</th><td>${e.unidade || '-'}</td></tr>
+                                    <tr><th>Fonte de Recurso</th><td>${e.fonte_recurso || '-'}</td></tr>
+                                    <tr><th>Funcional Programática</th><td>${e.funcional_programatica || '-'}</td></tr>
+                                    <tr><th>Categoria Econômica</th><td>${e.categoria_economica || '-'}</td></tr>
+                                    <tr><th>Grupo de Despesa</th><td>${e.grupo_despesa || '-'}</td></tr>
+                                    <tr><th>Modalidade</th><td>${e.modalidade || '-'}</td></tr>
+                                    <tr><th>Elemento</th><td>${e.elemento || '-'}</td></tr>
+                                    <tr><th>Item</th><td>${e.item || '-'}</td></tr>
+                                    <tr><th>Organização</th><td>${e.organizacao_nome} (${e.organizacao_cnpj})</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    `;
+
+                    // Armazenar empenho_id no hidden field
+                    document.getElementById('id_empenho_id').value = e.id;
+
+                    // Auto-selecionar a contratada
+                    const selectContratada = document.getElementById('id_contratada');
+                    const options = selectContratada.options;
+                    let optionFound = false;
+                    
+                    // Verificar se a organização já existe nas opções
+                    for (let i = 0; i < options.length; i++) {
+                        if (options[i].value == e.organizacao_id) {
+                            selectContratada.selectedIndex = i;
+                            optionFound = true;
+                            break;
+                        }
+                    }
+                    
+                    // Se não encontrou, criar uma nova opção e selecionar
+                    if (!optionFound) {
+                        const newOption = document.createElement('option');
+                        newOption.value = e.organizacao_id;
+                        newOption.text = `${e.organizacao_nome} (${e.organizacao_cnpj})`;
+                        newOption.selected = true;
+                        selectContratada.appendChild(newOption);
+                    }
+
+                    const hint = document.getElementById('contratada-hint');
+                    if (hint) hint.remove();
+                } else {
+                    alert('Erro: ' + (data.error || 'Erro ao processar empenho.'));
+                }
+
+                inputEmpenhoPdf.value = '';
+            })
+            .catch(err => {
+                console.error('Erro ao carregar empenho:', err);
+                alert('Erro ao carregar empenho. Tente novamente.');
+                btnEmpenho.disabled = false;
+                btnEmpenho.textContent = 'Carregar Empenho';
+                inputEmpenhoPdf.value = '';
+            });
+        });
     });
 </script>
 {% endblock %}

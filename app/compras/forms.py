@@ -1,5 +1,5 @@
 from django import forms
-from .models import Organizacao, PessoaFisica, Contrato, VinculoOrganizacao, Compra, Item
+from .models import Organizacao, PessoaFisica, Contrato, VinculoOrganizacao, Compra, Item, Empenho
 
 class OrganizacaoForm(forms.ModelForm):
     class Meta:
@@ -52,6 +52,10 @@ class ContratoForm(forms.ModelForm):
         label='Data da proposta comercial',
         required=False,
         widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date'})
+    )
+    empenho_id = forms.IntegerField(
+        required=False,
+        widget=forms.HiddenInput(attrs={'id': 'id_empenho_id'})
     )
 
     class Meta:
@@ -115,6 +119,9 @@ class ContratoForm(forms.ModelForm):
 
         if commit:
             contrato.save()
+            empenho_id = self.cleaned_data.get('empenho_id')
+            if empenho_id:
+                Empenho.objects.filter(id=empenho_id, contrato__isnull=True).update(contrato=contrato)
         return contrato
 
 

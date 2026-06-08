@@ -4,7 +4,7 @@ import logging
 from datetime import date
 from decimal import Decimal
 from docx import Document
-from ..models import Contrato, VinculoOrganizacao, Organizacao, Compra
+from ..models import Contrato, VinculoOrganizacao, Organizacao, Compra, Empenho
 
 
 logger = logging.getLogger(__name__)
@@ -244,7 +244,12 @@ class PreenchedorContratoService:
             mappings = {
                 "[UNIDADE]": data.get("contratante_nome_fantasia", ""),
                 "[CNPJ nº]": data.get("contratante_cnpj", ""),
-                "[endereço completo]": data.get("contratante_endereco", ""),
+                
+                "[endereço completo]": (
+                    f"{data.get('contratante_endereco', '')} - "
+                    f"{data.get('contratante_estado', '')}"
+                 ),
+
                 "[cargo da autoridade competente e nome]": data.get("contratante_resp_completo", ""),
             }
         elif context_state == 'CONTRATADA':
@@ -276,12 +281,16 @@ class PreenchedorContratoService:
     @classmethod
     def processar_paragrafo_geral(cls, paragraph, data):
         """Process general placeholders that are independent of context state."""
-
         
+        # Remover linha "Plano Interno:" se existir
+        if "Plano Interno:" in paragraph.text:
+            p = paragraph._element
+            p.getparent().remove(p)
+            return
         
-        if "ANEXO III – MINUTA DE CONTRATO" in paragraph.text:
+        if "ANEXO III – MINUTA DE TERMO DE CONTRATO" in paragraph.text:
             novo_texto = paragraph.text.replace(
-                "ANEXO III – MINUTA DE CONTRATO",
+                "ANEXO III – MINUTA DE TERMO DE CONTRATO",
                 "TERMO DE CONTRATO"
             )
 
@@ -380,6 +389,14 @@ class PreenchedorContratoService:
             )
 
                     
+        
+        # Preencher campos de empenho
+        cls.substituir_texto(paragraph, "Gestão/Unidade: {{ unidade }}", f"Gestão/Unidade: {data.get('empenho_unidade', '')}")
+        cls.substituir_texto(paragraph, "Fonte de Recursos: {{ fonte_recurso }}", f"Fonte de Recursos: {data.get('empenho_fonte_recurso', '')}")
+        cls.substituir_texto(paragraph, "Programa de Trabalho: {{ 122 - Administração Geral }}", f"Programa de Trabalho: {data.get('empenho_programa_trabalho', '122 - Administração Geral')}")
+        cls.substituir_texto(paragraph, "Elemento de Despesa: {{ elemento }}", f"Elemento de Despesa: {data.get('empenho_elemento', '')}")
+        cls.substituir_texto(paragraph, "Nota de Empenho: {{ empenho_numero }}", f"Nota de Empenho: {data.get('empenho_numero', '')}")
+        
         # Local e data da assinatura
         cls.substituir_texto(paragraph, "[Local]", data.get("contratante_cidade", ""))
         cls.substituir_texto(paragraph, "[dia]", data.get("assinatura_dia", ""))
@@ -397,6 +414,13 @@ class PreenchedorContratoService:
         compra = contrato.compra
         contratante = contrato.contratante
         contratada = contrato.contratada
+        empenho = None
+        
+        # Try to get empenho if it exists
+        try:
+            empenho = contrato.empenho
+        except:
+            empenho = None
         
         # 2. Get representatives
         v_contratante = VinculoOrganizacao.objects.filter(
@@ -421,7 +445,7 @@ class PreenchedorContratoService:
             "contratada_cnpj": contratada.cnpj,
             "contratada_endereco": contratada.endereco or "",
             "contratada_cidade": contratada.cidade or "",
-            "contratada_endereco_completo": f"{contratada.endereco or ''}, {contratada.cidade or ''}".strip(", "),
+            "contratada_endereco_completo": f"{contratada.endereco or ''}, {contratada.cidade or ''} - {contratada.estado or ''} " .strip(", "),
             
             "objeto": compra.objeto if compra else "",
         }
@@ -435,6 +459,20 @@ class PreenchedorContratoService:
             data["contrada_resp_nome"] = v_contratada.pessoa.nome
         else:
             data["contrada_resp_nome"] = ""
+            
+        # Empenho data
+        if empenho:
+            data["empenho_unidade"] = empenho.unidade or ""
+            data["empenho_fonte_recurso"] = empenho.fonte_recurso or ""
+            data["empenho_programa_trabalho"] = "122 - Administração Geral"
+            data["empenho_elemento"] = empenho.elemento or ""
+            data["empenho_numero"] = empenho.numero or ""
+        else:
+            data["empenho_unidade"] = ""
+            data["empenho_fonte_recurso"] = ""
+            data["empenho_programa_trabalho"] = "122 - Administração Geral"
+            data["empenho_elemento"] = ""
+            data["empenho_numero"] = ""
         # Contract Dates
         if contrato.data:
             dd, mmm, aaaa = cls.formatar_datas(contrato.data, "por_extenso")

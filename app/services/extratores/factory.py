@@ -2,12 +2,14 @@
 
 from .demanda import ExtratorDocumentoDemanda
 from .compra import ExtratorDocumentoCompra
+from .empenho import ExtratorEmpenho
 
 class ExtratorFactory:
 
     extratores = [
         ExtratorDocumentoDemanda(),
         ExtratorDocumentoCompra(),
+        ExtratorEmpenho(),
     ]
 
     @classmethod

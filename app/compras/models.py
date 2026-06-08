@@ -406,3 +406,104 @@ class VinculoOrganizacao(models.Model):
 
     def __str__(self):
         return f'{self.pessoa} - {self.organizacao}'
+
+
+class Empenho(models.Model):
+
+    numero = models.CharField(
+        'Número da NE',
+        max_length=20,
+    )
+
+    data_empenho = models.DateField(
+        'Data do Empenho',
+        null=True,
+        blank=True,
+    )
+
+    dotacao = models.CharField(
+        'Dotação',
+        max_length=20,
+        blank=True,
+        null=True,
+    )
+
+    grupo = models.CharField(
+        'Grupo',
+        max_length=255,
+        blank=True,
+        null=True,
+    )
+
+    unidade = models.CharField(
+        'Unidade',
+        max_length=255,
+        blank=True,
+        null=True,
+    )
+
+    fonte_recurso = models.CharField(
+        'Fonte de Recurso',
+        max_length=100,
+        blank=True,
+        null=True,
+    )
+
+    funcional_programatica = models.CharField(
+        'Funcional Programática',
+        max_length=255,
+        blank=True,
+        null=True,
+    )
+
+    categoria_economica = models.CharField(
+        'Categoria Econômica',
+        max_length=100,
+        blank=True,
+        null=True,
+    )
+
+    grupo_despesa = models.CharField(
+        'Grupo de Despesa',
+        max_length=100,
+        blank=True,
+        null=True,
+    )
+
+    modalidade = models.CharField(
+        'Modalidade',
+        max_length=100,
+        blank=True,
+        null=True,
+    )
+
+    elemento = models.CharField(
+        'Elemento',
+        max_length=100,
+        blank=True,
+        null=True,
+    )
+
+    item = models.CharField(
+        'Item',
+        max_length=100,
+        blank=True,
+        null=True,
+    )
+
+    organizacao = models.ForeignKey(
+        Organizacao,
+        on_delete=models.PROTECT,
+        related_name='empenhos',
+    )
+
+    contrato = models.OneToOneField(
+        Contrato,
+        on_delete=models.CASCADE,
+        related_name='empenho',
+        null=True,
+        blank=True,
+    )
+
+    def __str__(self):
+        return f'{self.numero} - {self.organizacao}'

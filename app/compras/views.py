@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.db.models import Prefetch
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView, FormView
 
-from .models import Compra, Demanda, Item, Pesquisa, CentroGerencialGrupoOrcamentario, Organizacao, PessoaFisica, Contrato, VinculoOrganizacao
+from .models import Compra, Demanda, Item, Pesquisa, CentroGerencialGrupoOrcamentario, Organizacao, PessoaFisica, Contrato, VinculoOrganizacao, Empenho
 from .forms import OrganizacaoForm, PessoaFisicaForm, ContratoForm, VinculoOrganizacaoForm, ItemForm
 
 from services.parser_service import ParserService
@@ -682,6 +682,14 @@ class ContratoUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'compras/contrato_form.html'
     success_url = reverse_lazy('contrato_list')
 
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        try:
+            ctx['empenho'] = self.object.empenho
+        except Empenho.DoesNotExist:
+            ctx['empenho'] = None
+        return ctx
+
 class ContratoDeleteView(LoginRequiredMixin, DeleteView):
     model = Contrato
     success_url = reverse_lazy('contrato_list')
@@ -766,4 +774,107 @@ class ContratoPreencherView(LoginRequiredMixin, View):
         except Exception as e:
             messages.error(request, f"Erro ao preencher o contrato: {str(e)}")
             return redirect('contrato_list')
+
+
+class ContratoEmpenhoUploadView(LoginRequiredMixin, View):
+
+    def post(self, request, pk=None, *args, **kwargs):
+        contrato = None
+        if pk:
+            contrato = get_object_or_404(Contrato, pk=pk)
+
+        pdf_file = request.FILES.get('pdf_file')
+
+        if not pdf_file:
+            return JsonResponse({'success': False, 'error': 'Nenhum arquivo PDF enviado.'}, status=400)
+
+        try:
+            dados = ParserService.processar_pdf(pdf_file, tipo='empenho')
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': f'Erro ao processar PDF: {str(e)}'}, status=500)
+
+        if not dados.get('numero'):
+            return JsonResponse({'success': False, 'error': 'O PDF não corresponde a uma Nota de Empenho válida.'}, status=400)
+
+        cnpj = dados.get('organizacao_cnpj', '')
+        organizacao_nome = dados.get('organizacao_nome', '')
+
+        organizacao = None
+        if cnpj:
+            organizacao = Organizacao.objects.filter(cnpj=cnpj).first()
+
+        if not organizacao and cnpj:
+            organizacao = Organizacao.objects.create(
+                nome=organizacao_nome,
+                cnpj=cnpj,
+            )
+        elif not organizacao:
+            return JsonResponse({'success': False, 'error': 'CNPJ da organização não encontrado no documento.'}, status=400)
+
+        from datetime import datetime
+        data_empenho = None
+        if dados.get('data_empenho'):
+            try:
+                data_empenho = datetime.strptime(dados['data_empenho'], '%d/%m/%Y').date()
+            except ValueError:
+                pass
+
+        if contrato:
+            empenho, created = Empenho.objects.update_or_create(
+                contrato=contrato,
+                defaults={
+                    'numero': dados.get('numero', ''),
+                    'data_empenho': data_empenho,
+                    'dotacao': dados.get('dotacao', ''),
+                    'grupo': dados.get('grupo', ''),
+                    'unidade': dados.get('unidade', ''),
+                    'fonte_recurso': dados.get('fonte_recurso', ''),
+                    'funcional_programatica': dados.get('funcional_programatica', ''),
+                    'categoria_economica': dados.get('categoria_economica', ''),
+                    'grupo_despesa': dados.get('grupo_despesa', ''),
+                    'modalidade': dados.get('modalidade', ''),
+                    'elemento': dados.get('elemento', ''),
+                    'item': dados.get('item', ''),
+                    'organizacao': organizacao,
+                },
+            )
+        else:
+            empenho = Empenho.objects.create(
+                numero=dados.get('numero', ''),
+                data_empenho=data_empenho,
+                dotacao=dados.get('dotacao', ''),
+                grupo=dados.get('grupo', ''),
+                unidade=dados.get('unidade', ''),
+                fonte_recurso=dados.get('fonte_recurso', ''),
+                funcional_programatica=dados.get('funcional_programatica', ''),
+                categoria_economica=dados.get('categoria_economica', ''),
+                grupo_despesa=dados.get('grupo_despesa', ''),
+                modalidade=dados.get('modalidade', ''),
+                elemento=dados.get('elemento', ''),
+                item=dados.get('item', ''),
+                organizacao=organizacao,
+                contrato=None,
+            )
+
+        return JsonResponse({
+            'success': True,
+            'empenho': {
+                'id': empenho.id,
+                'numero': empenho.numero,
+                'data_empenho': empenho.data_empenho.strftime('%d/%m/%Y') if empenho.data_empenho else '',
+                'dotacao': empenho.dotacao or '',
+                'grupo': empenho.grupo or '',
+                'unidade': empenho.unidade or '',
+                'fonte_recurso': empenho.fonte_recurso or '',
+                'funcional_programatica': empenho.funcional_programatica or '',
+                'categoria_economica': empenho.categoria_economica or '',
+                'grupo_despesa': empenho.grupo_despesa or '',
+                'modalidade': empenho.modalidade or '',
+                'elemento': empenho.elemento or '',
+                'item': empenho.item or '',
+                'organizacao_id': organizacao.id,
+                'organizacao_nome': organizacao.nome,
+                'organizacao_cnpj': organizacao.cnpj,
+            },
+        })
 

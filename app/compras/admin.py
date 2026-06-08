@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Compra, Demanda, Item, Pesquisa
+from .models import Compra, Demanda, Item, Pesquisa, Empenho
 
 
 class ItemInline(admin.TabularInline):
@@ -40,3 +40,10 @@ class PesquisaAdmin(admin.ModelAdmin):
     list_display = ('item', 'nome_fornecedor', 'valor_unitario')
     list_filter = ('item__demanda__compra',)
     search_fields = ('nome_fornecedor',)
+
+
+@admin.register(Empenho)
+class EmpenhoAdmin(admin.ModelAdmin):
+    list_display = ('numero', 'data_empenho', 'organizacao', 'dotacao', 'contrato')
+    list_filter = ('organizacao',)
+    search_fields = ('numero', 'organizacao__nome')
