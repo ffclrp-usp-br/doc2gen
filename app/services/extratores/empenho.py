@@ -1,8 +1,9 @@
 # services/extratores/empenho.py
 
+import typing_extensions
 import re
 from .base import ExtratorBase
-
+from compras.utils.string_utils import StringUtils
 
 class ExtratorEmpenho(ExtratorBase):
 
@@ -42,9 +43,9 @@ class ExtratorEmpenho(ExtratorBase):
         if m:
             data["organizacao_cnpj"] = m.group(1)
 
-        m = re.search(r"Fonte de Recurso:\s*(\d+)", texto)
+        m = re.search(r"Fonte de Recurso:\s*(.+)", texto)
         if m:
-            data["fonte_recurso"] = f"{m.group(1)} - Tesouro do Estado"
+            data["fonte_recurso"] = StringUtils.formatar_codigo_descricao(m.group(1).strip())
 
         m = re.search(
             r"(\d+\s*-\s*\d+\s*-\s*\d+\s*-\s*\d+\s+Ensino.*?Estaduais)",
@@ -54,10 +55,30 @@ class ExtratorEmpenho(ExtratorBase):
         if m:
             data["funcional_programatica"] = " ".join(m.group(1).split())
 
-        data["categoria_economica"] = "3 - Despesas Correntes"
-        data["grupo_despesa"] = "3 - Outras Despesas Correntes"
-        data["modalidade"] = "90 - Aplicações Diretas"
-        data["elemento"] = "30 - Material de Consumo"
-        data["item"] = "50 - Peças de Reposição e Acessórios"
+        
+        m = re.search(r"Categoria Econômica:\s*(.+)", texto, re.MULTILINE)
+        if m:
+            data["categoria_economica"] = StringUtils.formatar_codigo_descricao(m.group(1).strip())
 
+        m = re.search(r"Grupo de Despesa:\s*(.+)", texto, re.MULTILINE)
+        if m:
+            data["grupo_despesa"] = StringUtils.formatar_codigo_descricao(m.group(1).strip())
+
+        m = re.search(r"Modalidade:\s*(.+)", texto, re.MULTILINE)
+        if m:
+            data["modalidade"] = StringUtils.formatar_codigo_descricao(m.group(1).strip())
+
+        m = re.search(r"Elemento:\s*(.+)", texto, re.MULTILINE)
+        if m:
+            data["elemento"] = StringUtils.formatar_codigo_descricao(m.group(1).strip())
+
+        m = re.search(r"Item:\s*(.+)", texto, re.MULTILINE)
+        if m:
+            data["item"] = StringUtils.formatar_codigo_descricao(m.group(1).strip())
+
+        m = re.search(r"Funcional Programática:\s*(.+)", texto, re.MULTILINE)
+        if m:
+            data["funcional_programatica"] = m.group(1).strip()
+
+        
         return data

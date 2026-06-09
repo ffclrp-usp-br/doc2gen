@@ -5,133 +5,18 @@ from datetime import date
 from decimal import Decimal
 from docx import Document
 from ..models import Contrato, VinculoOrganizacao, Organizacao, Compra, Empenho
+from ..utils.date_utils import DateUtils
+from ..utils.moeda_utils import MoedaUtils
+from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
+from docx.shared import Pt
 
 
 logger = logging.getLogger(__name__)
 
 
-class PreenchedorContratoService:
+class PreenchedorContratoService(DateUtils, MoedaUtils):
 
-
-    
-    MESES = {
-        1: "janeiro", 2: "fevereiro", 3: "março", 4: "abril",
-        5: "maio", 6: "junho", 7: "julho", 8: "agosto",
-        9: "setembro", 10: "outubro", 11: "novembro", 12: "dezembro"
-    }
-
-    @staticmethod
-    def formatar_moeda_brasileira(valor):
-        """Format a decimal/float to Brazilian currency string (R$ X.XXX,XX)."""
-        if valor is None:
-            return "R$ 0,00"
-        try:
-            return f"R$ {float(valor):,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
-        except (ValueError, TypeError):
-            return "R$ 0,00"
-
-    @classmethod
-    def get_month_name(cls, month_number):
-        """Return the month name in Portuguese."""
-        return cls.MESES.get(month_number, "")
-
-    @classmethod
-    def formatar_datas(cls, dt, formato="DD/MM/AAAA"):
-        """Format datetime.date to string according to format."""
-        if not dt:
-            return ""
-        if formato == "DD/MM/AAAA":
-            return dt.strftime("%d/%m/%Y")
-        elif formato == "por_extenso":
-            dia = f"{dt.day:02d}"
-            mes = cls.get_month_name(dt.month)
-            ano = f"{dt.year}"
-            return dia, mes, ano
-        return str(dt)
-
-    @staticmethod
-    def valor_por_extenso(valor: Decimal) -> str:
-        """Converte um valor decimal em reais por extenso em português."""
-        if not valor:
-            return "zero reais"
-            
-        reais = int(valor)
-        centavos = int(round((valor - reais) * 100))
-        
-        def converter_grupo(n):
-            units = ["", "um", "dois", "três", "quatro", "cinco", "seis", "sete", "oito", "nove"]
-            teens = ["dez", "onze", "doze", "treze", "quatorze", "quinze", "dezesseis", "dezessete", "dezoito", "dezenove"]
-            tens = ["", "dez", "vinte", "trinta", "quarenta", "cinquenta", "sessenta", "setenta", "oitenta", "noventa"]
-            hundreds = ["", "cento", "duzentos", "trezentos", "quatrocentos", "quinhentos", "seiscentos", "setecentos", "oitocentos", "novecentos"]
-            
-            if n == 100:
-                return "cem"
-            
-            h = n // 100
-            t = (n % 100) // 10
-            u = n % 10
-            
-            parts = []
-            if h > 0:
-                parts.append(hundreds[h])
-            if t == 1:
-                parts.append(teens[u])
-            else:
-                if t > 0:
-                    parts.append(tens[t])
-                if u > 0:
-                    parts.append(units[u])
-                    
-            return " e ".join(parts)
-
-        def converter_inteiro(n):
-            if n < 1000:
-                return converter_grupo(n)
-            
-            if n < 1000000:
-                thousands = n // 1000
-                rest = n % 1000
-                t_str = "mil" if thousands == 1 else f"{converter_grupo(thousands)} mil"
-                if rest == 0:
-                    return t_str
-                if rest < 100 or rest % 100 == 0:
-                    return f"{t_str} e {converter_grupo(rest)}"
-                return f"{t_str}, {converter_grupo(rest)}"
-                
-            # Millions
-            millions = n // 1000000
-            rest = n % 1000000
-            m_str = "um milhão" if millions == 1 else f"{converter_grupo(millions)} milhões"
-            if rest == 0:
-                return m_str
-            if rest < 100 or (rest < 1000 and rest % 100 == 0) or (rest >= 1000 and rest % 1000 == 0):
-                return f"{m_str} e {converter_inteiro(rest)}"
-            return f"{m_str}, {converter_inteiro(rest)}"
-
-        part_reais = ""
-        if reais > 0:
-            if reais == 1:
-                part_reais = "um real"
-            else:
-                suffix = " de reais" if reais >= 1000000 and reais % 1000000 == 0 else " reais"
-                part_reais = f"{converter_inteiro(reais)}{suffix}"
-                
-        part_centavos = ""
-        if centavos > 0:
-            if centavos == 1:
-                part_centavos = "um centavo"
-            else:
-                part_centavos = f"{converter_inteiro(centavos)} centavos"
-                
-        if part_reais and part_centavos:
-            return f"{part_reais} e {part_centavos}"
-        elif part_reais:
-            return part_reais
-        elif part_centavos:
-            return part_centavos
-        else:
-            return "zero reais"
-
+   
     @staticmethod
     def localizar_secao(text, current_state):
         """
@@ -173,7 +58,7 @@ class PreenchedorContratoService:
                 run.text = run.text.replace(target, replacement)
                 replaced = True
                 
-        if replaced and target not in paragraph.text:
+        if replaced: #and target not in paragraph.text:
             return True
             
         # Reconstruct runs for split targets
@@ -389,10 +274,16 @@ class PreenchedorContratoService:
                     
         
         # Preencher campos de empenho (placeholders individuais)
+        print("PARÁGRAFO:", repr(paragraph.text))
+
+        for i, run in enumerate(paragraph.runs):
+            print(f"RUN {i} =", repr(run.text))
+        
         cls.substituir_texto(paragraph, "Gestão/Unidade:", f"Gestão/Unidade: {data.get('empenho_unidade', '')}")
+        
         cls.substituir_texto(paragraph, "Fonte de Recursos:", f"Fonte de Recursos: {data.get('empenho_fonte_recurso', '')}")
-        cls.substituir_texto(paragraph, "Programa de Trabalho:", f"Programa de Trabalho: {data.get('empenho_programa_trabalho', '122 - Administração Geral')}")
-        cls.substituir_texto(paragraph, "Elemento de Despesa:", f"Elemento: {data.get('empenho_elemento', '')}")
+        cls.substituir_texto(paragraph, "Programa de Trabalho:", f"Programa de Trabalho: {data.get('empenho_programa_trabalho', '')}")
+        cls.substituir_texto(paragraph, "Elemento de Despesa:", f"Elemento de Despesa: {data.get('empenho_elemento', '')}")
         cls.substituir_texto(paragraph, "Nota de Empenho:", f"Número do Empenho: {data.get('empenho_numero', '')}")
 
         
@@ -403,8 +294,28 @@ class PreenchedorContratoService:
         cls.substituir_texto(paragraph, "[ano]", data.get("assinatura_ano", ""))
         
         # Placeholders específicos de assinatura
-        cls.substituir_texto(paragraph, "Representante legal do CONTRATANTE", data.get("contratante_resp_nome", ""))
-        cls.substituir_texto(paragraph, "Representante legal do CONTRATADO", data.get("contratada_resp_nome", ""))
+        if "Representante legal do CONTRATANTE" in paragraph.text:
+            nome_p = paragraph.insert_paragraph_before()
+            nome_p.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+
+            run = nome_p.add_run(
+                data.get("contratante_resp_nome", "")
+            )
+            run.bold = True
+            run.font.size = Pt(11)
+                    
+
+        if "Representante legal do CONTRATADO" in paragraph.text:
+            nome_p = paragraph.insert_paragraph_before()
+            nome_p.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+
+            run = nome_p.add_run(
+                data.get("contratada_resp_nome", "")
+            )
+            run.bold = True
+            run.font.size = Pt(11)
+        
+
 
     @classmethod
     def fill_docx(cls, docx_file, contrato):

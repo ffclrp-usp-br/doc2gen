@@ -76,6 +76,55 @@ class PreenchedorContratoServiceTest(TestCase):
         self.assertTrue(res2)
         self.assertIn("Texto com Novo [PLACEHOLDER] texto", p2.text)
 
+    def test_fill_docx(self):
+        from .models import Compra, Contrato, Organizacao
+        from datetime import date
+        import io
+        
+        contratante = Organizacao.objects.create(
+            nome="Instituição Contratante",
+            cnpj="11.111.111/0001-11",
+            is_propria_instituicao=True
+        )
+        contratada = Organizacao.objects.create(
+            nome="Fornecedor Contratado",
+            cnpj="22.222.222/0001-22",
+            is_propria_instituicao=False
+        )
+        compra = Compra.objects.create(
+            numero_compra="123456789012",
+            objeto="Compra Teste",
+            valor_efetivo=Decimal("10000.00"),
+            data_estimativa_orcamento=date(2026, 6, 9)
+        )
+        contrato = Contrato.objects.create(
+            numero="CON-001/2026",
+            compra=compra,
+            contratante=contratante,
+            contratada=contratada,
+            data=date(2026, 6, 9)
+        )
+        
+        doc = Document()
+        doc.add_paragraph("Este é o Contrato nº [contrato_numero]")
+        doc.add_paragraph("Valor: [DESCRIÇÃO SUCINTA DO OBJETO]")
+        doc.add_paragraph("data do orçamento estimado, em DD/MM/AAAA.")
+        
+        docx_file = io.BytesIO()
+        doc.save(docx_file)
+        docx_file.seek(0)
+        
+        filled_io, filename = PreenchedorContratoService.fill_docx(docx_file, contrato)
+        self.assertIsNotNone(filled_io)
+        self.assertIn("CON-001_2026", filename)
+        
+        filled_doc = Document(filled_io)
+        texts = [p.text for p in filled_doc.paragraphs]
+        self.assertTrue(any("Contrato nº CON-001/2026" in t for t in texts))
+
+
+
+
 
 from .models import Compra, Contrato, Organizacao
 from .forms import ContratoForm

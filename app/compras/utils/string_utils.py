@@ -1,3 +1,5 @@
+import re
+
 class StringUtils:
 
     @staticmethod
@@ -51,3 +53,12 @@ class StringUtils:
 
         return ', '.join(sorted(elementos))
     
+
+    @staticmethod
+    def formatar_codigo_descricao(texto):
+        m = re.match(r'^\s*(\d+)\s+(.*)$', texto.strip())
+    
+        if m:
+            return f"{m.group(1)} - {m.group(2)}"
+    
+        return texto
