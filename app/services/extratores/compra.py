@@ -208,7 +208,7 @@ class ExtratorDocumentoCompra(ExtratorBase):
             re.IGNORECASE
         )
 
-        return match.group(1) if match else None
+        return int(match.group(1).replace(".", "")) if match else None
 
     def _extrair_unidade_medida(self, bloco):
         match = re.search(
