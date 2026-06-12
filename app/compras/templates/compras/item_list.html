@@ -44,9 +44,8 @@
                 <th>#</th>
                 <th><small>Demanda</small></th>
                 <th><small>Centro Gerencial<br>Grupo Orçamentário</small><br><small>Item Despesa</small></th>
-                <th><small>Qtde</small></th>
-                <th style="min-width: 15%;"><small>Códigos diversos</small></th>
-                <th><small>Descrição</small></th>
+                <th style="max-width: 5%;"><small>Qtde</small></th>
+                <th style="min-width: 25%;"><small>Descrição</small></th>
                 <th><small>Valor Médio</small><br><small>Pesquisas</small></th>
                 <th><small>Ações</small></th>
             </tr>
@@ -62,13 +61,15 @@
                 </td>
 
                 <td>{{ item.quantidade }}<br><small class="text-muted">{{ item.unidade_medida|default:"" }}</small></td>
-                <td><small>
+                <td>
+                    {{ item.descricao }}<br>
+                    <hr class="my-1">
+                    <small>
                         Material: {{ item.codigo_material }}<br>
                         Bem: {{ item.codigo_bem }}<br>
                         Contabiliza: {{ item.codigo_contabiliza }}<br>
                         Compras gov: {{ item.codigo_comprasgov }} <br>
                     </small></td>
-                <td>{{ item.descricao }}</td>
                 <td>
                     {% if item.pesquisas.all %}
                     R$ {{ item.valor_medio|default:"N/A" }}

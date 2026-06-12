@@ -237,6 +237,8 @@ def extrair_pesquisas(bloco):
 # ==========================================================
 def extrair_item(bloco):
 
+    print (bloco)
+
     m = re.search(r'Item\s*#(\d+)', bloco)
     numero = m.group(1) if m else None
 
@@ -250,14 +252,25 @@ def extrair_item(bloco):
     m = re.search(r'Item de Despesa:\s*([0-9,\s]+)', bloco)
     item_despesa = limpar(m.group(1)) if m else None
 
+  
     m = re.search(
-        r'(\d+(?:,\d+)?)\s+([A-ZÇÃÁÉÍÓÚÂÊÔÜ\s]+?)\s+(\d{1,3}(?:\.\d{3})*,\d{2})',
+        r'Material:\s*\d+\s+'
+        r'(\d+(?:[.,]\d+)?)\s+'                             # quantidade
+        r'(.+?)\s+'                                         # unidade_medida
+        r'(\d{1,3}(?:\.\d{3})*,\d{2})\s+'                  # valor_unitario
+        r'(\d{1,3}(?:\.\d{3})*,\d{2})',                     # valor_total
         bloco
     )
 
-    quantidade = m.group(1) if m else None
-    unidade_medida = m.group(2) if m else None
-    valor_prev = m.group(3) if m else None
+    quantidade = None
+    unidade_medida = None
+    valor_prev = None
+
+    if m:
+        quantidade = m.group(1)
+        unidade_medida = m.group(2).strip()
+        valor_prev = m.group(3)
+
 
     return {
         "item": numero,
@@ -318,6 +331,7 @@ def main():
         sys.exit(1)
 
     dados = extrair_dados(arquivo)
+    
 
     print("\n================ CABEÇALHO ================\n")
     print("Compra:", dados["numero_compra"])

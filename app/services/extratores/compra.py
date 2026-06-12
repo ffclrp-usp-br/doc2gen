@@ -200,14 +200,10 @@ class ExtratorDocumentoCompra(ExtratorBase):
 
 
 
-
-
-
     def _extrair_quantidade(self, bloco):
-        """Extrai quantidade"""
-
         match = re.search(
-            r'(\d+(?:,\d+)?)\s+([A-ZÇÃÁÉÍÓÚÂÊÔÜ\s]+?)\s+(\d{1,3}(?:\.\d{3})*,\d{2})',
+            r'Material:\s*\d+\s+'
+            r'(\d+(?:[.,]\d+)?)\s+', # g1 quantidade
             bloco,
             re.IGNORECASE
         )
@@ -215,21 +211,27 @@ class ExtratorDocumentoCompra(ExtratorBase):
         return match.group(1) if match else None
 
     def _extrair_unidade_medida(self, bloco):
-        """Extrai unidade de medida"""
         match = re.search(
-            r'(\d+(?:,\d+)?)\s+([A-ZÇÃÁÉÍÓÚÂÊÔÜ\s]+?)\s+(\d{1,3}(?:\.\d{3})*,\d{2})',
-            bloco
+            r'Material:\s*\d+\s+'
+            r'(\d+(?:[.,]\d+)?)\s+'                             # quantidade
+            r'(.+?)\s+'                                         # unidade_medida
+            r'(\d{1,3}(?:\.\d{3})*,\d{2})\s+'                  # valor_unitario
+            r'(\d{1,3}(?:\.\d{3})*,\d{2})',                     # valor_total
+        bloco
         )
         return match.group(2) if match else None
 
 
     def _extrair_valor_unitario_previsto(self, bloco):
-        """Extrai valor unitário previsto"""
         match = re.search(
-            r'(\d+(?:,\d+)?)\s+(?:UNIDADE|UNIDADES|SERVIÇO|SERVIÇOS)\s+(\d{1,3}(?:\.\d{3})*,\d{2})',
+            r'Material:\s*\d+\s+'
+            r'(\d+(?:[.,]\d+)?)\s+'                             # quantidade
+            r'(.+?)\s+'                                         # unidade_medida
+            r'(\d{1,3}(?:\.\d{3})*,\d{2})\s+'                  # valor_unitario
+            r'(\d{1,3}(?:\.\d{3})*,\d{2})',                     # valor_total
             bloco
         )
-        return match.group(2) if match else None
+        return match.group(3) if match else None
 
     def _extrair_numero_demanda(self, bloco):
         """Extrai o número da demanda"""

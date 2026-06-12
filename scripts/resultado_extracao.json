@@ -1,34 +1,1054 @@
 {
-    "numero_compra": "202600060462",
-    "numero_sei": "154.00007151/2026-09",
+    "numero_compra": "202600076580",
+    "numero_sei": "154.00008705/2026-87",
     "modalidade": "Dispensa",
-    "valor_total_previsto": "7.924,86",
+    "valor_total_previsto": "24.325,33",
     "itens": [
         {
             "item": "1",
-            "numero_demanda": "202600007057",
-            "codigo_bem": "9163948",
-            "codigo_bec": "5511283",
-            "codigo_material": "331350",
-            "item_despesa": "44905234",
-            "centro_gerencial": "\\ADM\\PROJETOS ORÇAMENTO",
+            "numero_demanda": "202500379904",
+            "codigo_bem": "6615562",
+            "codigo_bec": "4069641",
+            "codigo_material": "314323",
+            "item_despesa": "33903050, 33903052",
+            "centro_gerencial": "\\ADM\\ATAC\\SPG",
             "grupo_orcamentario": "59.000",
-            "descricao": "Controle de acesso de",
+            "descricao": "Papeleira",
             "quantidade": "2",
             "unidade_medida": "UNIDADE",
-            "valor_unitario_previsto": "3.962,43",
+            "valor_unitario_previsto": "157,15",
             "pesquisas": [
                 {
-                    "fornecedor": "SIA DO BRASIL (04.055.148/0001-84)",
-                    "valor_unitario": "3.346,00"
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "130,87"
                 },
                 {
-                    "fornecedor": "Ponto Socorro (18.940.961/0001-41)",
-                    "valor_unitario": "3.775,00"
+                    "fornecedor": "Amazon -Serviços de Varejo do Brasil (15.436.940/0001-03)",
+                    "valor_unitario": "167,10"
+                },
+                {
+                    "fornecedor": "Babá Materiais para Construção. (55.431.753/0001-43)",
+                    "valor_unitario": "173,50"
+                }
+            ]
+        },
+        {
+            "item": "2",
+            "numero_demanda": "202500381399",
+            "codigo_bem": "10051341",
+            "codigo_bec": "6362168",
+            "codigo_material": "315923",
+            "item_despesa": "33903052, 33903090",
+            "centro_gerencial": "\\ADM\\DF",
+            "grupo_orcamentario": "59.000",
+            "descricao": "Mangueira flexivel poliuretano flexivel",
+            "quantidade": "100",
+            "unidade_medida": "METRO",
+            "valor_unitario_previsto": "3,25",
+            "pesquisas": [
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "3,18"
+                },
+                {
+                    "fornecedor": "Luat Com.Compressores (05.689.439/0001-97)",
+                    "valor_unitario": "3,33"
+                }
+            ]
+        },
+        {
+            "item": "3",
+            "numero_demanda": "202600002128",
+            "codigo_bem": "6628931",
+            "codigo_bec": "3373339",
+            "codigo_material": "315648",
+            "item_despesa": "33903090",
+            "centro_gerencial": "\\ADM\\ATAD\\SMC",
+            "grupo_orcamentario": "59.000",
+            "descricao": "Mangueira para gas",
+            "quantidade": "15",
+            "unidade_medida": "UNIDADE",
+            "valor_unitario_previsto": "17,72",
+            "pesquisas": [
+                {
+                    "fornecedor": "Babá Materiais para Construção. (55.431.753/0001-43)",
+                    "valor_unitario": "9,00"
+                },
+                {
+                    "fornecedor": "Multiseg (10.498.304/0001-84)",
+                    "valor_unitario": "15,41"
                 },
                 {
                     "fornecedor": "COMPRASGOVBR (980.823.298-15)",
-                    "valor_unitario": "4.766,29"
+                    "valor_unitario": "28,77"
+                }
+            ]
+        },
+        {
+            "item": "4",
+            "numero_demanda": "202600002420",
+            "codigo_bem": "8894809",
+            "codigo_bec": "5264375",
+            "codigo_material": "348694",
+            "item_despesa": "33903014",
+            "centro_gerencial": "\\ADM\\ATAD\\SMC",
+            "grupo_orcamentario": "59.000",
+            "descricao": "Desentupidora manual",
+            "quantidade": "2",
+            "unidade_medida": "UNIDADE",
+            "valor_unitario_previsto": "82,03",
+            "pesquisas": [
+                {
+                    "fornecedor": "Anhanguera Com.Ferramentas (00.565.813/0001-29)",
+                    "valor_unitario": "74,21"
+                },
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "89,86"
+                }
+            ]
+        },
+        {
+            "item": "5",
+            "numero_demanda": "202600003639",
+            "codigo_bem": "7134720",
+            "codigo_bec": "1066510",
+            "codigo_material": "349216",
+            "item_despesa": "33903090",
+            "centro_gerencial": "\\ADM\\DCM",
+            "grupo_orcamentario": "59.000",
+            "descricao": "Cola para formica",
+            "quantidade": "2",
+            "unidade_medida": "GALAO 2.80 QUILOGRAMA",
+            "valor_unitario_previsto": "133,17",
+            "pesquisas": [
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "101,96"
+                },
+                {
+                    "fornecedor": "Amazon -Serviços de Varejo do Brasil (15.436.940/0001-03)",
+                    "valor_unitario": "164,39"
+                }
+            ]
+        },
+        {
+            "item": "6",
+            "numero_demanda": "202600005283",
+            "codigo_bem": "9100334",
+            "codigo_bec": "5452414",
+            "codigo_material": "314340",
+            "item_despesa": "33903050, 33903052",
+            "centro_gerencial": "\\ADM\\ATAD\\SCEXP",
+            "grupo_orcamentario": "59.000",
+            "descricao": "Saboneteira de sobrepor liquido",
+            "quantidade": "20",
+            "unidade_medida": "UNIDADE",
+            "valor_unitario_previsto": "52,63",
+            "pesquisas": [
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "47,37"
+                },
+                {
+                    "fornecedor": "Ebazar Comércio br Ltda (03.007.331/0001-41)",
+                    "valor_unitario": "57,90"
+                }
+            ]
+        },
+        {
+            "item": "7",
+            "numero_demanda": "202600005402",
+            "codigo_bem": "8928452",
+            "codigo_bec": "5293154",
+            "codigo_material": "314242",
+            "item_despesa": "33903050, 33903052",
+            "centro_gerencial": "\\ADM\\ATAD\\SCEXP",
+            "grupo_orcamentario": "59.000",
+            "descricao": "Dispenser para papel toalha",
+            "quantidade": "20",
+            "unidade_medida": "UNIDADE",
+            "valor_unitario_previsto": "204,18",
+            "pesquisas": [
+                {
+                    "fornecedor": "Ebazar Comércio br Ltda (03.007.331/0001-41)",
+                    "valor_unitario": "160,00"
+                },
+                {
+                    "fornecedor": "GRUPLAST (46.681.831/0001-77)",
+                    "valor_unitario": "203,95"
+                },
+                {
+                    "fornecedor": "PFX METAIS (49.600.715/0001-74)",
+                    "valor_unitario": "248,59"
+                }
+            ]
+        },
+        {
+            "item": "8",
+            "numero_demanda": "202600005461",
+            "codigo_bem": "9252037",
+            "codigo_bec": "5592895",
+            "codigo_material": "314234",
+            "item_despesa": "33903050, 33903052",
+            "centro_gerencial": "\\ADM\\ATAD\\SCEXP",
+            "grupo_orcamentario": "59.000",
+            "descricao": "Dispenser papel higienico",
+            "quantidade": "15",
+            "unidade_medida": "UNIDADE",
+            "valor_unitario_previsto": "152,11",
+            "pesquisas": [
+                {
+                    "fornecedor": "PFX METAIS (49.600.715/0001-74)",
+                    "valor_unitario": "135,81"
+                },
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "168,41"
+                }
+            ]
+        },
+        {
+            "item": "9",
+            "numero_demanda": "202600171868",
+            "codigo_bem": "6604552",
+            "codigo_bec": "1775561",
+            "codigo_material": "313637",
+            "item_despesa": "33903052",
+            "centro_gerencial": "\\ADM\\DQ",
+            "grupo_orcamentario": "59.000",
+            "descricao": "Torneira polipropileno",
+            "quantidade": "4",
+            "unidade_medida": "UNIDADE",
+            "valor_unitario_previsto": "43,45",
+            "pesquisas": [
+                {
+                    "fornecedor": "Babá Materiais para Construção. (55.431.753/0001-43)",
+                    "valor_unitario": "24,80"
+                },
+                {
+                    "fornecedor": "Ebazar Comércio br Ltda (03.007.331/0001-41)",
+                    "valor_unitario": "31,26"
+                },
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "74,29"
+                }
+            ]
+        },
+        {
+            "item": "10",
+            "numero_demanda": "202600171868",
+            "codigo_bem": "8040729",
+            "codigo_bec": "4586174",
+            "codigo_material": "313360",
+            "item_despesa": "33903052",
+            "centro_gerencial": "\\ADM\\DQ",
+            "grupo_orcamentario": "59.000",
+            "descricao": "Canopla para valvula",
+            "quantidade": "5",
+            "unidade_medida": "UNIDADE",
+            "valor_unitario_previsto": "48,91",
+            "pesquisas": [
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "42,67"
+                },
+                {
+                    "fornecedor": "Juval Usinagem Limitada-ME (01.757.787/0001-01)",
+                    "valor_unitario": "55,16"
+                }
+            ]
+        },
+        {
+            "item": "11",
+            "numero_demanda": "202600171868",
+            "codigo_bem": "9945547",
+            "codigo_bec": "6259928",
+            "codigo_material": "315648",
+            "item_despesa": "33903090",
+            "centro_gerencial": "\\ADM\\DQ",
+            "grupo_orcamentario": "59.000",
+            "descricao": "Mangueira p/ gas trancado",
+            "quantidade": "70",
+            "unidade_medida": "UNIDADE",
+            "valor_unitario_previsto": "81,11",
+            "pesquisas": [
+                {
+                    "fornecedor": "Ebazar Comércio br Ltda (03.007.331/0001-41)",
+                    "valor_unitario": "43,92"
+                },
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "118,30"
+                }
+            ]
+        },
+        {
+            "item": "12",
+            "numero_demanda": "202600171868",
+            "codigo_bem": "9468820",
+            "codigo_bec": "5803098",
+            "codigo_material": "547310",
+            "item_despesa": "33903052",
+            "centro_gerencial": "\\ADM\\DQ",
+            "grupo_orcamentario": "59.000",
+            "descricao": "Tubo",
+            "quantidade": "20",
+            "unidade_medida": "BARRA 3 METRO",
+            "valor_unitario_previsto": "24,12",
+            "pesquisas": [
+                {
+                    "fornecedor": "Leroy Merlin (01.438.784/0048-60)",
+                    "valor_unitario": "17,82"
+                },
+                {
+                    "fornecedor": "Babá Materiais para Construção. (55.431.753/0001-43)",
+                    "valor_unitario": "23,70"
+                },
+                {
+                    "fornecedor": "Padovani (50.223.692/0004-58)",
+                    "valor_unitario": "30,86"
+                }
+            ]
+        },
+        {
+            "item": "13",
+            "numero_demanda": "202600171868",
+            "codigo_bem": "8682720",
+            "codigo_bec": "5064872",
+            "codigo_material": "547310",
+            "item_despesa": "33903052",
+            "centro_gerencial": "\\ADM\\DQ",
+            "grupo_orcamentario": "59.000",
+            "descricao": "Tubo pvc rigido",
+            "quantidade": "6",
+            "unidade_medida": "BARRA 3 METRO",
+            "valor_unitario_previsto": "83,66",
+            "pesquisas": [
+                {
+                    "fornecedor": "Leroy Merlin (01.438.784/0048-60)",
+                    "valor_unitario": "59,82"
+                },
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "70,53"
+                },
+                {
+                    "fornecedor": "Babá Materiais para Construção. (55.431.753/0001-43)",
+                    "valor_unitario": "99,40"
+                },
+                {
+                    "fornecedor": "Merc (08.760.239/0001-71)",
+                    "valor_unitario": "104,90"
+                }
+            ]
+        },
+        {
+            "item": "14",
+            "numero_demanda": "202600036898",
+            "codigo_bem": "7141548",
+            "codigo_bec": "4370023",
+            "codigo_material": "349909",
+            "item_despesa": "33903090",
+            "centro_gerencial": "\\ALMOX",
+            "grupo_orcamentario": "59.000",
+            "descricao": "Adesivo transparente base resinas sintéticas",
+            "quantidade": "20",
+            "unidade_medida": "TUBO 280 GRAMA",
+            "valor_unitario_previsto": "22,17",
+            "pesquisas": [
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "13,59"
+                },
+                {
+                    "fornecedor": "Santil (49.474.398/0008-63)",
+                    "valor_unitario": "25,43"
+                },
+                {
+                    "fornecedor": "Babá Materiais para Construção. (55.431.753/0001-43)",
+                    "valor_unitario": "27,50"
+                }
+            ]
+        },
+        {
+            "item": "15",
+            "numero_demanda": "202600036898",
+            "codigo_bem": "8372624",
+            "codigo_bec": "4773578",
+            "codigo_material": "349909",
+            "item_despesa": "33903090",
+            "centro_gerencial": "\\ALMOX",
+            "grupo_orcamentario": "59.000",
+            "descricao": "Adesivo para colar (pinceis",
+            "quantidade": "20",
+            "unidade_medida": "FRASCO 310,00 MILILITRO",
+            "valor_unitario_previsto": "20,24",
+            "pesquisas": [
+                {
+                    "fornecedor": "Babá Materiais para Construção. (55.431.753/0001-43)",
+                    "valor_unitario": "17,00"
+                },
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "18,54"
+                },
+                {
+                    "fornecedor": "Dutra Máquinas (50.970.342/0001-02)",
+                    "valor_unitario": "25,19"
+                }
+            ]
+        },
+        {
+            "item": "16",
+            "numero_demanda": "202600036898",
+            "codigo_bem": "9728201",
+            "codigo_bec": "6054099",
+            "codigo_material": "349909",
+            "item_despesa": "33903090",
+            "centro_gerencial": "\\ALMOX",
+            "grupo_orcamentario": "59.000",
+            "descricao": "Adesivo para colar poliretano",
+            "quantidade": "20",
+            "unidade_medida": "UNIDADE",
+            "valor_unitario_previsto": "19,33",
+            "pesquisas": [
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "11,90"
+                },
+                {
+                    "fornecedor": "Babá Materiais para Construção. (55.431.753/0001-43)",
+                    "valor_unitario": "16,30"
+                },
+                {
+                    "fornecedor": "Amazon -Serviços de Varejo do Brasil (15.436.940/0001-03)",
+                    "valor_unitario": "22,80"
+                },
+                {
+                    "fornecedor": "GURGELMIX (29.302.348/0001-15)",
+                    "valor_unitario": "26,33"
+                }
+            ]
+        },
+        {
+            "item": "17",
+            "numero_demanda": "202600036898",
+            "codigo_bem": "7141335",
+            "codigo_bec": "4250087",
+            "codigo_material": "349941",
+            "item_despesa": "33903090",
+            "centro_gerencial": "\\ALMOX",
+            "grupo_orcamentario": "59.000",
+            "descricao": "Adesivo instantaneo",
+            "quantidade": "10",
+            "unidade_medida": "TUBO 20 GRAMA",
+            "valor_unitario_previsto": "16,83",
+            "pesquisas": [
+                {
+                    "fornecedor": "Babá Materiais para Construção. (55.431.753/0001-43)",
+                    "valor_unitario": "12,40"
+                },
+                {
+                    "fornecedor": "Santil (49.474.398/0008-63)",
+                    "valor_unitario": "17,41"
+                },
+                {
+                    "fornecedor": "Dutra Máquinas (50.970.342/0001-02)",
+                    "valor_unitario": "20,68"
+                }
+            ]
+        },
+        {
+            "item": "18",
+            "numero_demanda": "202600036898",
+            "codigo_bem": "9437070",
+            "codigo_bec": "5771587",
+            "codigo_material": "349941",
+            "item_despesa": "33903090",
+            "centro_gerencial": "\\ALMOX",
+            "grupo_orcamentario": "59.000",
+            "descricao": "Adesivo instantaneo etilcianoacrilato incolor (pinceis",
+            "quantidade": "10",
+            "unidade_medida": "FRASCO 20 GRAMA",
+            "valor_unitario_previsto": "19,35",
+            "pesquisas": [
+                {
+                    "fornecedor": "Babá Materiais para Construção. (55.431.753/0001-43)",
+                    "valor_unitario": "12,40"
+                },
+                {
+                    "fornecedor": "GURGELMIX (29.302.348/0001-15)",
+                    "valor_unitario": "13,90"
+                },
+                {
+                    "fornecedor": "Flavia Vigineski (46.776.606/0001-14)",
+                    "valor_unitario": "19,11"
+                },
+                {
+                    "fornecedor": "Ebazar Comércio br Ltda (03.007.331/0001-41)",
+                    "valor_unitario": "32,00"
+                }
+            ]
+        },
+        {
+            "item": "19",
+            "numero_demanda": "202600036898",
+            "codigo_bem": "9241094",
+            "codigo_bec": "5579287",
+            "codigo_material": "349941",
+            "item_despesa": "33903090",
+            "centro_gerencial": "\\ALMOX",
+            "grupo_orcamentario": "59.000",
+            "descricao": "Adesivo instantaneo",
+            "quantidade": "10",
+            "unidade_medida": "FRASCO 20 GRAMA",
+            "valor_unitario_previsto": "17,21",
+            "pesquisas": [
+                {
+                    "fornecedor": "Babá Materiais para Construção. (55.431.753/0001-43)",
+                    "valor_unitario": "12,40"
+                },
+                {
+                    "fornecedor": "Santil (49.474.398/0008-63)",
+                    "valor_unitario": "18,31"
+                },
+                {
+                    "fornecedor": "Dutra Máquinas (50.970.342/0001-02)",
+                    "valor_unitario": "20,94"
+                }
+            ]
+        },
+        {
+            "item": "20",
+            "numero_demanda": "202600039129",
+            "codigo_bem": "9468820",
+            "codigo_bec": "5803098",
+            "codigo_material": "547310",
+            "item_despesa": "33903052",
+            "centro_gerencial": "\\ADM\\ATAD\\SMC",
+            "grupo_orcamentario": "59.000",
+            "descricao": "Tubo",
+            "quantidade": "10",
+            "unidade_medida": "BARRA 3 METRO",
+            "valor_unitario_previsto": "27,80",
+            "pesquisas": [
+                {
+                    "fornecedor": "Babá Materiais para Construção. (55.431.753/0001-43)",
+                    "valor_unitario": "21,60"
+                },
+                {
+                    "fornecedor": "Padovani (50.223.692/0004-58)",
+                    "valor_unitario": "30,86"
+                },
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "30,94"
+                }
+            ]
+        },
+        {
+            "item": "21",
+            "numero_demanda": "202600039129",
+            "codigo_bem": "9378405",
+            "codigo_bec": "5718031",
+            "codigo_material": "547310",
+            "item_despesa": "33903052",
+            "centro_gerencial": "\\ADM\\ATAD\\SMC",
+            "grupo_orcamentario": "59.000",
+            "descricao": "Tubo",
+            "quantidade": "5",
+            "unidade_medida": "BARRA 6 METRO",
+            "valor_unitario_previsto": "25,49",
+            "pesquisas": [
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "17,00"
+                },
+                {
+                    "fornecedor": "FERRAMENTAS KENNEDY (08.858.579/0015-35)",
+                    "valor_unitario": "33,99"
+                }
+            ]
+        },
+        {
+            "item": "22",
+            "numero_demanda": "202600039129",
+            "codigo_bem": "8702527",
+            "codigo_bec": "5083095",
+            "codigo_material": "547310",
+            "item_despesa": "33903052",
+            "centro_gerencial": "\\ADM\\ATAD\\SMC",
+            "grupo_orcamentario": "59.000",
+            "descricao": "Tubo",
+            "quantidade": "2",
+            "unidade_medida": "BARRA 6,00 METRO",
+            "valor_unitario_previsto": "46,00",
+            "pesquisas": [
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "37,50"
+                },
+                {
+                    "fornecedor": "Babá Materiais para Construção. (55.431.753/0001-43)",
+                    "valor_unitario": "54,50"
+                }
+            ]
+        },
+        {
+            "item": "23",
+            "numero_demanda": "202600039129",
+            "codigo_bem": "8746559",
+            "codigo_bec": "5051975",
+            "codigo_material": "547310",
+            "item_despesa": "33903052",
+            "centro_gerencial": "\\ADM\\ATAD\\SMC",
+            "grupo_orcamentario": "59.000",
+            "descricao": "Tubo",
+            "quantidade": "1",
+            "unidade_medida": "BARRA 6 METRO",
+            "valor_unitario_previsto": "78,86",
+            "pesquisas": [
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "67,72"
+                },
+                {
+                    "fornecedor": "Babá Materiais para Construção. (55.431.753/0001-43)",
+                    "valor_unitario": "90,00"
+                }
+            ]
+        },
+        {
+            "item": "24",
+            "numero_demanda": "202600076580",
+            "codigo_bem": "8747296",
+            "codigo_bec": "5064872",
+            "codigo_material": "547310",
+            "item_despesa": "33903052",
+            "centro_gerencial": "\\ADM\\ATAD\\SMC",
+            "grupo_orcamentario": "59.000",
+            "descricao": "Tubo pvc rigido",
+            "quantidade": "2",
+            "unidade_medida": "BARRA 6 METRO",
+            "valor_unitario_previsto": "66,34",
+            "pesquisas": [
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "66,34"
+                }
+            ]
+        },
+        {
+            "item": "25",
+            "numero_demanda": "202600039129",
+            "codigo_bem": "8710309",
+            "codigo_bec": "5064856",
+            "codigo_material": "547310",
+            "item_despesa": "33903052",
+            "centro_gerencial": "\\ADM\\ATAD\\SMC",
+            "grupo_orcamentario": "59.000",
+            "descricao": "Tubo pvc rigido",
+            "quantidade": "2",
+            "unidade_medida": "BARRA 6,00 METRO",
+            "valor_unitario_previsto": "49,91",
+            "pesquisas": [
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "49,91"
+                }
+            ]
+        },
+        {
+            "item": "26",
+            "numero_demanda": "202600039528",
+            "codigo_bem": "6604439",
+            "codigo_bec": "1737317",
+            "codigo_material": "313637",
+            "item_despesa": "33903052",
+            "centro_gerencial": "\\ALMOX",
+            "grupo_orcamentario": "59.000",
+            "descricao": "Torneira liga metalica",
+            "quantidade": "30",
+            "unidade_medida": "UNIDADE",
+            "valor_unitario_previsto": "26,44",
+            "pesquisas": [
+                {
+                    "fornecedor": "Babá Materiais para Construção. (55.431.753/0001-43)",
+                    "valor_unitario": "24,90"
+                },
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "27,99"
+                }
+            ]
+        },
+        {
+            "item": "27",
+            "numero_demanda": "202600039870",
+            "codigo_bem": "9030956",
+            "codigo_bec": "5388570",
+            "codigo_material": "547310",
+            "item_despesa": "33903052",
+            "centro_gerencial": "\\ALMOX",
+            "grupo_orcamentario": "59.000",
+            "descricao": "Tubo",
+            "quantidade": "15",
+            "unidade_medida": "UNIDADE",
+            "valor_unitario_previsto": "20,79",
+            "pesquisas": [
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "8,09"
+                },
+                {
+                    "fornecedor": "Babá Materiais para Construção. (55.431.753/0001-43)",
+                    "valor_unitario": "33,50"
+                }
+            ]
+        },
+        {
+            "item": "28",
+            "numero_demanda": "202600076580",
+            "codigo_bem": "6609740",
+            "codigo_bec": "3088910",
+            "codigo_material": "313025",
+            "item_despesa": "33903052",
+            "centro_gerencial": "\\ALMOX",
+            "grupo_orcamentario": "59.000",
+            "descricao": "Adaptador com flange e",
+            "quantidade": "3",
+            "unidade_medida": "UNIDADE",
+            "valor_unitario_previsto": "27,54",
+            "pesquisas": [
+                {
+                    "fornecedor": "Babá Materiais para Construção. (55.431.753/0001-43)",
+                    "valor_unitario": "21,00"
+                },
+                {
+                    "fornecedor": "Leroy Merlin (01.438.784/0048-60)",
+                    "valor_unitario": "22,76"
+                },
+                {
+                    "fornecedor": "Super-Pro Atacado (08.858.579/0015-35)",
+                    "valor_unitario": "31,53"
+                },
+                {
+                    "fornecedor": "Ebazar Comércio br Ltda (03.007.331/0001-41)",
+                    "valor_unitario": "34,90"
+                }
+            ]
+        },
+        {
+            "item": "29",
+            "numero_demanda": "202600039870",
+            "codigo_bem": "6611648",
+            "codigo_bec": "3446573",
+            "codigo_material": "313157",
+            "item_despesa": "33903052",
+            "centro_gerencial": "\\ALMOX",
+            "grupo_orcamentario": "59.000",
+            "descricao": "Ligacao flexivel",
+            "quantidade": "30",
+            "unidade_medida": "UNIDADE",
+            "valor_unitario_previsto": "7,85",
+            "pesquisas": [
+                {
+                    "fornecedor": "Babá Materiais para Construção. (55.431.753/0001-43)",
+                    "valor_unitario": "7,30"
+                },
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "8,40"
+                }
+            ]
+        },
+        {
+            "item": "30",
+            "numero_demanda": "202600039870",
+            "codigo_bem": "8706280",
+            "codigo_bec": "5087015",
+            "codigo_material": "316199",
+            "item_despesa": "33903052",
+            "centro_gerencial": "\\ALMOX",
+            "grupo_orcamentario": "59.000",
+            "descricao": "Adaptador",
+            "quantidade": "20",
+            "unidade_medida": "UNIDADE",
+            "valor_unitario_previsto": "3,50",
+            "pesquisas": [
+                {
+                    "fornecedor": "Babá Materiais para Construção. (55.431.753/0001-43)",
+                    "valor_unitario": "2,00"
+                },
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "5,00"
+                }
+            ]
+        },
+        {
+            "item": "31",
+            "numero_demanda": "202600039870",
+            "codigo_bem": null,
+            "codigo_bec": null,
+            "codigo_material": "67750",
+            "item_despesa": "33903052",
+            "centro_gerencial": "\\ALMOX",
+            "grupo_orcamentario": "59.000",
+            "descricao": "Luva hidráulica soldável (materiais",
+            "quantidade": "10",
+            "unidade_medida": "unidade (s)",
+            "valor_unitario_previsto": "2,45",
+            "pesquisas": [
+                {
+                    "fornecedor": "Babá Materiais para Construção. (55.431.753/0001-43)",
+                    "valor_unitario": "2,20"
+                },
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "2,71"
+                }
+            ]
+        },
+        {
+            "item": "32",
+            "numero_demanda": "202600039870",
+            "codigo_bem": null,
+            "codigo_bec": null,
+            "codigo_material": "67750",
+            "item_despesa": "33903052",
+            "centro_gerencial": "\\ALMOX",
+            "grupo_orcamentario": "59.000",
+            "descricao": "Luva hidráulica",
+            "quantidade": "50",
+            "unidade_medida": "unidade (s)",
+            "valor_unitario_previsto": "6,10",
+            "pesquisas": [
+                {
+                    "fornecedor": "Babá Materiais para Construção. (55.431.753/0001-43)",
+                    "valor_unitario": "0,70"
+                },
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "11,51"
+                }
+            ]
+        },
+        {
+            "item": "33",
+            "numero_demanda": "202600039870",
+            "codigo_bem": "9156801",
+            "codigo_bec": "5505291",
+            "codigo_material": "547344",
+            "item_despesa": "33903052",
+            "centro_gerencial": "\\ALMOX",
+            "grupo_orcamentario": "59.000",
+            "descricao": "Cotovelo para tubulacao",
+            "quantidade": "30",
+            "unidade_medida": "UNIDADE",
+            "valor_unitario_previsto": "1,26",
+            "pesquisas": [
+                {
+                    "fornecedor": "Babá Materiais para Construção. (55.431.753/0001-43)",
+                    "valor_unitario": "0,68"
+                },
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "1,84"
+                }
+            ]
+        },
+        {
+            "item": "34",
+            "numero_demanda": "202600039870",
+            "codigo_bem": "8870241",
+            "codigo_bec": "5243270",
+            "codigo_material": "547344",
+            "item_despesa": "33903052",
+            "centro_gerencial": "\\ALMOX",
+            "grupo_orcamentario": "59.000",
+            "descricao": "Cotovelo em pvc rigido",
+            "quantidade": "50",
+            "unidade_medida": "UNIDADE",
+            "valor_unitario_previsto": "0,98",
+            "pesquisas": [
+                {
+                    "fornecedor": "Babá Materiais para Construção. (55.431.753/0001-43)",
+                    "valor_unitario": "0,73"
+                },
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "1,24"
+                }
+            ]
+        },
+        {
+            "item": "35",
+            "numero_demanda": "202600039870",
+            "codigo_bem": "8870268",
+            "codigo_bec": "5243300",
+            "codigo_material": "547344",
+            "item_despesa": "33903052",
+            "centro_gerencial": "\\ALMOX",
+            "grupo_orcamentario": "59.000",
+            "descricao": "Cotovelo em pvc rigido",
+            "quantidade": "30",
+            "unidade_medida": "UNIDADE",
+            "valor_unitario_previsto": "3,34",
+            "pesquisas": [
+                {
+                    "fornecedor": "Babá Materiais para Construção. (55.431.753/0001-43)",
+                    "valor_unitario": "2,50"
+                },
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "4,19"
+                }
+            ]
+        },
+        {
+            "item": "36",
+            "numero_demanda": "202600039870",
+            "codigo_bem": "9353330",
+            "codigo_bec": "5689554",
+            "codigo_material": "547344",
+            "item_despesa": "33903052",
+            "centro_gerencial": "\\ALMOX",
+            "grupo_orcamentario": "59.000",
+            "descricao": "Cotovelo para tubulacao",
+            "quantidade": "3",
+            "unidade_medida": "UNIDADE",
+            "valor_unitario_previsto": "7,48",
+            "pesquisas": [
+                {
+                    "fornecedor": "Babá Materiais para Construção. (55.431.753/0001-43)",
+                    "valor_unitario": "7,40"
+                },
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "7,57"
+                }
+            ]
+        },
+        {
+            "item": "37",
+            "numero_demanda": "202600039870",
+            "codigo_bem": "6601936",
+            "codigo_bec": "270946",
+            "codigo_material": "313017",
+            "item_despesa": "33903052",
+            "centro_gerencial": "\\ALMOX",
+            "grupo_orcamentario": "59.000",
+            "descricao": "Plug c/rosca pvc rigido",
+            "quantidade": "10",
+            "unidade_medida": "UNIDADE",
+            "valor_unitario_previsto": "1,29",
+            "pesquisas": [
+                {
+                    "fornecedor": "Babá Materiais para Construção. (55.431.753/0001-43)",
+                    "valor_unitario": "1,05"
+                },
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "1,53"
+                }
+            ]
+        },
+        {
+            "item": "38",
+            "numero_demanda": "202600039870",
+            "codigo_bem": "9428658",
+            "codigo_bec": "5764300",
+            "codigo_material": "313017",
+            "item_despesa": "33903052",
+            "centro_gerencial": "\\ALMOX",
+            "grupo_orcamentario": "59.000",
+            "descricao": "Plug com rosca de",
+            "quantidade": "10",
+            "unidade_medida": "UNIDADE",
+            "valor_unitario_previsto": "3,33",
+            "pesquisas": [
+                {
+                    "fornecedor": "Babá Materiais para Construção. (55.431.753/0001-43)",
+                    "valor_unitario": "0,75"
+                },
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "5,91"
+                }
+            ]
+        },
+        {
+            "item": "39",
+            "numero_demanda": "202600039870",
+            "codigo_bem": "6630952",
+            "codigo_bec": "4096517",
+            "codigo_material": "316210",
+            "item_despesa": "33903052",
+            "centro_gerencial": "\\ALMOX",
+            "grupo_orcamentario": "59.000",
+            "descricao": "Bucha de reducao",
+            "quantidade": "50",
+            "unidade_medida": "UNIDADE",
+            "valor_unitario_previsto": "8,29",
+            "pesquisas": [
+                {
+                    "fornecedor": "Babá Materiais para Construção. (55.431.753/0001-43)",
+                    "valor_unitario": "8,25"
+                },
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "8,33"
+                }
+            ]
+        },
+        {
+            "item": "40",
+            "numero_demanda": "202600039870",
+            "codigo_bem": "8694982",
+            "codigo_bec": "5076358",
+            "codigo_material": "547344",
+            "item_despesa": "33903052",
+            "centro_gerencial": "\\ALMOX",
+            "grupo_orcamentario": "59.000",
+            "descricao": "Cotovelo para tubulacao",
+            "quantidade": "25",
+            "unidade_medida": "UNIDADE",
+            "valor_unitario_previsto": "7,25",
+            "pesquisas": [
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "5,21"
+                },
+                {
+                    "fornecedor": "Babá Materiais para Construção. (55.431.753/0001-43)",
+                    "valor_unitario": "9,30"
+                }
+            ]
+        },
+        {
+            "item": "41",
+            "numero_demanda": "202600039870",
+            "codigo_bem": "6616658",
+            "codigo_bec": "4280199",
+            "codigo_material": "313955",
+            "item_despesa": "33903050, 33903052",
+            "centro_gerencial": "\\ALMOX",
+            "grupo_orcamentario": "59.000",
+            "descricao": "Mecanismo completo p/ descarg acoplada",
+            "quantidade": "30",
+            "unidade_medida": "CONJUNTO",
+            "valor_unitario_previsto": "108,00",
+            "pesquisas": [
+                {
+                    "fornecedor": "COMPRASGOVBR (980.823.298-15)",
+                    "valor_unitario": "77,01"
+                },
+                {
+                    "fornecedor": "Babá Materiais para Construção. (55.431.753/0001-43)",
+                    "valor_unitario": "139,00"
                 }
             ]
         }

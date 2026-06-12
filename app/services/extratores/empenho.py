@@ -52,10 +52,7 @@ class ExtratorEmpenho(ExtratorBase):
             texto,
             re.DOTALL,
         )
-        if m:
-            data["funcional_programatica"] = " ".join(m.group(1).split())
-
-        
+                
         m = re.search(r"Categoria Econômica:\s*(.+)", texto, re.MULTILINE)
         if m:
             data["categoria_economica"] = StringUtils.formatar_codigo_descricao(m.group(1).strip())

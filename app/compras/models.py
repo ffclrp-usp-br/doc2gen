@@ -197,7 +197,7 @@ class Item(models.Model):
     
     quantidade = models.PositiveIntegerField('Quantidade', blank=True, null=True)
 
-    unidade_medida = models.CharField('Unidade de medida', max_length=20, blank=True, null=True)
+    unidade_medida = models.CharField('Unidade de medida', max_length=255, blank=True, null=True)
     
     demanda = models.ForeignKey(Demanda, related_name='itens', on_delete=models.CASCADE)
     

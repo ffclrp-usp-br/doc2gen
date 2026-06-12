@@ -62,3 +62,15 @@ class StringUtils:
             return f"{m.group(1)} - {m.group(2)}"
     
         return texto
+    
+    @staticmethod
+    def obter_numero_sei_resumido(numero_sei):
+        if not numero_sei:
+            return None, None
+        match = re.search(r'\.(\d+)/(\d{4})-', numero_sei)
+        if match:
+            numero = match.group(1).lstrip('0')
+            ano = match.group(2)
+            return f"{numero}/{ano}"
+        return numero_sei
+    
