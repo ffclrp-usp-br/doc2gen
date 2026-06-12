@@ -5,12 +5,12 @@ from .services.preenchedor_contrato import PreenchedorContratoService
 
 class PreenchedorContratoServiceTest(TestCase):
     
-    def test_formatar_moeda_brasileira(self):
+    def test_to_brl(self):
         service = PreenchedorContratoService
-        self.assertEqual(service.formatar_moeda_brasileira(1234.56), "R$ 1.234,56")
-        self.assertEqual(service.formatar_moeda_brasileira(0), "R$ 0,00")
-        self.assertEqual(service.formatar_moeda_brasileira(None), "R$ 0,00")
-        self.assertEqual(service.formatar_moeda_brasileira(1000000), "R$ 1.000.000,00")
+        self.assertEqual(service.to_brl(1234.56), "R$ 1.234,56")
+        self.assertEqual(service.to_brl(0), "R$ 0,00")
+        self.assertEqual(service.to_brl(None), "R$ 0,00")
+        self.assertEqual(service.to_brl(1000000), "R$ 1.000.000,00")
 
     def test_get_month_name(self):
         service = PreenchedorContratoService

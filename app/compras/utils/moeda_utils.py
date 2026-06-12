@@ -88,7 +88,7 @@ class MoedaUtils:
 
 
     @staticmethod
-    def formatar_moeda_brasileira(valor):
+    def to_brl(valor):
         """Format a decimal/float to Brazilian currency string (R$ X.XXX,XX)."""
         if valor is None:
             return "R$ 0,00"

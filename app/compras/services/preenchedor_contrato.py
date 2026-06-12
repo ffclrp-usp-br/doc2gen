@@ -421,7 +421,7 @@ class PreenchedorContratoService(DateUtils, MoedaUtils):
                 
             # Currency & Extenso
             if compra.valor_efetivo:
-                data["valor_formatado"] = cls.formatar_moeda_brasileira(compra.valor_efetivo)
+                data["valor_formatado"] = cls.to_brl(compra.valor_efetivo)
                 data["valor_extenso"] = cls.valor_por_extenso(compra.valor_efetivo)
             else:
                 data["valor_formatado"] = "R$ 0,00"
@@ -439,7 +439,7 @@ class PreenchedorContratoService(DateUtils, MoedaUtils):
             data["garantia_modalidade"] = "[não exigida]"
             
         if contrato.valor_garantia:
-            data["garantia_valor_formatado"] = cls.formatar_moeda_brasileira(contrato.valor_garantia)
+            data["garantia_valor_formatado"] = cls.to_brl(contrato.valor_garantia)
         else:
             data["garantia_valor_formatado"] = "R$ 0,00"
 

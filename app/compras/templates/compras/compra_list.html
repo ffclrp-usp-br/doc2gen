@@ -28,7 +28,7 @@
                 <td>{{ compra.numero_compra }}</td>
                 <td>{{ compra.numero_sei }}</td>
                 <td><small>{{ compra.objeto }}</small><br>
-                    <small>R$ {{ compra.valor_total_previsto }}</small><br>
+                    <small>{{ compra.valor_total_previsto_brl }}</small><br>
                     <small>{{ compra.tipo }}</small><br>
                     <small>{{ compra.modalidade }}</small>
                     {% if compra.disputa %}

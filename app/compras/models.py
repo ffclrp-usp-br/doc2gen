@@ -1,7 +1,7 @@
 from django.core.validators import MinValueValidator, RegexValidator
 from django.db import models
 from django.db.models import Avg
-
+from compras.utils.moeda_utils import MoedaUtils
 
 class CentroGerencialGrupoOrcamentario:
     """Mapeamento de Centro Gerencial para Grupo Orçamentário."""
@@ -121,6 +121,11 @@ class Compra(models.Model):
     )
     disputa = models.BooleanField('Disputa', default=True)
     pdf_file = models.FileField('Arquivo PDF', upload_to='compras/', blank=True, null=True)
+
+    @property
+    def valor_total_previsto_brl(self):
+        return MoedaUtils.to_brl(self.valor_total_previsto)
+
 
     def __str__(self):
         return f'{self.numero_compra} - {self.objeto[:50]}'
