@@ -36,7 +36,7 @@
                 <td>{{ pesquisa.descricao|truncatechars:50 }}</td>
                 <td>{{ pesquisa.codigo_bem }}</td>
                 <td>{{ pesquisa.codigo_contabiliza }}</td>
-                <td>{{ pesquisa.valor_unitario_brl }}</td>
+                <td>{{ pesquisa.valor_unitario_br }}</td>
                 <td>
                     <a href="{% url 'pesquisa_update' pesquisa.pk %}" class="btn btn-sm btn-warning">Editar</a>
                     <a href="{% url 'pesquisa_delete' pesquisa.pk %}" class="btn btn-sm btn-danger">Excluir</a>
