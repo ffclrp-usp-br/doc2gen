@@ -71,7 +71,8 @@ class KitConferenciaService:
                     'codigo_comprasgov': item.codigo_comprasgov or '',
                     'descricao': item.descricao or '',
                     'item_despesa': item.item_despesa or '',
-                    'valor_unitario_previsto': item.valor_medio or ''
+                    'valor_unitario_previsto': item.valor_medio or '',
+                    'valor_unitario_previsto_brl': item.valor_medio_brl or '',
                 })
 
         context = {
@@ -82,6 +83,7 @@ class KitConferenciaService:
             'tipo': compra.tipo,
             'nome_agente_contratacao': compra.nome_agente_contratacao,
             'valor_total_previsto': cls.format_currency(compra.valor_total_previsto),
+            'valor_total_previsto_brl': compra.valor_total_previsto_brl,
             'itens': itens_context,
         }
 

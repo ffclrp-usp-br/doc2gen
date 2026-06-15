@@ -72,11 +72,11 @@
                     </small></td>
                 <td>
                     {% if item.pesquisas.all %}
-                    R$ {{ item.valor_medio|default:"N/A" }}
+                    {{ item.valor_medio_brl |default:"N/A" }}
                     <hr class="my-1">
                     <small>
                         {% for pesquisa in item.pesquisas.all %}
-                        R$ {{ pesquisa.valor_unitario|default:"N/A" }} {{ pesquisa.nome_fornecedor }} <br>
+                        {{ pesquisa.valor_unitario_brl|default:"N/A" }} {{ pesquisa.nome_fornecedor }} <br>
                         {% endfor %}
                     </small>
                     {% else %}

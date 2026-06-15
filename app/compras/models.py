@@ -125,6 +125,11 @@ class Compra(models.Model):
     @property
     def valor_total_previsto_brl(self):
         return MoedaUtils.to_brl(self.valor_total_previsto)
+    
+    @property
+    def valor_efetivo_brl(self):
+        return MoedaUtils.to_brl(self.valor_efetivo)
+
 
 
     def __str__(self):
@@ -225,6 +230,11 @@ class Item(models.Model):
             self.save(update_fields=['valor_medio'])
         return media
 
+    @property
+    def valor_medio_brl(self):
+        return MoedaUtils.to_brl(self.valor_medio)
+
+
     def __str__(self):
         return f'{self.demanda.compra.numero_compra} - Item {self.numero_ordem}'
 
@@ -240,6 +250,11 @@ class Pesquisa(models.Model):
     descricao = models.CharField('Descrição', max_length=255, blank=True, null=True)
     item = models.ForeignKey(Item, related_name='pesquisas', on_delete=models.CASCADE, blank=True, null=True)
     compra = models.ForeignKey(Compra, related_name='pesquisas', on_delete=models.CASCADE)
+
+    @property
+    def valor_unitario_brl(self):
+        return MoedaUtils.to_brl(self.valor_unitario)
+
 
     def __str__(self):
         if self.item:
