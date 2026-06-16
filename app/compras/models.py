@@ -382,6 +382,11 @@ class Contrato(models.Model):
         null=True
     )
 
+    @property
+    def valor_garantia_brl(self):
+        return MoedaUtils.to_brl(self.valor_garantia)
+
+
     def clean(self):
         super().clean()
         if self.porcentual_garantia is not None and self.compra and self.compra.valor_efetivo is not None:
