@@ -6,27 +6,14 @@ from django.conf import settings
 from docxtpl import DocxTemplate
 from ..models import Compra
 from .excel_conferencia import ExcelConferenciaService
+from compras.utils.string_utils import StringUtils
 
 class KitConferenciaService:
     
-    @staticmethod
-    def parse_sei(sei):
-        """
-        Extracts year and number from SEI string.
-        Format: 154.00009999/2026-99
-        Returns: (year, number) or (None, None)
-        """
-        if not sei:
-            return None, None
-        match = re.search(r'\.(\d+)/(\d{4})-', sei)
-        if match:
-            numero = match.group(1).lstrip('0')
-            ano = match.group(2)
-            return ano, numero
-        return None, None
+   
 
-    @classmethod
-    def generate_kit(cls, compra_id):
+    @staticmethod
+    def generate_kit(compra_id):
         compra = Compra.objects.prefetch_related('demandas__itens').get(pk=compra_id)
         
         # 1. Determine template
@@ -77,7 +64,6 @@ class KitConferenciaService:
             'modalidade': compra.modalidade,
             'tipo': compra.tipo,
             'nome_agente_contratacao': compra.nome_agente_contratacao,
-            'valor_total_previsto': compra.valor_total_previsto_brl,
             'valor_total_previsto_brl': compra.valor_total_previsto_brl,
             'itens': itens_context,
         }
@@ -112,7 +98,7 @@ class KitConferenciaService:
         zip_io.seek(0)
 
         # 5. Generate filename
-        ano_sei, num_sei = cls.parse_sei(compra.numero_sei)
+        ano_sei, num_sei = StringUtils.parse_sei(compra.numero_sei)
         if ano_sei and num_sei:
             if 'PREGÃO' in modalidade_upper or 'PREGAO' in modalidade_upper:
                 zip_filename = f"Pregão {ano_sei}--SEI {num_sei} - {compra.objeto}.zip"

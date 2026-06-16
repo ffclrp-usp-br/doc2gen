@@ -74,3 +74,20 @@ class StringUtils:
             return f"{numero}/{ano}"
         return numero_sei
     
+
+    @staticmethod
+    def parse_sei(sei):
+        """
+        Extracts year and number from SEI string.
+        Format: 154.00009999/2026-99
+        Returns: (year, number) or (None, None)
+        """
+        if not sei:
+            return None, None
+        match = re.search(r'\.(\d+)/(\d{4})-', sei)
+        if match:
+            numero = match.group(1).lstrip('0')
+            ano = match.group(2)
+            return ano, numero
+        return None, None
+    
