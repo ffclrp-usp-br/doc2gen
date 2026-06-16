@@ -626,6 +626,11 @@ class OrganizacaoUpdateView(LoginRequiredMixin, UpdateView):
         ctx['pessoas'] = PessoaFisica.objects.all()
         return ctx
 
+class OrganizacaoDeleteView(LoginRequiredMixin, DeleteView):
+    model = Organizacao
+    success_url = reverse_lazy('organizacao_list')
+    template_name = 'compras/organizacao_confirm_delete.html'
+
 
 # --- Views para Pessoa Física ---
 

@@ -38,6 +38,7 @@ urlpatterns = [
     path('organizacoes/', views.OrganizacaoListView.as_view(), name='organizacao_list'),
     path('organizacoes/nova/', views.OrganizacaoCreateView.as_view(), name='organizacao_create'),
     path('organizacoes/<int:pk>/editar/', views.OrganizacaoUpdateView.as_view(), name='organizacao_update'),
+    path('organizacoes/<int:pk>/deletar/', views.OrganizacaoDeleteView.as_view(), name='organizacao_delete'),
     path('api/organizacao/buscar/', views.buscar_organizacao_cnpj, name='buscar_organizacao_cnpj'),
     path('api/organizacao/<int:org_id>/vinculos/', views.gerenciar_vinculos_ajax, name='gerenciar_vinculos_ajax'),
     path('api/compra/buscar/', views.buscar_compra_detalhes_ajax, name='buscar_compra_detalhes_ajax'),
