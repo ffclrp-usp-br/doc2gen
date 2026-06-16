@@ -93,7 +93,7 @@ class KitConferenciaService:
                 # Fallback to template if error occurs
                 xlsx_path = os.path.join(template_dir, "CONFERENCIA_LICITACAO_MODELO.xlsx")
                 if os.path.exists(xlsx_path):
-                    zip_file.write(xlsx_path, "CONFERENCIA_LICITACAO_MODELO_C.xlsx")
+                    zip_file.write(xlsx_path, "CONFERENCIA_LICITACAO_MODELO.xlsx")
             
         zip_io.seek(0)
 
