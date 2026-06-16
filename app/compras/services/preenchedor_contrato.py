@@ -7,10 +7,6 @@ from docx import Document
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 from docx.shared import Pt
 from compras.models import Contrato, VinculoOrganizacao, Organizacao, Compra, Empenho
-from compras.utils.date_utils import DateUtils
-from compras.utils.moeda_utils import MoedaUtils
-
-
 
 
 logger = logging.getLogger(__name__)
@@ -394,7 +390,7 @@ class PreenchedorContratoService():
             data["empenho_numero"] = ""
         # Contract Dates
         if contrato.data:
-            dd, mmm, aaaa = DateUtils.formatar_datas(contrato.data, "por_extenso")
+            dd, mmm, aaaa = contrato.data_por_extenso
             data["data_dd"] = dd
             data["data_mmm"] = mmm
             data["data_aaaa"] = aaaa
@@ -412,19 +408,19 @@ class PreenchedorContratoService():
         # Compra Dates & Modality
         if compra:
             if compra.data_proposta_comercial:
-                data["data_proposta"] = DateUtils.formatar_datas(compra.data_proposta_comercial)
+                data["data_proposta"] = compra.data_proposta_comercial_dmy
             else:
                 data["data_proposta"] = "[NN/NN/NNNN]"
                 
             if compra.data_estimativa_orcamento:
-                data["data_estimativa"] = DateUtils.formatar_datas(compra.data_estimativa_orcamento)
+                data["data_estimativa"] = compra.data_estimativa_orcamento_dmy
             else:
                 data["data_estimativa"] = "DD/MM/AAAA"
                 
             # Currency & Extenso
             if compra.valor_efetivo:
                 data["valor_formatado"] = compra.valor_efetivo_brl
-                data["valor_extenso"] = MoedaUtils.valor_por_extenso(compra.valor_efetivo)
+                data["valor_extenso"] = compra.valor_efetivo_brl_extenso
             else:
                 data["valor_formatado"] = "R$ 0,00"
                 data["valor_extenso"] = "zero reais"

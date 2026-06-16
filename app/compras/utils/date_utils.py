@@ -9,23 +9,36 @@ class DateUtils:
 
   
     @classmethod
-    def get_month_name(cls, month_number):
+    def get_nome_mes(cls, month_number):
         """Return the month name in Portuguese."""
         return cls.MESES.get(month_number, "")
 
     
 
-    @classmethod
-    def formatar_datas(cls, dt, formato="DD/MM/AAAA"):
-        """Format datetime.date to string according to format."""
+    @staticmethod
+    def to_dmy(dt):
+        """
+        Retorna a data no formato DD/MM/AAAA.
+        """
         if not dt:
             return ""
-        if formato == "DD/MM/AAAA":
-            return dt.strftime("%d/%m/%Y")
-        elif formato == "por_extenso":
-            dia = f"{dt.day:02d}"
-            mes = cls.get_month_name(dt.month)
-            ano = f"{dt.year}"
-            return dia, mes, ano
-        return str(dt)
 
+        return dt.strftime("%d/%m/%Y")
+
+
+    @classmethod
+    def ata_por_extenso(cls, dt):
+        """
+        Retorna dia, mês por extenso e ano.
+        
+        Exemplo:
+        ('15', 'junho', '2026')
+        """
+        if not dt:
+            return "", "", ""
+
+        dia = f"{dt.day:02d}"
+        mes = cls.get_nome_mes(dt.month)
+        ano = str(dt.year)
+
+        return dia, mes, ano

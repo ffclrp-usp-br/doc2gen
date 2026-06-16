@@ -87,13 +87,10 @@ class KitConferenciaService:
             try:
                 xlsx_io = ExcelConferenciaService.generate_excel(compra.id)
                 if xlsx_io:
-                    zip_file.writestr("CONFERENCIA_LICITACAO_MODELO_C.xlsx", xlsx_io.getvalue())
+                    zip_file.writestr("CONFERENCIA_LICITACAO_MODELO.xlsx", xlsx_io.getvalue())
             except Exception as e:
                 print(f"Erro ao gerar planilha Excel: {e}")
-                # Fallback to template if error occurs
-                xlsx_path = os.path.join(template_dir, "CONFERENCIA_LICITACAO_MODELO.xlsx")
-                if os.path.exists(xlsx_path):
-                    zip_file.write(xlsx_path, "CONFERENCIA_LICITACAO_MODELO.xlsx")
+                
             
         zip_io.seek(0)
 

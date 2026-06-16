@@ -37,13 +37,10 @@ class ExcelConferenciaService:
         compra = Compra.objects.prefetch_related('demandas__itens__pesquisas').get(pk=compra_id)
         
         template_dir = os.path.join(settings.BASE_DIR, 'compras', 'templates_docs')
-        template_path = os.path.join(template_dir, "CONFERENCIA_LICITACAO_MODELO_C.xlsx")
+        template_path = os.path.join(template_dir, "CONFERENCIA_LICITACAO_MODELO.xlsx")
         
         if not os.path.exists(template_path):
-            # Fallback to old template name if the new one doesn't exist
-            template_path = os.path.join(template_dir, "CONFERENCIA_LICITACAO_MODELO.xlsx")
-            if not os.path.exists(template_path):
-                return None
+            return None
             
         # Load template
         wb = load_workbook(template_path)
