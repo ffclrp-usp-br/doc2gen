@@ -8,12 +8,7 @@ from ..models import Compra
 from .excel_conferencia import ExcelConferenciaService
 
 class KitConferenciaService:
-    @staticmethod
-    def format_currency(value):
-        if value is None:
-            return "R$ 0,00"
-        return f"R$ {value:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
-
+    
     @staticmethod
     def parse_sei(sei):
         """
@@ -82,7 +77,7 @@ class KitConferenciaService:
             'modalidade': compra.modalidade,
             'tipo': compra.tipo,
             'nome_agente_contratacao': compra.nome_agente_contratacao,
-            'valor_total_previsto': cls.format_currency(compra.valor_total_previsto),
+            'valor_total_previsto': compra.valor_total_previsto_brl,
             'valor_total_previsto_brl': compra.valor_total_previsto_brl,
             'itens': itens_context,
         }
