@@ -27,7 +27,7 @@ class DateUtils:
 
 
     @classmethod
-    def ata_por_extenso(cls, dt):
+    def data_por_extenso(cls, dt):
         """
         Retorna dia, mês por extenso e ano.
         

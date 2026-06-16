@@ -112,6 +112,67 @@
                                 </div>
                             </div>
 
+                            <!-- Representante Legal da Contratada -->
+                            <div class="col-md-12 mt-3 border-top pt-3" id="representante-section" style="{% if not object.contratada %}display:none{% endif %}">
+                                <h6 class="text-muted mb-3"><i class="bi bi-person-badge me-1"></i>Representante Legal da Contratada</h6>
+                                <div id="representante-conteudo">
+                                    {% if tem_representantes %}
+                                        {% if vinculos_contratada|length == 1 %}
+                                            <div class="alert alert-success mb-3">
+                                                <i class="bi bi-check-circle me-1"></i>
+                                                Representante: <strong>{{ vinculos_contratada.0.pessoa.nome }}</strong>
+                                                — {{ vinculos_contratada.0.cargo|default:"Sem cargo definido" }}
+                                                <input type="hidden" name="representante_contratada" value="{{ vinculos_contratada.0.id }}">
+                                            </div>
+                                        {% else %}
+                                            <div class="mb-3">
+                                                <label class="form-label">Selecione o representante</label>
+                                                {{ form.representante_contratada }}
+                                                {% if form.representante_contratada.errors %}<div class="text-danger small">{{ form.representante_contratada.errors }}</div>{% endif %}
+                                            </div>
+                                        {% endif %}
+                                    {% else %}
+                                        <div class="alert alert-warning mb-3" id="alert-sem-representante">
+                                            <i class="bi bi-exclamation-triangle me-1"></i>
+                                            <strong>Pendência:</strong> Esta empresa não possui representantes legais cadastrados.
+                                            É necessário cadastrar pelo menos um representante para gerar o contrato.
+                                            {% if object.contratada %}
+                                            <div class="mt-2">
+                                                <a href="{% url 'organizacao_update' object.contratada.id %}" class="btn btn-sm btn-warning" id="btn-cadastrar-representante">
+                                                    Cadastrar representante legal
+                                                </a>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <!-- Endereço da Contratada -->
+                            <div class="col-md-12 mt-3 border-top pt-3" id="endereco-section" style="{% if not object.contratada %}display:none{% endif %}">
+                                <h6 class="text-muted mb-3"><i class="bi bi-geo-alt me-1"></i>Endereço da Contratada</h6>
+                                <div id="endereco-conteudo">
+                                    {% if tem_endereco %}
+                                        <div class="alert alert-success mb-3">
+                                            <i class="bi bi-check-circle me-1"></i>
+                                            Endereço: <strong>{{ object.contratada.endereco }}</strong>,
+                                            {{ object.contratada.cidade }} - {{ object.contratada.estado }}
+                                        </div>
+                                    {% elif object.contratada %}
+                                        <div class="alert alert-warning mb-3" id="alert-sem-endereco">
+                                            <i class="bi bi-exclamation-triangle me-1"></i>
+                                            <strong>Pendência:</strong> Esta empresa não possui endereço completo (endereço, cidade e estado).
+                                            É necessário preencher o endereço para gerar o contrato.
+                                            <div class="mt-2">
+                                                <a href="{% url 'organizacao_update' object.contratada.id %}" class="btn btn-sm btn-warning" id="btn-editar-endereco">
+                                                    Preencher endereço
+                                                </a>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
                             <div class="col-md-12">
                                 <div class="row g-3">
                                     <div class="col-md-6">
@@ -137,7 +198,9 @@
                             <div>
                                 {% if object %}
                                     <a href="{% url 'contrato_delete' object.id %}" class="btn btn-danger me-2">Excluir</a>
-                                    <button type="button" class="btn btn-success me-2" onclick="document.getElementById('file-{{ object.id }}').click();">
+                                    <button type="button" class="btn btn-success me-2" id="btn-preencher"
+                                        {% if not tem_representantes or not tem_endereco %}disabled title="{% if not tem_representantes %}Cadastre um representante legal{% endif %}{% if not tem_representantes and not tem_endereco %} e {% endif %}{% if not tem_endereco %}preencha o endereço{% endif %} para habilitar esta opção"{% endif %}
+                                        onclick="document.getElementById('file-{{ object.id }}').click();">
                                         Preencher contrato
                                     </button>
                                 {% endif %}
@@ -169,6 +232,10 @@
         const inputValorEfetivo = document.getElementById('id_valor_efetivo');
         const inputValorGarantia = document.getElementById('id_valor_garantia');
         const selectCompra = document.getElementById('id_compra');
+        const selectContratada = document.getElementById('id_contratada');
+        const representanteSection = document.getElementById('representante-section');
+        const representanteConteudo = document.getElementById('representante-conteudo');
+        const btnPreencher = document.getElementById('btn-preencher');
 
         function calcularGarantia() {
             const porcentual = parseFloat(inputPorcentual.value);
@@ -212,7 +279,191 @@
             });
         }
 
-        // Empenho upload
+        function atualizarRepresentante(vinculos, orgId) {
+            if (!vinculos || vinculos.length === 0) {
+                representanteSection.style.display = '';
+                const cadastrarLink = orgId
+                    ? `<a href="/compras/organizacoes/${orgId}/editar/" class="btn btn-sm btn-warning" id="btn-cadastrar-representante">Cadastrar representante legal</a>`
+                    : `<a href="#" class="btn btn-sm btn-warning" id="btn-cadastrar-representante" onclick="return false;">Cadastrar representante legal</a>`;
+                representanteConteudo.innerHTML = `
+                    <div class="alert alert-warning mb-3" id="alert-sem-representante">
+                        <i class="bi bi-exclamation-triangle me-1"></i>
+                        <strong>Pendência:</strong> Esta empresa não possui representantes legais cadastrados.
+                        É necessário cadastrar pelo menos um representante para gerar o contrato.
+                        <div class="mt-2">
+                            ${cadastrarLink}
+                        </div>
+                    </div>
+                `;
+                atualizarBtnPreencher();
+            } else {
+                representanteSection.style.display = '';
+                let optionsHtml = '';
+                vinculos.forEach(function(v) {
+                    optionsHtml += `<option value="${v.id}">${v.pessoa__nome} — ${v.cargo || 'Sem cargo'}</option>`;
+                });
+                if (vinculos.length === 1) {
+                    representanteConteudo.innerHTML = `
+                        <div class="alert alert-success mb-3">
+                            <i class="bi bi-check-circle me-1"></i>
+                            Representante: <strong>${vinculos[0].pessoa__nome}</strong>
+                            — ${vinculos[0].cargo || 'Sem cargo definido'}
+                            <input type="hidden" name="representante_contratada" value="${vinculos[0].id}">
+                        </div>
+                    `;
+                } else {
+                    representanteConteudo.innerHTML = `
+                        <div class="mb-3">
+                            <label class="form-label">Selecione o representante</label>
+                            <select name="representante_contratada" class="form-select" id="id_representante_contratada">
+                                <option value="">---------</option>
+                                ${optionsHtml}
+                            </select>
+                        </div>
+                    `;
+                }
+                atualizarBtnPreencher();
+            }
+        }
+
+        const enderecoSection = document.getElementById('endereco-section');
+        const enderecoConteudo = document.getElementById('endereco-conteudo');
+
+        function atualizarEndereco(enderecoData, orgId) {
+            if (!enderecoData) {
+                enderecoSection.style.display = 'none';
+                return;
+            }
+            enderecoSection.style.display = '';
+            if (enderecoData.tem_endereco) {
+                enderecoConteudo.innerHTML = `
+                    <div class="alert alert-success mb-3">
+                        <i class="bi bi-check-circle me-1"></i>
+                        Endereço: <strong>${enderecoData.endereco}</strong>,
+                        ${enderecoData.cidade} - ${enderecoData.estado}
+                    </div>
+                `;
+            } else {
+                const editarLink = orgId
+                    ? `<a href="/compras/organizacoes/${orgId}/editar/" class="btn btn-sm btn-warning" id="btn-editar-endereco">Preencher endereço</a>`
+                    : `<a href="#" class="btn btn-sm btn-warning" id="btn-editar-endereco" onclick="return false;">Preencher endereço</a>`;
+                enderecoConteudo.innerHTML = `
+                    <div class="alert alert-warning mb-3" id="alert-sem-endereco">
+                        <i class="bi bi-exclamation-triangle me-1"></i>
+                        <strong>Pendência:</strong> Esta empresa não possui endereço completo (endereço, cidade e estado).
+                        É necessário preencher o endereço para gerar o contrato.
+                        <div class="mt-2">
+                            ${editarLink}
+                        </div>
+                    </div>
+                `;
+            }
+            atualizarBtnPreencher();
+        }
+
+        function verificarEnderecoLocal(orgId) {
+            if (!orgId) {
+                enderecoSection.style.display = 'none';
+                return;
+            }
+            enderecoSection.style.display = '';
+            enderecoConteudo.innerHTML = `
+                <div class="alert alert-info mb-3">
+                    <i class="bi bi-info-circle me-1"></i>
+                    Verificando endereço...
+                </div>
+            `;
+            fetch(`/compras/api/organizacao/${orgId}/vinculos/`, {
+                method: 'HEAD'
+            })
+            .then(() => {
+                const selectEl = document.getElementById('id_contratada');
+                if (selectEl) {
+                    const selectedOption = selectEl.options[selectEl.selectedIndex];
+                    if (selectedOption && selectedOption.value == orgId) {
+                        const text = selectedOption.text;
+                        const cnpjMatch = text.match(/\(([^)]+)\)/);
+                        if (cnpjMatch) {
+                            fetch(`/compras/api/organizacao/buscar/?cnpj=${cnpjMatch[1]}`)
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.success) {
+                                        atualizarEndereco({
+                                            tem_endereco: data.tem_endereco,
+                                            endereco: data.endereco,
+                                            cidade: data.cidade,
+                                            estado: data.estado
+                                        }, orgId);
+                                    }
+                                })
+                                .catch(err => {
+                                    console.error('Erro ao buscar organização:', err);
+                                });
+                        }
+                    }
+                }
+            })
+            .catch(err => {
+                console.error('Erro ao verificar organização:', err);
+            });
+        }
+
+        function atualizarBtnPreencher() {
+            if (!btnPreencher) return;
+            const semEndereco = enderecoConteudo && enderecoConteudo.querySelector('#alert-sem-endereco');
+            const semRepresentante = representanteConteudo && representanteConteudo.querySelector('#alert-sem-representante');
+            if (semEndereco || semRepresentante) {
+                btnPreencher.disabled = true;
+                let titulos = [];
+                if (semRepresentante) titulos.push('Cadastre um representante legal');
+                if (semEndereco) titulos.push('preencha o endereço');
+                btnPreencher.title = titulos.join(' e ') + ' para habilitar esta opção';
+            } else {
+                btnPreencher.disabled = false;
+                btnPreencher.title = '';
+            }
+        }
+
+        function carregarVinculos(orgId) {
+            if (!orgId) {
+                representanteSection.style.display = 'none';
+                return;
+            }
+            fetch(`/compras/api/organizacao/${orgId}/vinculos/`)
+                .then(response => response.text())
+                .then(html => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    const vinculos = [];
+                    doc.querySelectorAll('table tbody tr').forEach(function(row) {
+                        const cells = row.querySelectorAll('td');
+                        if (cells.length >= 3) {
+                            const nome = cells[0].textContent.trim();
+                            const cargo = cells[1].textContent.trim();
+                            const ativo = cells[3] ? cells[3].textContent.trim() : '';
+                            if (ativo === 'Sim' || ativo === 'True') {
+                                vinculos.push({
+                                    id: row.getAttribute('data-vinculo-id') || cells[0].getAttribute('data-vinculo-id'),
+                                    pessoa__nome: nome,
+                                    cargo: cargo
+                                });
+                            }
+                        }
+                    });
+                    atualizarRepresentante(vinculos, orgId);
+                })
+                .catch(err => {
+                    console.error('Erro ao carregar vínculos:', err);
+                });
+        }
+
+        if (selectContratada) {
+            selectContratada.addEventListener('change', function() {
+                carregarVinculos(this.value);
+                verificarEnderecoLocal(this.value);
+            });
+        }
+
         const btnEmpenho = document.getElementById('btn-carregar-empenho');
         const inputEmpenhoPdf = document.getElementById('input-empenho-pdf');
 
@@ -270,15 +521,10 @@
                         </div>
                     `;
 
-                    // Armazenar empenho_id no hidden field
                     document.getElementById('id_empenho_id').value = e.id;
 
-                    // Auto-selecionar a contratada
-                    const selectContratada = document.getElementById('id_contratada');
-                    const options = selectContratada.options;
                     let optionFound = false;
-                    
-                    // Verificar se a organização já existe nas opções
+                    const options = selectContratada.options;
                     for (let i = 0; i < options.length; i++) {
                         if (options[i].value == e.organizacao_id) {
                             selectContratada.selectedIndex = i;
@@ -286,8 +532,6 @@
                             break;
                         }
                     }
-                    
-                    // Se não encontrou, criar uma nova opção e selecionar
                     if (!optionFound) {
                         const newOption = document.createElement('option');
                         newOption.value = e.organizacao_id;
@@ -298,6 +542,14 @@
 
                     const hint = document.getElementById('contratada-hint');
                     if (hint) hint.remove();
+
+                    if (data.representantes) {
+                        atualizarRepresentante(data.representantes.vinculos, e.organizacao_id);
+                    }
+
+                    if (data.endereco) {
+                        atualizarEndereco(data.endereco, e.organizacao_id);
+                    }
                 } else {
                     alert('Erro: ' + (data.error || 'Erro ao processar empenho.'));
                 }

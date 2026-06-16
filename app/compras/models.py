@@ -372,6 +372,14 @@ class Contrato(models.Model):
         related_name='contratos_como_contratada'
     )
 
+    representante_contratada = models.ForeignKey(
+        'VinculoOrganizacao',
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+        verbose_name='Representante Legal da Contratada'
+    )
+
     modalidade_garantia = models.CharField(
         max_length=30,
         choices=MODALIDADE_GARANTIA_CHOICES,

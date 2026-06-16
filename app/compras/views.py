@@ -681,6 +681,13 @@ class ContratoCreateView(LoginRequiredMixin, CreateView):
             initial['compra'] = compra_id
         return initial
 
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx['vinculos_contratada'] = VinculoOrganizacao.objects.none()
+        ctx['tem_representantes'] = False
+        ctx['tem_endereco'] = False
+        return ctx
+
 class ContratoUpdateView(LoginRequiredMixin, UpdateView):
     model = Contrato
     form_class = ContratoForm
@@ -693,6 +700,20 @@ class ContratoUpdateView(LoginRequiredMixin, UpdateView):
             ctx['empenho'] = self.object.empenho
         except Empenho.DoesNotExist:
             ctx['empenho'] = None
+
+        contratada = self.object.contratada
+        if contratada:
+            vinculos = VinculoOrganizacao.objects.filter(
+                organizacao=contratada, responsavel_assinatura=True, ativo=True
+            ).select_related('pessoa')
+            ctx['vinculos_contratada'] = vinculos
+            ctx['tem_representantes'] = vinculos.exists()
+            ctx['tem_endereco'] = bool(contratada.endereco and contratada.cidade and contratada.estado)
+        else:
+            ctx['vinculos_contratada'] = VinculoOrganizacao.objects.none()
+            ctx['tem_representantes'] = False
+            ctx['tem_endereco'] = False
+
         return ctx
 
 class ContratoDeleteView(LoginRequiredMixin, DeleteView):
@@ -706,7 +727,6 @@ from django.http import JsonResponse
 
 def buscar_organizacao_cnpj(request):
     cnpj = request.GET.get('cnpj', '').replace('.', '').replace('/', '').replace('-', '')
-    # Tenta buscar por CNPJ limpo ou formatado
     organizacao = Organizacao.objects.filter(cnpj__icontains=cnpj).first()
     if organizacao:
         return JsonResponse({
@@ -714,6 +734,10 @@ def buscar_organizacao_cnpj(request):
             'id': organizacao.id,
             'nome': organizacao.nome,
             'cnpj': organizacao.cnpj,
+            'endereco': organizacao.endereco or '',
+            'cidade': organizacao.cidade or '',
+            'estado': organizacao.estado or '',
+            'tem_endereco': bool(organizacao.endereco and organizacao.cidade and organizacao.estado),
         })
     return JsonResponse({'success': False})
 
@@ -765,11 +789,38 @@ class ContratoPreencherView(LoginRequiredMixin, View):
         if not docx_file:
             messages.error(request, "Nenhum arquivo de modelo DOCX foi enviado.")
             return redirect('contrato_list')
-        
+
+        if not contrato.contratada:
+            messages.error(request, "O contrato não possui uma empresa contratada definida.")
+            return redirect('contrato_update', pk=contrato.pk)
+
+        tem_representante = VinculoOrganizacao.objects.filter(
+            organizacao=contrato.contratada,
+            responsavel_assinatura=True,
+            ativo=True
+        ).exists()
+
+        if not tem_representante:
+            messages.error(
+                request,
+                "A empresa contratada não possui representante legal com autoridade de assinatura. "
+                "Cadastre um representante na edição da organização antes de gerar o contrato."
+            )
+            return redirect('contrato_update', pk=contrato.pk)
+
+        tem_endereco = bool(contrato.contratada.endereco and contrato.contratada.cidade and contrato.contratada.estado)
+        if not tem_endereco:
+            messages.error(
+                request,
+                "A empresa contratada não possui endereço completo (endereço, cidade e estado). "
+                "Preencha o endereço na edição da organização antes de gerar o contrato."
+            )
+            return redirect('contrato_update', pk=contrato.pk)
+
         try:
             from .services.preenchedor_contrato import PreenchedorContratoService
             filled_io, filename = PreenchedorContratoService.fill_docx(docx_file, contrato)
-            
+
             response = HttpResponse(
                 filled_io.getvalue(),
                 content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
@@ -880,6 +931,22 @@ class ContratoEmpenhoUploadView(LoginRequiredMixin, View):
                 'organizacao_id': organizacao.id,
                 'organizacao_nome': organizacao.nome,
                 'organizacao_cnpj': organizacao.cnpj,
+            },
+            'representantes': {
+                'tem_representantes': VinculoOrganizacao.objects.filter(
+                    organizacao=organizacao, responsavel_assinatura=True, ativo=True
+                ).exists(),
+                'vinculos': list(
+                    VinculoOrganizacao.objects.filter(
+                        organizacao=organizacao, responsavel_assinatura=True, ativo=True
+                    ).select_related('pessoa').values('id', 'pessoa__nome', 'cargo', 'responsavel_assinatura')
+                ),
+            },
+            'endereco': {
+                'tem_endereco': bool(organizacao.endereco and organizacao.cidade and organizacao.estado),
+                'endereco': organizacao.endereco or '',
+                'cidade': organizacao.cidade or '',
+                'estado': organizacao.estado or '',
             },
         })
 

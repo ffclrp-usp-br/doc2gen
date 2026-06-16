@@ -62,6 +62,7 @@ class ContratoForm(forms.ModelForm):
         model = Contrato
         fields = [
             'numero', 'compra', 'contratante', 'contratada',
+            'representante_contratada',
             'modalidade_garantia', 'porcentual_garantia', 'valor_garantia', 'data'
         ]
         widgets = {
@@ -69,6 +70,7 @@ class ContratoForm(forms.ModelForm):
             'compra': forms.Select(attrs={'class': 'form-select'}),
             'contratante': forms.Select(attrs={'class': 'form-select'}),
             'contratada': forms.Select(attrs={'class': 'form-select'}),
+            'representante_contratada': forms.Select(attrs={'class': 'form-select', 'id': 'id_representante_contratada'}),
             'modalidade_garantia': forms.Select(attrs={'class': 'form-select'}),
             'porcentual_garantia': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
             'valor_garantia': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
@@ -77,15 +79,12 @@ class ContratoForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # Filtra contratante para exibir apenas as próprias instituições
         proprias = Organizacao.objects.filter(is_propria_instituicao=True)
         self.fields['contratante'].queryset = proprias
-        
-        # Se houver apenas uma própria instituição, já deixa selecionada por padrão
+
         if proprias.count() == 1:
             self.fields['contratante'].initial = proprias.first()
 
-        # Preenche os valores iniciais da Compra relacionada se existir
         if self.instance and self.instance.pk and self.instance.compra:
             compra = self.instance.compra
             self.fields['valor_efetivo'].initial = compra.valor_efetivo
@@ -100,6 +99,23 @@ class ContratoForm(forms.ModelForm):
             except Compra.DoesNotExist:
                 pass
 
+        contratada = None
+        if self.instance and self.instance.pk:
+            contratada = self.instance.contratada
+        elif self.initial.get('contratada'):
+            try:
+                contratada = Organizacao.objects.get(pk=self.initial['contratada'])
+            except Organizacao.DoesNotExist:
+                pass
+
+        if contratada:
+            vinculos = VinculoOrganizacao.objects.filter(
+                organizacao=contratada, responsavel_assinatura=True, ativo=True
+            ).select_related('pessoa')
+            self.fields['representante_contratada'].queryset = vinculos
+        else:
+            self.fields['representante_contratada'].queryset = VinculoOrganizacao.objects.none()
+
     def save(self, commit=True):
         contrato = super().save(commit=False)
         if contrato.compra:
@@ -110,7 +126,6 @@ class ContratoForm(forms.ModelForm):
             if commit:
                 compra.save()
 
-        # Recalcula valor_garantia com base no valor_efetivo atualizado
         if contrato.porcentual_garantia is not None:
             val_efetivo = self.cleaned_data.get('valor_efetivo')
             if val_efetivo is not None:
