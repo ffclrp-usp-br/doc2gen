@@ -545,6 +545,17 @@ class Empenho(models.Model):
         null=True,
     )
 
+    valor = models.DecimalField(
+        max_digits=15,
+        decimal_places=2,
+        blank=True,
+        null=True
+    )
+    
+    @property
+    def valor_brl(self):
+        return MoedaUtils.to_brl(self.valor)
+
     organizacao = models.ForeignKey(
         Organizacao,
         on_delete=models.PROTECT,

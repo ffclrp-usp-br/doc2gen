@@ -116,6 +116,14 @@ def extract_nota_empenho(pdf_path: str) -> dict:
         "50 - Peças de Reposição e Acessórios"
     )
 
+    m = re.search(r'Total\s+R\$\s*([\d\.]+,\d{2})', 
+        text, 
+        re.IGNORECASE
+    )
+    if m:
+        data["valor"] = m.group(1)
+    
+
     return data
 
 
@@ -152,6 +160,7 @@ def print_result(data: dict):
         f"{data.get('organizacao_cnpj', '')}"
     )
 
+    print(f"Valor: {data.get('valor', '')}")
 
 if __name__ == "__main__":
 

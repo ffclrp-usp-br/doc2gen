@@ -832,6 +832,17 @@ class ContratoPreencherView(LoginRequiredMixin, View):
             return redirect('contrato_list')
 
 
+def _parse_valor_brazilian(valor_str):
+    """Converte string de valor em formato brasileiro (1.234.567,89) para Decimal."""
+    if not valor_str:
+        return None
+    try:
+        from decimal import Decimal
+        return Decimal(valor_str.replace('.', '').replace(',', '.'))
+    except Exception:
+        return None
+
+
 class ContratoEmpenhoUploadView(LoginRequiredMixin, View):
 
     def post(self, request, pk=None, *args, **kwargs):
@@ -875,6 +886,8 @@ class ContratoEmpenhoUploadView(LoginRequiredMixin, View):
             except ValueError:
                 pass
 
+        valor_empenho = _parse_valor_brazilian(dados.get('valor'))
+
         if contrato:
             empenho, created = Empenho.objects.update_or_create(
                 contrato=contrato,
@@ -892,6 +905,7 @@ class ContratoEmpenhoUploadView(LoginRequiredMixin, View):
                     'elemento': dados.get('elemento', ''),
                     'item': dados.get('item', ''),
                     'organizacao': organizacao,
+                    'valor': valor_empenho,
                 },
             )
         else:
@@ -910,6 +924,7 @@ class ContratoEmpenhoUploadView(LoginRequiredMixin, View):
                 item=dados.get('item', ''),
                 organizacao=organizacao,
                 contrato=None,
+                valor=valor_empenho,
             )
 
         return JsonResponse({
@@ -931,6 +946,8 @@ class ContratoEmpenhoUploadView(LoginRequiredMixin, View):
                 'organizacao_id': organizacao.id,
                 'organizacao_nome': organizacao.nome,
                 'organizacao_cnpj': organizacao.cnpj,
+                'valor': str(empenho.valor) if empenho.valor else '',
+                'valor_brl': empenho.valor_brl,
             },
             'representantes': {
                 'tem_representantes': VinculoOrganizacao.objects.filter(

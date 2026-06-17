@@ -89,6 +89,7 @@
                                                 <tr><th>Elemento</th><td>{{ empenho.elemento|default:"-" }}</td></tr>
                                                 <tr><th>Item</th><td>{{ empenho.item|default:"-" }}</td></tr>
                                                 <tr><th>Organização</th><td>{{ empenho.organizacao.nome }} ({{ empenho.organizacao.cnpj }})</td></tr>
+                                                <tr><th>Valor</th><td>{{ empenho.valor_brl|default:"-" }}</td></tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -516,12 +517,18 @@
                                     <tr><th>Elemento</th><td>${e.elemento || '-'}</td></tr>
                                     <tr><th>Item</th><td>${e.item || '-'}</td></tr>
                                     <tr><th>Organização</th><td>${e.organizacao_nome} (${e.organizacao_cnpj})</td></tr>
+                                    <tr><th>Valor</th><td>${e.valor_brl || '-'}</td></tr>
                                 </tbody>
                             </table>
                         </div>
                     `;
 
                     document.getElementById('id_empenho_id').value = e.id;
+
+                    if (e.valor) {
+                        document.getElementById('id_valor_efetivo').value = e.valor;
+                        calcularGarantia();
+                    }
 
                     let optionFound = false;
                     const options = selectContratada.options;

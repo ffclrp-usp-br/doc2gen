@@ -78,4 +78,9 @@ class ExtratorEmpenho(ExtratorBase):
             data["funcional_programatica"] = m.group(1).strip()
 
         
+        m = re.search(r'Total\s+R\$\s*([\d\.]+,\d{2})', texto, re.IGNORECASE)
+        if m:
+            data["valor"] = m.group(1)
+        
+
         return data
