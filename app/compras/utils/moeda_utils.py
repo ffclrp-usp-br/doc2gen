@@ -96,3 +96,15 @@ class MoedaUtils:
             return f"R$ {float(valor):,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
         except (ValueError, TypeError):
             return "R$ 0,00"
+
+
+    @staticmethod
+    def valor_to_decimal(valor_str):
+        """Converte string de valor em formato brasileiro (1.234.567,89) para Decimal."""
+        if not valor_str:
+            return None
+        try:
+            from decimal import Decimal
+            return Decimal(valor_str.replace('.', '').replace(',', '.'))
+        except Exception:
+            return None

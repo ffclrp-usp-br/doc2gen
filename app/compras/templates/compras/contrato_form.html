@@ -557,8 +557,26 @@
                     if (data.endereco) {
                         atualizarEndereco(data.endereco, e.organizacao_id);
                     }
+
+                    const inputNumero = document.getElementById('id_numero');
+                    if (inputNumero && inputNumero.value.trim()) {
+                        let autoSaveInput = document.getElementById('id_auto_save');
+                        if (!autoSaveInput) {
+                            autoSaveInput = document.createElement('input');
+                            autoSaveInput.type = 'hidden';
+                            autoSaveInput.id = 'id_auto_save';
+                            autoSaveInput.name = 'auto_save';
+                            autoSaveInput.value = '1';
+                            document.getElementById('form-contrato').appendChild(autoSaveInput);
+                        }
+                        document.getElementById('form-contrato').submit();
+                    }
                 } else {
-                    alert('Erro: ' + (data.error || 'Erro ao processar empenho.'));
+                    data.json().then(errData => {
+                        alert(errData.error || 'Erro ao processar empenho.');
+                    }).catch(() => {
+                        alert('Erro ao processar empenho.');
+                    });
                 }
 
                 inputEmpenhoPdf.value = '';

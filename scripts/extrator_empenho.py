@@ -122,6 +122,16 @@ def extract_nota_empenho(pdf_path: str) -> dict:
     )
     if m:
         data["valor"] = m.group(1)
+
+
+    m = re.search(r'Compra\s+(\d+)/(\d{4})', 
+        text,
+        re.IGNORECASE
+    )
+
+    numero_compra = str(int(m.group(1)))  # remove zeros à esquerda
+    ano_compra = m.group(2)
+    data["compra"] = f"{numero_compra}/{ano_compra}"    
     
 
     return data
@@ -161,6 +171,8 @@ def print_result(data: dict):
     )
 
     print(f"Valor: {data.get('valor', '')}")
+
+    print(f"Compra: {data.get('compra', '')}")    
 
 if __name__ == "__main__":
 

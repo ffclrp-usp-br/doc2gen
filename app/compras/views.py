@@ -13,6 +13,7 @@ from django.http import FileResponse
 from django.views import View
 from django.shortcuts import render, get_object_or_404, redirect
 from .services.kit_conferencia import KitConferenciaService
+from compras.utils.moeda_utils import MoedaUtils
 
 
 class MultipleFileInput(forms.FileInput):
@@ -692,13 +693,17 @@ class ContratoUpdateView(LoginRequiredMixin, UpdateView):
     model = Contrato
     form_class = ContratoForm
     template_name = 'compras/contrato_form.html'
-    success_url = reverse_lazy('contrato_list')
+
+    def get_success_url(self):
+        if self.request.POST.get('auto_save'):
+            return reverse_lazy('contrato_update', kwargs={'pk': self.object.pk})
+        return reverse_lazy('contrato_list')
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         try:
-            ctx['empenho'] = self.object.empenho
-        except Empenho.DoesNotExist:
+            ctx['empenho'] = Empenho.objects.filter(contrato=self.object).first()
+        except Exception:
             ctx['empenho'] = None
 
         contratada = self.object.contratada
@@ -756,14 +761,48 @@ def buscar_compra_detalhes_ajax(request):
 
 def gerenciar_vinculos_ajax(request, org_id):
     organizacao = get_object_or_404(Organizacao, id=org_id)
+
+    if request.method == 'DELETE':
+        vinculo_id = request.GET.get('vinculo_id')
+        if not vinculo_id:
+            return JsonResponse({'success': False, 'error': 'ID do vínculo não informado.'}, status=400)
+
+        vinculo = get_object_or_404(VinculoOrganizacao, id=vinculo_id, organizacao=organizacao)
+
+        from compras.models import Contrato
+        if Contrato.objects.filter(representante_contratada=vinculo).exists():
+            return JsonResponse({
+                'success': False,
+                'error': 'Este vínculo está associado a um contrato e não pode ser excluído.'
+            }, status=409)
+
+        vinculo.delete()
+        return JsonResponse({'success': True})
+
+    if request.method == 'POST' and request.POST.get('action') == 'criar_pessoa':
+        nome = request.POST.get('nome', '').strip()
+        cpf = request.POST.get('cpf', '').strip()
+
+        if not nome or not cpf:
+            return JsonResponse({'success': False, 'error': 'Nome e CPF são obrigatórios.'}, status=400)
+
+        if PessoaFisica.objects.filter(cpf=cpf).exists():
+            return JsonResponse({'success': False, 'error': 'Já existe uma pessoa cadastrada com este CPF.'}, status=409)
+
+        pessoa = PessoaFisica.objects.create(nome=nome, cpf=cpf)
+        return JsonResponse({'success': True, 'pessoa_id': pessoa.id, 'pessoa_nome': pessoa.nome})
+
     vinculos = VinculoOrganizacao.objects.filter(organizacao=organizacao)
-    pessoas = PessoaFisica.objects.all()
-    
+    pessoas_vinculadas = VinculoOrganizacao.objects.filter(
+        organizacao=organizacao
+    ).values_list('pessoa_id', flat=True)
+    pessoas = PessoaFisica.objects.exclude(id__in=pessoas_vinculadas)
+
     if request.method == 'POST':
         pessoa_id = request.POST.get('pessoa')
         cargo = request.POST.get('cargo')
         responsavel = request.POST.get('responsavel_assinatura') == 'on'
-        
+
         VinculoOrganizacao.objects.create(
             organizacao=organizacao,
             pessoa_id=pessoa_id,
@@ -832,16 +871,6 @@ class ContratoPreencherView(LoginRequiredMixin, View):
             return redirect('contrato_list')
 
 
-def _parse_valor_brazilian(valor_str):
-    """Converte string de valor em formato brasileiro (1.234.567,89) para Decimal."""
-    if not valor_str:
-        return None
-    try:
-        from decimal import Decimal
-        return Decimal(valor_str.replace('.', '').replace(',', '.'))
-    except Exception:
-        return None
-
 
 class ContratoEmpenhoUploadView(LoginRequiredMixin, View):
 
@@ -886,31 +915,40 @@ class ContratoEmpenhoUploadView(LoginRequiredMixin, View):
             except ValueError:
                 pass
 
-        valor_empenho = _parse_valor_brazilian(dados.get('valor'))
+        valor_empenho = MoedaUtils.valor_to_decimal(dados.get('valor'))
+        numero = dados.get('numero', '')
 
-        if contrato:
-            empenho, created = Empenho.objects.update_or_create(
-                contrato=contrato,
-                defaults={
-                    'numero': dados.get('numero', ''),
-                    'data_empenho': data_empenho,
-                    'dotacao': dados.get('dotacao', ''),
-                    'grupo': dados.get('grupo', ''),
-                    'unidade': dados.get('unidade', ''),
-                    'fonte_recurso': dados.get('fonte_recurso', ''),
-                    'funcional_programatica': dados.get('funcional_programatica', ''),
-                    'categoria_economica': dados.get('categoria_economica', ''),
-                    'grupo_despesa': dados.get('grupo_despesa', ''),
-                    'modalidade': dados.get('modalidade', ''),
-                    'elemento': dados.get('elemento', ''),
-                    'item': dados.get('item', ''),
-                    'organizacao': organizacao,
-                    'valor': valor_empenho,
-                },
-            )
+        empenho_existente = Empenho.objects.filter(numero=numero).first()
+
+        if empenho_existente:
+            if empenho_existente.contrato and contrato and empenho_existente.contrato_id != contrato.pk:
+                return JsonResponse({
+                    'success': False,
+                    'error': f'O empenho {numero} já está vinculado ao contrato {empenho_existente.contrato.numero}.'
+                }, status=409)
+
+            empenho_existente.data_empenho = data_empenho
+            empenho_existente.dotacao = dados.get('dotacao', '')
+            empenho_existente.grupo = dados.get('grupo', '')
+            empenho_existente.unidade = dados.get('unidade', '')
+            empenho_existente.fonte_recurso = dados.get('fonte_recurso', '')
+            empenho_existente.funcional_programatica = dados.get('funcional_programatica', '')
+            empenho_existente.categoria_economica = dados.get('categoria_economica', '')
+            empenho_existente.grupo_despesa = dados.get('grupo_despesa', '')
+            empenho_existente.modalidade = dados.get('modalidade', '')
+            empenho_existente.elemento = dados.get('elemento', '')
+            empenho_existente.item = dados.get('item', '')
+            empenho_existente.organizacao = organizacao
+            empenho_existente.valor = valor_empenho
+
+            if not empenho_existente.contrato and contrato:
+                empenho_existente.contrato = contrato
+
+            empenho_existente.save()
+            empenho = empenho_existente
         else:
             empenho = Empenho.objects.create(
-                numero=dados.get('numero', ''),
+                numero=numero,
                 data_empenho=data_empenho,
                 dotacao=dados.get('dotacao', ''),
                 grupo=dados.get('grupo', ''),
@@ -923,7 +961,7 @@ class ContratoEmpenhoUploadView(LoginRequiredMixin, View):
                 elemento=dados.get('elemento', ''),
                 item=dados.get('item', ''),
                 organizacao=organizacao,
-                contrato=None,
+                contrato=contrato,
                 valor=valor_empenho,
             )
 

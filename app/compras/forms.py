@@ -136,7 +136,7 @@ class ContratoForm(forms.ModelForm):
             contrato.save()
             empenho_id = self.cleaned_data.get('empenho_id')
             if empenho_id:
-                Empenho.objects.filter(id=empenho_id, contrato__isnull=True).update(contrato=contrato)
+                Empenho.objects.filter(id=empenho_id).update(contrato=contrato)
         return contrato
 
 

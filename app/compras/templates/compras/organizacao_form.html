@@ -75,25 +75,98 @@
 </div>
 
 {% if object %}
+<div class="modal fade" id="modalPessoa" tabindex="-1" aria-labelledby="modalPessoaLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalPessoaLabel">Cadastrar Pessoa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="form-nova-pessoa" onsubmit="salvarPessoa(event)">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Nome completo</label>
+                        <input type="text" name="nome" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">CPF</label>
+                        <input type="text" name="cpf" class="form-control" placeholder="000.000.000-00" required>
+                    </div>
+                    <div id="pessoa-erro" class="alert alert-danger d-none"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" id="btn-salvar-pessoa">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <script>
-    function carregarVinculos() {
+document.addEventListener('DOMContentLoaded', function() {
+    const modalPessoaEl = document.getElementById('modalPessoa');
+    const modalPessoa = modalPessoaEl ? new bootstrap.Modal(modalPessoaEl) : null;
+
+    function initSelect2(container) {
+        const el = container ? container.querySelector('.select2-pessoa') : document.querySelector('.select2-pessoa');
+        if (el && typeof $ !== 'undefined') {
+            $(el).select2({
+                theme: 'bootstrap-5',
+                width: '100%',
+                language: 'pt-BR',
+                placeholder: 'Selecione uma pessoa...',
+                dropdownParent: container || document.body,
+            });
+        }
+    }
+
+    initSelect2();
+
+    window.carregarVinculos = function() {
         const orgId = "{{ object.id }}";
         const container = document.getElementById('vinculos-container');
-        
+
         fetch(`/compras/api/organizacao/${orgId}/vinculos/`)
             .then(response => response.text())
             .then(html => {
                 container.innerHTML = html;
+                initSelect2(container);
             });
-    }
+    };
 
-    function adicionarVinculo(event) {
+    window.excluirVinculo = function(vinculoId) {
+        if (!confirm('Tem certeza que deseja excluir este vínculo?')) return;
+
+        const orgId = "{{ object.id }}";
+        fetch(`/compras/api/organizacao/${orgId}/vinculos/?vinculo_id=${vinculoId}`, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                carregarVinculos();
+            } else {
+                alert(data.error || 'Erro ao excluir vínculo.');
+            }
+        })
+        .catch(err => {
+            console.error('Erro ao excluir vínculo:', err);
+            alert('Erro ao excluir vínculo. Tente novamente.');
+        });
+    };
+
+    window.adicionarVinculo = function(event) {
         event.preventDefault();
         const form = event.target;
         const orgId = "{{ object.id }}";
         const formData = new FormData(form);
         const submitBtn = form.querySelector('button[type="submit"]');
-        
+
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
 
@@ -109,12 +182,63 @@
             if (data.success) {
                 carregarVinculos();
             } else {
-                alert('Erro ao adicionar responsável.');
+                alert(data.error || 'Erro ao adicionar responsável.');
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = '+';
             }
         });
-    }
+    };
+
+    window.abrirModalPessoa = function() {
+        const form = document.getElementById('form-nova-pessoa');
+        form.reset();
+        document.getElementById('pessoa-erro').classList.add('d-none');
+        modalPessoa.show();
+    };
+
+    window.salvarPessoa = function(event) {
+        event.preventDefault();
+        const form = event.target;
+        const orgId = "{{ object.id }}";
+        const formData = new FormData(form);
+        formData.append('action', 'criar_pessoa');
+        const btnSalvar = document.getElementById('btn-salvar-pessoa');
+
+        btnSalvar.disabled = true;
+        btnSalvar.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
+
+        fetch(`/compras/api/organizacao/${orgId}/vinculos/`, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': form.querySelector('[name=csrfmiddlewaretoken]').value
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            btnSalvar.disabled = false;
+            btnSalvar.textContent = 'Salvar';
+
+            if (data.success) {
+                modalPessoa.hide();
+                const newOption = new Option(data.pessoa_nome, data.pessoa_id, true, true);
+                const selectEl = document.querySelector('.select2-pessoa');
+                $(selectEl).append(newOption).trigger('change');
+                carregarVinculos();
+            } else {
+                const erroEl = document.getElementById('pessoa-erro');
+                erroEl.textContent = data.error || 'Erro ao cadastrar pessoa.';
+                erroEl.classList.remove('d-none');
+            }
+        })
+        .catch(err => {
+            console.error('Erro ao salvar pessoa:', err);
+            btnSalvar.disabled = false;
+            btnSalvar.textContent = 'Salvar';
+            alert('Erro ao cadastrar pessoa. Tente novamente.');
+        });
+    };
+});
 </script>
 {% endif %}
 {% endblock %}

@@ -467,6 +467,7 @@ class Empenho(models.Model):
     numero = models.CharField(
         'Número da NE',
         max_length=20,
+        unique=True,
     )
 
     data_empenho = models.DateField(
