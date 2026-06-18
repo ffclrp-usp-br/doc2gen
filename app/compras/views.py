@@ -669,11 +669,18 @@ class ContratoListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return Contrato.objects.select_related('compra', 'contratante', 'contratada')
 
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx['tem_contratante'] = Organizacao.objects.filter(is_propria_instituicao=True).exists()
+        return ctx
+
 class ContratoCreateView(LoginRequiredMixin, CreateView):
     model = Contrato
     form_class = ContratoForm
     template_name = 'compras/contrato_form.html'
-    success_url = reverse_lazy('contrato_list')
+
+    def get_success_url(self):
+        return reverse_lazy('contrato_update', kwargs={'pk': self.object.pk})
 
     def get_initial(self):
         initial = super().get_initial()
@@ -684,6 +691,9 @@ class ContratoCreateView(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
+        ctx['contratada_info'] = None
+        ctx['compra_info'] = None
+        ctx['tem_contratante'] = Organizacao.objects.filter(is_propria_instituicao=True).exists()
         ctx['vinculos_contratada'] = VinculoOrganizacao.objects.none()
         ctx['tem_representantes'] = False
         ctx['tem_endereco'] = False
@@ -695,19 +705,30 @@ class ContratoUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'compras/contrato_form.html'
 
     def get_success_url(self):
-        if self.request.POST.get('auto_save'):
-            return reverse_lazy('contrato_update', kwargs={'pk': self.object.pk})
-        return reverse_lazy('contrato_list')
+        return reverse_lazy('contrato_update', kwargs={'pk': self.object.pk})
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        try:
-            ctx['empenho'] = Empenho.objects.filter(contrato=self.object).first()
-        except Exception:
-            ctx['empenho'] = None
+
+        ctx['tem_contratante'] = Organizacao.objects.filter(is_propria_instituicao=True).exists()
+
+        compra = self.object.compra
+        if compra:
+            ctx['compra_info'] = {
+                'id': compra.id,
+                'numero': compra.numero_compra,
+                'objeto': compra.objeto or '',
+            }
+        else:
+            ctx['compra_info'] = None
 
         contratada = self.object.contratada
         if contratada:
+            ctx['contratada_info'] = {
+                'id': contratada.id,
+                'nome': contratada.nome,
+                'cnpj': contratada.cnpj,
+            }
             vinculos = VinculoOrganizacao.objects.filter(
                 organizacao=contratada, responsavel_assinatura=True, ativo=True
             ).select_related('pessoa')
@@ -715,6 +736,7 @@ class ContratoUpdateView(LoginRequiredMixin, UpdateView):
             ctx['tem_representantes'] = vinculos.exists()
             ctx['tem_endereco'] = bool(contratada.endereco and contratada.cidade and contratada.estado)
         else:
+            ctx['contratada_info'] = None
             ctx['vinculos_contratada'] = VinculoOrganizacao.objects.none()
             ctx['tem_representantes'] = False
             ctx['tem_endereco'] = False
@@ -907,6 +929,18 @@ class ContratoEmpenhoUploadView(LoginRequiredMixin, View):
         elif not organizacao:
             return JsonResponse({'success': False, 'error': 'CNPJ da organização não encontrado no documento.'}, status=400)
 
+        compra_numero = dados.get('compra', '')
+        compra_obj = None
+        if compra_numero:
+            compra_obj = Compra.objects.filter(numero_compra=compra_numero).first()
+            if not compra_obj:
+                return JsonResponse({
+                    'success': False,
+                    'error': f'A compra {compra_numero} não está cadastrada. Cadastre a compra antes de importar o empenho.',
+                    'compra_nao_encontrada': True,
+                    'compra_numero': compra_numero,
+                }, status=404)
+
         from datetime import datetime
         data_empenho = None
         if dados.get('data_empenho'):
@@ -970,22 +1004,22 @@ class ContratoEmpenhoUploadView(LoginRequiredMixin, View):
             'empenho': {
                 'id': empenho.id,
                 'numero': empenho.numero,
-                'data_empenho': empenho.data_empenho.strftime('%d/%m/%Y') if empenho.data_empenho else '',
-                'dotacao': empenho.dotacao or '',
-                'grupo': empenho.grupo or '',
-                'unidade': empenho.unidade or '',
-                'fonte_recurso': empenho.fonte_recurso or '',
-                'funcional_programatica': empenho.funcional_programatica or '',
-                'categoria_economica': empenho.categoria_economica or '',
-                'grupo_despesa': empenho.grupo_despesa or '',
-                'modalidade': empenho.modalidade or '',
-                'elemento': empenho.elemento or '',
-                'item': empenho.item or '',
-                'organizacao_id': organizacao.id,
-                'organizacao_nome': organizacao.nome,
-                'organizacao_cnpj': organizacao.cnpj,
                 'valor': str(empenho.valor) if empenho.valor else '',
                 'valor_brl': empenho.valor_brl,
+            },
+            'compra': {
+                'id': compra_obj.id,
+                'numero': compra_obj.numero_compra,
+                'objeto': compra_obj.objeto or '',
+            } if compra_obj else None,
+            'organizacao': {
+                'id': organizacao.id,
+                'nome': organizacao.nome,
+                'cnpj': organizacao.cnpj,
+                'endereco': organizacao.endereco or '',
+                'cidade': organizacao.cidade or '',
+                'estado': organizacao.estado or '',
+                'tem_endereco': bool(organizacao.endereco and organizacao.cidade and organizacao.estado),
             },
             'representantes': {
                 'tem_representantes': VinculoOrganizacao.objects.filter(
@@ -996,12 +1030,6 @@ class ContratoEmpenhoUploadView(LoginRequiredMixin, View):
                         organizacao=organizacao, responsavel_assinatura=True, ativo=True
                     ).select_related('pessoa').values('id', 'pessoa__nome', 'cargo', 'responsavel_assinatura')
                 ),
-            },
-            'endereco': {
-                'tem_endereco': bool(organizacao.endereco and organizacao.cidade and organizacao.estado),
-                'endereco': organizacao.endereco or '',
-                'cidade': organizacao.cidade or '',
-                'estado': organizacao.estado or '',
             },
         })
 

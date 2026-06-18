@@ -49,6 +49,11 @@ def demanda_validator(value):
 
 
 class Compra(models.Model):
+    
+    class Meta:
+        db_table = "compra"
+    
+    
     MODALIDADE_CHOICES = [
         ('Audiência Pública', 'Audiência Pública'),
         ('Concorrência', 'Concorrência'),
@@ -154,6 +159,10 @@ class Compra(models.Model):
 
 
 class Demanda(models.Model):
+    
+    class Meta:
+        db_table = "demanda"
+    
     numero_demanda = models.CharField(
         'Número da demanda',
         max_length=20,
@@ -179,6 +188,11 @@ class Demanda(models.Model):
 
 class Item(models.Model):
 
+    class Meta:
+        db_table = "item"
+        unique_together = ('demanda', 'numero_ordem')
+        ordering = ['demanda', 'numero_ordem']
+
     numero_ordem = models.PositiveIntegerField('Ordem', editable=False, db_index=True)
 
     codigo_material = models.CharField(
@@ -202,13 +216,13 @@ class Item(models.Model):
         null=True,
     )
 
+
     codigo_bem = models.CharField(
         'Código bem compras gov',
         max_length=14,
         blank=True,
         null=True,
     )
-
 
     descricao = models.CharField('Descrição', max_length=255, blank=True, null=True)
     
@@ -229,9 +243,6 @@ class Item(models.Model):
     demanda = models.ForeignKey(Demanda, related_name='itens', on_delete=models.CASCADE)
     
     
-    class Meta:
-        unique_together = ('demanda', 'numero_ordem')
-        ordering = ['demanda', 'numero_ordem']
 
     def save(self, *args, **kwargs):
         if not self.pk and not self.numero_ordem:
@@ -257,6 +268,11 @@ class Item(models.Model):
 
 
 class Pesquisa(models.Model):
+
+    class Meta:
+        db_table = "pesquisa"
+            
+
     nome_fornecedor = models.CharField('Nome do fornecedor', max_length=255)
     valor_unitario = models.DecimalField('Valor unitário', max_digits=14, decimal_places=2, blank=True, null=True) 
 
@@ -283,6 +299,10 @@ class Pesquisa(models.Model):
 
 class PessoaFisica(models.Model):
 
+    class Meta:
+        db_table = "pessoa_fisica"
+
+
     nome = models.CharField(max_length=255)
 
     cpf = models.CharField(
@@ -295,6 +315,9 @@ class PessoaFisica(models.Model):
 
 
 class Organizacao(models.Model):
+
+    class Meta:
+        db_table = "organizacao"
 
     nome = models.CharField(
         'Nome/Razão Social',
@@ -339,6 +362,9 @@ class Organizacao(models.Model):
 
 
 class Contrato(models.Model):
+
+    class Meta:
+        db_table = "contrato"
 
     MODALIDADE_GARANTIA_CHOICES = (
         ('CAUCAO_DINHEIRO', 'Caução em dinheiro'),
@@ -406,6 +432,7 @@ class Contrato(models.Model):
         blank=True,
         null=True
     )
+    
 
     @property
     def valor_garantia_brl(self):
@@ -433,6 +460,9 @@ class Contrato(models.Model):
 
 
 class VinculoOrganizacao(models.Model):
+
+    class Meta:
+        db_table = "vinculo_organizacao"
 
     organizacao = models.ForeignKey(
         Organizacao,
@@ -463,6 +493,9 @@ class VinculoOrganizacao(models.Model):
 
 
 class Empenho(models.Model):
+
+    class Meta:
+        db_table = "empenho"
 
     numero = models.CharField(
         'Número da NE',
@@ -565,6 +598,15 @@ class Empenho(models.Model):
 
     contrato = models.OneToOneField(
         Contrato,
+        on_delete=models.CASCADE,
+        related_name='empenho',
+        null=True,
+        blank=True,
+    )
+
+
+    compra = models.OneToOneField(
+        Compra,
         on_delete=models.CASCADE,
         related_name='empenho',
         null=True,

@@ -1,3 +1,4 @@
+from datetime import date
 from django import forms
 from .models import Organizacao, PessoaFisica, Contrato, VinculoOrganizacao, Compra, Item, Empenho
 
@@ -46,12 +47,12 @@ class ContratoForm(forms.ModelForm):
     data_estimativa_orcamento = forms.DateField(
         label='Data da estimativa do orçamento',
         required=False,
-        widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date'})
+        widget=forms.TextInput(attrs={'class': 'form-control data-brasileira', 'placeholder': 'dd/mm/aaaa', 'autocomplete': 'off'})
     )
     data_proposta_comercial = forms.DateField(
         label='Data da proposta comercial',
         required=False,
-        widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date'})
+        widget=forms.TextInput(attrs={'class': 'form-control data-brasileira', 'placeholder': 'dd/mm/aaaa', 'autocomplete': 'off'})
     )
     empenho_id = forms.IntegerField(
         required=False,
@@ -61,29 +62,27 @@ class ContratoForm(forms.ModelForm):
     class Meta:
         model = Contrato
         fields = [
-            'numero', 'compra', 'contratante', 'contratada',
+            'numero', 'compra', 'contratada',
             'representante_contratada',
             'modalidade_garantia', 'porcentual_garantia', 'valor_garantia', 'data'
         ]
         widgets = {
             'numero': forms.TextInput(attrs={'class': 'form-control'}),
-            'compra': forms.Select(attrs={'class': 'form-select'}),
-            'contratante': forms.Select(attrs={'class': 'form-select'}),
-            'contratada': forms.Select(attrs={'class': 'form-select'}),
+            'compra': forms.HiddenInput(),
+            'contratada': forms.HiddenInput(),
             'representante_contratada': forms.Select(attrs={'class': 'form-select', 'id': 'id_representante_contratada'}),
             'modalidade_garantia': forms.Select(attrs={'class': 'form-select'}),
             'porcentual_garantia': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
             'valor_garantia': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
-            'data': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'data': forms.TextInput(attrs={'class': 'form-control data-brasileira', 'placeholder': 'dd/mm/aaaa', 'autocomplete': 'off'}),
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        proprias = Organizacao.objects.filter(is_propria_instituicao=True)
-        self.fields['contratante'].queryset = proprias
+        self.fields.pop('contratante', None)
 
-        if proprias.count() == 1:
-            self.fields['contratante'].initial = proprias.first()
+        if not self.instance.pk:
+            self.initial['data'] = date.today().isoformat()
 
         if self.instance and self.instance.pk and self.instance.compra:
             compra = self.instance.compra
@@ -116,8 +115,25 @@ class ContratoForm(forms.ModelForm):
         else:
             self.fields['representante_contratada'].queryset = VinculoOrganizacao.objects.none()
 
+    def clean(self):
+        cleaned_data = super().clean()
+        data_estimativa = cleaned_data.get('data_estimativa_orcamento')
+        data_proposta = cleaned_data.get('data_proposta_comercial')
+
+        if data_estimativa and data_proposta and data_proposta < data_estimativa:
+            raise forms.ValidationError(
+                'A data da proposta comercial deve ser igual ou posterior à data da estimativa do orçamento.'
+            )
+
+        return cleaned_data
+
     def save(self, commit=True):
         contrato = super().save(commit=False)
+
+        contratante = Organizacao.objects.filter(is_propria_instituicao=True).first()
+        if contratante:
+            contrato.contratante = contratante
+
         if contrato.compra:
             compra = contrato.compra
             compra.valor_efetivo = self.cleaned_data.get('valor_efetivo')

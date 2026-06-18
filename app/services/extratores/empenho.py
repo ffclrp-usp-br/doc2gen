@@ -81,6 +81,13 @@ class ExtratorEmpenho(ExtratorBase):
         m = re.search(r'Total\s+R\$\s*([\d\.]+,\d{2})', texto, re.IGNORECASE)
         if m:
             data["valor"] = m.group(1)
-        
+
+
+        m = re.search(r'Compra\s+(\d+)/(\d{4})', texto, re.IGNORECASE)
+        if m:
+                numero_compra = str(int(m.group(1)))  # remove zeros à esquerda
+                ano_compra = m.group(2)
+                data["compra"] = f"{numero_compra}/{ano_compra}"    
+      
 
         return data
