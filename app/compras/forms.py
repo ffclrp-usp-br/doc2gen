@@ -59,6 +59,44 @@ class ContratoForm(forms.ModelForm):
         widget=forms.HiddenInput(attrs={'id': 'id_empenho_id'})
     )
 
+    contratada_endereco = forms.CharField(
+        label='Endereço',
+        max_length=255,
+        required=False,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'id_contratada_endereco'})
+    )
+    contratada_cidade = forms.CharField(
+        label='Cidade',
+        max_length=100,
+        required=False,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'id_contratada_cidade'})
+    )
+    contratada_estado = forms.CharField(
+        label='Estado',
+        max_length=2,
+        required=False,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'id_contratada_estado', 'placeholder': 'UF'})
+    )
+
+    novo_representante_nome = forms.CharField(
+        label='Nome completo',
+        max_length=255,
+        required=False,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'id_novo_representante_nome'})
+    )
+    novo_representante_cpf = forms.CharField(
+        label='CPF',
+        max_length=14,
+        required=False,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'id_novo_representante_cpf', 'placeholder': '000.000.000-00'})
+    )
+    novo_representante_cargo = forms.CharField(
+        label='Cargo/Função',
+        max_length=255,
+        required=False,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'id_novo_representante_cargo'})
+    )
+
     class Meta:
         model = Contrato
         fields = [
@@ -108,6 +146,10 @@ class ContratoForm(forms.ModelForm):
                 pass
 
         if contratada:
+            self.fields['contratada_endereco'].initial = contratada.endereco or ''
+            self.fields['contratada_cidade'].initial = contratada.cidade or ''
+            self.fields['contratada_estado'].initial = contratada.estado or ''
+
             vinculos = VinculoOrganizacao.objects.filter(
                 organizacao=contratada, responsavel_assinatura=True, ativo=True
             ).select_related('pessoa')
@@ -127,12 +169,62 @@ class ContratoForm(forms.ModelForm):
 
         return cleaned_data
 
+    def _obter_ou_criar_contratada(self):
+        contratada = self.cleaned_data.get('contratada')
+        if not contratada:
+            return None
+        return contratada
+
+    def _salvar_endereco_contratada(self, contratada):
+        if not contratada:
+            return
+        endereco = self.cleaned_data.get('contratada_endereco', '').strip()
+        cidade = self.cleaned_data.get('contratada_cidade', '').strip()
+        estado = self.cleaned_data.get('contratada_estado', '').strip()
+        contratada.endereco = endereco or None
+        contratada.cidade = cidade or None
+        contratada.estado = estado or None
+        contratada.save(update_fields=['endereco', 'cidade', 'estado'])
+
+    def _criar_representante_se_necessario(self, contratada):
+        if not contratada:
+            return None
+        nome = self.cleaned_data.get('novo_representante_nome', '').strip()
+        cpf = self.cleaned_data.get('novo_representante_cpf', '').strip()
+        cargo = self.cleaned_data.get('novo_representante_cargo', '').strip()
+
+        if not nome or not cpf:
+            return None
+
+        vinculo = VinculoOrganizacao.objects.filter(
+            organizacao=contratada, responsavel_assinatura=True, ativo=True
+        ).select_related('pessoa').first()
+        if vinculo:
+            return vinculo
+
+        pessoa, _ = PessoaFisica.objects.get_or_create(
+            cpf=cpf,
+            defaults={'nome': nome}
+        )
+        if not pessoa.nome:
+            pessoa.nome = nome
+            pessoa.save(update_fields=['nome'])
+
+        vinculo = VinculoOrganizacao.objects.create(
+            organizacao=contratada,
+            pessoa=pessoa,
+            cargo=cargo or 'Representante Legal',
+            responsavel_assinatura=True,
+            ativo=True,
+        )
+        return vinculo
+
     def save(self, commit=True):
         contrato = super().save(commit=False)
 
         contratante = Organizacao.objects.filter(is_propria_instituicao=True).first()
         if contratante:
-            contrato.contratante = contratante
+            contrato.contratante_id = contratante.pk
 
         if contrato.compra:
             compra = contrato.compra
@@ -149,10 +241,25 @@ class ContratoForm(forms.ModelForm):
                 contrato.valor_garantia = val_efetivo * (contrato.porcentual_garantia / Decimal('100.00'))
 
         if commit:
+            contratada = self._obter_ou_criar_contratada()
+
+            if contratada:
+                self._salvar_endereco_contratada(contratada)
+
+                if not contrato.representante_contratada_id:
+                    vinculo_novo = self._criar_representante_se_necessario(contratada)
+                    if vinculo_novo:
+                        contrato.representante_contratada_id = vinculo_novo.pk
+
+            if not contrato.contratante_id and contratante:
+                contrato.contratante_id = contratante.pk
+
             contrato.save()
+
             empenho_id = self.cleaned_data.get('empenho_id')
             if empenho_id:
                 Empenho.objects.filter(id=empenho_id).update(contrato=contrato)
+
         return contrato
 
 

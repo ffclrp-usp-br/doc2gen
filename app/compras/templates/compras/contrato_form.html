@@ -85,40 +85,60 @@
                                 </div>
                             </div>
 
-                            <!-- Pendências (único alerta) -->
-                            <div class="col-md-12 mt-3" id="pendencias-section" style="{% if tem_contratante and not contratada_info %}display:none{% endif %}">
-                                <div id="pendencias-conteudo">
-                                    {% if not tem_contratante %}
-                                    <div class="alert alert-warning mb-0">
-                                        <i class="bi bi-exclamation-triangle me-1"></i>
-                                        <strong>Pendências:</strong>
-                                        <ul class="mb-2 mt-1">
-                                            <li>Contratante (instituição) não cadastrada</li>
-                                        </ul>
-                                        <a href="{% url 'organizacao_create' %}" class="btn btn-sm btn-warning">
-                                            Cadastrar contratante
-                                        </a>
+                            <!-- Endereço da Contratada -->
+                            <div class="col-12 mt-3 border-top pt-3" id="endereco-contratada-section">
+                                <h6 class="text-muted mb-3"><i class="bi bi-geo-alt me-1"></i>Endereço da Contratada</h6>
+                                <div class="row g-3">
+                                    <div class="col-md-8">
+                                        <label class="form-label">Endereço</label>
+                                        {{ form.contratada_endereco }}
                                     </div>
-                                    {% elif contratada_info %}
-                                        {% if not tem_representantes or not tem_endereco %}
-                                        <div class="alert alert-warning mb-0">
-                                            <i class="bi bi-exclamation-triangle me-1"></i>
-                                            <strong>Pendências:</strong>
-                                            <ul class="mb-2 mt-1">
-                                                {% if not tem_representantes %}
-                                                <li>Representante legal não cadastrado</li>
-                                                {% endif %}
-                                                {% if not tem_endereco %}
-                                                <li>Endereço incompleto (endereço, cidade e estado)</li>
-                                                {% endif %}
-                                            </ul>
-                                            <a href="{% url 'organizacao_update' contratada_info.id %}" class="btn btn-sm btn-warning">
-                                                Resolver pendências
-                                            </a>
-                                        </div>
-                                        {% endif %}
-                                    {% endif %}
+                                    <div class="col-md-3">
+                                        <label class="form-label">Cidade</label>
+                                        {{ form.contratada_cidade }}
+                                    </div>
+                                    <div class="col-md-1">
+                                        <label class="form-label">UF</label>
+                                        {{ form.contratada_estado }}
+                                    </div>
                                 </div>
+                            </div>
+
+                            <!-- Representante Legal da Contratada -->
+                            <div class="col-12 mt-3 border-top pt-3" id="representante-contratada-section">
+                                <h6 class="text-muted mb-3"><i class="bi bi-person-badge me-1"></i>Representante Legal da Contratada</h6>
+
+                                <!-- Select de representantes existentes -->
+                                <div class="row g-3 mb-3" id="representante-select-section">
+                                    <div class="col-md-12">
+                                        <label class="form-label">Representante existente</label>
+                                        {{ form.representante_contratada }}
+                                    </div>
+                                </div>
+
+                                <!-- Separação visual -->
+                                <div class="text-center text-muted small my-2" id="representante-divider">ou cadastre um novo representante</div>
+
+                                <!-- Campos para novo representante -->
+                                <div class="row g-3" id="representante-novo-campos">
+                                    <div class="col-md-5">
+                                        <label class="form-label">Nome completo</label>
+                                        {{ form.novo_representante_nome }}
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label">CPF</label>
+                                        {{ form.novo_representante_cpf }}
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Cargo/Função</label>
+                                        {{ form.novo_representante_cargo }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Pendências -->
+                            <div class="col-md-12 mt-3" id="pendencias-section" style="display:none">
+                                <div id="pendencias-conteudo"></div>
                             </div>
 
                             <div class="col-md-12">
@@ -147,7 +167,7 @@
                                 {% if object %}
                                     <a href="{% url 'contrato_delete' object.id %}" class="btn btn-danger me-2">Excluir</a>
                                     <button type="button" class="btn btn-success me-2" id="btn-preencher"
-                                        {% if not tem_contratante or not tem_representantes or not tem_endereco %}disabled title="Resolva as pendências para habilitar esta opção"{% endif %}
+                                        {% if not tem_contratante %}disabled title="Resolva as pendências para habilitar esta opção"{% endif %}
                                         onclick="document.getElementById('file-{{ object.id }}').click();">
                                         Preencher contrato
                                     </button>
@@ -188,6 +208,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const btnPreencher = document.getElementById('btn-preencher');
     const temContratante = {{ tem_contratante|yesno:"true,false" }};
 
+    const inputEndereco = document.getElementById('id_contratada_endereco');
+    const inputCidade = document.getElementById('id_contratada_cidade');
+    const inputEstado = document.getElementById('id_contratada_estado');
+    const selectRepresentante = document.getElementById('id_representante_contratada');
+    const inputNovoRepNome = document.getElementById('id_novo_representante_nome');
+    const inputNovoRepCpf = document.getElementById('id_novo_representante_cpf');
+    const inputNovoRepCargo = document.getElementById('id_novo_representante_cargo');
+    const representanteSelectSection = document.getElementById('representante-select-section');
+    const representanteDivider = document.getElementById('representante-divider');
+    const representanteNovoCampos = document.getElementById('representante-novo-campos');
+
     function calcularGarantia() {
         const porcentual = parseFloat(inputPorcentual.value);
         const valorEfetivo = parseFloat(inputValorEfetivo.value);
@@ -227,11 +258,8 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(err => console.error("Erro ao buscar detalhes da compra:", err));
     }
 
-    function atualizarPendencias(vinculos, orgId, enderecoData) {
-        const temRep = vinculos && vinculos.length > 0;
-        const temEnd = enderecoData && enderecoData.tem_endereco;
-
-        if (temContratante && temRep && temEnd) {
+    function atualizarPendencias(orgId) {
+        if (temContratante) {
             pendenciasSection.style.display = 'none';
             pendenciasConteudo.innerHTML = '';
             if (btnPreencher) { btnPreencher.disabled = false; btnPreencher.title = ''; }
@@ -239,21 +267,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         pendenciasSection.style.display = '';
-        let itens = [];
-        if (!temContratante) itens.push('<li>Contratante (instituição) não cadastrada</li>');
-        if (!temRep) itens.push('<li>Representante legal não cadastrado</li>');
-        if (!temEnd) itens.push('<li>Endereço incompleto (endereço, cidade e estado)</li>');
-
-        const editarLink = orgId
-            ? `<a href="/compras/organizacoes/${orgId}/editar/" class="btn btn-sm btn-warning">Resolver pendências</a>`
-            : '';
-
         pendenciasConteudo.innerHTML = `
             <div class="alert alert-warning mb-0">
                 <i class="bi bi-exclamation-triangle me-1"></i>
                 <strong>Pendências:</strong>
-                <ul class="mb-2 mt-1">${itens.join('')}</ul>
-                ${editarLink}
+                <ul class="mb-2 mt-1">
+                    <li>Contratante (instituição) não cadastrada</li>
+                </ul>
+                <a href="/compras/organizacoes/nova/" class="btn btn-sm btn-warning">
+                    Cadastrar contratante
+                </a>
             </div>
         `;
 
@@ -267,6 +290,36 @@ document.addEventListener('DOMContentLoaded', function() {
         hiddenContratada.value = orgId;
         contratadaDisplay.innerHTML = `${orgNome} (${orgCnpj})`;
         contratadaDisplay.classList.remove('bg-light');
+    }
+
+    function atualizarEndereco(endereco, cidade, estado) {
+        if (inputEndereco) inputEndereco.value = endereco || '';
+        if (inputCidade) inputCidade.value = cidade || '';
+        if (inputEstado) inputEstado.value = estado || '';
+    }
+
+    function atualizarRepresentantes(vinculos) {
+        if (!selectRepresentante) return;
+
+        const temVinculos = vinculos && vinculos.length > 0;
+
+        if (temVinculos) {
+            selectRepresentante.innerHTML = '';
+            vinculos.forEach(function(v) {
+                const opt = document.createElement('option');
+                opt.value = v.id;
+                opt.textContent = v.pessoa__nome + (v.cargo ? ' — ' + v.cargo : '');
+                selectRepresentante.appendChild(opt);
+            });
+            representanteSelectSection.style.display = '';
+            representanteDivider.style.display = '';
+            representanteNovoCampos.style.display = '';
+        } else {
+            representanteSelectSection.style.display = 'none';
+            representanteDivider.style.display = 'none';
+            representanteNovoCampos.style.display = '';
+            if (inputNovoRepNome) inputNovoRepNome.focus();
+        }
     }
 
     const btnEmpenho = document.getElementById('btn-carregar-empenho');
@@ -315,6 +368,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 if (data.organizacao) {
                     atualizarContratada(data.organizacao.id, data.organizacao.nome, data.organizacao.cnpj);
+                    atualizarEndereco(data.organizacao.endereco, data.organizacao.cidade, data.organizacao.estado);
                 }
 
                 if (data.compra) {
@@ -323,7 +377,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
 
                 if (data.representantes && data.organizacao) {
-                    atualizarPendencias(data.representantes.vinculos, data.organizacao.id, data.organizacao);
+                    atualizarRepresentantes(data.representantes.vinculos);
+                    atualizarPendencias(data.organizacao.id);
                 }
 
                 const inputNumero = document.getElementById('id_numero');

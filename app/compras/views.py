@@ -695,8 +695,6 @@ class ContratoCreateView(LoginRequiredMixin, CreateView):
         ctx['compra_info'] = None
         ctx['tem_contratante'] = Organizacao.objects.filter(is_propria_instituicao=True).exists()
         ctx['vinculos_contratada'] = VinculoOrganizacao.objects.none()
-        ctx['tem_representantes'] = False
-        ctx['tem_endereco'] = False
         return ctx
 
 class ContratoUpdateView(LoginRequiredMixin, UpdateView):
@@ -733,13 +731,9 @@ class ContratoUpdateView(LoginRequiredMixin, UpdateView):
                 organizacao=contratada, responsavel_assinatura=True, ativo=True
             ).select_related('pessoa')
             ctx['vinculos_contratada'] = vinculos
-            ctx['tem_representantes'] = vinculos.exists()
-            ctx['tem_endereco'] = bool(contratada.endereco and contratada.cidade and contratada.estado)
         else:
             ctx['contratada_info'] = None
             ctx['vinculos_contratada'] = VinculoOrganizacao.objects.none()
-            ctx['tem_representantes'] = False
-            ctx['tem_endereco'] = False
 
         return ctx
 
@@ -865,7 +859,7 @@ class ContratoPreencherView(LoginRequiredMixin, View):
             messages.error(
                 request,
                 "A empresa contratada não possui representante legal com autoridade de assinatura. "
-                "Cadastre um representante na edição da organização antes de gerar o contrato."
+                "Preencha os dados do representante no formulário do contrato antes de gerar o documento."
             )
             return redirect('contrato_update', pk=contrato.pk)
 
@@ -874,7 +868,7 @@ class ContratoPreencherView(LoginRequiredMixin, View):
             messages.error(
                 request,
                 "A empresa contratada não possui endereço completo (endereço, cidade e estado). "
-                "Preencha o endereço na edição da organização antes de gerar o contrato."
+                "Preencha o endereço no formulário do contrato antes de gerar o documento."
             )
             return redirect('contrato_update', pk=contrato.pk)
 
