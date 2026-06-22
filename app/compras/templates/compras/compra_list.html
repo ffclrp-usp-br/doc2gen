@@ -1,62 +1,80 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
-{% block title %}Compras{% endblock %}
+{% block title %}Compras - Doc2gen{% endblock %}
 
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <div>
-        <h3>Compras</h3>
-    </div>
-    <div class="btn-group" role="group" aria-label="Ações de compras">
-        <a href="{% url 'compra_create' %}" class="btn btn-primary">Nova Compra</a>
-        <a href="{% url 'compra_import_pdf' %}" class="btn btn-secondary">Importar Compra (PDF)</a>
+<div class="page-header">
+    <h3>Compras</h3>
+    <div class="d-flex gap-2">
+        <a href="{% url 'compra_create' %}" class="btn btn-primary">
+            <i class="bi bi-plus-lg"></i> Nova Compra
+        </a>
+        <a href="{% url 'compra_import_pdf' %}" class="btn btn-outline-secondary">
+            <i class="bi bi-file-earmark-pdf"></i> Importar PDF
+        </a>
     </div>
 </div>
-<div class="table-responsive">
-    <table class="table table-striped table-bordered">
-        <thead class="table-light">
-            <tr>
-                <th>Compra</th>
-                <th>SEI</th>
-                <th>Modalidade/Tipo/Objeto</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for compra in compras %}
-            <tr>
-                <td>{{ compra.numero_compra }}</td>
-                <td>{{ compra.numero_sei }}</td>
-                <td><small>{{ compra.objeto }}</small><br>
-                    <small>{{ compra.valor_total_previsto_brl }}</small><br>
-                    <small>{{ compra.tipo }}</small><br>
-                    <small>{{ compra.modalidade }}</small>
-                    {% if compra.disputa %}
-                    <small><span class="badge bg-success">Com disputa</span></small>
-                    {% else %}
-                    <small><span class="badge bg-danger">Sem disputa</span></small>
-                    {% endif %}
-                </td>
-                <td>
-                    <div class="d-flex flex-column gap-1">
-                        <a href="{% url 'kit_conferencia' compra.pk %}" class="btn btn-sm btn-outline-info">Kit
-                            Conferência</a>
-                        <a href="{% url 'item_list' compra.id %}" class="btn btn-sm  btn-outline-primary">Itens</a>
-                        <div class="btn-group">
-                            <a href="{% url 'compra_update' compra.pk %}"
-                                class="btn btn-sm btn-outline-warning">Editar</a>
-                            <a href="{% url 'compra_delete' compra.pk %}"
-                                class="btn btn-sm btn-outline-danger">Excluir</a>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="4" class="text-center">Nenhuma compra cadastrada.</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+
+<div class="card shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>Compra</th>
+                        <th>SEI</th>
+                        <th>Modalidade / Tipo / Objeto</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for compra in compras %}
+                    <tr>
+                        <td>{{ compra.numero_compra }}</td>
+                        <td>{{ compra.numero_sei }}</td>
+                        <td>
+                            <div>{{ compra.objeto }}</div>
+                            <small class="text-muted">{{ compra.valor_total_previsto_brl }}</small><br>
+                            <small class="text-muted">{{ compra.tipo }} / {{ compra.modalidade }}</small>
+                            {% if compra.disputa %}
+                            <span class="badge bg-success">Com disputa</span>
+                            {% else %}
+                            <span class="badge bg-danger">Sem disputa</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="d-flex flex-column gap-1">
+                                <a href="{% url 'kit_conferencia' compra.pk %}" class="btn btn-sm btn-outline-info">
+                                    <i class="bi bi-clipboard-check"></i> Kit Conferência
+                                </a>
+                                <a href="{% url 'item_list' compra.id %}" class="btn btn-sm btn-outline-primary">
+                                    <i class="bi bi-list-ul"></i> Itens
+                                </a>
+                                <div class="d-flex gap-1">
+                                    <a href="{% url 'compra_update' compra.pk %}" class="btn btn-sm btn-outline-secondary">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <a href="{% url 'compra_delete' compra.pk %}" class="btn btn-sm btn-outline-danger">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="empty-state">
+                            <i class="bi bi-cart3 d-block"></i>
+                            <p>Nenhuma compra cadastrada.</p>
+                            <a href="{% url 'compra_create' %}" class="btn btn-primary btn-sm">
+                                <i class="bi bi-plus-lg"></i> Criar primeira compra
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 {% endblock %}

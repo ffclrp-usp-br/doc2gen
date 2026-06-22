@@ -1,13 +1,16 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block title %}{% if object %}Editar{% else %}Nova{% endif %} Organização - Doc2gen{% endblock %}
 
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-md-8">
-        <div class="card shadow mb-4">
-            <div class="card-header bg-primary text-white">
-                <h3 class="mb-0">{% if object %}Editar{% else %}Nova{% endif %} Organização</h3>
+        <div class="card shadow-sm">
+            <div class="card-header">
+                <h4 class="mb-0">
+                    <i class="bi bi-building"></i>
+                    {% if object %}Editar{% else %}Nova{% endif %} Organização
+                </h4>
             </div>
             <div class="card-body">
                 <form method="post">
@@ -40,29 +43,35 @@
                             {{ form.estado }}
                         </div>
                         <div class="col-md-4 mb-3 d-flex align-items-end">
-                            <div class="form-check mb-2">
+                            <div class="form-check">
                                 {{ form.is_propria_instituicao }}
                                 <label class="form-check-label">{{ form.is_propria_instituicao.label }}</label>
                             </div>
                         </div>
                     </div>
-                    <div class="d-flex justify-content-between mt-4">
-                        <div>
-                            <a href="{% url 'organizacao_list' %}" class="btn btn-secondary">Cancelar</a>
+                    <div class="d-flex justify-content-between mt-4 pt-3 border-top">
+                        <div class="d-flex gap-2">
+                            <a href="{% url 'organizacao_list' %}" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left"></i> Cancelar
+                            </a>
                             {% if object %}
-                            <a href="{% url 'organizacao_delete' object.id %}" class="btn btn-danger me-2">Excluir</a>
+                            <a href="{% url 'organizacao_delete' object.id %}" class="btn btn-outline-danger">
+                                <i class="bi bi-trash"></i> Excluir
+                            </a>
                             {% endif %}
                         </div>
-                        <button type="submit" class="btn btn-success px-4">Salvar</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-check-lg"></i> Salvar
+                        </button>
                     </div>
                 </form>
             </div>
         </div>
 
         {% if object %}
-        <div class="card shadow">
-            <div class="card-header bg-dark text-white">
-                <h4 class="mb-0">Pessoas Responsáveis</h4>
+        <div class="card shadow-sm mt-4">
+            <div class="card-header">
+                <h4 class="mb-0"><i class="bi bi-people"></i> Pessoas Responsáveis</h4>
             </div>
             <div class="card-body">
                 <div id="vinculos-container">
@@ -79,8 +88,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalPessoaLabel">Cadastrar Pessoa</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="modalPessoaLabel"><i class="bi bi-person-plus"></i> Cadastrar Pessoa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
             <form id="form-nova-pessoa" onsubmit="salvarPessoa(event)">
                 {% csrf_token %}
@@ -96,8 +105,10 @@
                     <div id="pessoa-erro" class="alert alert-danger d-none"></div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary" id="btn-salvar-pessoa">Salvar</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" id="btn-salvar-pessoa">
+                        <i class="bi bi-check-lg"></i> Salvar
+                    </button>
                 </div>
             </form>
         </div>
@@ -179,12 +190,13 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => response.json())
         .then(data => {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="bi bi-plus-lg"></i>';
+
             if (data.success) {
                 carregarVinculos();
             } else {
                 alert(data.error || 'Erro ao adicionar responsável.');
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = '+';
             }
         });
     };
@@ -217,7 +229,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             btnSalvar.disabled = false;
-            btnSalvar.textContent = 'Salvar';
+            btnSalvar.innerHTML = '<i class="bi bi-check-lg"></i> Salvar';
 
             if (data.success) {
                 modalPessoa.hide();
@@ -234,7 +246,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(err => {
             console.error('Erro ao salvar pessoa:', err);
             btnSalvar.disabled = false;
-            btnSalvar.textContent = 'Salvar';
+            btnSalvar.innerHTML = '<i class="bi bi-check-lg"></i> Salvar';
             alert('Erro ao cadastrar pessoa. Tente novamente.');
         });
     };

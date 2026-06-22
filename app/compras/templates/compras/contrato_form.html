@@ -3,183 +3,192 @@
 {% block title %}{% if object %}Editar{% else %}Novo{% endif %} Contrato - Doc2gen{% endblock %}
 
 {% block content %}
-<div class="container py-4">
-    <div class="row justify-content-center">
-        <div class="col-lg-8">
-            <div class="card shadow">
-                <div class="card-header bg-dark text-white">
-                    <h4 class="mb-0">{% if object %}Editar{% else %}Novo{% endif %} Contrato</h4>
-                </div>
-                <div class="card-body">
-                    <form method="post" id="form-contrato">
-                        {% csrf_token %}
-                        {% if form.non_field_errors %}
-                        <div class="alert alert-danger">
-                            {% for error in form.non_field_errors %}
-                            <p class="mb-0">{{ error }}</p>
-                            {% endfor %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card shadow-sm">
+            <div class="card-header">
+                <h4 class="mb-0">
+                    <i class="bi bi-file-earmark-text"></i>
+                    {% if object %}Editar{% else %}Novo{% endif %} Contrato
+                </h4>
+            </div>
+            <div class="card-body">
+                <form method="post" id="form-contrato">
+                    {% csrf_token %}
+                    {% if form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        {% for error in form.non_field_errors %}
+                        <p class="mb-0">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    {{ form.empenho_id }}
+                    {{ form.contratada }}
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Número do Contrato</label>
+                            {{ form.numero }}
+                            {% if form.numero.errors %}<div class="text-danger small">{{ form.numero.errors }}</div>{% endif %}
                         </div>
-                        {% endif %}
-                        {{ form.empenho_id }}
-                        {{ form.contratada }}
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label class="form-label">Número do Contrato</label>
-                                {{ form.numero }}
-                                {% if form.numero.errors %}<div class="text-danger small">{{ form.numero.errors }}</div>{% endif %}
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Data</label>
-                                {{ form.data }}
-                                {% if form.data.errors %}<div class="text-danger small">{{ form.data.errors }}</div>{% endif %}
-                            </div>
-                            <div class="col-md-10">
-                                <label class="form-label">Compra Relacionada</label>
-                                {{ form.compra }}
-                                <div id="compra-display" class="form-control bg-light">
-                                    {% if compra_info %}
-                                        {{ compra_info.numero }}
-                                        {% if compra_info.objeto %} — {{ compra_info.objeto }}{% endif %}
-                                    {% else %}
-                                        <span class="text-muted">Carregue a nota de empenho.</span>
-                                    {% endif %}
-                                </div>
-                            </div>
-                            <div class="col-md-2 d-flex align-items-end">
-                                <button type="button" class="btn btn-info w-100" id="btn-carregar-empenho">
-                                    <i class="bi bi-file-earmark-pdf"></i> Empenho
-                                </button>
-                            </div>
-
-                            <!-- Campos da Compra Relacionada -->
-                            <div class="col-12 mt-3 border-top pt-3">
-                                <h6 class="text-muted mb-3"><i class="bi bi-info-circle me-1"></i>Dados da Compra Relacionada</h6>
-                                <div class="row g-3">
-                                    <div class="col-md-4">
-                                        <label class="form-label">Valor Efetivo</label>
-                                        {{ form.valor_efetivo }}
-                                        {% if form.valor_efetivo.errors %}<div class="text-danger small">{{ form.valor_efetivo.errors }}</div>{% endif %}
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label class="form-label">Data Estimativa Orçamento</label>
-                                        {{ form.data_estimativa_orcamento }}
-                                        {% if form.data_estimativa_orcamento.errors %}<div class="text-danger small">{{ form.data_estimativa_orcamento.errors }}</div>{% endif %}
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label class="form-label">Data Proposta Comercial</label>
-                                        {{ form.data_proposta_comercial }}
-                                        {% if form.data_proposta_comercial.errors %}<div class="text-danger small">{{ form.data_proposta_comercial.errors }}</div>{% endif %}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Contratada (fixa, preenchida pelo empenho) -->
-                            <div class="col-md-12 mt-3 border-top pt-3">
-                                <label class="form-label">Contratada (Fornecedor)</label>
-                                <div id="contratada-display" class="form-control bg-light">
-                                    {% if contratada_info %}
-                                        {{ contratada_info.nome }} ({{ contratada_info.cnpj }})
-                                    {% else %}
-                                        <span class="text-muted">A empresa será preenchida automaticamente ao carregar a nota de empenho.</span>
-                                    {% endif %}
-                                </div>
-                            </div>
-
-                            <!-- Endereço da Contratada -->
-                            <div class="col-12 mt-3 border-top pt-3" id="endereco-contratada-section">
-                                <h6 class="text-muted mb-3"><i class="bi bi-geo-alt me-1"></i>Endereço da Contratada</h6>
-                                <div class="row g-3">
-                                    <div class="col-md-8">
-                                        <label class="form-label">Endereço</label>
-                                        {{ form.contratada_endereco }}
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="form-label">Cidade</label>
-                                        {{ form.contratada_cidade }}
-                                    </div>
-                                    <div class="col-md-1">
-                                        <label class="form-label">UF</label>
-                                        {{ form.contratada_estado }}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Representante Legal da Contratada -->
-                            <div class="col-12 mt-3 border-top pt-3" id="representante-contratada-section">
-                                <h6 class="text-muted mb-3"><i class="bi bi-person-badge me-1"></i>Representante Legal da Contratada</h6>
-
-                                <!-- Select de representantes existentes -->
-                                <div class="row g-3 mb-3" id="representante-select-section">
-                                    <div class="col-md-12">
-                                        <label class="form-label">Representante existente</label>
-                                        {{ form.representante_contratada }}
-                                    </div>
-                                </div>
-
-                                <!-- Separação visual -->
-                                <div class="text-center text-muted small my-2" id="representante-divider">ou cadastre um novo representante</div>
-
-                                <!-- Campos para novo representante -->
-                                <div class="row g-3" id="representante-novo-campos">
-                                    <div class="col-md-5">
-                                        <label class="form-label">Nome completo</label>
-                                        {{ form.novo_representante_nome }}
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="form-label">CPF</label>
-                                        {{ form.novo_representante_cpf }}
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label class="form-label">Cargo/Função</label>
-                                        {{ form.novo_representante_cargo }}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Pendências -->
-                            <div class="col-md-12 mt-3" id="pendencias-section" style="display:none">
-                                <div id="pendencias-conteudo"></div>
-                            </div>
-
-                            <div class="col-md-12">
-                                <div class="row g-3">
-                                    <div class="col-md-6">
-                                        <label class="form-label">Modalidade de Garantia</label>
-                                        {{ form.modalidade_garantia }}
-                                        {% if form.modalidade_garantia.errors %}<div class="text-danger small">{{ form.modalidade_garantia.errors }}</div>{% endif %}
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="form-label">Porcentual de Garantia</label>
-                                        {{ form.porcentual_garantia }}
-                                        {% if form.porcentual_garantia.errors %}<div class="text-danger small">{{ form.porcentual_garantia.errors }}</div>{% endif %}
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="form-label">Valor da Garantia</label>
-                                        {{ form.valor_garantia }}
-                                        {% if form.valor_garantia.errors %}<div class="text-danger small">{{ form.valor_garantia.errors }}</div>{% endif %}
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Data</label>
+                            {{ form.data }}
+                            {% if form.data.errors %}<div class="text-danger small">{{ form.data.errors }}</div>{% endif %}
                         </div>
 
-                        <div class="mt-4 border-top pt-3 d-flex justify-content-between align-items-center">
-                            <div>
-                                {% if object %}
-                                    <a href="{% url 'contrato_delete' object.id %}" class="btn btn-danger me-2">Excluir</a>
-                                    <button type="button" class="btn btn-success me-2" id="btn-preencher"
-                                        {% if not tem_contratante %}disabled title="Resolva as pendências para habilitar esta opção"{% endif %}
-                                        onclick="document.getElementById('file-{{ object.id }}').click();">
-                                        Preencher contrato
-                                    </button>
+                        <div class="col-md-10">
+                            <label class="form-label">Compra Relacionada</label>
+                            {{ form.compra }}
+                            <div id="compra-display" class="form-control">
+                                {% if compra_info %}
+                                    {{ compra_info.numero }}
+                                    {% if compra_info.objeto %} — {{ compra_info.objeto }}{% endif %}
+                                {% else %}
+                                    <span class="text-muted">Carregue a nota de empenho.</span>
                                 {% endif %}
                             </div>
-                            <div>
-                                <a href="{% url 'contrato_list' %}" class="btn btn-outline-secondary me-2">Fechar</a>
-                                <button type="submit" class="btn btn-primary">Salvar Contrato</button>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-end">
+                            <button type="button" class="btn btn-info w-100" id="btn-carregar-empenho">
+                                <i class="bi bi-file-earmark-pdf"></i> Empenho
+                            </button>
+                        </div>
+
+                        <!-- Dados da Compra -->
+                        <div class="col-12 pt-3 border-top">
+                            <div class="section-label"><i class="bi bi-info-circle"></i> Dados da Compra Relacionada</div>
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <label class="form-label">Valor Efetivo</label>
+                                    {{ form.valor_efetivo }}
+                                    {% if form.valor_efetivo.errors %}<div class="text-danger small">{{ form.valor_efetivo.errors }}</div>{% endif %}
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Data Estimativa Orçamento</label>
+                                    {{ form.data_estimativa_orcamento }}
+                                    {% if form.data_estimativa_orcamento.errors %}<div class="text-danger small">{{ form.data_estimativa_orcamento.errors }}</div>{% endif %}
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Data Proposta Comercial</label>
+                                    {{ form.data_proposta_comercial }}
+                                    {% if form.data_proposta_comercial.errors %}<div class="text-danger small">{{ form.data_proposta_comercial.errors }}</div>{% endif %}
+                                </div>
                             </div>
                         </div>
-                    </form>
-                </div>
+
+                        <!-- Contratada -->
+                        <div class="col-12 pt-3 border-top">
+                            <label class="form-label">Contratada (Fornecedor)</label>
+                            <div id="contratada-display" class="form-control">
+                                {% if contratada_info %}
+                                    {{ contratada_info.nome }} ({{ contratada_info.cnpj }})
+                                {% else %}
+                                    <span class="text-muted">A empresa será preenchida automaticamente ao carregar a nota de empenho.</span>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Endereço da Contratada -->
+                        <div class="col-12 pt-3 border-top" id="endereco-contratada-section">
+                            <div class="section-label"><i class="bi bi-geo-alt"></i> Endereço da Contratada</div>
+                            <div class="row g-3">
+                                <div class="col-md-8">
+                                    <label class="form-label">Endereço</label>
+                                    {{ form.contratada_endereco }}
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">Cidade</label>
+                                    {{ form.contratada_cidade }}
+                                </div>
+                                <div class="col-md-1">
+                                    <label class="form-label">UF</label>
+                                    {{ form.contratada_estado }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Representante Legal -->
+                        <div class="col-12 pt-3 border-top" id="representante-contratada-section">
+                            <div class="section-label"><i class="bi bi-person-badge"></i> Representante Legal da Contratada</div>
+
+                            <div class="row g-3 mb-3" id="representante-select-section">
+                                <div class="col-md-12">
+                                    <label class="form-label">Representante existente</label>
+                                    {{ form.representante_contratada }}
+                                </div>
+                            </div>
+
+                            <div class="text-center text-muted small my-2" id="representante-divider">ou cadastre um novo representante</div>
+
+                            <div class="row g-3" id="representante-novo-campos">
+                                <div class="col-md-5">
+                                    <label class="form-label">Nome completo</label>
+                                    {{ form.novo_representante_nome }}
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">CPF</label>
+                                    {{ form.novo_representante_cpf }}
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Cargo / Função</label>
+                                    {{ form.novo_representante_cargo }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pendências -->
+                        <div class="col-md-12 mt-3" id="pendencias-section" style="display:none">
+                            <div id="pendencias-conteudo"></div>
+                        </div>
+
+                        <!-- Garantia -->
+                        <div class="col-12 pt-3 border-top">
+                            <div class="section-label"><i class="bi bi-shield-check"></i> Garantia</div>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Modalidade de Garantia</label>
+                                    {{ form.modalidade_garantia }}
+                                    {% if form.modalidade_garantia.errors %}<div class="text-danger small">{{ form.modalidade_garantia.errors }}</div>{% endif %}
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">Porcentual de Garantia</label>
+                                    {{ form.porcentual_garantia }}
+                                    {% if form.porcentual_garantia.errors %}<div class="text-danger small">{{ form.porcentual_garantia.errors }}</div>{% endif %}
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">Valor da Garantia</label>
+                                    {{ form.valor_garantia }}
+                                    {% if form.valor_garantia.errors %}<div class="text-danger small">{{ form.valor_garantia.errors }}</div>{% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="mt-4 pt-3 border-top d-flex justify-content-between align-items-center">
+                        <div class="d-flex gap-2">
+                            {% if object %}
+                                <a href="{% url 'contrato_delete' object.id %}" class="btn btn-outline-danger">
+                                    <i class="bi bi-trash"></i> Excluir
+                                </a>
+                                <button type="button" class="btn btn-success" id="btn-preencher"
+                                    {% if not tem_contratante %}disabled title="Resolva as pendências para habilitar esta opção"{% endif %}
+                                    onclick="document.getElementById('file-{{ object.id }}').click();">
+                                    <i class="bi bi-file-earmark-word"></i> Preencher contrato
+                                </button>
+                            {% endif %}
+                        </div>
+                        <div class="d-flex gap-2">
+                            <a href="{% url 'contrato_list' %}" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left"></i> Fechar
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-check-lg"></i> Salvar Contrato
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -238,7 +247,6 @@ document.addEventListener('DOMContentLoaded', function() {
         let texto = compraNumero;
         if (compraObjeto) texto += ' — ' + compraObjeto;
         compraDisplay.innerHTML = texto;
-        compraDisplay.classList.remove('bg-light');
     }
 
     function buscarDetalhesCompra(compraId) {
@@ -275,7 +283,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <li>Contratante (instituição) não cadastrada</li>
                 </ul>
                 <a href="/compras/organizacoes/nova/" class="btn btn-sm btn-warning">
-                    Cadastrar contratante
+                    <i class="bi bi-plus-lg"></i> Cadastrar contratante
                 </a>
             </div>
         `;
@@ -289,7 +297,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function atualizarContratada(orgId, orgNome, orgCnpj) {
         hiddenContratada.value = orgId;
         contratadaDisplay.innerHTML = `${orgNome} (${orgCnpj})`;
-        contratadaDisplay.classList.remove('bg-light');
     }
 
     function atualizarEndereco(endereco, cidade, estado) {
@@ -343,7 +350,7 @@ document.addEventListener('DOMContentLoaded', function() {
             : '/compras/contratos/empenho/upload/';
 
         btnEmpenho.disabled = true;
-        btnEmpenho.textContent = 'Carregando...';
+        btnEmpenho.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Carregando...';
 
         fetch(url, {
             method: 'POST',

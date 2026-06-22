@@ -1,23 +1,29 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block title %}Excluir Organização - Doc2gen{% endblock %}
 
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-md-6">
-        <div class="card shadow border-danger">
-            <div class="card-header bg-danger text-white">
-                <h4 class="mb-0">Confirmar Exclusão</h4>
+        <div class="card shadow-sm">
+            <div class="card-header" style="background: var(--color-danger); color: var(--color-danger-text);">
+                <h4 class="mb-0"><i class="bi bi-exclamation-triangle"></i> Confirmar Exclusão</h4>
             </div>
             <div class="card-body text-center py-4">
-                <p class="lead">Tem certeza que deseja excluir a organização <strong>{{ object.nome }}</strong>?</p>
-                <p class="text-muted small">Esta ação não pode ser desfeita e removerá permanentemente todos os dados da organização, incluindo vínculos com pessoas responsáveis.</p>
-                
-                <form method="post" class="mt-4">
+                <p class="mb-2">Tem certeza que deseja excluir a organização <strong>{{ object.nome }}</strong>?</p>
+                <p class="text-muted small mb-4">
+                    Esta ação não pode ser desfeita e removerá permanentemente todos os vínculos e dados associados.
+                </p>
+
+                <form method="post">
                     {% csrf_token %}
-                    <div class="d-flex justify-content-center gap-3">
-                        <a href="{% url 'organizacao_list' %}" class="btn btn-secondary">Cancelar</a>
-                        <button type="submit" class="btn btn-danger px-4">Confirmar Exclusão</button>
+                    <div class="d-flex justify-content-center gap-2">
+                        <a href="{% url 'organizacao_list' %}" class="btn btn-outline-secondary">
+                            <i class="bi bi-x-lg"></i> Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="bi bi-trash"></i> Confirmar Exclusão
+                        </button>
                     </div>
                 </form>
             </div>

@@ -3,13 +3,17 @@
 {% block title %}Contratos - Doc2gen{% endblock %}
 
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-4">
+<div class="page-header">
     <h3>Contratos</h3>
     {% if tem_contratante %}
-        <a href="{% url 'contrato_create' %}" class="btn btn-primary">Novo Contrato</a>
+        <a href="{% url 'contrato_create' %}" class="btn btn-primary">
+            <i class="bi bi-plus-lg"></i> Novo Contrato
+        </a>
     {% else %}
         <div>
-            <button class="btn btn-primary" disabled>Cadastrar contrato</button>
+            <button class="btn btn-primary" disabled>
+                <i class="bi bi-plus-lg"></i> Cadastrar contrato
+            </button>
             <div class="text-warning small mt-1">
                 <i class="bi bi-exclamation-triangle"></i>
                 Cadastre a instituição contratante antes de criar contratos.
@@ -20,10 +24,10 @@
 </div>
 
 <div class="card shadow-sm">
-    <div class="card-body">
+    <div class="card-body p-0">
         <div class="table-responsive">
-            <table class="table table-hover">
-                <thead class="table-light">
+            <table class="table table-hover mb-0">
+                <thead>
                     <tr>
                         <th>Número</th>
                         <th>Compra</th>
@@ -43,12 +47,22 @@
                         <td>{{ contrato.data|date:"d/m/Y"|default:"-" }}</td>
                         <td>
                             <a href="{% url 'contrato_update' contrato.id %}"
-                                class="btn btn-sm btn-outline-primary">Editar</a>
+                                class="btn btn-sm btn-outline-primary">
+                                <i class="bi bi-pencil"></i> Editar
+                            </a>
                         </td>
                     </tr>
                     {% empty %}
                     <tr>
-                        <td colspan="5" class="text-center py-4 text-muted">Nenhum contrato cadastrado.</td>
+                        <td colspan="6" class="empty-state">
+                            <i class="bi bi-file-earmark-text d-block"></i>
+                            <p>Nenhum contrato cadastrado.</p>
+                            {% if tem_contratante %}
+                            <a href="{% url 'contrato_create' %}" class="btn btn-primary btn-sm">
+                                <i class="bi bi-plus-lg"></i> Criar primeiro contrato
+                            </a>
+                            {% endif %}
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>

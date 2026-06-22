@@ -3,99 +3,124 @@
 {% block title %}Itens da Compra{% endblock %}
 
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-4">
+<div class="page-header">
     <h3>Itens da compra</h3>
-    <div>
-        <a href="{% url 'item_create' compra.id %}" class="btn btn-primary me-2">Novo item</a>
-        <a href="{% url 'compra_list' %}" class="btn btn-secondary">Lista de compras</a>
+    <div class="d-flex gap-2">
+        <a href="{% url 'item_create' compra.id %}" class="btn btn-primary">
+            <i class="bi bi-plus-lg"></i> Novo item
+        </a>
+        <a href="{% url 'compra_list' %}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Lista de compras
+        </a>
     </div>
 </div>
 
-
-
-<div class="table-responsive">
-    <table class="table table-striped table-bordered">
-        <thead class="table-light">
-            <tr>
-                <th>Compra</th>
-                <th>SEI</th>
-                <th>Modalidade/Tipo/Objeto</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>{{ compra.numero_compra }}</td>
-                <td>{{ compra.numero_sei }}</td>
-                <td><small>{{ compra.objeto }}</small><br>
-                    <small>{{ compra.tipo }}</small><br>
-                    <small>{{ compra.modalidade }}</small>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+<div class="card shadow-sm mb-4">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>Compra</th>
+                        <th>SEI</th>
+                        <th>Modalidade / Tipo / Objeto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ compra.numero_compra }}</td>
+                        <td>{{ compra.numero_sei }}</td>
+                        <td>
+                            <div>{{ compra.objeto }}</div>
+                            <small class="text-muted">{{ compra.tipo }} / {{ compra.modalidade }}</small>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
-
-
-<div class="table-responsive">
-    <table class="table table-striped table-bordered">
-        <thead class="table-light">
-            <tr>
-                <th>#</th>
-                <th><small>Demanda</small></th>
-                <th><small>Centro Gerencial<br>Grupo Orçamentário</small><br><small>Item Despesa</small></th>
-                <th style="max-width: 5%;"><small>Qtde</small></th>
-                <th style="min-width: 25%;"><small>Descrição</small></th>
-                <th><small>Valor Médio</small><br><small>Pesquisas</small></th>
-                <th><small>Ações</small></th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in itens %}
-            <tr>
-                <td>{{ item.numero_ordem }}</td>
-                <td>{{ item.demanda.numero_demanda }}</td>
-                <td>{{ item.demanda.centro_gerencial }}<br>
-                    {{ item.demanda.grupo_orcamentario }}<br>
-                    <small>{{ item.item_despesa }}</small> <br>
-                </td>
-
-                <td>{{ item.quantidade }}<br><small class="text-muted">{{ item.unidade_medida|default:"" }}</small></td>
-                <td>
-                    {{ item.descricao }}<br>
-                    <hr class="my-1">
-                    <small>
-                        Material: {{ item.codigo_material }}<br>
-                        Bem: {{ item.codigo_bem }}<br>
-                        Contabiliza: {{ item.codigo_contabiliza }}<br>
-                        Compras gov: {{ item.codigo_comprasgov }} <br>
-                    </small></td>
-                <td>
-                    {% if item.pesquisas.all %}
-                    {{ item.valor_medio_brl |default:"N/A" }}
-                    <hr class="my-1">
-                    <small>
-                        {% for pesquisa in item.pesquisas.all %}
-                        {{ pesquisa.valor_unitario_brl|default:"N/A" }} {{ pesquisa.nome_fornecedor }} <br>
-                        {% endfor %}
-                    </small>
-                    {% else %}
-                    <small><em>Nenhuma pesquisa</em></small>
-                    {% endif %}
-                </td>
-                <td>
-                    <a href="{% url 'pesquisa_list' compra.id %}?item={{ item.pk }}"
-                        class="btn btn-sm btn-info my-1">Pesquisas</a>
-                    <br><a href="{% url 'item_update' item.pk %}" class="btn btn-sm btn-outline-warning my-1">Editar</a>
-                    <br><a href="{% url 'item_delete' item.pk %}" class="btn btn-sm btn-outline-danger my-1">Excluir</a>
-                </td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="10" class="text-center">Nenhum item cadastrado.</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<div class="card shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Demanda</th>
+                        <th>Centro Gerencial / Grupo Orçamentário / Item Despesa</th>
+                        <th>Qtde</th>
+                        <th>Descrição</th>
+                        <th>Valor Médio / Pesquisas</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in itens %}
+                    <tr>
+                        <td>{{ item.numero_ordem }}</td>
+                        <td>{{ item.demanda.numero_demanda }}</td>
+                        <td>
+                            {{ item.demanda.centro_gerencial }}<br>
+                            {{ item.demanda.grupo_orcamentario }}<br>
+                            <small class="text-muted">{{ item.item_despesa }}</small>
+                        </td>
+                        <td>
+                            {{ item.quantidade }}
+                            <small class="text-muted">{{ item.unidade_medida|default:"" }}</small>
+                        </td>
+                        <td>
+                            {{ item.descricao }}
+                            <hr class="my-1 section-divider">
+                            <small class="text-muted">
+                                Material: {{ item.codigo_material }}<br>
+                                Bem: {{ item.codigo_bem }}<br>
+                                Contabiliza: {{ item.codigo_contabiliza }}<br>
+                                Compras gov: {{ item.codigo_comprasgov }}
+                            </small>
+                        </td>
+                        <td>
+                            {% if item.pesquisas.all %}
+                            <div>{{ item.valor_medio_brl|default:"N/A" }}</div>
+                            <hr class="my-1 section-divider">
+                            <small class="text-muted">
+                                {% for pesquisa in item.pesquisas.all %}
+                                {{ pesquisa.valor_unitario_brl|default:"N/A" }} — {{ pesquisa.nome_fornecedor }}<br>
+                                {% endfor %}
+                            </small>
+                            {% else %}
+                            <small class="text-muted"><em>Nenhuma pesquisa</em></small>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="d-flex flex-column gap-1">
+                                <a href="{% url 'pesquisa_list' compra.id %}?item={{ item.pk }}" class="btn btn-sm btn-outline-info">
+                                    <i class="bi bi-search"></i> Pesquisas
+                                </a>
+                                <a href="{% url 'item_update' item.pk %}" class="btn btn-sm btn-outline-secondary">
+                                    <i class="bi bi-pencil"></i> Editar
+                                </a>
+                                <a href="{% url 'item_delete' item.pk %}" class="btn btn-sm btn-outline-danger">
+                                    <i class="bi bi-trash"></i> Excluir
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="7" class="empty-state">
+                            <i class="bi bi-list-ul d-block"></i>
+                            <p>Nenhum item cadastrado.</p>
+                            <a href="{% url 'item_create' compra.id %}" class="btn btn-primary btn-sm">
+                                <i class="bi bi-plus-lg"></i> Adicionar primeiro item
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 {% endblock %}

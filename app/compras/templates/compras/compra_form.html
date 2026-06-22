@@ -5,77 +5,88 @@
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-md-8">
-        <div class="card">
+        <div class="card shadow-sm">
             <div class="card-header">
-                <h1 class="card-title">{% if object %}Editar Compra{% else %}Nova Compra{% endif %}</h3>
+                <h4 class="mb-0">
+                    <i class="bi bi-cart3"></i>
+                    {% if object %}Editar Compra{% else %}Nova Compra{% endif %}
+                </h4>
             </div>
             <div class="card-body">
-                <form method="post">{% csrf_token %}
+                <form method="post">
+                    {% csrf_token %}
                     <div class="mb-3">
-                        {{ form.numero_compra.label_tag }}
+                        <label class="form-label">{{ form.numero_compra.label }}</label>
                         {{ form.numero_compra }}
                         {% if form.numero_compra.errors %}
-                        <div class="text-danger">{{ form.numero_compra.errors }}</div>
+                        <div class="text-danger small">{{ form.numero_compra.errors }}</div>
                         {% endif %}
                     </div>
                     <div class="mb-3">
-                        {{ form.numero_sei.label_tag }}
+                        <label class="form-label">{{ form.numero_sei.label }}</label>
                         {{ form.numero_sei }}
                         {% if form.numero_sei.errors %}
-                        <div class="text-danger">{{ form.numero_sei.errors }}</div>
+                        <div class="text-danger small">{{ form.numero_sei.errors }}</div>
                         {% endif %}
                     </div>
                     <div class="mb-3">
-                        {{ form.objeto.label_tag }}
+                        <label class="form-label">{{ form.objeto.label }}</label>
                         {{ form.objeto }}
                         {% if form.objeto.errors %}
-                        <div class="text-danger">{{ form.objeto.errors }}</div>
+                        <div class="text-danger small">{{ form.objeto.errors }}</div>
                         {% endif %}
                     </div>
                     <div class="mb-3">
-                        {{ form.valor_total_previsto.label_tag }}
+                        <label class="form-label">{{ form.valor_total_previsto.label }}</label>
                         {{ form.valor_total_previsto }}
                         {% if form.valor_total_previsto.errors %}
-                        <div class="text-danger">{{ form.valor_total_previsto.errors }}</div>
+                        <div class="text-danger small">{{ form.valor_total_previsto.errors }}</div>
                         {% endif %}
                     </div>
                     <div class="mb-3">
-                        {{ form.modalidade.label_tag }}
+                        <label class="form-label">{{ form.modalidade.label }}</label>
                         {{ form.modalidade }}
                         {% if form.modalidade.errors %}
-                        <div class="text-danger">{{ form.modalidade.errors }}</div>
+                        <div class="text-danger small">{{ form.modalidade.errors }}</div>
                         {% endif %}
                     </div>
                     <div class="mb-3">
-                        {{ form.tipo.label_tag }}
+                        <label class="form-label">{{ form.tipo.label }}</label>
                         {{ form.tipo }}
                         {% if form.tipo.errors %}
-                        <div class="text-danger">{{ form.tipo.errors }}</div>
+                        <div class="text-danger small">{{ form.tipo.errors }}</div>
                         {% endif %}
                     </div>
-
                     <div class="mb-3">
-                        {{ form.nome_agente_contratacao.label_tag }}
+                        <label class="form-label">{{ form.nome_agente_contratacao.label }}</label>
                         {{ form.nome_agente_contratacao }}
                         {% if form.nome_agente_contratacao.errors %}
-                        <div class="text-danger">{{ form.nome_agente_contratacao.errors }}</div>
+                        <div class="text-danger small">{{ form.nome_agente_contratacao.errors }}</div>
                         {% endif %}
                     </div>
                     <div class="mb-3 form-check">
                         {{ form.disputa }}
-                        <label class="form-check-label" for="{{ form.disputa.id_for_label }}">Disputa?</label>
+                        <label class="form-check-label" for="{{ form.disputa.id_for_label }}">{{ form.disputa.label }}</label>
                         {% if form.disputa.errors %}
-                        <div class="text-danger">{{ form.disputa.errors }}</div>
+                        <div class="text-danger small">{{ form.disputa.errors }}</div>
                         {% endif %}
                     </div>
-                    <button type="submit" class="btn btn-success">Salvar</button>
 
-                    <a href="{% url 'compra_delete' compra.pk %}" class="btn btn-danger">Excluir</a>
-
-                    <a href="{% url 'compra_list' %}" class="btn btn-secondary">Voltar ao cadastro</a>
-
-
-
+                    <div class="d-flex justify-content-between mt-4 pt-3 border-top">
+                        <div class="d-flex gap-2">
+                            <a href="{% url 'compra_list' %}" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left"></i> Voltar
+                            </a>
+                            {% if object %}
+                            <a href="{% url 'compra_delete' compra.pk %}" class="btn btn-outline-danger">
+                                <i class="bi bi-trash"></i> Excluir
+                            </a>
+                            {% endif %}
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-check-lg"></i> Salvar
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>

@@ -3,20 +3,28 @@
 {% block title %}Confirmar Exclusão de Cotação{% endblock %}
 
 {% block content %}
-<div class="d-flex justify-content-center">
-    <div class="card" style="width: 50%;">
-        <div class="card-header">
-            <h1 class="card-title">Confirmar Exclusão</h3>
-        </div>
-        <div class="card-body">
-            <p>Tem certeza de que deseja excluir a cotação do fornecedor <strong>{{ object.fornecedor }}</strong>?</p>
-            <form method="post">
-                {% csrf_token %}
-                <div class="d-flex justify-content-between">
-                    <a href="{% url 'cotacao_list' object.compra_id %}" class="btn btn-secondary">Cancelar</a>
-                    <button type="submit" class="btn btn-danger">Excluir</button>
-                </div>
-            </form>
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-header" style="background: var(--color-danger); color: var(--color-danger-text);">
+                <h4 class="mb-0"><i class="bi bi-exclamation-triangle"></i> Confirmar Exclusão</h4>
+            </div>
+            <div class="card-body text-center py-4">
+                <p class="mb-2">Tem certeza que deseja excluir a cotação do fornecedor <strong>{{ object.fornecedor }}</strong>?</p>
+                <p class="text-muted small mb-4">Esta ação não pode ser desfeita.</p>
+
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="d-flex justify-content-center gap-2">
+                        <a href="{% url 'cotacao_list' object.compra_id %}" class="btn btn-outline-secondary">
+                            <i class="bi bi-x-lg"></i> Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="bi bi-trash"></i> Confirmar Exclusão
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

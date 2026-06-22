@@ -3,18 +3,13 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-
 <div class="row justify-content-center">
     <div class="col-md-4">
-
-
         <div class="card shadow-sm">
             <div class="card-header">
-                <h4 class="mb-0"></h4>
+                <h4 class="mb-0"><i class="bi bi-box-arrow-in-right"></i> Entrar</h4>
             </div>
-
             <div class="card-body">
-
                 {% if form.errors %}
                 <div class="alert alert-danger">
                     Usuário ou senha inválidos.
@@ -31,33 +26,23 @@
 
                 <form method="post">
                     {% csrf_token %}
-
                     <div class="mb-3">
-                        <label for="id_username" class="form-label">
-                            Usuário
-                        </label>
+                        <label for="id_username" class="form-label">Usuário</label>
                         <input type="text" name="username" id="id_username" class="form-control" required autofocus>
                     </div>
-
                     <div class="mb-3">
-                        <label for="id_password" class="form-label">
-                            Senha
-                        </label>
+                        <label for="id_password" class="form-label">Senha</label>
                         <input type="password" name="password" id="id_password" class="form-control" required>
                     </div>
-
                     <button type="submit" class="btn btn-primary w-100">
-                        Entrar
+                        <i class="bi bi-box-arrow-in-right"></i> Entrar
                     </button>
-
                     {% if next %}
                     <input type="hidden" name="next" value="{{ next }}">
                     {% endif %}
                 </form>
-
             </div>
         </div>
-
     </div>
 </div>
 {% endblock %}

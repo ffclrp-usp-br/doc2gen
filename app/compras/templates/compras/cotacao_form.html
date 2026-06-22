@@ -5,36 +5,43 @@
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-md-6">
-        <div class="card">
+        <div class="card shadow-sm">
             <div class="card-header">
-                <h1 class="card-title">Editar Cotação</h3>
+                <h4 class="mb-0">
+                    <i class="bi bi-receipt"></i> Editar Cotação
+                </h4>
             </div>
             <div class="card-body">
-                <form method="post">{% csrf_token %}
+                <form method="post">
+                    {% csrf_token %}
                     <div class="mb-3">
-                        {{ form.fornecedor.label_tag }}
+                        <label class="form-label">{{ form.fornecedor.label }}</label>
                         {{ form.fornecedor }}
                         {% if form.fornecedor.errors %}
-                            <div class="text-danger">{{ form.fornecedor.errors }}</div>
+                        <div class="text-danger small">{{ form.fornecedor.errors }}</div>
                         {% endif %}
                     </div>
                     <div class="mb-3">
-                        {{ form.quantidade.label_tag }}
+                        <label class="form-label">{{ form.quantidade.label }}</label>
                         {{ form.quantidade }}
                         {% if form.quantidade.errors %}
-                            <div class="text-danger">{{ form.quantidade.errors }}</div>
+                        <div class="text-danger small">{{ form.quantidade.errors }}</div>
                         {% endif %}
                     </div>
                     <div class="mb-3">
-                        {{ form.valor_unitario.label_tag }}
+                        <label class="form-label">{{ form.valor_unitario.label }}</label>
                         {{ form.valor_unitario }}
                         {% if form.valor_unitario.errors %}
-                            <div class="text-danger">{{ form.valor_unitario.errors }}</div>
+                        <div class="text-danger small">{{ form.valor_unitario.errors }}</div>
                         {% endif %}
                     </div>
-                    <div class="d-flex justify-content-between">
-                        <a href="{% url 'cotacao_list' object.compra_id %}" class="btn btn-secondary">Cancelar</a>
-                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    <div class="d-flex justify-content-between mt-4 pt-3 border-top">
+                        <a href="{% url 'cotacao_list' object.compra_id %}" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left"></i> Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-check-lg"></i> Salvar
+                        </button>
                     </div>
                 </form>
             </div>

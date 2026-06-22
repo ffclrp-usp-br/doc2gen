@@ -5,31 +5,35 @@
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-md-8">
-        <div class="card">
+        <div class="card shadow-sm">
             <div class="card-header">
-                <h3 class="card-title">Importar Compra</h3>
+                <h4 class="mb-0"><i class="bi bi-file-earmark-pdf"></i> Importar Compra</h4>
             </div>
             <div class="card-body">
-                
-                <h3>Selecione um arquivo PDF do tipo <strong>Compra Itens Previstos</strong></h3>
-                   
-                
+                <p class="text-muted mb-4">
+                    Selecione um arquivo PDF do tipo <strong>Compra Itens Previstos</strong> para importar.
+                </p>
 
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="mb-3">
-                        {{ form.arquivo.label_tag }}
+                        <label class="form-label">{{ form.arquivo.label }}</label>
                         {{ form.arquivo }}
                         {% if form.arquivo.errors %}
-                        <div class="text-danger">{{ form.arquivo.errors }}</div>
+                        <div class="text-danger small mt-1">{{ form.arquivo.errors }}</div>
                         {% endif %}
                         <small class="form-text text-muted d-block mt-2">
                             O arquivo deve ser um PDF válido de documento de compra do tipo Itens Previstos.
                         </small>
                     </div>
-
-                    <button type="submit" class="btn btn-success">Importar</button>
-                    <a href="{% url 'compra_list' %}" class="btn btn-secondary">Cancelar</a>
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-upload"></i> Importar
+                        </button>
+                        <a href="{% url 'compra_list' %}" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left"></i> Cancelar
+                        </a>
+                    </div>
                 </form>
             </div>
         </div>
