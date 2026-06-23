@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 
-{% block title %}Compras - Doc2gen{% endblock %}
+{% block title %}Compras{% endblock %}
 
 {% block content %}
 <div class="page-header">
     <h3>Compras</h3>
     <div class="d-flex gap-2">
-        <a href="{% url 'compra_create' %}" class="btn btn-primary">
-            <i class="bi bi-plus-lg"></i> Nova Compra
-        </a>
-        <a href="{% url 'compra_import_pdf' %}" class="btn btn-outline-secondary">
+        <a href="{% url 'compra_import_pdf' %}" class="btn btn-primary">
             <i class="bi bi-file-earmark-pdf"></i> Importar PDF
+        </a>
+        <a href="{% url 'compra_create' %}" class="btn btn-outline-secondary">
+            <i class="bi bi-plus-lg"></i> Nova Compra
         </a>
     </div>
 </div>
@@ -64,9 +64,6 @@
                         <td colspan="4" class="empty-state">
                             <i class="bi bi-cart3 d-block"></i>
                             <p>Nenhuma compra cadastrada.</p>
-                            <a href="{% url 'compra_create' %}" class="btn btn-primary btn-sm">
-                                <i class="bi bi-plus-lg"></i> Criar primeira compra
-                            </a>
                         </td>
                     </tr>
                     {% endfor %}

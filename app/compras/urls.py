@@ -47,6 +47,7 @@ urlpatterns = [
     path('pessoas/', views.PessoaFisicaListView.as_view(), name='pessoa_list'),
     path('pessoas/nova/', views.PessoaFisicaCreateView.as_view(), name='pessoa_create'),
     path('pessoas/<int:pk>/editar/', views.PessoaFisicaUpdateView.as_view(), name='pessoa_update'),
+    path('pessoas/<int:pk>/deletar/', views.PessoaFisicaDeleteView.as_view(), name='pessoa_delete'),
 
     # Contratos
     path('contratos/', views.ContratoListView.as_view(), name='contrato_list'),

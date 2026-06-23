@@ -659,6 +659,12 @@ class PessoaFisicaUpdateView(LoginRequiredMixin, UpdateView):
         return ctx
 
 
+class PessoaFisicaDeleteView(LoginRequiredMixin, DeleteView):
+    model = PessoaFisica
+    success_url = reverse_lazy('pessoa_list')
+    template_name = 'compras/pessoa_confirm_delete.html'
+
+
 # --- Views para Contrato ---
 
 class ContratoListView(LoginRequiredMixin, ListView):

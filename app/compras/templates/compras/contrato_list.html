@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Contratos - Doc2gen{% endblock %}
+{% block title %}Contratos{% endblock %}
 
 {% block content %}
 <div class="page-header">
@@ -71,11 +71,6 @@
                         <td colspan="6" class="empty-state">
                             <i class="bi bi-file-earmark-text d-block"></i>
                             <p>Nenhum contrato cadastrado.</p>
-                            {% if tem_contratante %}
-                            <a href="{% url 'contrato_create' %}" class="btn btn-primary btn-sm">
-                                <i class="bi bi-plus-lg"></i> Criar primeiro contrato
-                            </a>
-                            {% endif %}
                         </td>
                     </tr>
                     {% endfor %}
