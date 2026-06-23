@@ -50,7 +50,7 @@
                             </div>
                         </div>
                         <div class="col-md-2 d-flex align-items-end">
-                            <button type="button" class="btn btn-info w-100" id="btn-carregar-empenho">
+                            <button type="button" class="btn btn-info w-100" id="btn-carregar-empenho" disabled>
                                 <i class="bi bi-file-earmark-pdf"></i> Empenho
                             </button>
                         </div>
@@ -305,6 +305,12 @@ document.addEventListener('DOMContentLoaded', function() {
         if (inputEstado) inputEstado.value = estado || '';
     }
 
+    function atualizarVisibilidadeRepresentante(temVinculos) {
+        representanteSelectSection.style.display = temVinculos ? '' : 'none';
+        representanteDivider.style.display = 'none';
+        representanteNovoCampos.style.display = temVinculos ? 'none' : '';
+    }
+
     function atualizarRepresentantes(vinculos) {
         if (!selectRepresentante) return;
 
@@ -318,19 +324,34 @@ document.addEventListener('DOMContentLoaded', function() {
                 opt.textContent = v.pessoa__nome + (v.cargo ? ' — ' + v.cargo : '');
                 selectRepresentante.appendChild(opt);
             });
-            representanteSelectSection.style.display = '';
-            representanteDivider.style.display = '';
-            representanteNovoCampos.style.display = '';
-        } else {
-            representanteSelectSection.style.display = 'none';
-            representanteDivider.style.display = 'none';
-            representanteNovoCampos.style.display = '';
-            if (inputNovoRepNome) inputNovoRepNome.focus();
+            selectRepresentante.value = vinculos[0].id;
+        }
+
+        atualizarVisibilidadeRepresentante(temVinculos);
+
+        if (!temVinculos && inputNovoRepNome) {
+            inputNovoRepNome.focus();
         }
     }
 
     const btnEmpenho = document.getElementById('btn-carregar-empenho');
     const inputEmpenhoPdf = document.getElementById('input-empenho-pdf');
+    const inputNumero = document.getElementById('id_numero');
+
+    function toggleBtnEmpenho() {
+        btnEmpenho.disabled = !inputNumero.value.trim();
+    }
+
+    inputNumero.addEventListener('input', toggleBtnEmpenho);
+    toggleBtnEmpenho();
+
+    const opcoesReais = selectRepresentante &&
+        Array.from(selectRepresentante.options).filter(opt => opt.value);
+    const temVinculosIniciais = opcoesReais && opcoesReais.length > 0;
+    if (temVinculosIniciais) {
+        selectRepresentante.value = opcoesReais[0].value;
+    }
+    atualizarVisibilidadeRepresentante(temVinculosIniciais);
 
     btnEmpenho.addEventListener('click', function() {
         inputEmpenhoPdf.click();
@@ -342,6 +363,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const formData = new FormData();
         formData.append('pdf_file', file);
+        formData.append('numero', inputNumero.value);
 
         const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
         const contratoId = '{{ object.id|default:"" }}';
@@ -363,6 +385,11 @@ document.addEventListener('DOMContentLoaded', function() {
             btnEmpenho.innerHTML = '<i class="bi bi-file-earmark-pdf"></i> Empenho';
 
             if (ok && data.success) {
+                if (data.contrato_id) {
+                    window.location.href = `/compras/contratos/${data.contrato_id}/editar/`;
+                    return;
+                }
+
                 if (data.empenho) {
                     if (data.empenho.id) {
                         document.getElementById('id_empenho_id').value = data.empenho.id;
@@ -388,19 +415,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     atualizarPendencias(data.organizacao.id);
                 }
 
-                const inputNumero = document.getElementById('id_numero');
-                if (inputNumero && inputNumero.value.trim()) {
-                    let autoSaveInput = document.getElementById('id_auto_save');
-                    if (!autoSaveInput) {
-                        autoSaveInput = document.createElement('input');
-                        autoSaveInput.type = 'hidden';
-                        autoSaveInput.id = 'id_auto_save';
-                        autoSaveInput.name = 'auto_save';
-                        autoSaveInput.value = '1';
-                        document.getElementById('form-contrato').appendChild(autoSaveInput);
-                    }
-                    document.getElementById('form-contrato').submit();
-                }
+                document.getElementById('form-contrato').submit();
             } else {
                 alert(data.error || 'Erro ao processar empenho.');
             }

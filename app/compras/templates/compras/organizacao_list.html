@@ -30,9 +30,9 @@
                     {% for org in organizacoes %}
                     <tr>
                         <td>
-                            <span class="text-muted">{{ org.nome_fantasia}}</span>
+                            {{ org.nome_fantasia}}
                             <br>
-                            {{ org.nome }}
+                            <span class="text-muted">{{ org.nome }}</span>
                             <br>
                             <small class="text-muted">{{ org.cnpj }} {{ org.cidade|default:"-" }}/{{ org.estado|default:"-" }}</small>
                         </td>

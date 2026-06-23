@@ -941,7 +941,7 @@ class ContratoEmpenhoUploadView(LoginRequiredMixin, View):
                     'compra_numero': compra_numero,
                 }, status=404)
 
-        from datetime import datetime
+        from datetime import date, datetime
         data_empenho = None
         if dados.get('data_empenho'):
             try:
@@ -955,7 +955,7 @@ class ContratoEmpenhoUploadView(LoginRequiredMixin, View):
         empenho_existente = Empenho.objects.filter(numero=numero).first()
 
         if empenho_existente:
-            if empenho_existente.contrato and contrato and empenho_existente.contrato_id != contrato.pk:
+            if empenho_existente.contrato and empenho_existente.contrato_id != getattr(contrato, 'pk', None):
                 return JsonResponse({
                     'success': False,
                     'error': f'O empenho {numero} já está vinculado ao contrato {empenho_existente.contrato.numero}.'
@@ -999,8 +999,34 @@ class ContratoEmpenhoUploadView(LoginRequiredMixin, View):
                 valor=valor_empenho,
             )
 
+        contrato_obj = contrato
+        if not pk:
+            contrato_numero = request.POST.get('numero', '').strip()
+            if not contrato_numero:
+                return JsonResponse({'success': False, 'error': 'Número do contrato é obrigatório.'})
+
+            contratante = Organizacao.objects.filter(is_propria_instituicao=True).first()
+            if not contratante:
+                return JsonResponse({
+                    'success': False,
+                    'error': 'Nenhuma instituição contratante cadastrada. Cadastre uma organização como instituição própria antes de importar o empenho.'
+                })
+
+            contrato_obj = Contrato.objects.create(
+                numero=contrato_numero,
+                contratante=contratante,
+                contratada=organizacao,
+                compra=compra_obj,
+                data=date.today(),
+            )
+
+            if not empenho.contrato:
+                empenho.contrato = contrato_obj
+                empenho.save(update_fields=['contrato'])
+
         return JsonResponse({
             'success': True,
+            'contrato_id': contrato_obj.id if contrato_obj else None,
             'empenho': {
                 'id': empenho.id,
                 'numero': empenho.numero,
