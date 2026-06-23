@@ -1,6 +1,7 @@
 from django.core.validators import MinValueValidator, RegexValidator
 from django.db import models
 from django.db.models import Avg
+from compras.utils.string_utils import StringUtils
 from compras.utils.date_utils import DateUtils
 from compras.utils.moeda_utils import MoedaUtils
 
@@ -153,6 +154,9 @@ class Compra(models.Model):
     def valor_efetivo_brl_extenso(self):
         return MoedaUtils.valor_por_extenso(self.valor_efetivo)
 
+    @property
+    def sei_compacto(self):
+        return StringUtils.sei_compacto(self.numero_sei)
 
     def __str__(self):
         return f'{self.numero_compra} - {self.objeto[:50]}'
@@ -442,6 +446,10 @@ class Contrato(models.Model):
     @property
     def data_por_extenso(self):
         return DateUtils.data_por_extenso(self.data)
+
+    @property
+    def data_dmy(self):
+        return DateUtils.to_dmy(self.data)
 
     def clean(self):
         super().clean()

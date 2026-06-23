@@ -6,9 +6,14 @@
 <div class="page-header">
     <h3>Contratos</h3>
     {% if tem_contratante %}
-        <a href="{% url 'contrato_create' %}" class="btn btn-primary">
+        <div class="d-flex gap-2">
+    <a href="{% url 'contrato_create' %}" class="btn btn-primary">
             <i class="bi bi-plus-lg"></i> Novo Contrato
         </a>
+        <a href="{% url 'organizacao_list' %}" class="btn btn-outline-secondary">
+            Organizações
+        </a>
+        </div>
     {% else %}
         <div>
             <button class="btn btn-primary" disabled>
@@ -21,6 +26,8 @@
             </div>
         </div>
     {% endif %}
+
+
 </div>
 
 <div class="card shadow-sm">
@@ -32,19 +39,26 @@
                         <th>Número</th>
                         <th>Compra</th>
                         <th>SEI</th>
-                        <th>Contratada</th>
-                        <th>Data</th>
+                        <th>Contratada/Objeto</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for contrato in contratos %}
                     <tr>
-                        <td>{{ contrato.numero }}</td>
+                        <td>
+                            {{ contrato.numero }}
+                            <br>
+                            <small class="text-muted">{{ contrato.data_dmy }}</small>
+                        
+                        </td>
                         <td>{{ contrato.compra.numero_compra }}</td>
-                        <td>{{ contrato.compra.numero_sei }}</td>
-                        <td>{{ contrato.contratada.nome }}</td>
-                        <td>{{ contrato.data|date:"d/m/Y"|default:"-" }}</td>
+                        <td>{{ contrato.compra.sei_compacto }}</td>
+                        <td>
+                            {{ contrato.contratada.nome_fantasia }} 
+                            <br>
+                            <small class="text-muted">{{ contrato.compra.objeto }}</small>
+                            </td>
                         <td>
                             <a href="{% url 'contrato_update' contrato.id %}"
                                 class="btn btn-sm btn-outline-primary">

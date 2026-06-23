@@ -6,12 +6,12 @@
 <div class="page-header">
     <h3>Organizações</h3>
     <div class="d-flex gap-2">
-    <a href="{% url 'pessoa_list' %}" class="btn btn-outline-secondary">
-                    <i class="bi bi-people"></i> Pessoas
-    </a>
-    <a href="{% url 'organizacao_create' %}" class="btn btn-primary">
-        <i class="bi bi-plus-lg"></i> Nova Organização
-    </a>
+        <a href="{% url 'organizacao_create' %}" class="btn btn-primary">
+            <i class="bi bi-plus-lg"></i> Nova Organização
+        </a>
+        <a href="{% url 'pessoa_list' %}" class="btn btn-outline-secondary">
+                        <i class="bi bi-people"></i> Pessoas
+        </a>
     </div>
 </div>
 
@@ -21,24 +21,24 @@
             <table class="table table-hover mb-0">
                 <thead>
                     <tr>
-                        <th>Nome / Razão Social</th>
-                        <th>CNPJ</th>
-                        <th>Cidade / UF</th>
-                        <th>Tipo</th>
-                        <th>Ações</th>
+                        <th>Dados</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for org in organizacoes %}
                     <tr>
-                        <td>{{ org.nome }}</td>
-                        <td>{{ org.cnpj }}</td>
-                        <td>{{ org.cidade|default:"-" }}/{{ org.estado|default:"-" }}</td>
+                        <td>
+                            <span class="text-muted">{{ org.nome_fantasia}}</span>
+                            <br>
+                            {{ org.nome }}
+                            <br>
+                            <small class="text-muted">{{ org.cnpj }} {{ org.cidade|default:"-" }}/{{ org.estado|default:"-" }}</small>
+                        </td>
                         <td>
                             {% if org.is_propria_instituicao %}
-                            <span class="badge bg-info">Instituição Própria</span>
-                            {% else %}
-                            <span class="badge bg-secondary">Fornecedor</span>
+                            <span class="badge bg-info">Contratante</span>
                             {% endif %}
                         </td>
                         <td>

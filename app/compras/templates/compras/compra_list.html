@@ -24,40 +24,38 @@
                         <th>Compra</th>
                         <th>SEI</th>
                         <th>Modalidade / Tipo / Objeto</th>
-                        <th>Ações</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for compra in compras %}
                     <tr>
                         <td>{{ compra.numero_compra }}</td>
-                        <td>{{ compra.numero_sei }}</td>
+                        <td>{{ compra.sei_compacto }}</td>
                         <td>
                             <div>{{ compra.objeto }}</div>
                             <small class="text-muted">{{ compra.valor_total_previsto_brl }}</small><br>
                             <small class="text-muted">{{ compra.tipo }} / {{ compra.modalidade }}</small>
-                            {% if compra.disputa %}
-                            <span class="badge bg-success">Com disputa</span>
-                            {% else %}
-                            <span class="badge bg-danger">Sem disputa</span>
+                            {% if not compra.disputa %}
+                            <span class="badge bg-warning">Sem disputa</span>
                             {% endif %}
                         </td>
                         <td>
-                            <div class="d-flex flex-column gap-1">
+                            <div class="d-flex flex-column gap-2">
                                 <a href="{% url 'kit_conferencia' compra.pk %}" class="btn btn-sm btn-outline-info">
                                     <i class="bi bi-clipboard-check"></i> Kit Conferência
                                 </a>
-                                <a href="{% url 'item_list' compra.id %}" class="btn btn-sm btn-outline-primary">
+                                
+                                    <a href="{% url 'item_list' compra.id %}" class="btn btn-sm btn-outline-primary">
                                     <i class="bi bi-list-ul"></i> Itens
                                 </a>
-                                <div class="d-flex gap-1">
                                     <a href="{% url 'compra_update' compra.pk %}" class="btn btn-sm btn-outline-secondary">
-                                        <i class="bi bi-pencil"></i>
+                                        <i class="bi bi-pencil"></i> Editar
                                     </a>
                                     <a href="{% url 'compra_delete' compra.pk %}" class="btn btn-sm btn-outline-danger">
-                                        <i class="bi bi-trash"></i>
+                                        <i class="bi bi-trash"></i> Excluir
                                     </a>
-                                </div>
+                                
                             </div>
                         </td>
                     </tr>

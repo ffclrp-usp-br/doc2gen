@@ -64,7 +64,8 @@ class StringUtils:
         return texto
     
     @staticmethod
-    def obter_numero_sei_resumido(numero_sei):
+    def sei_compacto(numero_sei):
+        ''''Retorna no formato compacto: 154.00009999/2026-99 -> 9999/2026'''
         if not numero_sei:
             return None, None
         match = re.search(r'\.(\d+)/(\d{4})-', numero_sei)

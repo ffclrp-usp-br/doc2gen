@@ -49,11 +49,11 @@
                     <tr>
                         <th>#</th>
                         <th>Demanda</th>
-                        <th>Centro Gerencial / Grupo Orçamentário / Item Despesa</th>
+                        <th>Centro Gerencial<br>Grupo Orçamentário<br>Item Despesa</th>
                         <th>Qtde</th>
                         <th>Descrição</th>
                         <th>Valor Médio / Pesquisas</th>
-                        <th>Ações</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -94,10 +94,7 @@
                             {% endif %}
                         </td>
                         <td>
-                            <div class="d-flex flex-column gap-1">
-                                <a href="{% url 'pesquisa_list' compra.id %}?item={{ item.pk }}" class="btn btn-sm btn-outline-info">
-                                    <i class="bi bi-search"></i> Pesquisas
-                                </a>
+                            <div class="d-flex flex-column gap-2">
                                 <a href="{% url 'item_update' item.pk %}" class="btn btn-sm btn-outline-secondary">
                                     <i class="bi bi-pencil"></i> Editar
                                 </a>
