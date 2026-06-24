@@ -28,12 +28,10 @@ class PessoaFisicaForm(forms.ModelForm):
 class VinculoOrganizacaoForm(forms.ModelForm):
     class Meta:
         model = VinculoOrganizacao
-        fields = ['pessoa', 'cargo', 'responsavel_assinatura', 'ativo']
+        fields = ['pessoa', 'cargo']
         widgets = {
             'pessoa': forms.Select(attrs={'class': 'form-select'}),
             'cargo': forms.TextInput(attrs={'class': 'form-control'}),
-            'responsavel_assinatura': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
-            'ativo': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
 
 class ContratoForm(forms.ModelForm):
@@ -151,7 +149,7 @@ class ContratoForm(forms.ModelForm):
             self.fields['contratada_estado'].initial = contratada.estado or ''
 
             vinculos = VinculoOrganizacao.objects.filter(
-                organizacao=contratada, responsavel_assinatura=True, ativo=True
+                organizacao=contratada
             ).select_related('pessoa')
             self.fields['representante_contratada'].queryset = vinculos
         else:
@@ -197,7 +195,7 @@ class ContratoForm(forms.ModelForm):
             return None
 
         vinculo = VinculoOrganizacao.objects.filter(
-            organizacao=contratada, responsavel_assinatura=True, ativo=True
+            organizacao=contratada
         ).select_related('pessoa').first()
         if vinculo:
             return vinculo
@@ -214,8 +212,6 @@ class ContratoForm(forms.ModelForm):
             organizacao=contratada,
             pessoa=pessoa,
             cargo=cargo or 'Representante Legal',
-            responsavel_assinatura=True,
-            ativo=True,
         )
         return vinculo
 

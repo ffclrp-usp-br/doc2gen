@@ -734,7 +734,7 @@ class ContratoUpdateView(LoginRequiredMixin, UpdateView):
                 'cnpj': contratada.cnpj,
             }
             vinculos = VinculoOrganizacao.objects.filter(
-                organizacao=contratada, responsavel_assinatura=True, ativo=True
+                organizacao=contratada
             ).select_related('pessoa')
             ctx['vinculos_contratada'] = vinculos
         else:
@@ -823,13 +823,11 @@ def gerenciar_vinculos_ajax(request, org_id):
     if request.method == 'POST':
         pessoa_id = request.POST.get('pessoa')
         cargo = request.POST.get('cargo')
-        responsavel = request.POST.get('responsavel_assinatura') == 'on'
 
         VinculoOrganizacao.objects.create(
             organizacao=organizacao,
             pessoa_id=pessoa_id,
             cargo=cargo,
-            responsavel_assinatura=responsavel
         )
         return JsonResponse({'success': True})
 
@@ -857,8 +855,6 @@ class ContratoPreencherView(LoginRequiredMixin, View):
 
         tem_representante = VinculoOrganizacao.objects.filter(
             organizacao=contrato.contratada,
-            responsavel_assinatura=True,
-            ativo=True
         ).exists()
 
         if not tem_representante:
@@ -1049,12 +1045,12 @@ class ContratoEmpenhoUploadView(LoginRequiredMixin, View):
             },
             'representantes': {
                 'tem_representantes': VinculoOrganizacao.objects.filter(
-                    organizacao=organizacao, responsavel_assinatura=True, ativo=True
+                    organizacao=organizacao
                 ).exists(),
                 'vinculos': list(
                     VinculoOrganizacao.objects.filter(
-                        organizacao=organizacao, responsavel_assinatura=True, ativo=True
-                    ).select_related('pessoa').values('id', 'pessoa__nome', 'cargo', 'responsavel_assinatura')
+                        organizacao=organizacao
+                    ).select_related('pessoa').values('id', 'pessoa__nome', 'cargo')
                 ),
             },
         })

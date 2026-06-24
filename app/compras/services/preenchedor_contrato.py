@@ -338,14 +338,14 @@ class PreenchedorContratoService():
         
         # 2. Get representatives
         v_contratante = VinculoOrganizacao.objects.filter(
-            organizacao=contratante, responsavel_assinatura=True, ativo=True
+            organizacao=contratante
         ).select_related('pessoa').first()
         
         if contrato.representante_contratada:
             v_contratada = contrato.representante_contratada
         else:
             v_contratada = VinculoOrganizacao.objects.filter(
-                organizacao=contratada, responsavel_assinatura=True, ativo=True
+                organizacao=contratada
             ).select_related('pessoa').first()
         
         # 3. Build data dictionary

@@ -4,8 +4,6 @@
             <tr>
                 <th>Pessoa</th>
                 <th>Cargo</th>
-                <th>Assina?</th>
-                <th>Ativo</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -15,20 +13,6 @@
                 <td>{{ vinculo.pessoa.nome }}</td>
                 <td>{{ vinculo.cargo }}</td>
                 <td>
-                    {% if vinculo.responsavel_assinatura %}
-                    <span class="badge bg-success">Sim</span>
-                    {% else %}
-                    <span class="badge bg-secondary">Não</span>
-                    {% endif %}
-                </td>
-                <td>
-                    {% if vinculo.ativo %}
-                    <span class="badge bg-success">Sim</span>
-                    {% else %}
-                    <span class="badge bg-secondary">Não</span>
-                    {% endif %}
-                </td>
-                <td>
                     <button type="button" class="btn btn-sm btn-outline-danger" onclick="excluirVinculo({{ vinculo.id }})" title="Excluir vínculo">
                         <i class="bi bi-trash"></i> Excluir
                     </button>
@@ -36,7 +20,7 @@
             </tr>
             {% empty %}
             <tr>
-                <td colspan="5" class="empty-state">
+                <td colspan="3" class="empty-state">
                     <p>Nenhum responsável vinculado.</p>
                 </td>
             </tr>
@@ -59,20 +43,17 @@
                         <option value="{{ p.id }}">{{ p.nome }} ({{ p.cpf }})</option>
                         {% endfor %}
                     </select>
-                    <button type="button" class="btn btn-outline-primary" onclick="abrirModalPessoa()" title="Cadastrar nova pessoa">
-                        <i class="bi bi-plus-lg"></i>
-                    </button>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-1">
+                <button type="button" class="btn btn-outline-primary" onclick="abrirModalPessoa()" title="Cadastrar nova pessoa">
+                    <i class="bi bi-plus-lg"></i>
+                </button>
+            </div>
+            
+            <div class="col-md-5">
                 <label class="form-label">Cargo / Função</label>
                 <input type="text" name="cargo" class="form-control" placeholder="Ex: Representante Legal" required>
-            </div>
-            <div class="col-md-2">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="responsavel_assinatura" id="check-assina">
-                    <label class="form-check-label" for="check-assina">Assina</label>
-                </div>
             </div>
             <div class="col-md-1">
                 <button type="submit" class="btn btn-primary w-100" title="Adicionar vínculo">
