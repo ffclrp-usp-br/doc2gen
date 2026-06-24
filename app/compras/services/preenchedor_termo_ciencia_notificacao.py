@@ -99,28 +99,41 @@ class PreenchedorTermoCienciaNotificacaoService():
 
     @classmethod
     def preencher_secao_responsavel(cls, paragraphs, start_idx, dados):
-        """
-        Preenche uma seção de responsável (Nome/Cargo/CPF) a partir do índice inicial.
-        
-        Args:
-            paragraphs: Lista de parágrafos do documento
-            start_idx: Índice do parágrafo que contém o título da seção
-            dados: Dicionário com 'nome', 'cargo', 'cpf'
-        """
         if not dados:
             return
 
-        # Procurar pelos campos Nome:, Cargo:, CPF: nos parágrafos seguintes
+        campos_preenchidos = 0
+
         for i in range(start_idx + 1, min(start_idx + 10, len(paragraphs))):
             text = paragraphs[i].text.strip()
 
             if text.startswith('Nome:'):
-                cls.substituir_texto(paragraphs[i], 'Nome:', f"Nome: {dados.get('nome', '')}")
+                cls.substituir_texto(
+                    paragraphs[i],
+                    'Nome:',
+                    f"Nome: {dados.get('nome', '')}"
+                )
+                campos_preenchidos += 1
+
             elif text.startswith('Cargo'):
-                # Pode ter ou sem dois-pontos
-                cls.substituir_texto(paragraphs[i], 'Cargo', f"Cargo: {dados.get('cargo', '')}")
+                cls.substituir_texto(
+                    paragraphs[i],
+                    'Cargo',
+                    f"Cargo: {dados.get('cargo', '')}"
+                )
+                campos_preenchidos += 1
+
             elif text.startswith('CPF:'):
-                cls.substituir_texto(paragraphs[i], 'CPF:', f"CPF: {dados.get('cpf', '')}")
+                cls.substituir_texto(
+                    paragraphs[i],
+                    'CPF:',
+                    f"CPF: {dados.get('cpf', '')}"
+                )
+                campos_preenchidos += 1
+
+            # Já preencheu Nome, Cargo e CPF
+            if campos_preenchidos >= 3:
+                break
 
     @classmethod
     def localizar_secao(cls, paragraphs, titulo_secao):
@@ -250,18 +263,36 @@ class PreenchedorTermoCienciaNotificacaoService():
                 cls.preencher_campo_simples(paragraph, "LOCAL e DATA", data["local_data"])
 
             # Preencher seções de responsáveis
-            elif "AUTORIDADE MÁXIMA DO ÓRGÃO/ENTIDADE:" in text.upper():
-                cls.preencher_secao_responsavel(doc.paragraphs, i, data["responsavel_contratante"])
+            # RESPONSÁVEIS PELA HOMOLOGAÇÃO
             elif "RESPONSÁVEIS PELA HOMOLOGAÇÃO DO CERTAME" in text.upper():
-                cls.preencher_secao_responsavel(doc.paragraphs, i, data["responsavel_contratante"])
-            elif "Pela CONTRATANTE:" in text:
-                cls.preencher_secao_responsavel(doc.paragraphs, i, data["responsavel_contratante"])
-            elif "Pela CONTRATADA:" in text:
-                cls.preencher_secao_responsavel(doc.paragraphs, i, data["responsavel_contratada"])
-            elif "ORDENADOR DE DESPESAS DA CONTRATANTE:" in text.upper():
-                cls.preencher_secao_responsavel(doc.paragraphs, i, data["responsavel_contratante"])
-            elif "GESTOR(ES) DO CONTRATO:" in text.upper():
-                cls.preencher_secao_responsavel(doc.paragraphs, i, data["responsavel_contratante"])
+                cls.preencher_secao_responsavel(
+                    doc.paragraphs,
+                    i,
+                    data["responsavel_contratante"]
+                )
+
+            # RESPONSÁVEIS QUE ASSINARAM O AJUSTE
+            elif text.strip().upper() == "PELA CONTRATANTE:":
+                cls.preencher_secao_responsavel(
+                    doc.paragraphs,
+                    i,
+                    data["responsavel_contratante"]
+                )
+
+            elif text.strip().upper() == "PELA CONTRATADA:":
+                cls.preencher_secao_responsavel(
+                    doc.paragraphs,
+                    i,
+                    data["responsavel_contratada"]
+                )
+
+            # ORDENADOR DE DESPESAS
+            elif "ORDENADOR DE DESPESAS DA CONTRATANTE" in text.upper():
+                cls.preencher_secao_responsavel(
+                    doc.paragraphs,
+                    i,
+                    data["responsavel_contratante"]
+                )
 
         # 6. Processar tabelas (se houver)
         for table in doc.tables:
