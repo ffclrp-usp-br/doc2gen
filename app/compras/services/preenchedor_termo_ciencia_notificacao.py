@@ -6,6 +6,7 @@ from decimal import Decimal
 from docx import Document
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 from docx.shared import Pt
+from django.db.models import Q
 from compras.models import Contrato, VinculoOrganizacao, Organizacao, Compra, Empenho
 
 
@@ -163,6 +164,26 @@ class PreenchedorTermoCienciaNotificacaoService():
         return f"{cpf_numeros[:3]}.{cpf_numeros[3:6]}.{cpf_numeros[6:9]}-{cpf_numeros[9:]}"
 
     @classmethod
+    def buscar_reitor(cls, organizacao):
+        """
+        Busca a pessoa com cargo de Reitor ou Reitora vinculada à organização.
+        Retorna dict com nome, cargo, cpf ou None se não encontrar.
+        """
+        vinculo = VinculoOrganizacao.objects.filter(
+            organizacao=organizacao
+        ).filter(
+            Q(cargo__iexact='Reitor') | Q(cargo__iexact='Reitora')
+        ).select_related('pessoa').first()
+
+        if vinculo:
+            return {
+                "nome": vinculo.pessoa.nome,
+                "cargo": vinculo.cargo,
+                "cpf": cls.formatar_cpf(vinculo.pessoa.cpf),
+            }
+        return None
+
+    @classmethod
     def fill_docx(cls, docx_file, contrato):
         """
         Método principal que preenche o documento 'Termo de Ciência e Notificação'.
@@ -199,6 +220,14 @@ class PreenchedorTermoCienciaNotificacaoService():
             "contrato_numero": contrato.numero,
             "objeto": compra.objeto if compra else "",
             "contratante_cidade": contratante.cidade or "",
+        }
+
+        # 3.1 Buscar reitor/reitora da contratante (AUTORIDADE MÁXIMA)
+        autoridade_maxima = cls.buscar_reitor(contratante)
+        data["autoridade_maxima_contratante"] = autoridade_maxima or {
+            "nome": "",
+            "cargo": "",
+            "cpf": "",
         }
 
         # Dados de responsáveis
@@ -263,6 +292,16 @@ class PreenchedorTermoCienciaNotificacaoService():
                 cls.preencher_campo_simples(paragraph, "LOCAL e DATA", data["local_data"])
 
             # Preencher seções de responsáveis
+            
+            # AUTORIDADE MÁXIMA DO ÓRGÃO/ENTIDADE:
+            elif "AUTORIDADE MÁXIMA DO ÓRGÃO/ENTIDADE" in text.upper():
+                cls.preencher_secao_responsavel(
+                    doc.paragraphs,
+                    i,
+                    data["autoridade_maxima_contratante"]
+                )
+            
+            
             # RESPONSÁVEIS PELA HOMOLOGAÇÃO
             elif "RESPONSÁVEIS PELA HOMOLOGAÇÃO DO CERTAME" in text.upper():
                 cls.preencher_secao_responsavel(
