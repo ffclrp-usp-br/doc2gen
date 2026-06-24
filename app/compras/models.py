@@ -361,6 +361,10 @@ class Organizacao(models.Model):
         default=False
     )
 
+    @property
+    def nome_or_nome_fantasia(self):
+        return StringUtils.nome_or_nome_fantasia_organizacao(self)
+
     def __str__(self):
         return self.nome
 

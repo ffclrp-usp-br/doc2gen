@@ -1,4 +1,5 @@
 import re
+import unicodedata
 
 class StringUtils:
 
@@ -92,3 +93,18 @@ class StringUtils:
             return ano, numero
         return None, None
     
+
+    def nome_or_nome_fantasia_organizacao(self):
+        nome = self.nome_fantasia or self.nome
+
+        # Remove acentos
+        nome = unicodedata.normalize('NFKD', nome)
+        nome = ''.join(c for c in nome if not unicodedata.combining(c))
+
+        # Pega apenas a primeira palavra
+        primeira_palavra = nome.strip().split()[0]
+
+        # Mantém apenas letras
+        primeira_palavra = re.sub(r'[^a-zA-Z]', '', primeira_palavra)
+
+        return primeira_palavra

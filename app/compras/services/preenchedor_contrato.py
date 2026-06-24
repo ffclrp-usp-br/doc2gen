@@ -522,6 +522,6 @@ class PreenchedorContratoService():
         
         # 7. Generate clean filename
         clean_num = contrato.numero.replace("/", "_").replace("\\", "_")
-        filename = f"Termo_Contrato_{contratante.nome_fantasia}_{clean_num}_{contratada.nome_fantasia}.docx"
+        filename = f"Termo_Contrato_{contratante.nome_fantasia}_{clean_num}_{contratada.nome_or_nome_fantasia}.docx"
         
         return output_io, filename
