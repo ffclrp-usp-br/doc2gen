@@ -55,7 +55,9 @@
                         <td>{{ contrato.compra.numero_compra }}</td>
                         <td>{{ contrato.compra.sei_compacto }}</td>
                         <td>
-                            {{ contrato.contratada.nome_fantasia }} 
+                            {{ contrato.contratada.nome_or_nome_fantasia }} 
+                            <br>
+                            <small class="text-muted">{{ contrato.contratada.nome }}</small>
                             <br>
                             <small class="text-muted">{{ contrato.compra.objeto }}</small>
                             </td>

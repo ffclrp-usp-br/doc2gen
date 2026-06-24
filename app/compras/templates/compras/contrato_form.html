@@ -169,23 +169,38 @@
                     <div class="mt-4 pt-3 border-top d-flex justify-content-between align-items-center">
                         <div class="d-flex gap-2">
                             {% if object %}
-                                <a href="{% url 'contrato_delete' object.id %}" class="btn btn-outline-danger">
-                                    <i class="bi bi-trash"></i> Excluir
-                                </a>
                                 <button type="button" class="btn btn-success" id="btn-preencher"
                                     {% if not tem_contratante %}disabled title="Resolva as pendências para habilitar esta opção"{% endif %}
                                     onclick="document.getElementById('file-{{ object.id }}').click();">
-                                    <i class="bi bi-file-earmark-word"></i> Preencher contrato
+                                    <i class="bi bi-file-earmark-word"></i> Preencher Contrato
                                 </button>
+
+                                <button type="button" class="btn btn-success" id="btn-preencher-tcn"
+                                    {% if not tem_contratante %}disabled title="Resolva as pendências para habilitar esta opção"{% endif %}
+                                    onclick="document.getElementById('file-{{ object.id }}').click();">
+                                    <i class="bi bi-file-earmark-word"></i> Preencher Termo de Ciência e Notificação
+                                </button>
+
                             {% endif %}
                         </div>
+                    </div>
+                    <div class="mt-4 pt-3 border-top d-flex justify-content-between align-items-center">
+
                         <div class="d-flex gap-2">
-                            <a href="{% url 'contrato_list' %}" class="btn btn-outline-secondary">
-                                <i class="bi bi-arrow-left"></i> Fechar
-                            </a>
-                            <button type="submit" class="btn btn-primary">
-                                <i class="bi bi-check-lg"></i> Salvar Contrato
-                            </button>
+
+                            {% if object %}
+                                <a href="{% url 'contrato_delete' object.id %}" class="btn btn-outline-danger">
+                                    <i class="bi bi-trash"></i> Excluir
+                                </a>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-check-lg"></i> Salvar Contrato
+                                </button>
+                                
+                                {% endif %}
+                                
+                                <a href="{% url 'contrato_list' %}" class="btn btn-outline-secondary">
+                                    <i class="bi bi-arrow-left"></i> Fechar
+                                </a>                            
                         </div>
                     </div>
                 </form>
