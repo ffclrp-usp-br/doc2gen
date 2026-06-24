@@ -27,7 +27,7 @@ class DateUtils:
 
 
     @classmethod
-    def data_por_extenso(cls, dt):
+    def parse_data(cls, dt):
         """
         Retorna dia, mês por extenso e ano.
         
@@ -42,3 +42,21 @@ class DateUtils:
         ano = str(dt.year)
 
         return dia, mes, ano
+
+    
+
+    @classmethod
+    def data_extenso(cls, dt):
+        """
+        Retorna data completa por extenso em português.
+        
+        Exemplo: '24 de junho de 2026'
+        """
+        if not dt:
+            return ""
+        
+        dia = dt.day
+        mes = cls.get_nome_mes(dt.month)
+        ano = dt.year
+        
+        return f"{dia} de {mes} de {ano}"

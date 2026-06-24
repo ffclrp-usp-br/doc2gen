@@ -286,10 +286,17 @@ class PreenchedorContratoService():
 
         
         # Local e data da assinatura
-        cls.substituir_texto(paragraph, "[Local]", data.get("contratante_cidade", ""))
-        cls.substituir_texto(paragraph, "[dia]", data.get("assinatura_dia", ""))
-        cls.substituir_texto(paragraph, "[mês]", data.get("assinatura_mes", ""))
-        cls.substituir_texto(paragraph, "[ano]", data.get("assinatura_ano", ""))
+        #cls.substituir_texto(paragraph, "[Local]", data.get("contratante_cidade", ""))
+        #cls.substituir_texto(paragraph, "[dia]", data.get("assinatura_dia", ""))
+        #cls.substituir_texto(paragraph, "[mês]", data.get("assinatura_mes", ""))
+        #cls.substituir_texto(paragraph, "[ano]", data.get("assinatura_ano", ""))
+        cls.substituir_texto(
+            paragraph, 
+            "[Local], [dia] de [mês] de [ano]", 
+            f"{data.get('contratante_cidade', '')}, {data.get('data_contrato_extenso', '')}"
+        )    
+
+        print(data, flush=True)
         
         # Placeholders específicos de assinatura
         if "Representante legal do CONTRATANTE" in paragraph.text:
@@ -392,8 +399,11 @@ class PreenchedorContratoService():
             data["empenho_elemento"] = ""
             data["empenho_numero"] = ""
         # Contract Dates
+        
+        data["data_contrato_extenso"] = contrato.data_extenso
+        
         if contrato.data:
-            dd, mmm, aaaa = contrato.data_por_extenso
+            dd, mmm, aaaa = contrato.parse_data
             data["data_dd"] = dd
             data["data_mmm"] = mmm
             data["data_aaaa"] = aaaa
@@ -522,6 +532,6 @@ class PreenchedorContratoService():
         
         # 7. Generate clean filename
         clean_num = contrato.numero.replace("/", "_").replace("\\", "_")
-        filename = f"Termo_Contrato_{contratante.nome_fantasia}_{clean_num}_{contratada.nome_or_nome_fantasia}.docx"
+        filename = f"Termo_Contrato_{contratante.nome_fantasia.upper()}_{clean_num}_{contratada.nome_or_nome_fantasia.upper()}.docx"
         
         return output_io, filename

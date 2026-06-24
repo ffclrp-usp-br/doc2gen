@@ -448,8 +448,12 @@ class Contrato(models.Model):
 
 
     @property
-    def data_por_extenso(self):
-        return DateUtils.data_por_extenso(self.data)
+    def parse_data(self):
+        return DateUtils.parse_data(self.data)
+
+    @property
+    def data_extenso(self):
+        return DateUtils.data_extenso(self.data)
 
     @property
     def data_dmy(self):

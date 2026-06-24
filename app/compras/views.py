@@ -889,6 +889,53 @@ class ContratoPreencherView(LoginRequiredMixin, View):
             return redirect('contrato_list')
 
 
+class ContratoPreencherTermoCienciaView(LoginRequiredMixin, View):
+    def post(self, request, pk, *args, **kwargs):
+        contrato = get_object_or_404(Contrato, pk=pk)
+        docx_file = request.FILES.get('docx_file')
+        if not docx_file:
+            messages.error(request, "Nenhum arquivo de modelo DOCX foi enviado.")
+            return redirect('contrato_list')
+
+        if not contrato.contratada:
+            messages.error(request, "O contrato não possui uma empresa contratada definida.")
+            return redirect('contrato_update', pk=contrato.pk)
+
+        tem_representante = VinculoOrganizacao.objects.filter(
+            organizacao=contrato.contratada,
+        ).exists()
+
+        if not tem_representante:
+            messages.error(
+                request,
+                "A empresa contratada não possui representante legal com autoridade de assinatura. "
+                "Preencha os dados do representante no formulário do contrato antes de gerar o documento."
+            )
+            return redirect('contrato_update', pk=contrato.pk)
+
+        tem_endereco = bool(contrato.contratada.endereco and contrato.contratada.cidade and contrato.contratada.estado)
+        if not tem_endereco:
+            messages.error(
+                request,
+                "A empresa contratada não possui endereço completo (endereço, cidade e estado). "
+                "Preencha o endereço no formulário do contrato antes de gerar o documento."
+            )
+            return redirect('contrato_update', pk=contrato.pk)
+
+        try:
+            from .services.preenchedor_termo_ciencia_notificacao import PreenchedorTermoCienciaNotificacaoService
+            filled_io, filename = PreenchedorTermoCienciaNotificacaoService.fill_docx(docx_file, contrato)
+
+            response = HttpResponse(
+                filled_io.getvalue(),
+                content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+            )
+            response['Content-Disposition'] = f'attachment; filename="{filename}"'
+            return response
+        except Exception as e:
+            messages.error(request, f"Erro ao preencher o Termo de Ciência: {str(e)}")
+            return redirect('contrato_list')
+
 
 class ContratoEmpenhoUploadView(LoginRequiredMixin, View):
 

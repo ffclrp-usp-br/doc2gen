@@ -55,6 +55,7 @@ urlpatterns = [
     path('contratos/<int:pk>/editar/', views.ContratoUpdateView.as_view(), name='contrato_update'),
     path('contratos/<int:pk>/deletar/', views.ContratoDeleteView.as_view(), name='contrato_delete'),
     path('contratos/<int:pk>/preencher/', views.ContratoPreencherView.as_view(), name='contrato_preencher'),
+    path('contratos/<int:pk>/preencher/tci/', views.ContratoPreencherTermoCienciaView.as_view(), name='contrato_preencher_tci'),
     path('contratos/<int:pk>/empenho/upload/', views.ContratoEmpenhoUploadView.as_view(), name='contrato_empenho_upload'),
     path('contratos/empenho/upload/', views.ContratoEmpenhoUploadView.as_view(), name='contrato_empenho_upload_novo'),
 ]

@@ -177,7 +177,7 @@
 
                                 <button type="button" class="btn btn-success" id="btn-preencher-tcn"
                                     {% if not tem_contratante %}disabled title="Resolva as pendências para habilitar esta opção"{% endif %}
-                                    onclick="document.getElementById('file-{{ object.id }}').click();">
+                                    onclick="document.getElementById('file-tci-{{ object.id }}').click();">
                                     <i class="bi bi-file-earmark-word"></i> Preencher Termo de Ciência e Notificação
                                 </button>
 
@@ -215,6 +215,10 @@
 <form method="post" action="{% url 'contrato_preencher' object.id %}" enctype="multipart/form-data" class="d-none" id="form-preencher-{{ object.id }}">
     {% csrf_token %}
     <input type="file" name="docx_file" id="file-{{ object.id }}" onchange="document.getElementById('form-preencher-{{ object.id }}').submit();" accept=".docx">
+</form>
+<form method="post" action="{% url 'contrato_preencher_tci' object.id %}" enctype="multipart/form-data" class="d-none" id="form-preencher-tci-{{ object.id }}">
+    {% csrf_token %}
+    <input type="file" name="docx_file" id="file-tci-{{ object.id }}" onchange="document.getElementById('form-preencher-tci-{{ object.id }}').submit();" accept=".docx">
 </form>
 {% endif %}
 
