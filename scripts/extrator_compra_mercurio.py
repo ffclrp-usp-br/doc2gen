@@ -194,31 +194,51 @@ def extrair_pesquisas(bloco):
 
     tabela = m.group(1)
 
-    linhas = [limpar(x) for x in tabela.split("\n") if limpar(x)]
+    linhas = [limpar(x) for x in tabela.splitlines() if limpar(x)]
 
     pesquisas = []
 
-    for i in range(len(linhas) - 1):
+    # Linha típica:
+    # 3 18/05/2026 Pagamento: 28 dias corridos 12.500,00
+    regex_valor = re.compile(
+        r'^\d+\s+\d{2}/\d{2}/\d{4}.*?Pagamento:.*?(\d{1,3}(?:\.\d{3})*,\d{2})$',
+        re.I
+    )
+
+    i = 0
+
+    while i < len(linhas):
 
         linha = linhas[i]
 
         if tem_documento(linha):
 
             fornecedor = linha
-            proxima = linhas[i + 1]
 
-            m_val = re.search(
-                r'(\d{1,3}(?:\.\d{3})*,\d{2})',
-                proxima
-            )
+            j = i + 1
 
-            if m_val:
-                pesquisas.append({
-                    "fornecedor": fornecedor,
-                    "valor_unitario": m_val.group(1)
-                })
+            while j < len(linhas):
 
-    # remove duplicados
+                atual = linhas[j]
+
+                # chegou no próximo fornecedor
+                if tem_documento(atual):
+                    break
+
+                m_val = regex_valor.search(atual)
+
+                if m_val:
+                    pesquisas.append({
+                        "fornecedor": fornecedor,
+                        "valor_unitario": m_val.group(1)
+                    })
+                    break
+
+                j += 1
+
+        i += 1
+
+    # Remove duplicados
     final = []
     vistos = set()
 

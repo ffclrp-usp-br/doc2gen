@@ -248,12 +248,10 @@ class ExtratorDocumentoCompra(ExtratorBase):
     # -------------------------
     # MÉTODOS - EXTRAIR COTAÇÕES
     # -------------------------
-
     def _extrair_cotacoes(self, bloco):
         """Extrai cotações (pesquisas) de fornecedores do item"""
-        # pega somente a tabela entre os dois textos
+
         match = re.search(
-            #r'Contratação\s+gov\.br:(.*?)(?:Método\s+de\s+Cálculo|$)',
             r'Demanda:\s*(.*?)(?:Método\s+de\s+Cálculo|$)',
             bloco,
             re.IGNORECASE | re.DOTALL
@@ -263,40 +261,63 @@ class ExtratorDocumentoCompra(ExtratorBase):
             return []
 
         tabela = match.group(1)
+
         linhas = [
             self._limpar(x)
-            for x in tabela.split("\n")
+            for x in tabela.splitlines()
             if self._limpar(x)
         ]
 
         cotacoes = []
 
-        for i in range(len(linhas) - 1):
+        # Exemplo da linha que queremos localizar:
+        # 3 18/05/2026 Pagamento: 28 dias corridos 12.500,00
+        regex_cotacao = re.compile(
+            r'^\d+\s+\d{2}/\d{2}/\d{4}.*?Pagamento:.*?(\d{1,3}(?:\.\d{3})*,\d{2})$',
+            re.IGNORECASE
+        )
+
+        i = 0
+
+        while i < len(linhas):
+
             linha = linhas[i]
 
-            # fornecedor = linha com CPF/CNPJ
+            # Encontrou um fornecedor
             if self._tem_documento(linha):
+
                 empresa = linha
-                proxima = linhas[i + 1]
 
-                # valor está normalmente na próxima linha
-                match_val = re.search(
-                    r'(\d{1,3}(?:\.\d{3})*,\d{2})',
-                    proxima
-                )
+                j = i + 1
 
-                if match_val:
-                    cotacoes.append({
-                        "empresa": empresa,
-                        "valor_unitario": match_val.group(1)
-                    })
+                while j < len(linhas):
 
-        # remove duplicados
+                    atual = linhas[j]
+
+                    # Encontrou o próximo fornecedor: encerra a busca
+                    if self._tem_documento(atual):
+                        break
+
+                    match_val = regex_cotacao.search(atual)
+
+                    if match_val:
+                        cotacoes.append({
+                            "empresa": empresa,
+                            "valor_unitario": match_val.group(1)
+                        })
+                        break
+
+                    j += 1
+
+            i += 1
+
+        # Remove duplicados
         final = []
         vistos = set()
 
         for c in cotacoes:
             chave = (c["empresa"], c["valor_unitario"])
+
             if chave not in vistos:
                 vistos.add(chave)
                 final.append(c)
