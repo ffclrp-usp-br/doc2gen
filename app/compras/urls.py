@@ -58,4 +58,10 @@ urlpatterns = [
     path('contratos/<int:pk>/preencher/tci/', views.ContratoPreencherTermoCienciaView.as_view(), name='contrato_preencher_tci'),
     path('contratos/<int:pk>/empenho/upload/', views.ContratoEmpenhoUploadView.as_view(), name='contrato_empenho_upload'),
     path('contratos/empenho/upload/', views.ContratoEmpenhoUploadView.as_view(), name='contrato_empenho_upload_novo'),
+
+    # Modelos Oficiais
+    path('modelos-oficiais/', views.ModeloDocumentoListView.as_view(), name='modelodocumento_list'),
+    path('modelos-oficiais/novo/', views.ModeloDocumentoCreateView.as_view(), name='modelodocumento_create'),
+    path('modelos-oficiais/<int:pk>/editar/', views.ModeloDocumentoUpdateView.as_view(), name='modelodocumento_update'),
+    path('modelos-oficiais/<int:pk>/deletar/', views.ModeloDocumentoDeleteView.as_view(), name='modelodocumento_delete'),
 ]

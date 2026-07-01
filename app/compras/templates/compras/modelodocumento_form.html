@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+{% load compras_filters %}
+
+{% block title %}{% if object %}Editar{% else %}Novo{% endif %} Modelo Oficial{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-header">
+                <h4 class="mb-0">
+                    <i class="bi bi-file-earmark-word"></i>
+                    {% if object %}Editar{% else %}Novo{% endif %} Modelo Oficial
+                </h4>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">{{ form.modalidade.label }}</label>
+                            {{ form.modalidade }}
+                            {% if form.modalidade.errors %}<div class="text-danger small">{{ form.modalidade.errors }}</div>{% endif %}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">{{ form.categoria.label }}</label>
+                            {{ form.categoria }}
+                            {% if form.categoria.errors %}<div class="text-danger small">{{ form.categoria.errors }}</div>{% endif %}
+                        </div>
+                        <div class="col-md-6 mb-3" id="tipo-container" {% if form.categoria.value != 'TR' and form.categoria.value != 'CONTRATO' %}style="display: none;"{% endif %}>
+                            <label class="form-label">{{ form.tipo.label }}</label>
+                            {{ form.tipo }}
+                            {% if form.tipo.errors %}<div class="text-danger small">{{ form.tipo.errors }}</div>{% endif %}
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">{{ form.arquivo.label }}</label>
+                            {{ form.arquivo }}
+                            {% if form.arquivo.errors %}<div class="text-danger small">{{ form.arquivo.errors }}</div>{% endif %}
+                            {% if object and object.arquivo %}
+                            <small class="text-muted">Arquivo atual: {{ object.arquivo.name|filename }}</small>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    {% if form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        {% for error in form.non_field_errors %}
+                        <p class="mb-0">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <div class="d-flex justify-content-between mt-4 pt-3 border-top">
+                        <div class="d-flex gap-2">
+                            <a href="{% url 'modelodocumento_list' %}" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left"></i> Cancelar
+                            </a>
+                            {% if object %}
+                            <a href="{% url 'modelodocumento_delete' object.id %}" class="btn btn-outline-danger">
+                                <i class="bi bi-trash"></i> Excluir
+                            </a>
+                            {% endif %}
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-check-lg"></i> Salvar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const modalidadeSelect = document.getElementById('id_modalidade');
+    const categoriaSelect = document.getElementById('id_categoria');
+    const tipoContainer = document.getElementById('tipo-container');
+
+    const categorias = {
+        {% for value, label in form.categoria.field.choices %}
+        '{{ value }}': '{{ label }}',
+        {% endfor %}
+    };
+
+    function getLabelCategoria(modalidade, value) {
+        if (value === 'PRINCIPAL') {
+            const upper = (modalidade || '').toUpperCase();
+            if (upper.indexOf('PREGÃO') !== -1 || upper.indexOf('PREGAO') !== -1) {
+                return 'Edital';
+            } else if (upper.indexOf('DISPENSA') !== -1) {
+                return 'Aviso de Contratação Direta';
+            }
+            return 'Documento Principal';
+        }
+        return categorias[value] || value;
+    }
+
+    function atualizarCategorias() {
+        const modalidade = modalidadeSelect.value;
+        const valorAtual = categoriaSelect.value;
+
+        const novasOpcoes = [
+            { value: 'PRINCIPAL', label: getLabelCategoria(modalidade, 'PRINCIPAL') },
+            { value: 'TR', label: 'Termo de Referência' },
+            { value: 'CONTRATO', label: 'Contrato' },
+            { value: 'CONFERENCIA', label: 'Conferência' }
+        ];
+
+        categoriaSelect.innerHTML = '';
+        novasOpcoes.forEach(function(opt) {
+            const option = new Option(opt.label, opt.value);
+            if (opt.value === valorAtual) {
+                option.selected = true;
+            }
+            categoriaSelect.appendChild(option);
+        });
+
+        toggleTipo();
+    }
+
+    function toggleTipo() {
+        const cat = categoriaSelect.value;
+        if (cat === 'TR' || cat === 'CONTRATO') {
+            tipoContainer.style.display = '';
+        } else {
+            tipoContainer.style.display = 'none';
+        }
+    }
+
+    modalidadeSelect.addEventListener('change', atualizarCategorias);
+    categoriaSelect.addEventListener('change', toggleTipo);
+
+    toggleTipo();
+});
+</script>
+{% endblock %}

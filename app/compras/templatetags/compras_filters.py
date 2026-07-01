@@ -1,4 +1,5 @@
 from django import template
+import os
 
 register = template.Library()
 
@@ -14,3 +15,14 @@ def moeda(value):
         return f"R$ {val:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
     except (ValueError, TypeError):
         return value
+
+
+@register.filter(name='filename')
+def filename(value):
+    """
+    Returns the filename from a file path.
+    Example: 'modelos_oficiais/CONFERENCIA_PREGAO.docx' -> 'CONFERENCIA_PREGAO.docx'
+    """
+    if value is None:
+        return ""
+    return os.path.basename(str(value))

@@ -5,8 +5,8 @@ from django.urls import reverse_lazy, reverse
 from django.db.models import Prefetch
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView, FormView
 
-from .models import Compra, Demanda, Item, Pesquisa, CentroGerencialGrupoOrcamentario, Organizacao, PessoaFisica, Contrato, VinculoOrganizacao, Empenho
-from .forms import OrganizacaoForm, PessoaFisicaForm, ContratoForm, VinculoOrganizacaoForm, ItemForm, CompraForm
+from .models import Compra, Demanda, Item, Pesquisa, CentroGerencialGrupoOrcamentario, Organizacao, PessoaFisica, Contrato, VinculoOrganizacao, Empenho, ModeloDocumento
+from .forms import OrganizacaoForm, PessoaFisicaForm, ContratoForm, VinculoOrganizacaoForm, ItemForm, CompraForm, ModeloDocumentoForm
 
 from services.parser_service import ParserService
 from django.http import FileResponse, HttpResponseRedirect
@@ -291,7 +291,7 @@ class CompraImportPDFView(FormView):
             unidade_medida__icontains='SERVIÇO'
         ).exists()
 
-        compra.tipo = 'SERVIÇO' if tem_servico else 'FORNECIMENTO'
+        compra.tipo = 'SERVICO_SEM_DEDICACAO_MAO_OBRA' if tem_servico else 'FORNECIMENTO'
         compra.save(update_fields=['tipo'])
 class DemandaImportPDFView(LoginRequiredMixin, FormView):
     template_name = 'compras/demanda_pdf_upload.html'
@@ -602,6 +602,34 @@ class KitConferenciaView(LoginRequiredMixin, View):
             # For now, just return a simple error. In a real app, maybe redirect with message.
             from django.http import HttpResponse
             return HttpResponse(f"Erro ao gerar kit: {str(e)}", status=500)
+
+
+# --- Views para ModeloDocumento ---
+
+class ModeloDocumentoListView(LoginRequiredMixin, ListView):
+    model = ModeloDocumento
+    template_name = 'compras/modelodocumento_list.html'
+    context_object_name = 'modelos'
+
+
+class ModeloDocumentoCreateView(LoginRequiredMixin, CreateView):
+    model = ModeloDocumento
+    form_class = ModeloDocumentoForm
+    template_name = 'compras/modelodocumento_form.html'
+    success_url = reverse_lazy('modelodocumento_list')
+
+
+class ModeloDocumentoUpdateView(LoginRequiredMixin, UpdateView):
+    model = ModeloDocumento
+    form_class = ModeloDocumentoForm
+    template_name = 'compras/modelodocumento_form.html'
+    success_url = reverse_lazy('modelodocumento_list')
+
+
+class ModeloDocumentoDeleteView(LoginRequiredMixin, DeleteView):
+    model = ModeloDocumento
+    success_url = reverse_lazy('modelodocumento_list')
+    template_name = 'compras/modelodocumento_confirm_delete.html'
 
 
 # --- Views para Organização ---

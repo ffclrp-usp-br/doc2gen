@@ -33,7 +33,7 @@
                         <td>
                             <div>{{ compra.objeto }}</div>
                             <small class="text-muted">{{ compra.valor_total_previsto_brl }}</small><br>
-                            <small class="text-muted">{{ compra.modalidade }} / {{ compra.tipo }}</small>
+                            <small class="text-muted">{{ compra.modalidade }} / {{ compra.get_tipo_display }}</small>
                             {% if not compra.disputa %}
                             <span class="badge bg-info">Sem disputa</span>
                             {% endif %}

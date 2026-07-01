@@ -458,6 +458,250 @@ TERMO DE CIÊNCIA E NOTIFICAÇÃO
 
 ---
 
+# Especificação – Cadastro de Modelos Oficiais para o Kit de Verificação
+
+## Objetivo
+
+Implementar um módulo administrativo que permita cadastrar e manter os documentos oficiais utilizados na composição do Kit de Verificação de uma compra.
+
+Os documentos deverão ser armazenados no sistema de arquivos da aplicação, não sendo mais obtidos diretamente do website da Procuradoria.
+
+O objetivo é permitir que, quando a Procuradoria publicar novas versões dos modelos, o administrador apenas substitua o arquivo correspondente, sem necessidade de alterações no código-fonte do sistema.
+
+---
+
+# Regras de Negócio
+
+## 1. Documentos do Kit
+
+O Kit de Verificação continuará sendo composto por:
+
+* Planilha Excel gerada pelo sistema;
+* Documento Word gerado pelo sistema;
+* Modelos oficiais cadastrados no sistema.
+
+Os modelos oficiais deverão ser adicionados automaticamente conforme a modalidade e o tipo da compra.
+
+---
+
+## 2. Categorias de documentos
+
+O sistema deverá trabalhar com três categorias de documentos:
+
+* Documento Principal
+* Termo de Referência (TR)
+* Contrato
+
+O termo **Documento Principal** representa:
+
+* Edital, quando a modalidade da compra for **Pregão**;
+* Aviso de Contratação Direta, quando a modalidade da compra for **Dispensa**.
+
+O nome apresentado ao usuário poderá variar conforme a modalidade, porém internamente ambos pertencem à categoria **Documento Principal**.
+
+---
+
+## 3. Associação com a Compra
+
+Cada modelo deverá ser associado aos seguintes atributos da compra:
+
+* Modalidade
+* Categoria do documento
+* Tipo da compra
+
+A modalidade utilizará os mesmos valores definidos em `Compra.MODALIDADE_CHOICES`.
+
+O tipo utilizará os mesmos valores definidos em `Compra.TIPO_CHOICES`.
+
+Atualmente os tipos utilizados são:
+
+* Fornecimento
+* Serviço sem dedicação exclusiva de mão de obra
+* Serviço com dedicação exclusiva de mão de obra
+
+---
+
+## 4. Regras de associação
+
+### Documento Principal
+
+Depende apenas da modalidade.
+
+Exemplos:
+
+* Pregão → Edital
+* Dispensa → Aviso de Contratação Direta
+
+Neste caso o campo **Tipo** não deverá ser utilizado.
+
+---
+
+### Termo de Referência
+
+Depende da modalidade e do tipo da compra.
+
+Exemplos:
+
+* Pregão + Fornecimento
+* Pregão + Serviço sem dedicação
+* Pregão + Serviço com dedicação
+* Dispensa + Fornecimento
+* Dispensa + Serviço sem dedicação
+* Dispensa + Serviço com dedicação
+
+---
+
+### Contrato
+
+Segue exatamente a mesma regra do Termo de Referência.
+
+---
+
+# Modelo de Dados
+
+Criar um novo modelo denominado `ModeloDocumento`.
+
+Campos sugeridos:
+
+* modalidade
+* categoria
+* arquivo
+* data_atualização
+
+
+---
+
+## Categoria
+
+Utilizar um enum semelhante ao abaixo:
+
+* PRINCIPAL
+* TR
+* CONTRATO
+
+---
+
+## Tipo
+
+O campo Tipo deverá ser obrigatório apenas para:
+
+* TR
+* Contrato
+
+Para Documento Principal o campo deverá permanecer vazio.
+
+Essa validação deverá ser implementada no método `clean()` do modelo.
+
+---
+
+## Restrição de unicidade
+
+Deverá existir apenas um modelo vigente para cada combinação.
+
+Criar uma restrição de unicidade composta por:
+
+* modalidade
+* categoria
+* tipo
+
+Exemplos válidos:
+
+* Pregão + Principal
+* Dispensa + Principal
+* Pregão + TR + Fornecimento
+* Pregão + TR + Serviço sem dedicação
+* Pregão + TR + Serviço com dedicação
+* Dispensa + Contrato + Serviço com dedicação
+
+Não poderá existir mais de um registro para a mesma combinação.
+
+---
+
+# Arquivos
+
+Os arquivos deverão ser armazenados no sistema de arquivos da aplicação utilizando `FileField`.
+
+Ao substituir um modelo, o arquivo anterior deverá ser removido do disco para evitar arquivos órfãos.
+
+A implementação deverá utilizar um mecanismo seguro para exclusão do arquivo antigo.
+
+---
+
+# Interface Administrativa
+
+Criar uma tela denominada:
+
+**Modelos Oficiais**
+
+A listagem deverá apresentar:
+
+* Modalidade
+* Categoria
+* Tipo
+* Versão
+* Nome do arquivo
+* Data da última atualização
+
+A tela deverá permitir:
+
+* cadastrar modelo;
+* editar modelo;
+* substituir arquivo;
+* excluir modelo.
+
+Como existe apenas um modelo vigente para cada combinação, a edição do registro deverá atualizar o mesmo cadastro, não criando novas versões.
+
+---
+
+# Utilização pelo Gerador do Kit
+
+Durante a geração do Kit de Verificação, o sistema deverá localizar automaticamente os modelos oficiais correspondentes à compra.
+
+A lógica deverá seguir:
+
+## Documento Principal
+
+Consultar por:
+
+* modalidade
+* categoria = PRINCIPAL
+
+---
+
+## Termo de Referência
+
+Consultar por:
+
+* modalidade
+* categoria = TR
+* tipo
+
+---
+
+## Contrato
+
+Consultar por:
+
+* modalidade
+* categoria = CONTRATO
+* tipo
+
+Os arquivos encontrados deverão ser incluídos automaticamente no Kit de Verificação juntamente com os documentos já gerados pelo sistema.
+
+---
+
+# Requisitos de Implementação
+
+* Não utilizar caminhos fixos para os arquivos.
+* Utilizar `FileField`.
+* Utilizar `MEDIA_ROOT`.
+* O código do gerador do Kit não deverá conter verificações específicas para Pregão, Dispensa ou outros casos particulares; a seleção dos documentos deverá ser inteiramente baseada nos registros cadastrados em `ModeloDocumento`.
+* Todas as regras de validação deverão ficar concentradas no modelo e não na interface.
+* O módulo deverá ser facilmente extensível para novas modalidades de contratação, bastando cadastrar novos modelos, sem necessidade de alterações na lógica de geração do Kit.
+
+
+---
+
 ## Melhoria Recomendada
 
 Quando uma empresa possuir múltiplos representantes legais, o contrato deve armazenar explicitamente qual representante foi escolhido para aquela contratação.

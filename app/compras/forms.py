@@ -1,6 +1,6 @@
 from datetime import date
 from django import forms
-from .models import Organizacao, PessoaFisica, Contrato, VinculoOrganizacao, Compra, Item, Empenho
+from .models import Organizacao, PessoaFisica, Contrato, VinculoOrganizacao, Compra, Item, Empenho, ModeloDocumento
 
 
 class CompraForm(forms.ModelForm):
@@ -296,4 +296,50 @@ class ItemForm(forms.ModelForm):
             'quantidade': forms.NumberInput(attrs={'class': 'form-control'}),
             'valor_medio': forms.NumberInput(attrs={'class': 'form-control'}),
         }
+
+
+class ModeloDocumentoForm(forms.ModelForm):
+    class Meta:
+        model = ModeloDocumento
+        fields = ['modalidade', 'categoria', 'tipo', 'arquivo']
+        widgets = {
+            'modalidade': forms.Select(attrs={'class': 'form-select'}),
+            'categoria': forms.Select(attrs={'class': 'form-select'}),
+            'tipo': forms.Select(attrs={'class': 'form-select'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['tipo'].required = False
+        self.fields['tipo'].empty_label = '--- Selecione ---'
+        self.fields['arquivo'].widget.attrs.update({'class': 'form-control'})
+        if self.instance and self.instance.pk:
+            self.fields['categoria'].choices = self._get_categoria_choices(
+                self.instance.modalidade
+            )
+
+    def _get_categoria_choices(self, modalidade):
+        modalidade_upper = (modalidade or '').upper()
+        if 'PREGÃO' in modalidade_upper or 'PREGAO' in modalidade_upper:
+            label_principal = 'Edital'
+        elif 'DISPENSA' in modalidade_upper:
+            label_principal = 'Aviso de Contratação Direta'
+        else:
+            label_principal = 'Documento Principal'
+        return [
+            (ModeloDocumento.Categoria.PRINCIPAL, label_principal),
+            (ModeloDocumento.Categoria.TR, 'Termo de Referência'),
+            (ModeloDocumento.Categoria.CONTRATO, 'Contrato'),
+            (ModeloDocumento.Categoria.CONFERENCIA, 'Conferência'),
+        ]
+
+    def clean(self):
+        cleaned = super().clean()
+        categoria = cleaned.get('categoria')
+        tipo = cleaned.get('tipo')
+        if categoria in (ModeloDocumento.Categoria.TR, ModeloDocumento.Categoria.CONTRATO) and not tipo:
+            raise forms.ValidationError(
+                {'tipo': 'O campo Tipo é obrigatório para TR e Contrato.'}
+            )
+        return cleaned
 

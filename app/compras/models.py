@@ -1,6 +1,7 @@
 from django.core.validators import MinValueValidator, RegexValidator
 from django.db import models
 from django.db.models import Avg
+from django.core.exceptions import ValidationError
 from compras.utils.string_utils import StringUtils
 from compras.utils.date_utils import DateUtils
 from compras.utils.moeda_utils import MoedaUtils
@@ -71,7 +72,8 @@ class Compra(models.Model):
 
     TIPO_CHOICES = [
         ('FORNECIMENTO', 'FORNECIMENTO'),
-        ('SERVIÇO', 'SERVIÇO'),
+        ('SERVICO_SEM_DEDICACAO_MAO_OBRA', 'SERVIÇO SEM DEDICAÇÃO DE MÃO DE OBRA'),
+        ('SERVICO_COM_DEDICACAO_MAO_OBRA', 'SERVIÇO COM DEDICAÇÃO DE MÃO DE OBRA'),
     ]
 
     AGENTE_CHOICES = [
@@ -117,7 +119,7 @@ class Compra(models.Model):
     )
     objeto = models.CharField('Objeto', max_length=255, blank=True)
     modalidade = models.CharField('Modalidade', max_length=255, choices=MODALIDADE_CHOICES, blank=True)
-    tipo = models.CharField('Tipo', max_length=20, choices=TIPO_CHOICES, blank=True)
+    tipo = models.CharField('Tipo', max_length=50, choices=TIPO_CHOICES, blank=True)
     valor_total_previsto = models.DecimalField('Valor total previsto', max_digits=14, decimal_places=2, validators=[MinValueValidator(0)], blank=True, null=True)
     valor_efetivo = models.DecimalField('Valor efetivo', max_digits=14, decimal_places=2, validators=[MinValueValidator(0)], blank=True, null=True)
     nome_agente_contratacao = models.CharField('Agente de contratação', max_length=255, choices=AGENTE_CHOICES, blank=True)
@@ -623,3 +625,83 @@ class Empenho(models.Model):
 
     def __str__(self):
         return f'{self.numero} - {self.organizacao}'
+
+
+class ModeloDocumento(models.Model):
+
+    class Meta:
+        db_table = "modelo_documento"
+        unique_together = ('modalidade', 'categoria', 'tipo')
+
+    class Categoria(models.TextChoices):
+        PRINCIPAL = 'PRINCIPAL', 'Documento Principal'
+        TR = 'TR', 'Termo de Referência'
+        CONTRATO = 'CONTRATO', 'Contrato'
+        CONFERENCIA= 'CONFERENCIA', 'Conferência'
+
+    modalidade = models.CharField(
+        'Modalidade',
+        max_length=100,
+        choices=Compra.MODALIDADE_CHOICES,
+    )
+
+    categoria = models.CharField(
+        'Categoria',
+        max_length=20,
+        choices=Categoria.choices,
+    )
+
+    tipo = models.CharField(
+        'Tipo',
+        max_length=50,
+        choices=Compra.TIPO_CHOICES,
+        blank=True,
+        null=True,
+    )
+
+    arquivo = models.FileField(
+        'Arquivo',
+        upload_to='modelos_oficiais/',
+        max_length=255,
+    )
+
+    data_atualizacao = models.DateTimeField(
+        'Data da última atualização',
+        auto_now=True,
+    )
+
+    def clean(self):
+        if self.categoria in (self.Categoria.TR, self.Categoria.CONTRATO) and not self.tipo:
+            raise ValidationError(
+                {'tipo': 'O campo Tipo é obrigatório para TR e Contrato.'}
+            )
+
+    def get_nome_documento_display(self):
+        if self.categoria == self.Categoria.PRINCIPAL:
+            modalidade_upper = (self.modalidade or '').upper()
+            if 'PREGÃO' in modalidade_upper or 'PREGAO' in modalidade_upper:
+                return 'Edital'
+            elif 'DISPENSA' in modalidade_upper:
+                return 'Aviso de Contratação Direta'
+            return 'Documento Principal'
+        if self.categoria == self.Categoria.CONFERENCIA:
+            return 'Conferência'
+        return self.get_categoria_display()
+
+    def save(self, *args, **kwargs):
+        if self.pk:
+            try:
+                antigo = ModeloDocumento.objects.get(pk=self.pk)
+                if antigo.arquivo and antigo.arquivo != self.arquivo:
+                    antigo.arquivo.delete(save=False)
+            except ModeloDocumento.DoesNotExist:
+                pass
+        super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        if self.arquivo:
+            self.arquivo.delete(save=False)
+        super().delete(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.get_nome_documento_display()} - {self.get_modalidade_display()}"

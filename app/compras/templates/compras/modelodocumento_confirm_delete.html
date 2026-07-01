@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Excluir Modelo Oficial{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-header" style="background: var(--color-danger); color: var(--color-danger-text);">
+                <h4 class="mb-0"><i class="bi bi-exclamation-triangle"></i> Confirmar Exclusão</h4>
+            </div>
+            <div class="card-body text-center py-4">
+                <p class="mb-2">Tem certeza que deseja excluir o modelo <strong>{{ object }}</strong>?</p>
+                <p class="text-muted small mb-4">
+                    Esta ação não pode ser desfeita e removerá permanentemente o arquivo associado.
+                </p>
+
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="d-flex justify-content-center gap-2">
+                        <a href="{% url 'modelodocumento_list' %}" class="btn btn-outline-secondary">
+                            <i class="bi bi-x-lg"></i> Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="bi bi-trash"></i> Confirmar Exclusão
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

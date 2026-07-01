@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load compras_filters %}
+
+{% block title %}Modelos Oficiais{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h3>Modelos Oficiais</h3>
+    <a href="{% url 'modelodocumento_create' %}" class="btn btn-primary">
+        <i class="bi bi-plus-lg"></i> Novo Modelo
+    </a>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>Modalidade</th>
+                        <th>Categoria</th>
+                        <th>Tipo</th>
+                        <th>Arquivo</th>
+                        <th>Atualização</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for modelo in modelos %}
+                    <tr>
+                        <td>{{ modelo.get_modalidade_display }}</td>
+                        <td>{{ modelo.get_nome_documento_display }}</td>
+                        <td>{{ modelo.get_tipo_display|default:"-" }}</td>
+                        <td>
+                            <i class="bi bi-file-earmark-word"></i>
+                            {{ modelo.arquivo.name|filename }}
+                        </td>
+                        <td>{{ modelo.data_atualizacao|date:"d/m/Y H:i" }}</td>
+                        <td>
+                            <a href="{% url 'modelodocumento_update' modelo.id %}" class="btn btn-sm btn-outline-primary">
+                                <i class="bi bi-pencil"></i> Editar
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="empty-state">
+                            <i class="bi bi-file-earmark-x d-block"></i>
+                            <p>Nenhum modelo cadastrado.</p>
+                            <a href="{% url 'modelodocumento_create' %}" class="btn btn-primary btn-sm">
+                                <i class="bi bi-plus-lg"></i> Cadastrar primeiro modelo
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

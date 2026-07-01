@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Compra, Demanda, Item, Pesquisa, Empenho
+from .models import Compra, Demanda, Item, Pesquisa, Empenho, ModeloDocumento
 
 
 class ItemInline(admin.TabularInline):
@@ -47,3 +47,10 @@ class EmpenhoAdmin(admin.ModelAdmin):
     list_display = ('numero', 'data_empenho', 'organizacao', 'dotacao', 'contrato')
     list_filter = ('organizacao',)
     search_fields = ('numero', 'organizacao__nome')
+
+
+@admin.register(ModeloDocumento)
+class ModeloDocumentoAdmin(admin.ModelAdmin):
+    list_display = ('modalidade', 'categoria', 'tipo', 'arquivo', 'data_atualizacao')
+    list_filter = ('modalidade', 'categoria')
+    search_fields = ('modalidade',)
