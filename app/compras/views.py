@@ -1,15 +1,15 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from decimal import Decimal, InvalidOperation
 from django import forms
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.db.models import Prefetch
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView, FormView
 
 from .models import Compra, Demanda, Item, Pesquisa, CentroGerencialGrupoOrcamentario, Organizacao, PessoaFisica, Contrato, VinculoOrganizacao, Empenho
-from .forms import OrganizacaoForm, PessoaFisicaForm, ContratoForm, VinculoOrganizacaoForm, ItemForm
+from .forms import OrganizacaoForm, PessoaFisicaForm, ContratoForm, VinculoOrganizacaoForm, ItemForm, CompraForm
 
 from services.parser_service import ParserService
-from django.http import FileResponse
+from django.http import FileResponse, HttpResponseRedirect
 from django.views import View
 from django.shortcuts import render, get_object_or_404, redirect
 from .services.kit_conferencia import KitConferenciaService
@@ -98,7 +98,7 @@ class CompraImportPDFView(FormView):
 
         self._processar_compra(compra, dados)
 
-        return super().form_valid(form)
+        return HttpResponseRedirect(reverse('compra_update', kwargs={'pk': compra.pk}))
 
     def _inferir_objeto_do_arquivo(self, nome_arquivo):
         """Infere o objeto da compra a partir do nome do arquivo.
@@ -465,9 +465,11 @@ class CompraCreateView(LoginRequiredMixin, CreateView):
 
 class CompraUpdateView(LoginRequiredMixin, UpdateView):
     model = Compra
-    fields = ['numero_compra', 'numero_sei', 'objeto', 'modalidade', 'tipo', 'valor_total_previsto', 'nome_agente_contratacao', 'disputa']
+    form_class = CompraForm
     template_name = 'compras/compra_form.html'
-    success_url = reverse_lazy('compra_list')
+
+    def get_success_url(self):
+        return reverse('item_list', kwargs={'compra_id': self.object.pk})
 
 
 class CompraDeleteView(LoginRequiredMixin, DeleteView):

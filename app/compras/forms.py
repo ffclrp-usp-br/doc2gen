@@ -2,6 +2,24 @@ from datetime import date
 from django import forms
 from .models import Organizacao, PessoaFisica, Contrato, VinculoOrganizacao, Compra, Item, Empenho
 
+
+class CompraForm(forms.ModelForm):
+    class Meta:
+        model = Compra
+        fields = ['numero_compra', 'numero_sei', 'objeto', 'modalidade', 'tipo',
+                  'valor_total_previsto', 'nome_agente_contratacao', 'disputa']
+        widgets = {
+            'numero_compra': forms.TextInput(attrs={'class': 'form-control'}),
+            'numero_sei': forms.TextInput(attrs={'class': 'form-control'}),
+            'objeto': forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
+            'modalidade': forms.Select(attrs={'class': 'form-select'}),
+            'tipo': forms.Select(attrs={'class': 'form-select'}),
+            'valor_total_previsto': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
+            'nome_agente_contratacao': forms.Select(attrs={'class': 'form-select'}),
+            'disputa': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+        }
+
+
 class OrganizacaoForm(forms.ModelForm):
     class Meta:
         model = Organizacao

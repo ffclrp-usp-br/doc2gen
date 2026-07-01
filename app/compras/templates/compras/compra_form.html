@@ -15,54 +15,62 @@
             <div class="card-body">
                 <form method="post">
                     {% csrf_token %}
-                    <div class="mb-3">
-                        <label class="form-label">{{ form.numero_compra.label }}</label>
-                        {{ form.numero_compra }}
-                        {% if form.numero_compra.errors %}
-                        <div class="text-danger small">{{ form.numero_compra.errors }}</div>
-                        {% endif %}
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">{{ form.numero_compra.label }}</label>
+                            {{ form.numero_compra }}
+                            {% if form.numero_compra.errors %}
+                            <div class="text-danger small">{{ form.numero_compra.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">{{ form.numero_sei.label }}</label>
+                            {{ form.numero_sei }}
+                            {% if form.numero_sei.errors %}
+                            <div class="text-danger small">{{ form.numero_sei.errors }}</div>
+                            {% endif %}
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">{{ form.numero_sei.label }}</label>
-                        {{ form.numero_sei }}
-                        {% if form.numero_sei.errors %}
-                        <div class="text-danger small">{{ form.numero_sei.errors }}</div>
-                        {% endif %}
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">{{ form.objeto.label }}</label>
+                            {{ form.objeto }}
+                            {% if form.objeto.errors %}
+                            <div class="text-danger small">{{ form.objeto.errors }}</div>
+                            {% endif %}
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">{{ form.objeto.label }}</label>
-                        {{ form.objeto }}
-                        {% if form.objeto.errors %}
-                        <div class="text-danger small">{{ form.objeto.errors }}</div>
-                        {% endif %}
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">{{ form.valor_total_previsto.label }}</label>
+                            {{ form.valor_total_previsto }}
+                            {% if form.valor_total_previsto.errors %}
+                            <div class="text-danger small">{{ form.valor_total_previsto.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">{{ form.modalidade.label }}</label>
+                            {{ form.modalidade }}
+                            {% if form.modalidade.errors %}
+                            <div class="text-danger small">{{ form.modalidade.errors }}</div>
+                            {% endif %}
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">{{ form.valor_total_previsto.label }}</label>
-                        {{ form.valor_total_previsto }}
-                        {% if form.valor_total_previsto.errors %}
-                        <div class="text-danger small">{{ form.valor_total_previsto.errors }}</div>
-                        {% endif %}
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">{{ form.modalidade.label }}</label>
-                        {{ form.modalidade }}
-                        {% if form.modalidade.errors %}
-                        <div class="text-danger small">{{ form.modalidade.errors }}</div>
-                        {% endif %}
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">{{ form.tipo.label }}</label>
-                        {{ form.tipo }}
-                        {% if form.tipo.errors %}
-                        <div class="text-danger small">{{ form.tipo.errors }}</div>
-                        {% endif %}
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">{{ form.nome_agente_contratacao.label }}</label>
-                        {{ form.nome_agente_contratacao }}
-                        {% if form.nome_agente_contratacao.errors %}
-                        <div class="text-danger small">{{ form.nome_agente_contratacao.errors }}</div>
-                        {% endif %}
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">{{ form.tipo.label }}</label>
+                            {{ form.tipo }}
+                            {% if form.tipo.errors %}
+                            <div class="text-danger small">{{ form.tipo.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">{{ form.nome_agente_contratacao.label }}</label>
+                            {{ form.nome_agente_contratacao }}
+                            {% if form.nome_agente_contratacao.errors %}
+                            <div class="text-danger small">{{ form.nome_agente_contratacao.errors }}</div>
+                            {% endif %}
+                        </div>
                     </div>
                     <div class="mb-3 form-check">
                         {{ form.disputa }}

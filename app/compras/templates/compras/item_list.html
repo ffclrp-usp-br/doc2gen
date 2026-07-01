@@ -24,15 +24,35 @@
                         <th>Compra</th>
                         <th>SEI</th>
                         <th>Modalidade / Tipo / Objeto</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>{{ compra.numero_compra }}</td>
-                        <td>{{ compra.numero_sei }}</td>
+                        <td>{{ compra.sei_compacto }}</td>
                         <td>
                             <div>{{ compra.objeto }}</div>
-                            <small class="text-muted">{{ compra.tipo }} / {{ compra.modalidade }}</small>
+                            <small class="text-muted">{{ compra.valor_total_previsto_brl }}</small><br>
+                            <small class="text-muted">{{ compra.modalidade }} / {{ compra.tipo }}</small>
+                            {% if not compra.disputa %}
+                            <span class="badge bg-info">Sem disputa</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="d-flex flex-column gap-2 align-items-start">
+                                <a href="{% url 'kit_conferencia' compra.pk %}" class="btn btn-warning">
+                                    <i class="bi bi-clipboard-check"></i> Kit Conferência
+                                </a>
+                                <div class="d-flex gap-1">
+                                    <a href="{% url 'compra_update' compra.pk %}" class="btn btn-sm btn-outline-secondary" title="Editar">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <a href="{% url 'compra_delete' compra.pk %}" class="btn btn-sm btn-outline-danger" title="Excluir">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 </tbody>
