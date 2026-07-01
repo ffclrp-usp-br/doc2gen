@@ -9,9 +9,7 @@
         <a href="{% url 'compra_import_pdf' %}" class="btn btn-primary">
             <i class="bi bi-file-earmark-pdf"></i> Importar PDF
         </a>
-        <a href="{% url 'compra_create' %}" class="btn btn-outline-secondary">
-            <i class="bi bi-plus-lg"></i> Nova Compra
-        </a>
+
     </div>
 </div>
 
@@ -24,7 +22,13 @@
                         <th>Compra</th>
                         <th>SEI</th>
                         <th>Objeto e modalidade</th>
-                        <th></th>
+                        <th>
+                            <div class="d-flex flex-column gap-2 align-items-end">
+                                <a href="{% url 'compra_create' %}" class="btn btn-sm btn-secondary">
+                                    <i class="bi bi-plus-lg"></i>
+                                </a>
+                            </div>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,7 +41,8 @@
                         </td>
                         <td>
                             <div class="d-flex flex-column gap-2 align-items-start">
-                                <a href="{% url 'item_list' compra.id %}" class="btn btn-sm btn-outline-primary" title="Itens">
+                                <a href="{% url 'item_list' compra.id %}" class="btn btn-sm btn-outline-primary"
+                                    title="Itens">
                                     <i class="bi bi-list-ul"></i>
                                 </a>
                             </div>
